@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Privacy: prevent indexing of the entry page -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="bingbot" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+
+  <title>Mentoring Entry — BYU Department of Linguistics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- EDITORIAL MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-bar">
+      <div class="masthead-bar-inner">
+        <span>Volume I &middot; Established 2026</span>
+        <span><a href="https://ling.byu.edu/">ling.byu.edu</a> &nbsp;·&nbsp; <a href="view.html">View public archive →</a></span>
+      </div>
+    </div>
+    <div class="masthead-main">
+      <div class="masthead-flank">
+        <span class="latin">Provo · Utah</span>
+        Brigham Young<br>University
+      </div>
+      <div class="masthead-title-block">
+        <div class="school">College of Humanities</div>
+        <div class="dept">Department of Linguistics</div>
+        <div class="latin-tag">Mentoring Archive &mdash; Private Entry</div>
+      </div>
+      <div class="masthead-flank right">
+        <span class="latin">JFSB · 4064</span>
+        Linguistics, TESOL,<br>Editing &amp; Publishing
+      </div>
+    </div>
+  </header>
+
+  <!-- ENTRY HERO -->
+  <section class="entry-hero">
+    <span class="entry-hero-glyph">ʃ</span>
+    <div class="entry-hero-inner">
+      <div class="eyebrow">Submit an Entry</div>
+      <h1>Record a <em>mentoring</em> moment&nbsp;worth&nbsp;keeping.</h1>
+      <p class="lede">
+        Faculty across Linguistics, TESOL, and Editing &amp; Publishing shape students through
+        projects, courses, and study-abroad experiences. Use this form to document the work,
+        the students, and what made it meaningful.
+      </p>
+    </div>
+  </section>
+
+  <!-- FORM -->
+  <main class="narrow">
+    <form id="mentoring-form" class="form-card" autocomplete="off">
+
+      <!-- 1 — Mentor name -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">i.</span>
+          <span class="section-title">The Mentor</span>
+        </div>
+        <div class="field-group">
+          <label for="mentor">Your name <span class="req">*</span></label>
+          <p class="help">Faculty member, instructor, or other mentor recording this entry.</p>
+          <input type="text" id="mentor" name="mentor" required
+                 placeholder="e.g., Dr. Diane Strong-Krause">
+        </div>
+      </div>
+
+      <!-- 2 — Venue -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">ii.</span>
+          <span class="section-title">The Venue</span>
+        </div>
+
+        <div class="field-row">
+          <div class="field-group">
+            <label for="venue-type">Type of mentoring <span class="req">*</span></label>
+            <select id="venue-type" name="venueType" required>
+              <option value="">— select one —</option>
+              <option value="Research Project">Research project</option>
+              <option value="Course">Course</option>
+              <option value="Study Abroad">Study abroad</option>
+              <option value="Internship">Internship</option>
+              <option value="Thesis / Capstone">Thesis or capstone</option>
+              <option value="Editing Practicum">Editing practicum</option>
+              <option value="TESOL Practicum">TESOL practicum</option>
+              <option value="Conference / Presentation">Conference or presentation</option>
+              <option value="Publication">Publication</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="discipline">Discipline area <span class="req">*</span></label>
+            <select id="discipline" name="discipline" required>
+              <option value="">— select one —</option>
+              <option value="Linguistics">Linguistics</option>
+              <option value="TESOL">TESOL</option>
+              <option value="Editing &amp; Publishing">Editing &amp; Publishing</option>
+              <option value="Applied English Linguistics">Applied English Linguistics</option>
+              <option value="Linguistic Computing">Linguistic Computing</option>
+              <option value="Interdisciplinary">Interdisciplinary</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="venue">Description <span class="req">*</span></label>
+          <p class="help">Title and a few words about the project, course, or experience.</p>
+          <input type="text" id="venue" name="venue" required maxlength="200"
+                 placeholder="e.g., Corpus analysis of L2 academic writing">
+        </div>
+
+        <div class="field-group">
+          <label for="term">Term <span class="opt">(optional)</span></label>
+          <input type="text" id="term" name="term" maxlength="60"
+                 placeholder="e.g., Winter 2026, Summer 2025">
+        </div>
+      </div>
+
+      <!-- 3 — Students -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">iii.</span>
+          <span class="section-title">The Mentees</span>
+        </div>
+        <div class="field-group">
+          <label for="students">Student names <span class="req">*</span></label>
+          <p class="help">List every student involved, separated by commas.</p>
+          <textarea id="students" name="students" required
+                    placeholder="e.g., Sarah Johnson, Miguel Reyes, Elena Park, James Chen"></textarea>
+        </div>
+      </div>
+
+      <!-- 4 — Accomplishments -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">iv.</span>
+          <span class="section-title">Accomplishments</span>
+        </div>
+        <div class="field-group">
+          <label for="accomplishments">What did the students achieve? <span class="req">*</span></label>
+          <p class="help">Conference presentations, publications, awards, completed projects, skills mastered, languages learned, communities served.</p>
+          <textarea id="accomplishments" name="accomplishments" required class="tall"
+                    placeholder="e.g., Three students presented at LSA 2026; one paper accepted for publication; all four completed independent corpus studies."></textarea>
+        </div>
+      </div>
+
+      <!-- 5 — Mentor reflection -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">v.</span>
+          <span class="section-title">Mentor Reflection</span>
+        </div>
+        <div class="field-group">
+          <label for="notes">In your own words <span class="req">*</span></label>
+          <p class="help">What are you proud of? What key moments stand out? How did this experience feel? Speak freely &mdash; this is the heart of the archive.</p>
+          <textarea id="notes" name="notes" required class="tall"
+                    placeholder="e.g., Watching Sarah present her findings to a packed room at LSA was one of the high points of my career. She walked in nervous and walked out a scholar."></textarea>
+        </div>
+      </div>
+
+      <!-- 6 — Image -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">vi.</span>
+          <span class="section-title">Image <span style="color: var(--ink-mute); font-style: italic; font-weight: 400; font-size: 14px;">&mdash; optional</span></span>
+        </div>
+        <div class="field-group">
+          <label>Upload a photo</label>
+          <p class="help">A picture of the mentees, the venue, fieldwork, a poster, an editing manuscript &mdash; anything that captures the experience. JPG or PNG, up to 4&nbsp;MB.</p>
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
+            <div class="dropzone-icon">+</div>
+            <div class="dropzone-text">
+              <strong>Click to choose</strong> or drag an image here
+            </div>
+          </label>
+          <div id="preview-wrap" class="image-preview" style="display:none;">
+            <img id="preview-img" src="" alt="Preview">
+            <div>
+              <div id="preview-name" style="font-size: 14px; font-weight: 500;"></div>
+              <div id="preview-size" style="font-size: 12px; color: var(--ink-mute);"></div>
+            </div>
+            <button type="button" class="remove-img" id="remove-img">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-actions">
+        <span class="privacy-note">This page is private and not indexed by search engines. Submissions appear on the public archive once added.</span>
+        <button type="submit" class="btn btn-primary" id="submit-btn">
+          Submit Entry <span class="arrow">→</span>
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-quote">
+          &ldquo;Using language is indeed miraculous. If language did not exist and someone proposed it, it would be dismissed as an impossibility.&rdquo;
+          <span class="who">Randall L. Jones</span>
+        </div>
+        <div class="footer-contact">
+          4064 JFSB &middot; Brigham Young University<br>
+          Provo, UT 84602<br>
+          <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a> &middot; 801-422-2937
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Brigham Young University Department of Linguistics</div>
+        <div><a href="https://ling.byu.edu/" style="color: var(--byu-tan-soft); text-decoration: none;">ling.byu.edu</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="storage.js"></script>
+  <script src="entry.js"></script>
+</body>
+</html>
