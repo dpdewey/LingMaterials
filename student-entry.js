@@ -73,6 +73,15 @@
     }
   };
 
+  /* -------- Privacy toggle visual feedback -------- */
+  document.querySelectorAll('.privacy-toggle, .privacy-master, .anon-toggle').forEach(function (toggle) {
+    const cb = toggle.querySelector('input[type="checkbox"]');
+    if (!cb) return;
+    cb.addEventListener('change', function () {
+      toggle.classList.toggle('checked', cb.checked);
+    });
+  });
+
   /* -------- Accordion behavior -------- */
   document.querySelectorAll('.aim-card').forEach(function (card) {
     const header = card.querySelector('.aim-header');
@@ -262,6 +271,21 @@
     const fd = new FormData(form);
     const aimsResponses = collectAimsResponses();
 
+    // Read privacy flags
+    const masterEl = document.getElementById('privacy-master');
+    const isAllPrivate = masterEl && masterEl.checked;
+    const showAnon = (form.querySelector('#show-anonymous') || {}).checked || false;
+
+    // Per-aim privacy flags need to be folded into each aim response
+    aimsResponses.forEach(function (r) {
+      const cb = form.querySelector('[data-priv="aim-' + r.aim + '"]');
+      r.private = isAllPrivate || (cb && cb.checked) || false;
+    });
+
+    const privacyFlags = {
+      transformative: isAllPrivate || (form.querySelector('[data-priv="transformative"]') || {}).checked || false
+    };
+
     const entry = {
       id:              generateId(),
       type:            'student',
@@ -273,6 +297,9 @@
       venueDesc:       (fd.get('venueDesc') || '').toString().trim(),
       transformative:  (fd.get('transformative') || '').toString().trim(),
       aimsResponses:   aimsResponses,
+      privacyFlags:    privacyFlags,
+      allPrivate:      isAllPrivate,
+      showAnonymous:   showAnon,
       image:           imageDataUrl,
       imageName:       imageFileName,
       createdAt:       new Date().toISOString()

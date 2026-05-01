@@ -31,6 +31,15 @@
     showToast._t = setTimeout(function () { toast.className = 'toast'; }, 3500);
   }
 
+  /* -------- Privacy toggle visual feedback -------- */
+  document.querySelectorAll('.privacy-toggle, .privacy-master').forEach(function (toggle) {
+    const cb = toggle.querySelector('input[type="checkbox"]');
+    if (!cb) return;
+    cb.addEventListener('change', function () {
+      toggle.classList.toggle('checked', cb.checked);
+    });
+  });
+
   /* -------- File handling -------- */
   function fmtSize(bytes) {
     if (bytes < 1024) return bytes + ' B';
@@ -141,6 +150,15 @@
       .filter(Boolean);
 
     const id = generateId();
+    // Read privacy flags
+    const masterPrivate = document.getElementById('privacy-master');
+    const isAllPrivate = masterPrivate && masterPrivate.checked;
+    const privacyFlags = {
+      accomplishments: isAllPrivate || (form.querySelector('[data-priv="accomplishments"]') || {}).checked || false,
+      notes:           isAllPrivate || (form.querySelector('[data-priv="notes"]') || {}).checked || false,
+      impact:          isAllPrivate || (form.querySelector('[data-priv="impact"]') || {}).checked || false
+    };
+
     const entry = {
       id:              id,
       mentor:          (fd.get('mentor') || '').toString().trim(),
@@ -151,6 +169,9 @@
       students:        students,
       accomplishments: (fd.get('accomplishments') || '').toString().trim(),
       notes:           (fd.get('notes') || '').toString().trim(),
+      impact:          (fd.get('impact') || '').toString().trim(),
+      privacyFlags:    privacyFlags,
+      allPrivate:      isAllPrivate,
       image:           imageDataUrl,
       imageName:       imageFileName,
       createdAt:       new Date().toISOString()

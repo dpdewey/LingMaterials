@@ -970,3 +970,432 @@ textarea.tall { min-height: 180px; }
   .hero-inner { padding: 60px 22px 72px; }
   .hero-title { letter-spacing: -1.5px; }
 }
+
+/* =========================================================
+   PRIVACY TOGGLES
+   ========================================================= */
+.privacy-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--paper-rich);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.privacy-toggle:hover {
+  border-color: var(--byu-tan-deep);
+  background: var(--paper);
+}
+.privacy-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--byu-navy);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.privacy-toggle .pt-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.privacy-toggle .pt-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--byu-navy);
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+.privacy-toggle .pt-help {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.privacy-toggle.checked {
+  border-color: var(--byu-navy);
+  background: rgba(0, 46, 93, 0.04);
+}
+
+/* Master privacy block */
+.privacy-master {
+  background: var(--byu-navy);
+  color: #fff;
+  padding: 18px 22px;
+  border-radius: var(--radius);
+  margin: 24px 0 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.privacy-master:hover { background: var(--byu-navy-deep); }
+.privacy-master input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--byu-tan);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.privacy-master .pm-content { flex: 1; }
+.privacy-master .pm-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 3px;
+}
+.privacy-master .pm-help {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--byu-tan-soft);
+  line-height: 1.45;
+}
+
+/* Anonymous-display toggle for student entry */
+.anon-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--paper-rich);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  font-size: 13px;
+  cursor: pointer;
+}
+.anon-toggle:hover {
+  border-color: var(--byu-tan-deep);
+}
+.anon-toggle input[type="checkbox"] {
+  width: 16px; height: 16px;
+  accent-color: var(--byu-navy);
+  cursor: pointer; flex-shrink: 0; margin-top: 2px;
+}
+.anon-toggle .at-text { flex: 1; }
+.anon-toggle .at-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--byu-navy);
+  text-transform: none;
+  letter-spacing: 0.2px;
+  margin-bottom: 2px;
+}
+.anon-toggle .at-help {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   ADMIN PAGE
+   ========================================================= */
+.admin-gate {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--byu-navy-deep);
+  position: relative;
+  overflow: hidden;
+}
+.admin-gate::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    -45deg, var(--byu-tan) 0, var(--byu-tan) 1px,
+    transparent 1px, transparent 14px
+  );
+}
+.admin-gate-card {
+  background: #fff;
+  max-width: 460px;
+  width: 100%;
+  padding: 44px 40px;
+  border-radius: var(--radius-lg);
+  border-top: 4px solid var(--byu-tan);
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-lg);
+}
+.admin-gate h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 30px;
+  color: var(--byu-navy);
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.admin-gate .lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 15px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.admin-gate label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--byu-navy);
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+.admin-gate input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  font-family: var(--font-mono);
+  background: var(--paper-rich);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.admin-gate input[type="password"]:focus {
+  outline: none;
+  border-color: var(--byu-blue-accent);
+  box-shadow: 0 0 0 3px rgba(0, 98, 184, 0.12);
+}
+.admin-gate .btn { width: 100%; margin-top: 16px; justify-content: center; }
+.admin-gate .err {
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(139, 41, 32, 0.08);
+  border-left: 3px solid var(--error);
+  color: var(--error);
+  font-size: 13px;
+  font-style: italic;
+  font-family: var(--font-display);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  display: none;
+}
+.admin-gate .err.show { display: block; }
+
+.admin-toolbar {
+  background: var(--byu-navy);
+  padding: 22px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  border-bottom: 4px solid var(--byu-tan);
+}
+.admin-toolbar .at-info {
+  color: #fff;
+  font-family: var(--font-display);
+}
+.admin-toolbar .at-info .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--byu-tan);
+  font-weight: 600;
+}
+.admin-toolbar .at-info .name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.admin-toolbar .at-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-toolbar .btn-export {
+  background: var(--byu-tan);
+  color: var(--byu-navy-deep);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.admin-toolbar .btn-export:hover { background: #fff; }
+.admin-toolbar .btn-logout {
+  background: transparent;
+  color: var(--byu-tan-soft);
+  border: 1px solid var(--byu-tan-deep);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 11px;
+  padding: 11px 18px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: background 0.2s, color 0.2s;
+}
+.admin-toolbar .btn-logout:hover { background: var(--byu-tan); color: var(--byu-navy-deep); }
+
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  background: var(--byu-navy-deep);
+  border-bottom: 1px solid rgba(197, 183, 131, 0.15);
+}
+.admin-stats .stat {
+  padding: 24px 28px;
+  border-right: 1px solid rgba(197, 183, 131, 0.10);
+  position: relative;
+}
+.admin-stats .stat:last-child { border-right: none; }
+.admin-stats .stat-number {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
+.admin-stats .stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(197, 183, 131, 0.7);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.admin-list {
+  background: var(--paper);
+  padding: 40px 32px 80px;
+}
+.admin-list-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.admin-entry {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--byu-navy);
+  margin-bottom: 18px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.admin-entry-header {
+  background: var(--paper-rich);
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+}
+.admin-entry-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--byu-navy);
+}
+.admin-entry-meta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ink-mute);
+  font-family: var(--font-mono);
+}
+.admin-entry-body {
+  padding: 22px 26px;
+}
+.admin-field {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px dotted var(--rule-soft);
+}
+.admin-field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.admin-field-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--byu-blue-accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.admin-field-private-tag {
+  background: var(--byu-navy);
+  color: var(--byu-tan);
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+}
+.admin-field-content {
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.admin-field-content.serif-em {
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.admin-aim-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.admin-aim-tags .chip {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 3px 9px;
+  border-radius: 2px;
+  font-family: var(--font-body);
+}
+.chip.spiritual    { background: rgba(0, 46, 93, 0.08); color: #002E5D; }
+.chip.intellectual { background: rgba(0, 98, 184, 0.08); color: #0062B8; }
+.chip.character    { background: rgba(168, 153, 104, 0.12); color: #6B5E30; }
+.chip.service      { background: rgba(45, 95, 63, 0.08); color: #2D5F3F; }
+
+.anon-banner {
+  display: inline-block;
+  background: var(--byu-navy);
+  color: var(--byu-tan);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  margin-left: 10px;
+  vertical-align: 2px;
+}

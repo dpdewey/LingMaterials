@@ -323,7 +323,7 @@
         'Four undergraduates completed independent corpus analyses of stance markers in graduate-level student writing. Sarah Johnson and Miguel Reyes co-authored a paper accepted at the Linguistic Society of America 2026 annual meeting. Elena Park won the Humanities Undergraduate Research Award for her work on hedging across disciplines. All four learned to use the BYU corpus infrastructure, ran their own queries, and presented findings at the BYU Annual Linguistics Symposium.',
       notes:
         'Watching Sarah present at LSA was one of the high points of my year. She walked into that room nervous about presenting to senior scholars and walked out a colleague, fielding questions with the kind of poise I rarely see even in graduate students. The four of them built real friendships over those late nights in the corpus lab — the kind that outlast a semester. Miguel told me he had never imagined himself as a researcher before this; now he is applying to PhD programs. That is the work, right there.',
-      image: IMG_CORPUS,
+      image: null,
       imageName: 'corpus_distribution.svg',
       createdAt: '2026-04-12T15:30:00.000Z'
     },
@@ -342,7 +342,7 @@
         'Nine students taught alongside teachers in three Mexico City secondary schools, completing more than 200 supervised teaching hours. Each student designed and taught a thematic unit on a topic chosen with their host teacher. Tyler Brockbank and Joseph Ngata produced lesson-plan portfolios that the host school adopted into its standing curriculum. Two students earned their TESOL certificates. All nine improved their Spanish enough to coordinate parent-teacher communication directly.',
       notes:
         'I have led this trip seven times. Every time, something cracks open in students that no classroom can produce on its own. This year, watching Hannah teach a poetry lesson to a room of teenagers in her second language — using contrastive stress to explain English meter, of all things — I had to step out into the hallway. Joseph stayed in touch with his host teacher all year and is going back this summer. The work in Mexico City reshapes how these students think about language, about teaching, and about what they can do.',
-      image: IMG_TRAVEL,
+      image: null,
       imageName: 'mexico_city.svg',
       createdAt: '2026-03-08T10:15:00.000Z'
     },
@@ -361,7 +361,7 @@
         'Six students worked through every stage of producing a peer-reviewed scholarly volume — from substantive editing through copyediting, typesetting, and proofing. The completed volume, an edited collection on the rhetoric of climate communication, was sent to the press and is forthcoming this fall. Caroline Ashby led the indexing team. Nathaniel Park and Olivia Chen designed the interior typography and managed the InDesign master files. Two students received offers from academic presses for postgraduate positions before graduation.',
       notes:
         'Editing teaches patience the way few other disciplines do. You cannot rush a manuscript into being a book. What I am proud of this term is how seriously these six took the work — checking every reference, every quotation, twice. Caroline caught a cited statistic that turned out to be wrong in the original journal article, ten years uncontested. Olivia rebuilt the running heads from scratch when the originals would not align. The book is real because they made it real, page by page.',
-      image: IMG_TYPEWRITER,
+      image: null,
       imageName: 'editing_practicum.svg',
       createdAt: '2026-04-22T14:45:00.000Z'
     },
@@ -377,7 +377,7 @@
         'Four MA TESOL students designed and taught a pronunciation-focused speaking course for advanced ELC learners. They built a curriculum around prosody, connected speech, and discourse-level intonation — areas often underserved at the advanced level. Jenna Morton produced shadowing materials that the ELC has adopted into its permanent curriculum bank. Alex Robinson is presenting the curricular design at TESOL International this spring. Course evaluations from learners were the highest in the program for the term.',
       notes:
         'These four are the kind of teachers I wish I had been when I started. They came in with theories of language pedagogy and let those theories meet real learners — students from twelve countries, all with their own histories of why they were sitting in that classroom. By week four they had stopped quoting the textbooks and started teaching what was in front of them. Kavita gave a debrief one Friday afternoon that made me realize she understands learner identity in a way I am still working toward.',
-      image: IMG_CLASSROOM,
+      image: null,
       imageName: 'elc_classroom.svg',
       createdAt: '2026-04-25T09:00:00.000Z'
     },
@@ -393,7 +393,7 @@
         'Two undergraduate students presented original research at the Linguistic Society of America annual meeting. Their poster on nuclear stress placement in advanced L2 English speakers drew sustained engagement and resulted in a follow-up invitation to submit to the Journal of Second Language Pronunciation. Sarah and Miguel handled all stages independently — IRB, recruitment, recording, Praat analysis, statistics in R, and design.',
       notes:
         'There is a moment at every conference poster session when an undergraduate realizes a senior scholar is taking them seriously. I watched Sarah hit that moment at about minute twelve, when a phonetician from Edinburgh started arguing with her about her statistical model and she argued back. Miguel kept his cool when a methodological challenge came in and produced exactly the right counterexample from his data. The two of them flew home different from how they flew out.',
-      image: IMG_CONFERENCE,
+      image: null,
       imageName: 'lsa_poster.svg',
       createdAt: '2026-01-12T17:20:00.000Z'
     },
@@ -409,7 +409,7 @@
         'Rebecca Tanaka completed an honors thesis on the lexicographic conventions of early American dictionaries, focusing on the period 1790–1830. Her work won the Department of Linguistics Outstanding Undergraduate Thesis award. She has been accepted into the doctoral program in English language at the University of Edinburgh with full funding. A revised chapter is under review at a major journal in historical linguistics.',
       notes:
         'Rebecca came into my office two years ago with a question about an entry in Webster\'s 1828 dictionary. I sent her to special collections to look at original printings and she did not come back for three days. What she produced this year is the kind of thesis that some of my graduate students do not write. She has the eye for detail of a textual editor and the patience of a lexicographer. I will miss her terribly. Edinburgh is lucky.',
-      image: IMG_BOOKS,
+      image: null,
       imageName: 'lexicography.svg',
       createdAt: '2026-04-04T13:00:00.000Z'
     },
@@ -429,7 +429,7 @@
         'Eight undergraduate editors produced the fourteenth volume of Schwa, the department\'s peer-reviewed undergraduate linguistics journal. The volume contains seven articles spanning phonology, sociolinguistics, syntax, and computational linguistics — the most submissions in the journal\'s history. Chloe Park served as editor-in-chief and led the team through a complete redesign of the journal\'s typographic identity. The volume is available in print and as an open-access PDF in BYU\'s ScholarsArchive.',
       notes:
         'Schwa is one of those low-key wonders of the department that students mostly run themselves. My job, mostly, is to stay out of their way and answer questions when asked. What Chloe and her team accomplished this year is genuinely impressive — they raised the editorial standards, expanded the call for submissions to neighboring institutions, and produced a beautifully typeset volume. I tell them every year that this is the closest they will come, as undergraduates, to running a real scholarly publication. They believed me this year.',
-      image: IMG_EDITING,
+      image: null,
       imageName: 'schwa_journal.svg',
       createdAt: '2026-04-18T11:30:00.000Z'
     },
@@ -450,7 +450,7 @@
         'Fourteen undergraduates completed supervised teaching observations and a culminating teaching demonstration at the BYU English Language Center. Eleven students continued into ELC tutoring positions for the following term. Two students presented their lesson designs at the BYU Linguistics Symposium. The course also produced a shared resource bank of reflective teaching journals that will inform next year\'s offering.',
       notes:
         'Every fall, this course is where I get to watch students discover that teaching is harder than they thought, and also more wonderful. Lisette taught a lesson on pragmatic markers that I am going to steal for my own classes. Pedro stayed after his demo to talk with his learners for half an hour. Ria turned in a reflective journal that I have been thinking about for weeks. I keep teaching this course because it is where the next generation of language teachers becomes itself.',
-      image: IMG_GLOBES,
+      image: null,
       imageName: 'languages_globe.svg',
       createdAt: '2025-12-15T16:00:00.000Z'
     }

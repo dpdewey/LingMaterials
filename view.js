@@ -74,6 +74,19 @@
       seedEntries(entries);
     }
 
+    // PRIVACY FILTERING: drop entries marked allPrivate, then redact per-field privates.
+    // The original raw data stays in storage — admin page reads it untouched.
+    entries = entries
+      .filter(function (e) { return !e.allPrivate; })
+      .map(function (e) {
+        const flags = e.privacyFlags || {};
+        const redacted = Object.assign({}, e);
+        if (flags.accomplishments) redacted.accomplishments = '';
+        if (flags.notes)           redacted.notes = '';
+        if (flags.impact)          redacted.impact = '';
+        return redacted;
+      });
+
     entries.sort(function (a, b) {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
@@ -327,18 +340,33 @@
      GALLERY
      ========================================================= */
   function buildGallery(entries) {
-    const withImages = entries.filter(function (e) { return e.image; });
+    // Only include entries with a non-empty image string. We also test-load each
+    // image to drop any whose src is broken/unrenderable so we don't show the
+    // broken-image icon + alt text in the grid.
+    const withImages = entries.filter(function (e) {
+      return e.image && typeof e.image === 'string' && e.image.length > 100;
+    });
     if (!withImages.length) {
       galleryEl.innerHTML = '<div class="gallery-empty">Photos shared by mentors will appear here.</div>';
       return;
     }
+
     const items = withImages.slice(0, 9);
+    // Render with empty alt so a broken image shows nothing rather than alt text
     galleryEl.innerHTML = items.map(function (e) {
       return '<div class="gallery-item" data-entry-id="' + e.id + '">' +
-             '<img src="' + e.image + '" alt="From ' + escapeAttr(e.venue || '') + '" loading="lazy">' +
+             '<img src="' + e.image + '" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'">' +
              '<div class="caption">' + escapeHtml(e.venue || '') + ' &middot; ' + escapeHtml(e.mentor || '') + '</div>' +
              '</div>';
     }).join('');
+    // After image load attempts settle, if every tile got hidden, show empty state
+    setTimeout(function () {
+      const visible = Array.from(galleryEl.querySelectorAll('.gallery-item'))
+        .filter(function (el) { return el.style.display !== 'none'; });
+      if (!visible.length) {
+        galleryEl.innerHTML = '<div class="gallery-empty">Photos shared by mentors will appear here.</div>';
+      }
+    }, 600);
     galleryEl.querySelectorAll('.gallery-item').forEach(function (el) {
       el.addEventListener('click', function () {
         const id = el.getAttribute('data-entry-id');
@@ -474,23 +502,40 @@
     const date = e.createdAt ? new Date(e.createdAt) : null;
     const dateStr = date ? date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
     const term = e.term ? ' &middot; ' + escapeHtml(e.term) : '';
-    const html = [
+    const fields = [];
+    fields.push(
       '<h2>' + escapeHtml(e.venue || 'Untitled') + '</h2>',
       '<div class="modal-sub">' +
         escapeHtml(e.venueType || '') +
         (e.discipline ? ' &middot; ' + escapeHtml(e.discipline) : '') +
         ' &middot; mentored by ' + escapeHtml(e.mentor || '—') +
         ' &middot; ' + dateStr + term +
-      '</div>',
-      e.image ? '<img class="modal-img" src="' + e.image + '" alt="">' : '',
+      '</div>'
+    );
+    if (e.image) fields.push('<img class="modal-img" src="' + e.image + '" alt="">');
+    fields.push(
       '<div class="field"><div class="field-label">Students mentored (' + (e.students || []).length + ')</div>' +
-        '<div class="field-content">' + escapeHtml((e.students || []).join(', ') || '—') + '</div></div>',
-      '<div class="field"><div class="field-label">Accomplishments</div>' +
-        '<div class="field-content">' + escapeHtml(e.accomplishments || '').replace(/\n/g, '<br>') + '</div></div>',
-      '<div class="field"><div class="field-label">Mentor reflection</div>' +
-        '<div class="field-content serif">' + escapeHtml(e.notes || '').replace(/\n/g, '<br>') + '</div></div>'
-    ].join('');
-    modalInner.innerHTML = html;
+        '<div class="field-content">' + escapeHtml((e.students || []).join(', ') || '—') + '</div></div>'
+    );
+    if (e.accomplishments) {
+      fields.push(
+        '<div class="field"><div class="field-label">Accomplishments</div>' +
+          '<div class="field-content">' + escapeHtml(e.accomplishments).replace(/\n/g, '<br>') + '</div></div>'
+      );
+    }
+    if (e.notes) {
+      fields.push(
+        '<div class="field"><div class="field-label">Mentor reflection</div>' +
+          '<div class="field-content serif">' + escapeHtml(e.notes).replace(/\n/g, '<br>') + '</div></div>'
+      );
+    }
+    if (e.impact) {
+      fields.push(
+        '<div class="field"><div class="field-label">Personal impact</div>' +
+          '<div class="field-content serif">' + escapeHtml(e.impact).replace(/\n/g, '<br>') + '</div></div>'
+      );
+    }
+    modalInner.innerHTML = fields.join('');
     modalBackdrop.classList.add('show');
   }
 

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Administrator Report &mdash; Faculty Mentoring</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- GATE -->
+  <section id="gate" class="admin-gate">
+    <div class="admin-gate-card">
+      <h1>Administrator Access</h1>
+      <p class="lead">This page contains the complete record of faculty mentoring submissions, including responses marked as private.</p>
+      <form id="gate-form" autocomplete="off">
+        <label for="gate-pw">Password</label>
+        <input type="password" id="gate-pw" name="password" autocomplete="current-password" required>
+        <button type="submit" class="btn btn-primary">Unlock report <span class="arrow">→</span></button>
+        <div class="err" id="gate-err">That password isn&rsquo;t recognized. Try again.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- REPORT (hidden until unlocked) -->
+  <div id="report" style="display:none;">
+
+    <header class="masthead">
+      <div class="masthead-bar">
+        <div class="masthead-bar-inner">
+          <span>Volume I &middot; Administrator</span>
+          <span><a href="../index.html">Back to archive home</a></span>
+        </div>
+      </div>
+      <div class="masthead-main">
+        <div class="masthead-flank">
+          <span class="latin">Provo &middot; Utah</span>
+          Brigham Young<br>University
+        </div>
+        <div class="masthead-title-block">
+          <div class="school">College of Humanities</div>
+          <div class="dept">Department of Linguistics</div>
+          <div class="latin-tag">Faculty Mentoring &mdash; Administrator Report</div>
+        </div>
+        <div class="masthead-flank right">
+          <span class="latin">Restricted Access</span>
+          Includes private<br>responses
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-toolbar">
+      <div class="at-info">
+        <div class="label">Faculty mentoring report</div>
+        <div class="name">All submitted entries</div>
+      </div>
+      <div class="at-actions">
+        <button class="btn-export" id="export-csv">⬇ Download CSV</button>
+        <button class="btn-logout" id="logout">Lock</button>
+      </div>
+    </div>
+
+    <div class="admin-stats">
+      <div class="stat"><div class="stat-number" id="stat-total">—</div><div class="stat-label">Total entries</div></div>
+      <div class="stat"><div class="stat-number" id="stat-public">—</div><div class="stat-label">Fully public</div></div>
+      <div class="stat"><div class="stat-number" id="stat-mixed">—</div><div class="stat-label">Partial private</div></div>
+      <div class="stat"><div class="stat-number" id="stat-allpriv">—</div><div class="stat-label">Fully private</div></div>
+    </div>
+
+    <div class="admin-list">
+      <div class="admin-list-inner" id="entries-container">
+        <div style="text-align:center;padding:60px 20px;font-family:var(--font-display);font-style:italic;color:var(--ink-mute);">
+          Loading entries&hellip;
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-bottom">
+          <span>&copy; 2026 Brigham Young University Department of Linguistics &middot; Administrator view</span>
+          <span>This page is not indexed and is not linked from public pages.</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="seed-data.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

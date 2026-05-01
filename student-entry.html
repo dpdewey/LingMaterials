@@ -64,8 +64,16 @@
         <div class="field-row">
           <div class="field-group">
             <label for="student-name">Your name <span class="req">*</span></label>
+            <p class="help">Enter your real name so the department can recognize your contribution. If you'd rather not have your name appear on the public archive, check the box below &mdash; you'll be shown as "Anonymous student" instead.</p>
             <input type="text" id="student-name" name="studentName" required
                    placeholder="e.g., Sarah Johnson">
+            <label class="anon-toggle">
+              <input type="checkbox" id="show-anonymous" name="showAnonymous">
+              <div class="at-text">
+                <div class="at-label">Show as "Anonymous student" on the public archive</div>
+                <div class="at-help">Administrators will still see your real name in private records. Your story will appear in the public archive, but without your name attached.</div>
+              </div>
+            </label>
           </div>
           <div class="field-group">
             <label for="mentor-name">Your mentor's name <span class="req">*</span></label>
@@ -86,6 +94,7 @@
               <option value="Linguistics Minor">Linguistics Minor</option>
               <option value="TESOL Minor">TESOL Minor</option>
               <option value="Editing Minor">Editing Minor</option>
+              <option value="Linguistic Computing / Computational Linguistics">Linguistic Computing / Computational Linguistics</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -145,6 +154,13 @@
           <label for="transformative">Your experience <span class="req">*</span></label>
           <textarea id="transformative" name="transformative" required class="tall"
                     placeholder="e.g., During our third meeting about my thesis, Dr. Davies asked me a question I couldn't answer. Instead of filling the silence, he waited — for nearly a minute. When I finally said 'I don't know,' he said that was the most important thing I'd said all semester. That moment changed how I think about research..."></textarea>
+          <label class="privacy-toggle" data-target="transformative">
+            <input type="checkbox" name="private_transformative" data-priv="transformative">
+            <span class="pt-text">
+              <span class="pt-label">Keep this response private</span>
+              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+            </span>
+          </label>
         </div>
       </div>
 
@@ -199,6 +215,13 @@
               <textarea id="response-spiritual-text" name="response_spiritual"
                         class="prompt-textarea"
                         placeholder="Be specific — describe the moment, the words, the effect it had on you..."></textarea>
+              <label class="privacy-toggle" data-target="aim-spiritual" style="margin-top: 14px;">
+                <input type="checkbox" name="private_aim_spiritual" data-priv="aim-spiritual">
+                <span class="pt-text">
+                  <span class="pt-label">Keep this aim response private</span>
+                  <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+                </span>
+              </label>
             </div>
           </div>
         </div>
@@ -241,6 +264,13 @@
               <textarea id="response-intellectual-text" name="response_intellectual"
                         class="prompt-textarea"
                         placeholder="Be specific — describe the moment, the words, the effect it had on you..."></textarea>
+              <label class="privacy-toggle" data-target="aim-intellectual" style="margin-top: 14px;">
+                <input type="checkbox" name="private_aim_intellectual" data-priv="aim-intellectual">
+                <span class="pt-text">
+                  <span class="pt-label">Keep this aim response private</span>
+                  <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+                </span>
+              </label>
             </div>
           </div>
         </div>
@@ -283,6 +313,13 @@
               <textarea id="response-character-text" name="response_character"
                         class="prompt-textarea"
                         placeholder="Be specific — describe the moment, the words, the effect it had on you..."></textarea>
+              <label class="privacy-toggle" data-target="aim-character" style="margin-top: 14px;">
+                <input type="checkbox" name="private_aim_character" data-priv="aim-character">
+                <span class="pt-text">
+                  <span class="pt-label">Keep this aim response private</span>
+                  <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+                </span>
+              </label>
             </div>
           </div>
         </div>
@@ -330,6 +367,13 @@
               <textarea id="response-service-text" name="response_service"
                         class="prompt-textarea"
                         placeholder="Be specific — describe the moment, the words, the effect it had on you..."></textarea>
+              <label class="privacy-toggle" data-target="aim-service" style="margin-top: 14px;">
+                <input type="checkbox" name="private_aim_service" data-priv="aim-service">
+                <span class="pt-text">
+                  <span class="pt-label">Keep this aim response private</span>
+                  <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+                </span>
+              </label>
             </div>
           </div>
         </div>
@@ -362,6 +406,15 @@
           </div>
         </div>
       </div>
+
+      <!-- Master privacy -->
+      <label class="privacy-master" id="privacy-master-label">
+        <input type="checkbox" id="privacy-master" name="privacy_master">
+        <div class="pm-content">
+          <div class="pm-title">Make this entire entry private</div>
+          <div class="pm-help">Check this box to keep the whole submission visible only to administrators. Your entry will not appear on the public archive at all. (Overrides individual response toggles.)</div>
+        </div>
+      </label>
 
       <!-- SUBMIT -->
       <div class="form-actions">

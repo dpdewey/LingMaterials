@@ -150,6 +150,13 @@
           <p class="help">Conference presentations, publications, awards, completed projects, skills mastered, languages learned, communities served.</p>
           <textarea id="accomplishments" name="accomplishments" required class="tall"
                     placeholder="e.g., Three students presented at LSA 2026; one paper accepted for publication; all four completed independent corpus studies."></textarea>
+          <label class="privacy-toggle" data-target="accomplishments">
+            <input type="checkbox" name="private_accomplishments" data-priv="accomplishments">
+            <span class="pt-text">
+              <span class="pt-label">Keep this response private</span>
+              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+            </span>
+          </label>
         </div>
       </div>
 
@@ -164,13 +171,41 @@
           <p class="help">What are you proud of? What key moments stand out? How did this experience feel? Speak freely &mdash; this is the heart of the archive.</p>
           <textarea id="notes" name="notes" required class="tall"
                     placeholder="e.g., Watching Sarah present her findings to a packed room at LSA was one of the high points of my career. She walked in nervous and walked out a scholar."></textarea>
+          <label class="privacy-toggle" data-target="notes">
+            <input type="checkbox" name="private_notes" data-priv="notes">
+            <span class="pt-text">
+              <span class="pt-label">Keep this response private</span>
+              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6 — Personal Impact -->
+      <div class="form-section">
+        <div class="section-marker">
+          <span class="section-num">vi.</span>
+          <span class="section-title">Personal Impact</span>
+        </div>
+        <div class="field-group">
+          <label for="impact">How has this experience affected you? <span class="req">*</span></label>
+          <p class="help">What impact did this experience or a specific student have on your life &mdash; your approach to teaching, your desire to mentor more students this way, your personal testimony, your appetite for learning?</p>
+          <textarea id="impact" name="impact" required class="tall"
+                    placeholder="e.g., Mentoring this cohort renewed my conviction that teaching is, at its best, a form of attention. I've changed how I structure my office hours because of these students..."></textarea>
+          <label class="privacy-toggle" data-target="impact">
+            <input type="checkbox" name="private_impact" data-priv="impact">
+            <span class="pt-text">
+              <span class="pt-label">Keep this response private</span>
+              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
+            </span>
+          </label>
         </div>
       </div>
 
       <!-- 6 — Image -->
       <div class="form-section">
         <div class="section-marker">
-          <span class="section-num">vi.</span>
+          <span class="section-num">vii.</span>
           <span class="section-title">Image <span style="color: var(--ink-mute); font-style: italic; font-weight: 400; font-size: 14px;">&mdash; optional</span></span>
         </div>
         <div class="field-group">
@@ -193,6 +228,15 @@
           </div>
         </div>
       </div>
+
+      <!-- Master privacy -->
+      <label class="privacy-master" id="privacy-master-label">
+        <input type="checkbox" id="privacy-master" name="privacy_master">
+        <div class="pm-content">
+          <div class="pm-title">Make this entire entry private</div>
+          <div class="pm-help">Check this box to keep the whole submission visible only to administrators. The entry will not appear on the public archive at all. (Overrides individual response toggles.)</div>
+        </div>
+      </label>
 
       <!-- Submit -->
       <div class="form-actions">

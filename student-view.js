@@ -59,6 +59,26 @@
       entries = window.STUDENT_SEED_ENTRIES.slice();
       seedEntries(entries);
     }
+
+    // PRIVACY FILTERING — drop fully-private entries, redact per-field privates,
+    // apply anonymous-display to those who opted in.
+    entries = entries
+      .filter(e => !e.allPrivate)
+      .map(e => {
+        const flags = e.privacyFlags || {};
+        const redacted = Object.assign({}, e);
+        if (flags.transformative) redacted.transformative = '';
+        // Filter aim responses individually
+        redacted.aimsResponses = (e.aimsResponses || [])
+          .filter(r => !r.private);
+        // Anonymous-display: replace name on public view but keep id intact
+        if (e.showAnonymous) {
+          redacted.studentName = 'Anonymous student';
+          redacted._anonymous = true;
+        }
+        return redacted;
+      });
+
     entries.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     return entries;
   }
@@ -240,14 +260,14 @@
      GALLERY
      ========================================================= */
   function buildGallery(entries) {
-    const withImages = entries.filter(e => e.image);
+    const withImages = entries.filter(e => e.image && typeof e.image === 'string' && e.image.length > 100);
     if (!withImages.length) {
       galleryEl.innerHTML = '<div class="gallery-empty">Photos shared by students will appear here.</div>';
       return;
     }
     galleryEl.innerHTML = withImages.slice(0, 9).map(e =>
       `<div class="gallery-item" data-entry-id="${e.id}">
-        <img src="${e.image}" alt="${escH(e.venueDesc || '')}" loading="lazy">
+        <img src="${e.image}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'">
         <div class="caption">${escH(e.studentName || '')} &middot; ${escH(e.venueDesc || '')}</div>
       </div>`
     ).join('');
@@ -257,6 +277,14 @@
         if (entry) openModal(entry);
       })
     );
+    // After image loads settle, fall back to empty state if all hidden
+    setTimeout(function () {
+      const visible = Array.from(galleryEl.querySelectorAll('.gallery-item'))
+        .filter(el => el.style.display !== 'none');
+      if (!visible.length) {
+        galleryEl.innerHTML = '<div class="gallery-empty">Photos shared by students will appear here.</div>';
+      }
+    }, 600);
   }
 
   /* =========================================================
@@ -386,10 +414,10 @@
         &middot; ${dateStr}${term}
       </div>
       ${e.image ? `<img class="modal-img" src="${e.image}" alt="">` : ''}
-      <div class="field">
+      ${e.transformative ? `<div class="field">
         <div class="field-label">Transformative experience</div>
-        <div class="field-content serif">${escH(e.transformative || '').replace(/\n/g, '<br>')}</div>
-      </div>
+        <div class="field-content serif">${escH(e.transformative).replace(/\n/g, '<br>')}</div>
+      </div>` : ''}
       ${aimsHtml ? `<div class="field"><div class="field-label">BYU Aims reflections</div>${aimsHtml}</div>` : ''}
     `;
     modalBackdrop.classList.add('show');
