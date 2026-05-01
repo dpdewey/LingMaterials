@@ -1,277 +1,282 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Privacy: prevent indexing of the entry page -->
-  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-  <meta name="googlebot" content="noindex, nofollow">
-  <meta name="bingbot" content="noindex, nofollow">
-  <meta name="referrer" content="no-referrer">
-
-  <title>Mentoring Entry — BYU Department of Linguistics</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Faculty Mentoring Entry | BYU Linguistics</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- EDITORIAL MASTHEAD -->
-  <header class="masthead">
-    <div class="masthead-bar">
-      <div class="masthead-bar-inner">
-        <span>Volume I &middot; Established 2026</span>
-        <span><a href="https://ling.byu.edu/">ling.byu.edu</a> &nbsp;·&nbsp; <a href="view.html">View public archive →</a></span>
-      </div>
-    </div>
-    <div class="masthead-main">
-      <div class="masthead-flank">
-        <span class="latin">Provo · Utah</span>
-        Brigham Young<br>University
-      </div>
-      <div class="masthead-title-block">
-        <div class="school">College of Humanities</div>
-        <div class="dept">Department of Linguistics</div>
-        <div class="latin-tag">Mentoring Archive &mdash; Private Entry</div>
-      </div>
-      <div class="masthead-flank right">
-        <span class="latin">JFSB · 4064</span>
-        Linguistics, TESOL,<br>Editing &amp; Publishing
-      </div>
-    </div>
-  </header>
+<div class="byu-topbar">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
 
-  <!-- ENTRY HERO -->
-  <section class="entry-hero">
-    <span class="entry-hero-glyph">ʃ</span>
-    <div class="entry-hero-inner">
-      <div class="eyebrow">Submit an Entry</div>
-      <h1>Record a <em>mentoring</em> moment&nbsp;worth&nbsp;keeping.</h1>
-      <p class="lede">
-        Faculty across Linguistics, TESOL, and Editing &amp; Publishing shape students through
-        projects, courses, and study-abroad experiences. Use this form to document the work,
-        the students, and what made it meaningful.
-      </p>
-    </div>
-  </section>
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Faculty Mentoring</small>
+      Submit Entry
+    </h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="view.html">Faculty Mentoring</a>
+      <a href="../MentoredStudent/student-view.html">Student Experiences</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- FORM -->
-  <main class="narrow">
-    <form id="mentoring-form" class="form-card" autocomplete="off">
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Faculty Mentoring</div>
+    <h1>Submit a Mentoring Entry</h1>
+    <p class="hero-statement">
+      Document a mentoring activity, project, or outcome.
+      Use the toggle on any field to keep specific information
+      private (visible only in the admin view).
+    </p>
+  </div>
+</section>
 
-      <!-- 1 — Mentor name -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">i.</span>
-          <span class="section-title">The Mentor</span>
-        </div>
-        <div class="field-group">
-          <label for="mentor">Your name <span class="req">*</span></label>
-          <p class="help">Faculty member, instructor, or other mentor recording this entry.</p>
-          <input type="text" id="mentor" name="mentor" required
-                 placeholder="e.g., Dr. Diane Strong-Krause">
-        </div>
-      </div>
+<main class="main-narrow">
 
-      <!-- 2 — Venue -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">ii.</span>
-          <span class="section-title">The Venue</span>
-        </div>
+  <form id="mentoring-form" novalidate>
 
-        <div class="field-row">
-          <div class="field-group">
-            <label for="venue-type">Type of mentoring <span class="req">*</span></label>
-            <select id="venue-type" name="venueType" required>
-              <option value="">— select one —</option>
-              <option value="Research Project">Research project</option>
-              <option value="Course">Course</option>
-              <option value="Study Abroad">Study abroad</option>
-              <option value="Internship">Internship</option>
-              <option value="Thesis / Capstone">Thesis or capstone</option>
-              <option value="Editing Practicum">Editing practicum</option>
-              <option value="TESOL Practicum">TESOL practicum</option>
-              <option value="Conference / Presentation">Conference or presentation</option>
-              <option value="Publication">Publication</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label for="discipline">Discipline area <span class="req">*</span></label>
-            <select id="discipline" name="discipline" required>
-              <option value="">— select one —</option>
-              <option value="Linguistics">Linguistics</option>
-              <option value="TESOL">TESOL</option>
-              <option value="Editing &amp; Publishing">Editing &amp; Publishing</option>
-              <option value="Applied English Linguistics">Applied English Linguistics</option>
-              <option value="Linguistic Computing">Linguistic Computing</option>
-              <option value="Interdisciplinary">Interdisciplinary</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label for="venue">Description <span class="req">*</span></label>
-          <p class="help">Title and a few words about the project, course, or experience.</p>
-          <input type="text" id="venue" name="venue" required maxlength="200"
-                 placeholder="e.g., Corpus analysis of L2 academic writing">
-        </div>
-
-        <div class="field-group">
-          <label for="term">Term <span class="opt">(optional)</span></label>
-          <input type="text" id="term" name="term" maxlength="60"
-                 placeholder="e.g., Winter 2026, Summer 2025">
-        </div>
-      </div>
-
-      <!-- 3 — Students -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">iii.</span>
-          <span class="section-title">The Mentees</span>
-        </div>
-        <div class="field-group">
-          <label for="students">Student names <span class="req">*</span></label>
-          <p class="help">List every student involved, separated by commas.</p>
-          <textarea id="students" name="students" required
-                    placeholder="e.g., Sarah Johnson, Miguel Reyes, Elena Park, James Chen"></textarea>
-        </div>
-      </div>
-
-      <!-- 4 — Accomplishments -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">iv.</span>
-          <span class="section-title">Accomplishments</span>
-        </div>
-        <div class="field-group">
-          <label for="accomplishments">What did the students achieve? <span class="req">*</span></label>
-          <p class="help">Conference presentations, publications, awards, completed projects, skills mastered, languages learned, communities served.</p>
-          <textarea id="accomplishments" name="accomplishments" required class="tall"
-                    placeholder="e.g., Three students presented at LSA 2026; one paper accepted for publication; all four completed independent corpus studies."></textarea>
-          <label class="privacy-toggle" data-target="accomplishments">
-            <input type="checkbox" name="private_accomplishments" data-priv="accomplishments">
-            <span class="pt-text">
-              <span class="pt-label">Keep this response private</span>
-              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 5 — Mentor reflection -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">v.</span>
-          <span class="section-title">Mentor Reflection</span>
-        </div>
-        <div class="field-group">
-          <label for="notes">In your own words <span class="req">*</span></label>
-          <p class="help">What are you proud of? What key moments stand out? How did this experience feel? Speak freely &mdash; this is the heart of the archive.</p>
-          <textarea id="notes" name="notes" required class="tall"
-                    placeholder="e.g., Watching Sarah present her findings to a packed room at LSA was one of the high points of my career. She walked in nervous and walked out a scholar."></textarea>
-          <label class="privacy-toggle" data-target="notes">
-            <input type="checkbox" name="private_notes" data-priv="notes">
-            <span class="pt-text">
-              <span class="pt-label">Keep this response private</span>
-              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 6 — Personal Impact -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">vi.</span>
-          <span class="section-title">Personal Impact</span>
-        </div>
-        <div class="field-group">
-          <label for="impact">How has this experience affected you? <span class="req">*</span></label>
-          <p class="help">What impact did this experience or a specific student have on your life &mdash; your approach to teaching, your desire to mentor more students this way, your personal testimony, your appetite for learning?</p>
-          <textarea id="impact" name="impact" required class="tall"
-                    placeholder="e.g., Mentoring this cohort renewed my conviction that teaching is, at its best, a form of attention. I've changed how I structure my office hours because of these students..."></textarea>
-          <label class="privacy-toggle" data-target="impact">
-            <input type="checkbox" name="private_impact" data-priv="impact">
-            <span class="pt-text">
-              <span class="pt-label">Keep this response private</span>
-              <span class="pt-help">Only administrators will see this; it will not appear on the public archive.</span>
-            </span>
-          </label>
-        </div>
-      </div>
-
-      <!-- 6 — Image -->
-      <div class="form-section">
-        <div class="section-marker">
-          <span class="section-num">vii.</span>
-          <span class="section-title">Image <span style="color: var(--ink-mute); font-style: italic; font-weight: 400; font-size: 14px;">&mdash; optional</span></span>
-        </div>
-        <div class="field-group">
-          <label>Upload a photo</label>
-          <p class="help">A picture of the mentees, the venue, fieldwork, a poster, an editing manuscript &mdash; anything that captures the experience. JPG or PNG, up to 4&nbsp;MB.</p>
-          <label class="dropzone" id="dropzone">
-            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
-            <div class="dropzone-icon">+</div>
-            <div class="dropzone-text">
-              <strong>Click to choose</strong> or drag an image here
-            </div>
-          </label>
-          <div id="preview-wrap" class="image-preview" style="display:none;">
-            <img id="preview-img" src="" alt="Preview">
-            <div>
-              <div id="preview-name" style="font-size: 14px; font-weight: 500;"></div>
-              <div id="preview-size" style="font-size: 12px; color: var(--ink-mute);"></div>
-            </div>
-            <button type="button" class="remove-img" id="remove-img">Remove</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Master privacy -->
-      <label class="privacy-master" id="privacy-master-label">
-        <input type="checkbox" id="privacy-master" name="privacy_master">
-        <div class="pm-content">
-          <div class="pm-title">Make this entire entry private</div>
-          <div class="pm-help">Check this box to keep the whole submission visible only to administrators. The entry will not appear on the public archive at all. (Overrides individual response toggles.)</div>
-        </div>
+    <div class="master-privacy">
+      <label>
+        <input type="checkbox" id="all-private">
+        Mark entire entry as private (admin-only)
       </label>
-
-      <!-- Submit -->
-      <div class="form-actions">
-        <span class="privacy-note">This page is private and not indexed by search engines. Submissions appear on the public archive once added.</span>
-        <button type="submit" class="btn btn-primary" id="submit-btn">
-          Submit Entry <span class="arrow">→</span>
-        </button>
-      </div>
-    </form>
-  </main>
-
-  <div id="toast" class="toast"></div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-quote">
-          &ldquo;Using language is indeed miraculous. If language did not exist and someone proposed it, it would be dismissed as an impossibility.&rdquo;
-          <span class="who">Randall L. Jones</span>
-        </div>
-        <div class="footer-contact">
-          4064 JFSB &middot; Brigham Young University<br>
-          Provo, UT 84602<br>
-          <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a> &middot; 801-422-2937
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; 2026 Brigham Young University Department of Linguistics</div>
-        <div><a href="https://ling.byu.edu/" style="color: var(--byu-tan-soft); text-decoration: none;">ling.byu.edu</a></div>
+      <div class="help">
+        Use this if everything in this entry should remain confidential.
+        Private entries don't appear in the public archive.
       </div>
     </div>
-  </footer>
 
-  <script src="storage.js"></script>
-  <script src="entry.js"></script>
+    <!-- 1. Mentor -->
+    <div class="form-card">
+      <h2>1. Mentor Information</h2>
+      <p class="form-help">Who is this mentoring activity led by?</p>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="mentor-name">
+            Mentor name
+            <label class="privacy-toggle"><input type="checkbox" data-private="mentorName"> private</label>
+          </label>
+          <input type="text" id="mentor-name" required>
+        </div>
+        <div class="form-row">
+          <label for="mentor-role">
+            Role / title
+            <label class="privacy-toggle"><input type="checkbox" data-private="mentorRole"> private</label>
+          </label>
+          <input type="text" id="mentor-role" placeholder="e.g., Associate Professor">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Disciplines / focus areas</label>
+        <div class="form-checkbox-list">
+          <label><input type="checkbox" name="discipline" value="Phonetics"> Phonetics</label>
+          <label><input type="checkbox" name="discipline" value="Phonology"> Phonology</label>
+          <label><input type="checkbox" name="discipline" value="Syntax"> Syntax</label>
+          <label><input type="checkbox" name="discipline" value="Semantics"> Semantics</label>
+          <label><input type="checkbox" name="discipline" value="Sociolinguistics"> Sociolinguistics</label>
+          <label><input type="checkbox" name="discipline" value="TESOL"> TESOL</label>
+          <label><input type="checkbox" name="discipline" value="Applied Linguistics"> Applied Linguistics</label>
+          <label><input type="checkbox" name="discipline" value="Editing & Publishing"> Editing &amp; Publishing</label>
+          <label><input type="checkbox" name="discipline" value="Linguistic Computing / Computational Linguistics"> Linguistic Computing / Computational Linguistics</label>
+          <label><input type="checkbox" name="discipline" value="Language Acquisition"> Language Acquisition</label>
+          <label><input type="checkbox" name="discipline" value="Corpus Linguistics"> Corpus Linguistics</label>
+          <label><input type="checkbox" name="discipline" value="Other"> Other</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Activity -->
+    <div class="form-card">
+      <h2>2. Activity / Project</h2>
+
+      <div class="form-row">
+        <label for="title">Project / activity title</label>
+        <input type="text" id="title" required placeholder="e.g., Vowel formant variation in heritage speakers of Russian">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="activity-type">Activity type</label>
+          <select id="activity-type">
+            <option value="">— select —</option>
+            <option>Coauthored research</option>
+            <option>Conference presentation</option>
+            <option>Independent research project</option>
+            <option>Senior thesis / capstone</option>
+            <option>Course-based research</option>
+            <option>Lab assistantship</option>
+            <option>Internship supervision</option>
+            <option>Study abroad / field work</option>
+            <option>Curriculum development</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="venue">
+            Venue / publication / event
+            <label class="privacy-toggle"><input type="checkbox" data-private="venue"> private</label>
+          </label>
+          <input type="text" id="venue" placeholder="e.g., AAAL 2024, LSA Annual Meeting">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="date">Date</label>
+          <input type="date" id="date">
+        </div>
+        <div class="form-row">
+          <label for="location">Location</label>
+          <input type="text" id="location" placeholder="e.g., Toronto, ON or Provo, UT">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Mentees -->
+    <div class="form-card">
+      <h2>3. Student Mentees</h2>
+      <p class="form-help">List students involved in this mentoring activity.</p>
+
+      <div class="form-row">
+        <label for="mentees">
+          Mentee names (one per line, or comma-separated)
+          <label class="privacy-toggle"><input type="checkbox" data-private="mentees"> private</label>
+        </label>
+        <textarea id="mentees" placeholder="e.g.,&#10;Jane Smith&#10;Carlos Reyes&#10;Aisha Patel"></textarea>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="mentee-level">Mentee level(s)</label>
+          <select id="mentee-level">
+            <option value="">— select —</option>
+            <option>Undergraduate</option>
+            <option>MA</option>
+            <option>Mixed (UG + grad)</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="mentee-count">Approx. number of mentees</label>
+          <input type="text" id="mentee-count" placeholder="e.g., 3">
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Accomplishments -->
+    <div class="form-card">
+      <h2>4. Accomplishments &amp; Outcomes</h2>
+      <p class="form-help">What was produced or achieved through this mentoring?</p>
+
+      <div class="form-row">
+        <label for="accomplishments">
+          Accomplishments
+          <label class="privacy-toggle"><input type="checkbox" data-private="accomplishments"> private</label>
+        </label>
+        <textarea id="accomplishments" placeholder="e.g., Coauthored paper accepted to Language Variation and Change; student presented at LSA Annual Meeting; received UG research grant."></textarea>
+      </div>
+    </div>
+
+    <!-- 5. Notes -->
+    <div class="form-card">
+      <h2>5. Mentor Notes</h2>
+      <p class="form-help">Internal notes, context, or details for departmental reference.</p>
+
+      <div class="form-row">
+        <label for="notes">
+          Notes
+          <label class="privacy-toggle"><input type="checkbox" data-private="notes"> private</label>
+        </label>
+        <textarea id="notes"></textarea>
+      </div>
+    </div>
+
+    <!-- 6. Impact -->
+    <div class="form-card">
+      <h2>6. Impact Statement</h2>
+      <p class="form-help">In your own words: how did this mentoring affect the student(s) involved?</p>
+
+      <div class="form-row">
+        <label for="impact">
+          Impact
+          <label class="privacy-toggle"><input type="checkbox" data-private="impact"> private</label>
+        </label>
+        <textarea id="impact" placeholder="e.g., This project gave Maria her first taste of corpus methods, which directly led to her decision to pursue a PhD in computational linguistics."></textarea>
+      </div>
+    </div>
+
+    <!-- 7. Image -->
+    <div class="form-card">
+      <h2>7. Image (optional)</h2>
+      <p class="form-help">An optional image — a research poster, conference photo, or workspace shot. Stored locally in your browser.</p>
+      <div class="form-row">
+        <label for="image">Upload image</label>
+        <input type="file" id="image" accept="image/*">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save Entry</button>
+      <a href="view.html" class="btn btn-ghost">Cancel</a>
+    </div>
+
+  </form>
+
+</main>
+
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo"><img src="../assets/logos/ling_horiz_white.png" alt="BYU Linguistics"></div>
+      <p>4064 JFSB<br>Brigham Young University<br>Provo, UT 84602</p>
+      <p>Office: 801-422-2937<br>Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a></p>
+    </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/faculty-staff-directory">Faculty &amp; Staff</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="view.html">Faculty Mentoring</a></li>
+        <li><a href="../MentoredStudent/student-view.html">Student Experiences</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA · 801-422-4636</span>
+    <span>© 2026 Brigham Young University</span>
+  </div>
+</div>
+
+<script src="storage.js"></script>
+<script src="seed-data.js"></script>
+<script src="entry.js"></script>
 </body>
 </html>

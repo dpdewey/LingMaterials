@@ -251,8 +251,8 @@
       const t = (count - minCount) / range;
       const fontSize = (15 + t * 38).toFixed(1);
       const color = t > 0.66 ? 'var(--byu-navy)' :
-                    t > 0.33 ? 'var(--byu-blue-accent)' :
-                               'var(--byu-navy-light)';
+                    t > 0.33 ? 'var(--byu-royal)' :
+                               'var(--byu-navy-soft)';
       const opacity = (0.55 + t * 0.45).toFixed(2);
       const cap = word.charAt(0).toUpperCase() + word.slice(1);
       return '<span title="' + count + ' mention' + (count === 1 ? '' : 's') +

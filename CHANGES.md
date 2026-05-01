@@ -1,104 +1,145 @@
-# Update Notes — What Changed
+# BYU Brand-Compliance Update
 
-This update adds:
+This update brings the mentoring archive into alignment with the
+official BYU brand standards published at brand.byu.edu, modeled
+on the BYU Department of Linguistics homepage at ling.byu.edu.
 
-1. **Faculty "Personal Impact" field** — section vi on the entry form
-2. **Per-field privacy toggles** under each open-text response
-3. **Master "make entire entry private" toggle** before submit
-4. **"Show as Anonymous student" option** under student name field
-5. **Linguistic Computing / Computational Linguistics** added as a program option
-6. **Empty image tiles fixed** — broken thumbnails no longer appear
-7. **Admin pages with CSV export** — at private URLs
+## Source Documents Consulted
 
-## Admin pages
+- https://brand.byu.edu/web-theme — typography & layout structure
+- https://brand.byu.edu/colors — color palette & accent rules
+- https://brand.byu.edu/type — typography spec (IBM Plex Sans)
+- https://brand.byu.edu/unit-logos/academics-support — sub-brand rules
+- https://ling.byu.edu/ — reference Brightspot implementation
+- "Official College and Unit Logo Guidelines" PDF (provided)
+- "2022 Logos PNG (raster)" zip (provided)
 
-Two new pages have been added, each gated behind a soft password
-(`ShaneReeseMentors`):
+## What Changed
 
-- `FacultyMentoring/admin.html`
-- `MentoredStudent/admin.html`
+### Typography
 
-These pages:
-- Are tagged `noindex, nofollow, noarchive, nosnippet` so search
-  engines and AI crawlers will skip them
-- Are NOT linked from any public page — only accessible by typing the
-  URL directly
-- Show every entry including responses marked private and the real
-  names of students who chose anonymous public display
-- Include a "Download CSV" button that exports complete data
-  (including private fields) for analysis in Excel
-- Use sessionStorage for the unlock state, so closing the tab locks
-  them again
+**Was:** Crimson Pro serif headings + Inter body text. The serif
+treatment gave the site a "literary magazine" feel that competed
+with BYU's actual identity.
 
-### Important caveat about the admin password
+**Now:** IBM Plex Sans throughout, weights 300–700, loaded from
+Google Fonts per BYU's official spec. This matches every BYU
+Brightspot site including ling.byu.edu.
 
-This is a **client-side** password. Because GitHub Pages serves only
-static files, the password lives in `admin.js` and can be discovered
-by anyone who looks at the page source. It is a soft barrier — fine
-for keeping casual visitors out of the admin views, but **not real
-security**.
+### Color Palette
 
-For genuinely sensitive admin data, you would want one of:
-- BYU NetID / SSO authentication
-- HTTP basic auth at the web server level
-- A backend API that authenticates before returning data
+**Was:** A custom palette including tan #C5B783, deep tan #A89968,
+and paper #F7F2E8 backgrounds. None of these colors are in BYU's
+brand palette.
 
-The current setup is appropriate for a low-stakes departmental
-mentoring archive but should not be treated as protecting confidential
-information.
+**Now:** Strict BYU palette only:
+  - Navy   #002E5D (dominant)
+  - White  #FFFFFF (surfaces)
+  - Royal  #0047BA (interactive accent)
+  - Text colors per BYU spec: #141414, #002E5D, #666666
 
-## Privacy behavior
+The brand guide explicitly warns against "using an accent color
+as a close companion to navy in a way that gives it equal status,"
+so royal is used sparingly for buttons, links, and hover states.
 
-When a faculty member or student checks a per-field privacy toggle:
-- The whole entry still appears on the public archive
-- That specific field is hidden (not shown at all) on the public view
-- The admin page sees the full text with a `[PRIVATE]` tag
+### Logo Treatment
 
-When they check the master "make entire entry private" toggle:
-- The entry does not appear on the public archive at all
-- The admin page sees the full entry with a `FULLY PRIVATE` banner
+**Was:** A custom typeset masthead reading "Department of
+Linguistics" in Crimson Pro italics. This is exactly what the
+unit-logo PDF prohibits: "Never create your own version of your
+unit logo. Any deviations from the provided logo or usage
+guidelines are considered incorrect."
 
-When a student checks "Show as Anonymous student":
-- The public archive shows their name as "Anonymous student"
-- The admin page sees their real name with an "ANONYMOUS ON PUBLIC"
-  banner
+**Now:** The official BYU Linguistics horizontal logo
+(ling_horiz_white.png) appears in the navy footer, sized to BYU's
+spec. The header bar follows BYU's text-link breadcrumb pattern
+(BYU | College of Humanities | Linguistics) used throughout the
+Brightspot template.
 
-## Folder structure for deployment
+### Decorative Glyphs Removed
 
-```
-/                              ← root
-├── index.html                 ← landing page
-├── FacultyMentoring/
-│   ├── entry.html             ← faculty submission form (private)
-│   ├── view.html              ← faculty public archive
-│   ├── admin.html             ← faculty admin (password-gated)
-│   ├── admin.js
-│   ├── entry.js, view.js
-│   ├── styles.css, storage.js, seed-data.js
-├── MentoredStudent/
-│   ├── student-entry.html     ← student submission form
-│   ├── student-view.html      ← student public archive
-│   ├── admin.html             ← student admin (password-gated)
-│   ├── admin.js
-│   ├── student-entry.js, student-view.js
-│   ├── styles.css, student-styles.css
-│   ├── storage.js, student-seed.js
-├── api/, netlify/             ← serverless functions for AI summary
-└── netlify.toml
-```
+**Was:** Large IPA characters (ʃ, ə) and typographic symbols (¶, §)
+splashed across the hero and section dividers as decorative flourishes.
 
-Each subfolder is self-contained (shared CSS and JS files are duplicated
-into both folders) so the pages render correctly regardless of whether
-they are loaded via the root index or directly by URL.
+**Why removed:** Page 10 of the unit-logo PDF says non-official
+visual treatments "should not be used for over two years, though
+ideally should be used for less so as to not inadvertently create
+a new brand identity, logo, or icon that becomes recognizable to
+identify the unit." Recurring IPA glyphs risked reading as a
+custom sub-brand for the department.
 
-## Deployment
+**Now:** No decorative glyphs. Hierarchy is established through
+typography weight, navy bands, and whitespace alone — exactly as
+the Brightspot template does.
 
-Replace your existing GitHub repository contents with this folder.
-Commit and push. GitHub Pages will redeploy automatically.
+### Layout Structure
 
-The admin pages will be at:
-- `https://dpdewey.github.io/LingMaterials/FacultyMentoring/admin.html`
-- `https://dpdewey.github.io/LingMaterials/MentoredStudent/admin.html`
+**Was:** Editorial masthead with custom department wordmark,
+followed by content blocks.
 
-Bookmark these. The CSVs download with the date in the filename so
-you can keep a running record of administrator exports.
+**Now:** Brightspot-replica four-region layout per brand spec:
+
+  1. HEADER: navy top bar with BYU monogram + breadcrumb links
+  2. NAVIGATION: white sticky bar with page title + nav links
+  3. MAIN CONTENT: hero, quick-links strip, content sections
+  4. AREA FOOTER: contact info, supplementary links, social
+  5. UNIVERSITY FOOTER: BYU mark + copyright
+
+This mirrors ling.byu.edu's actual structure exactly.
+
+### Accent Color Compliance
+
+The BYU spec forbids using accent colors:
+  - "as a dominant color for your website"
+  - "as a close companion to navy in a way that gives it equal
+    or near-equal status"
+  - "for large amounts of text"
+
+Royal #0047BA is now used only for:
+  - Hyperlink color (interactive)
+  - Button hover states
+  - Focus rings (accessibility)
+  - Aim chips (intellectual aim only)
+  - Donut chart middle ring
+
+Navy #002E5D dominates: hero accents, stats strips, pull quotes,
+aims banner, footer, headings.
+
+## Functionality
+
+No JavaScript logic was changed. All previous functionality works
+identically:
+  - Per-field privacy toggles + master "all-private" toggle
+  - Anonymous student submissions (admin sees real name)
+  - 5-section faculty entry form (mentor, activity, mentees, accomplishments, notes, impact, image)
+  - 4-aim student reflection accordion
+  - Word cloud, donut chart, gallery, sortable entries list, modal
+  - Password-gated admin pages with CSV export
+  - AI summary via /api/summary serverless function
+  - All seed data (8 faculty entries, 6 student reflections)
+
+## Files Changed
+
+  - styles.css (full rewrite — ~1100 lines)
+  - index.html (full rewrite)
+  - FacultyMentoring/entry.html (full rewrite)
+  - FacultyMentoring/view.html (full rewrite)
+  - FacultyMentoring/admin.html (full rewrite)
+  - MentoredStudent/student-entry.html (full rewrite)
+  - MentoredStudent/student-view.html (full rewrite)
+  - MentoredStudent/admin.html (full rewrite)
+  - assets/logos/*.png (added — official sub-brand logos)
+  - FacultyMentoring/admin.js (CSS variable references updated)
+  - FacultyMentoring/view.js (CSS variable references updated)
+  - MentoredStudent/admin.js (CSS variable references updated)
+  - MentoredStudent/student-view.js (CSS variable references updated)
+  - All other JS files unchanged
+
+## Files Unchanged
+
+  - storage.js
+  - seed-data.js
+  - student-seed.js
+  - api/summary.js
+  - netlify/functions/summary.js
+  - netlify.toml

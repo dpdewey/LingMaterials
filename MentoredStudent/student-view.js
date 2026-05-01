@@ -207,7 +207,7 @@
     wordCloudEl.innerHTML = shuffled.map(([word, count]) => {
       const t = (count - min) / range;
       const size = (15 + t * 38).toFixed(1);
-      const color = t > 0.66 ? 'var(--byu-navy)' : t > 0.33 ? 'var(--byu-blue-accent)' : 'var(--byu-navy-light)';
+      const color = t > 0.66 ? 'var(--byu-navy)' : t > 0.33 ? 'var(--byu-royal)' : 'var(--byu-navy-soft)';
       const opacity = (0.55 + t * 0.45).toFixed(2);
       const cap = word.charAt(0).toUpperCase() + word.slice(1);
       return `<span title="${count} mention${count === 1 ? '' : 's'}" style="font-size:${size}px; color:${color}; opacity:${opacity};">${cap}</span>`;
@@ -236,7 +236,7 @@
     const maxTotal = Math.max(1, ...Object.values(aimTotals));
 
     if (!Object.keys(aimTotals).length) {
-      aimsBreakdown.innerHTML = '<div style="font-family: var(--font-display); font-style: italic; color: var(--ink-mute); font-size: 14px;">No reflections yet.</div>';
+      aimsBreakdown.innerHTML = '<div style="font-family: var(--font-sans); font-style: italic; color: var(--text-medium); font-size: 14px;">No reflections yet.</div>';
       return;
     }
 

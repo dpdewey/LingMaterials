@@ -1,673 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mentoring Archive — BYU Department of Linguistics</title>
-  <meta name="description" content="The BYU Department of Linguistics mentoring archive — faculty accounts and student experiences across Linguistics, TESOL, and Editing & Publishing.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    /* =========================================================
-       DESIGN TOKENS — matches the full site
-       ========================================================= */
-    :root {
-      --navy:       #002E5D;
-      --navy-deep:  #001533;
-      --navy-mid:   #1B4079;
-      --blue:       #0062B8;
-      --tan:        #C5B783;
-      --tan-soft:   #E8DFC2;
-      --tan-deep:   #A89968;
-      --paper:      #F7F2E8;
-      --paper-rich: #FAF6EC;
-      --ink:        #1A1D24;
-      --ink-soft:   #3A4150;
-      --ink-mute:   #6B7385;
-      --rule:       #C9C0A8;
-      --rule-soft:  #DCD5C2;
-      --serif: 'Crimson Pro', Georgia, serif;
-      --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--ink);
-      background: var(--navy-deep);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* =========================================================
-       MASTHEAD
-       ========================================================= */
-    .masthead { background: var(--navy); color: #fff; }
-    .masthead::after {
-      content: ''; display: block; height: 5px;
-      background: var(--tan);
-      border-top: 1px solid var(--tan-deep);
-      border-bottom: 1px solid var(--tan-deep);
-    }
-    .masthead-bar {
-      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--tan-soft); border-bottom: 1px solid rgba(255,255,255,.10);
-    }
-    .masthead-bar-inner {
-      max-width: 1240px; margin: 0 auto; padding: 9px 32px;
-      display: flex; justify-content: space-between; align-items: center; gap: 20px;
-    }
-    .masthead-bar a { color: var(--tan-soft); text-decoration: none; transition: color .2s; }
-    .masthead-bar a:hover { color: #fff; }
-    .masthead-main {
-      max-width: 1240px; margin: 0 auto; padding: 22px 32px 20px;
-      display: grid; grid-template-columns: auto 1fr auto;
-      align-items: center; gap: 28px;
-    }
-    .masthead-flank {
-      font-family: var(--serif); font-style: italic;
-      font-size: 13px; color: var(--tan-soft); line-height: 1.4;
-    }
-    .masthead-flank.right { text-align: right; }
-    .masthead-flank .lat {
-      display: block; font-style: normal; font-size: 10px;
-      text-transform: uppercase; letter-spacing: 2px; color: var(--tan); margin-bottom: 4px;
-    }
-    .masthead-center { text-align: center; }
-    .masthead-center .school {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 4.5px;
-      color: var(--tan-soft); font-weight: 500; margin-bottom: 8px;
-    }
-    .masthead-center .dept {
-      font-family: var(--serif); font-weight: 800;
-      font-size: clamp(26px, 3.5vw, 40px);
-      letter-spacing: .3px; line-height: 1; color: #fff;
-    }
-    .masthead-center .sub {
-      font-family: var(--serif); font-style: italic;
-      font-size: 12px; color: var(--tan); margin-top: 6px; letter-spacing: 1px;
-    }
-
-    /* =========================================================
-       HERO
-       ========================================================= */
-    .hero {
-      position: relative; background: var(--navy-deep);
-      color: #fff; overflow: hidden;
-      border-bottom: 1px solid rgba(197,183,131,.2);
-      padding: 80px 32px 92px;
-    }
-    /* Diagonal ruled texture */
-    .hero::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .04;
-      background-image: repeating-linear-gradient(
-        -45deg, var(--tan) 0, var(--tan) 1px, transparent 1px, transparent 14px
-      );
-    }
-    /* Radial glow */
-    .hero::after {
-      content: ''; position: absolute; inset: 0; pointer-events: none;
-      background:
-        radial-gradient(ellipse 80% 120% at 10% 60%, rgba(197,183,131,.05) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 80% at 85% 30%, rgba(0,98,184,.08) 0%, transparent 50%);
-    }
-    /* Decorative glyphs */
-    .hero-glyph {
-      position: absolute; font-family: var(--serif); font-style: italic; font-weight: 800;
-      color: var(--tan); line-height: 1; user-select: none; pointer-events: none;
-    }
-    .g1 { font-size: 320px; opacity: .06; top: -80px; left: -30px; transform: rotate(-8deg); }
-    .g2 { font-size: 200px; opacity: .05; bottom: -60px; right: 4%; transform: rotate(6deg); }
-    .g3 { font-size:  90px; opacity: .06; top: 20%; right: 10%; transform: rotate(-4deg); }
-
-    .hero-inner {
-      position: relative; z-index: 1;
-      max-width: 1240px; margin: 0 auto;
-    }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 14px;
-      font-size: 10px; text-transform: uppercase; letter-spacing: 4px;
-      font-weight: 600; color: var(--tan); margin-bottom: 26px;
-    }
-    .eyebrow::before, .eyebrow::after {
-      content: ''; width: 26px; height: 1px; background: var(--tan);
-    }
-    .hero-title {
-      font-family: var(--serif); font-weight: 800;
-      font-size: clamp(44px, 7vw, 88px);
-      line-height: .95; letter-spacing: -2.5px; color: #fff;
-      margin-bottom: 28px; max-width: 900px;
-    }
-    .hero-title em { font-style: italic; color: var(--tan); font-weight: 700; }
-
-    .hero-lede {
-      font-family: var(--serif); font-size: clamp(17px, 1.6vw, 21px);
-      line-height: 1.55; color: var(--tan-soft);
-      max-width: 680px; margin-bottom: 0;
-    }
-
-    /* =========================================================
-       INSTRUCTION BAND — "how to use this archive"
-       ========================================================= */
-    .instruction-band {
-      background: var(--navy);
-      padding: 44px 32px;
-      position: relative; overflow: hidden;
-    }
-    .instruction-band::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .025;
-      background-image: repeating-linear-gradient(
-        -45deg, var(--tan) 0, var(--tan) 1px, transparent 1px, transparent 14px
-      );
-    }
-    .instruction-inner {
-      max-width: 1240px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; position: relative; z-index: 1;
-      align-items: start;
-    }
-    @media (max-width: 820px) {
-      .instruction-inner { grid-template-columns: 1fr; gap: 32px; }
-    }
-    .instruction-block { display: flex; flex-direction: column; gap: 18px; }
-    .instruction-overline {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 3px;
-      font-weight: 600; color: var(--tan); display: flex; align-items: center; gap: 12px;
-    }
-    .instruction-overline::before { content: ''; width: 20px; height: 1px; background: var(--tan-deep); }
-    .instruction-heading {
-      font-family: var(--serif); font-weight: 800;
-      font-size: clamp(22px, 2.5vw, 30px);
-      color: #fff; letter-spacing: -.5px; line-height: 1.1;
-    }
-    .instruction-body {
-      font-family: var(--serif); font-size: 17px; line-height: 1.6;
-      color: var(--tan-soft); font-weight: 400;
-    }
-    .instruction-divider {
-      width: 1px; background: rgba(197,183,131,.18);
-      align-self: stretch;
-    }
-    @media (max-width: 820px) { .instruction-divider { display: none; } }
-
-    /* =========================================================
-       SECTION CARDS — the two portals
-       ========================================================= */
-    .portals {
-      background: var(--paper);
-      flex: 1;
-      padding: 64px 32px 80px;
-      position: relative;
-    }
-    /* Horizontal ruled paper texture on paper bg */
-    .portals::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .018;
-      background-image: repeating-linear-gradient(
-        0deg, var(--ink) 0, var(--ink) 1px, transparent 1px, transparent 28px
-      );
-    }
-    .portals-inner {
-      max-width: 1240px; margin: 0 auto; position: relative; z-index: 1;
-    }
-
-    /* Ornament heading */
-    .portals-heading {
-      display: flex; align-items: center; gap: 18px;
-      margin-bottom: 44px;
-    }
-    .portals-heading::before, .portals-heading::after {
-      content: ''; flex: 1; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--rule), transparent);
-    }
-    .portals-heading span {
-      font-family: var(--serif); font-size: 16px; color: var(--tan-deep);
-      letter-spacing: 6px; opacity: .7;
-    }
-
-    /* Portal grid */
-    .portal-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
-    @media (max-width: 720px) {
-      .portal-grid { grid-template-columns: 1fr; }
-    }
-
-    /* Each portal = one section (faculty or student) */
-    .portal-section {
-      display: flex; flex-direction: column; gap: 16px;
-    }
-    .portal-section-label {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 3px;
-      font-weight: 700; color: var(--tan-deep);
-      display: flex; align-items: center; gap: 12px;
-      padding-bottom: 14px; border-bottom: 2px solid var(--navy);
-    }
-    .portal-section-label .num {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: 28px; color: var(--navy); letter-spacing: -1px; line-height: 1;
-    }
-
-    /* Individual link card */
-    .portal-card {
-      background: #fff;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .2s, box-shadow .2s, transform .2s;
-    }
-    .portal-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px; transition: background .2s;
-    }
-    .portal-card.faculty-entry::before  { background: var(--navy); }
-    .portal-card.faculty-view::before   { background: var(--tan-deep); }
-    .portal-card.student-entry::before  { background: var(--navy-mid); }
-    .portal-card.student-view::before   { background: var(--tan-deep); }
-
-    .portal-card:hover {
-      border-color: var(--navy);
-      box-shadow: 0 8px 32px rgba(0,46,93,.12);
-      transform: translateY(-3px);
-    }
-    .portal-card:hover .card-arrow { transform: translateX(4px); }
-
-    .card-inner { padding: 28px 32px 26px; }
-
-    .card-mode {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 9px; text-transform: uppercase; letter-spacing: 2.5px;
-      font-weight: 700; color: var(--blue); margin-bottom: 14px;
-    }
-    .card-mode .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .card-mode.enter .dot  { background: var(--navy); }
-    .card-mode.browse .dot { background: var(--tan-deep); }
-
-    .card-title {
-      font-family: var(--serif); font-weight: 800;
-      font-size: clamp(20px, 2.2vw, 26px);
-      color: var(--navy); letter-spacing: -.4px; line-height: 1.1;
-      margin-bottom: 12px;
-    }
-    .card-desc {
-      font-family: var(--serif); font-size: 16px; line-height: 1.6;
-      color: var(--ink-soft); font-style: italic;
-      margin-bottom: 24px;
-    }
-
-    .card-cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
-      font-weight: 700; color: #fff; background: var(--navy);
-      padding: 12px 22px; border-radius: 3px;
-      transition: background .2s;
-    }
-    .portal-card:hover .card-cta { background: var(--navy-deep); }
-    .card-arrow {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: 16px; letter-spacing: 0; transition: transform .2s;
-    }
-
-    /* Glyph watermark inside each card */
-    .card-glyph {
-      position: absolute; bottom: -20px; right: 12px;
-      font-family: var(--serif); font-style: italic; font-weight: 800;
-      font-size: 110px; color: var(--navy); opacity: .04;
-      line-height: 1; pointer-events: none; user-select: none;
-    }
-
-    /* =========================================================
-       ABOUT STRIP — short description of the mentoring program
-       ========================================================= */
-    .about-strip {
-      background: var(--navy);
-      padding: 52px 32px;
-      position: relative; overflow: hidden;
-    }
-    .about-strip::before {
-      content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .025;
-      background-image: repeating-linear-gradient(
-        -45deg, var(--tan) 0, var(--tan) 1px, transparent 1px, transparent 14px
-      );
-    }
-    .about-strip-glyph {
-      position: absolute; font-family: var(--serif); font-style: italic;
-      font-weight: 800; color: var(--tan); opacity: .09; pointer-events: none; line-height: 1;
-    }
-    .about-inner {
-      max-width: 1240px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 2fr;
-      gap: 48px; align-items: center; position: relative; z-index: 1;
-    }
-    @media (max-width: 720px) {
-      .about-inner { grid-template-columns: 1fr; gap: 28px; }
-    }
-    .about-label {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 3.5px;
-      font-weight: 600; color: var(--tan); margin-bottom: 14px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .about-label::before { content: ''; width: 24px; height: 1px; background: var(--tan-deep); }
-    .about-heading {
-      font-family: var(--serif); font-weight: 800;
-      font-size: clamp(28px, 3.5vw, 42px);
-      color: #fff; letter-spacing: -.8px; line-height: 1;
-    }
-    .about-heading em { font-style: italic; color: var(--tan); }
-    .about-body {
-      font-family: var(--serif); font-size: clamp(16px, 1.4vw, 18px);
-      line-height: 1.65; color: var(--tan-soft); font-weight: 400;
-    }
-    /* Drop cap on first paragraph */
-    .about-body p:first-child::first-letter {
-      font-size: 3.2em; font-weight: 800; font-style: italic;
-      color: var(--tan); float: left; line-height: .85;
-      padding: 6px 10px 0 0; margin-top: 4px;
-    }
-    .about-body p + p { margin-top: 16px; }
-
-    /* =========================================================
-       FOOTER
-       ========================================================= */
-    footer {
-      background: var(--navy-deep); color: var(--tan-soft);
-      padding: 44px 32px 28px; border-top: 4px solid var(--tan);
-    }
-    .footer-inner { max-width: 1240px; margin: 0 auto; }
-    .footer-top {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 32px; padding-bottom: 24px;
-      border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 20px;
-    }
-    @media (max-width: 600px) {
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-contact { text-align: left; }
-    }
-    .footer-quote {
-      font-family: var(--serif); font-style: italic;
-      font-size: 15px; color: #fff; line-height: 1.55;
-    }
-    .footer-quote .who {
-      display: block; margin-top: 10px; font-size: 10px; font-style: normal;
-      color: var(--tan); letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-    }
-    .footer-contact { text-align: right; font-size: 14px; line-height: 1.8; }
-    .footer-contact a {
-      color: #fff; text-decoration: none;
-      border-bottom: 1px solid var(--tan); padding-bottom: 1px;
-    }
-    .footer-contact a:hover { color: var(--tan); }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 12px;
-      font-size: 10px; color: var(--tan-soft); letter-spacing: .5px;
-    }
-
-    /* =========================================================
-       RESPONSIVE MASTHEAD
-       ========================================================= */
-    @media (max-width: 768px) {
-      .masthead-main { grid-template-columns: 1fr; gap: 8px; padding: 14px 20px 18px; }
-      .masthead-flank { display: none; }
-      .hero { padding: 60px 20px 72px; }
-      .portals { padding: 44px 20px 64px; }
-      .instruction-band { padding: 36px 20px; }
-      .about-strip { padding: 44px 20px; }
-      footer { padding: 36px 20px 24px; }
-      .card-inner { padding: 22px 24px 20px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentoring Archive | BYU Department of Linguistics</title>
+<meta name="description" content="Faculty and student mentoring stories from the BYU Department of Linguistics — capturing transformative learning experiences and faculty-mentored research.">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- MASTHEAD -->
-  <header class="masthead">
-    <div class="masthead-bar">
-      <div class="masthead-bar-inner">
-        <span>Volume I &middot; Established 2026</span>
-        <span><a href="https://ling.byu.edu/">ling.byu.edu</a> &nbsp;&middot;&nbsp; <a href="https://hum.byu.edu/">College of Humanities</a></span>
-      </div>
-    </div>
-    <div class="masthead-main">
-      <div class="masthead-flank">
-        <span class="lat">Provo · Utah</span>
-        Brigham Young<br>University
-      </div>
-      <div class="masthead-center">
-        <div class="school">College of Humanities</div>
-        <div class="dept">Department of Linguistics</div>
-        <div class="sub">Mentoring Archive</div>
-      </div>
-      <div class="masthead-flank right">
-        <span class="lat">JFSB · 4064</span>
-        Linguistics, TESOL,<br>Editing &amp; Publishing
-      </div>
-    </div>
-  </header>
+<!-- Top BYU breadcrumb bar (Brightspot pattern) -->
+<div class="byu-topbar" role="banner">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <span class="hero-glyph g1">ʃ</span>
-    <span class="hero-glyph g2">ə</span>
-    <span class="hero-glyph g3">¶</span>
-    <div class="hero-inner">
-      <div class="eyebrow">A Living Archive</div>
-      <h1 class="hero-title">
-        Where <em>mentoring</em> gets<br>documented &amp; remembered.
-      </h1>
-      <p class="hero-lede">
-        Faculty and students across Linguistics, TESOL, and Editing &amp; Publishing
-        share the projects, conversations, and moments that shaped them.
-        Two archives. Two perspectives. One record of what mentoring looks like here.
+<!-- White nav bar -->
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Department of Linguistics</small>
+      Mentoring Archive
+    </h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="FacultyMentoring/view.html">Faculty Mentoring</a>
+      <a href="MentoredStudent/student-view.html">Student Experiences</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Department of Linguistics</div>
+    <h1>Mentoring Archive</h1>
+    <p class="hero-statement">
+      A living record of faculty mentoring and transformative student
+      experiences in the BYU Department of Linguistics — capturing how
+      research, teaching, and one-on-one investment shape the careers
+      and character of our students.
+    </p>
+  </div>
+</section>
+
+<!-- Quick Links -->
+<section class="quick-links">
+  <div class="quick-links-inner">
+    <h2>Quick Links</h2>
+    <div class="quick-links-grid">
+      <a href="FacultyMentoring/view.html">Browse Faculty Stories</a>
+      <a href="MentoredStudent/student-view.html">Browse Student Stories</a>
+      <a href="FacultyMentoring/entry.html">Submit Faculty Entry</a>
+      <a href="MentoredStudent/student-entry.html">Submit Student Entry</a>
+      <a href="https://ling.byu.edu/">Department Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- Main content: portal cards -->
+<main class="main">
+
+  <section class="section">
+    <h2>Two Archives, One Story</h2>
+    <p style="font-size: 1.0625rem; max-width: 760px; color: var(--text-dark);">
+      The mentoring archive is organized into two collections. Faculty
+      members document their mentoring activities — research projects,
+      conference presentations, and the lasting impact on student
+      development. Students reflect on transformative experiences in
+      light of the BYU Aims of a university education.
+    </p>
+
+    <div class="portal-grid">
+      <article class="portal-card">
+        <div class="portal-card-header">
+          <h2>Faculty Mentoring</h2>
+          <p>Research projects, conference presentations, and mentoring outcomes</p>
+        </div>
+        <div class="portal-card-body">
+          <p>
+            Capture mentoring activities including coauthored papers,
+            presentations at venues like AAAL or LSA, undergraduate
+            research projects, and the lasting impact mentors have on
+            student trajectories. Each entry can be public or private at
+            your discretion.
+          </p>
+          <div class="portal-card-actions">
+            <a href="FacultyMentoring/view.html" class="btn btn-primary">View Archive</a>
+            <a href="FacultyMentoring/entry.html" class="btn btn-secondary">Add Entry</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="portal-card">
+        <div class="portal-card-header">
+          <h2>Student Experiences</h2>
+          <p>Transformative mentoring told through the lens of the BYU Aims</p>
+        </div>
+        <div class="portal-card-body">
+          <p>
+            Students share how mentored experiences — research,
+            internships, study abroad, conference presentations —
+            shaped their development across the four BYU Aims:
+            spiritually strengthening, intellectually enlarging,
+            character-building, and lifelong learning &amp; service.
+          </p>
+          <div class="portal-card-actions">
+            <a href="MentoredStudent/student-view.html" class="btn btn-primary">View Archive</a>
+            <a href="MentoredStudent/student-entry.html" class="btn btn-secondary">Add Entry</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>About This Archive</h2>
+    <p style="max-width: 760px;">
+      This archive was created to help the BYU Department of Linguistics
+      preserve, surface, and share the work of faculty mentors and the
+      transformative experiences of students. It serves the department's
+      reporting needs, supports retention and promotion documentation,
+      and tells a richer story about the kind of mentoring that
+      distinguishes a BYU education.
+    </p>
+    <p style="max-width: 760px;">
+      Entries can be public or private at the contributor's discretion.
+      Public entries appear in the open archive; private content is
+      reserved for departmental review.
+    </p>
+  </section>
+
+</main>
+
+<!-- Area footer -->
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo">
+        <img src="assets/logos/ling_horiz_white.png" alt="BYU Linguistics">
+      </div>
+      <p>
+        4064 JFSB<br>
+        Brigham Young University<br>
+        Provo, UT 84602
+      </p>
+      <p>
+        Office: 801-422-2937<br>
+        Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a>
       </p>
     </div>
-  </section>
-
-  <!-- HOW TO USE THIS -->
-  <section class="instruction-band">
-    <div class="instruction-inner">
-      <div class="instruction-block">
-        <div class="instruction-overline">Faculty Mentoring</div>
-        <div class="instruction-heading">Are you a faculty mentor?</div>
-        <div class="instruction-body">
-          Use the <strong style="color:#fff;font-style:normal">Faculty Entry form</strong> to document
-          a project, course, study abroad, or other mentoring experience — the students involved,
-          what they accomplished, and your own reflection on what made it meaningful.<br><br>
-          Use the <strong style="color:#fff;font-style:normal">Faculty Archive</strong> to browse
-          everything that faculty have documented: visualizations, a word cloud of recurring themes,
-          and the full searchable record of mentoring across the department.
-        </div>
-      </div>
-      <div class="instruction-divider"></div>
-      <div class="instruction-block">
-        <div class="instruction-overline">Student Experiences</div>
-        <div class="instruction-heading">Are you a mentored student?</div>
-        <div class="instruction-body">
-          Use the <strong style="color:#fff;font-style:normal">Student Entry form</strong> to describe
-          a transformative mentoring experience and reflect on the BYU Aims — how your mentor
-          shaped you spiritually, intellectually, in character, and in your sense of service.<br><br>
-          Use the <strong style="color:#fff;font-style:normal">Student Archive</strong> to read
-          what students have shared — their stories, their reflections by aim, and the moments
-          that defined their time here.
-        </div>
-      </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/faculty-staff-directory">Faculty &amp; Staff</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+        <li><a href="https://ling.byu.edu/news">News</a></li>
+      </ul>
     </div>
-  </section>
-
-  <!-- PORTAL CARDS -->
-  <section class="portals">
-    <div class="portals-inner">
-
-      <div class="portals-heading"><span>❧ · ❧</span></div>
-
-      <div class="portal-grid">
-
-        <!-- === FACULTY MENTORING === -->
-        <div class="portal-section">
-          <div class="portal-section-label">
-            <span class="num">i.</span>
-            Faculty Mentoring
-          </div>
-
-          <!-- ENTRY -->
-          <a href="FacultyMentoring/entry.html" class="portal-card faculty-entry">
-            <span class="card-glyph">ʃ</span>
-            <div class="card-inner">
-              <div class="card-mode enter">
-                <span class="dot"></span>
-                Entry form &mdash; private
-              </div>
-              <div class="card-title">Document a mentoring experience</div>
-              <div class="card-desc">
-                You&rsquo;re a faculty member who has supervised a student through a
-                project, course, practicum, study abroad, or thesis. Record the
-                students, the accomplishments, and what the experience meant to you.
-              </div>
-              <span class="card-cta">
-                Go to entry form
-                <span class="card-arrow">→</span>
-              </span>
-            </div>
-          </a>
-
-          <!-- VIEW -->
-          <a href="FacultyMentoring/view.html" class="portal-card faculty-view">
-            <span class="card-glyph">§</span>
-            <div class="card-inner">
-              <div class="card-mode browse">
-                <span class="dot"></span>
-                Public archive &mdash; open to all
-              </div>
-              <div class="card-title">Browse faculty mentoring reports</div>
-              <div class="card-desc">
-                View the full record of faculty-reported mentoring across Linguistics,
-                TESOL, and Editing &amp; Publishing &mdash; word cloud, discipline
-                breakdown, mentor gallery, and every entry searchable and sortable.
-              </div>
-              <span class="card-cta">
-                View the archive
-                <span class="card-arrow">→</span>
-              </span>
-            </div>
-          </a>
-        </div>
-
-        <!-- === STUDENT EXPERIENCES === -->
-        <div class="portal-section">
-          <div class="portal-section-label">
-            <span class="num">ii.</span>
-            Student Experiences
-          </div>
-
-          <!-- ENTRY -->
-          <a href="MentoredStudent/student-entry.html" class="portal-card student-entry">
-            <span class="card-glyph">ə</span>
-            <div class="card-inner">
-              <div class="card-mode enter">
-                <span class="dot"></span>
-                Entry form &mdash; private
-              </div>
-              <div class="card-title">Share your mentoring experience</div>
-              <div class="card-desc">
-                You&rsquo;ve been mentored by a faculty member. Describe the most
-                transformative moment, then reflect on how the mentoring shaped you
-                across the four BYU Aims &mdash; spiritually, intellectually,
-                in character, and in your sense of lifelong service.
-              </div>
-              <span class="card-cta">
-                Go to entry form
-                <span class="card-arrow">→</span>
-              </span>
-            </div>
-          </a>
-
-          <!-- VIEW -->
-          <a href="MentoredStudent/student-view.html" class="portal-card student-view">
-            <span class="card-glyph">ŋ</span>
-            <div class="card-inner">
-              <div class="card-mode browse">
-                <span class="dot"></span>
-                Public archive &mdash; open to all
-              </div>
-              <div class="card-title">Browse student mentoring experiences</div>
-              <div class="card-desc">
-                Read what students across the department have shared &mdash; their
-                transformative moments, BYU Aims reflections, and the specific
-                conversations and experiences that shaped who they are becoming.
-              </div>
-              <span class="card-cta">
-                View the archive
-                <span class="card-arrow">→</span>
-              </span>
-            </div>
-          </a>
-        </div>
-
-      </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="FacultyMentoring/view.html">Faculty Mentoring</a></li>
+        <li><a href="MentoredStudent/student-view.html">Student Experiences</a></li>
+        <li><a href="FacultyMentoring/entry.html">Submit Faculty Entry</a></li>
+        <li><a href="MentoredStudent/student-entry.html">Submit Student Entry</a></li>
+      </ul>
     </div>
-  </section>
+  </div>
+</footer>
 
-  <!-- ABOUT THE PROGRAM -->
-  <section class="about-strip">
-    <span class="about-strip-glyph" style="font-size:280px;top:-60px;right:-20px;transform:rotate(8deg)">"</span>
-    <div class="about-inner">
-      <div>
-        <div class="about-label">About this archive</div>
-        <div class="about-heading">
-          Mentoring as <em>stewardship.</em>
-        </div>
-      </div>
-      <div class="about-body">
-        <p>Mentoring at BYU is a partnership focused on your development as a whole person.
-        Faculty act as stewards of your success &mdash; treating you as a junior colleague,
-        working side-by-side on projects that solve real-world problems, and caring as much
-        about your well-being and purpose as they do about your scholarship.</p>
-        <p>In practice, your mentor helps you navigate the unwritten rules of your future career
-        while modeling how to balance professional excellence with deep personal faith.
-        They provide wise feedback &mdash; combining high expectations with the personal support
-        you need to meet them &mdash; and help you discover what you are capable of through
-        hands-on experience. This archive is where that work gets remembered.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-quote">
-          &ldquo;Using language is indeed miraculous. If language did not exist and someone
-          proposed it, it would be dismissed as an impossibility.&rdquo;
-          <span class="who">Randall L. Jones</span>
-        </div>
-        <div class="footer-contact">
-          4064 JFSB &middot; Brigham Young University<br>
-          Provo, UT 84602<br>
-          <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a> &middot; 801-422-2937<br>
-          <a href="https://ling.byu.edu/">ling.byu.edu</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>&copy; 2026 Brigham Young University Department of Linguistics</span>
-        <span>Linguistics &middot; TESOL &middot; Editing &amp; Publishing</span>
-      </div>
-    </div>
-  </footer>
+<!-- University footer -->
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA · 801-422-4636</span>
+    <span>© 2026 Brigham Young University</span>
+  </div>
+</div>
 
 </body>
 </html>

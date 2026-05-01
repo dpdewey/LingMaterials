@@ -1,198 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Mentoring Archive — BYU Department of Linguistics</title>
-  <meta name="description" content="A public archive of student mentoring across the BYU Department of Linguistics — projects, courses, study abroad, and more.">
-
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Mentoring Archive | BYU Linguistics</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- EDITORIAL MASTHEAD -->
-  <header class="masthead">
-    <div class="masthead-bar">
-      <div class="masthead-bar-inner">
-        <span>Volume I &middot; Established 2026</span>
-        <span><a href="https://ling.byu.edu/">ling.byu.edu</a> &nbsp;·&nbsp; <a href="https://hum.byu.edu/">College of Humanities</a></span>
-      </div>
+<div class="byu-topbar">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
+
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Mentoring Archive</small>
+      Faculty Mentoring
+    </h1>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="view.html" class="active">Faculty Mentoring</a>
+      <a href="../MentoredStudent/student-view.html">Student Experiences</a>
+      <a href="entry.html">Submit Entry</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Department of Linguistics</div>
+    <h1>Faculty Mentoring Archive</h1>
+    <p class="hero-statement">
+      A collection of faculty-mentored research, presentations, and
+      student-development outcomes from the BYU Department of Linguistics.
+    </p>
+    <p class="hero-meta">Last updated <span id="hero-updated">—</span></p>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- Stats strip -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-projects">—</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num" id="stat-mentors">—</div><div class="stat-label">Mentors</div></div>
+    <div class="stat"><div class="stat-num" id="stat-students">—</div><div class="stat-label">Students</div></div>
+    <div class="stat"><div class="stat-num" id="stat-disciplines">—</div><div class="stat-label">Disciplines</div></div>
+  </div>
+
+  <!-- AI summary block -->
+  <section class="section">
+    <div class="summary-block">
+      <h3>Summary</h3>
+      <div class="summary-text" id="summary-text">Generating summary…</div>
+      <div class="summary-meta" id="summary-meta"></div>
     </div>
-    <div class="masthead-main">
-      <div class="masthead-flank">
-        <span class="latin">Provo · Utah</span>
-        Brigham Young<br>University
-      </div>
-      <div class="masthead-title-block">
-        <div class="school">College of Humanities</div>
-        <div class="dept">Department of Linguistics</div>
-        <div class="latin-tag">Mentoring Archive &mdash; Public Edition</div>
-      </div>
-      <div class="masthead-flank right">
-        <span class="latin">JFSB · 4064</span>
-        Linguistics, TESOL,<br>Editing &amp; Publishing
-      </div>
+  </section>
+
+  <!-- Pull quote (hidden until populated) -->
+  <section class="section hidden" id="pull-quote">
+    <div class="pull-quote">
+      <p class="pull-quote-text" id="pull-quote-text"></p>
+      <div class="pull-quote-attr" id="pull-quote-attr"></div>
     </div>
-  </header>
+  </section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-texture"></div>
-    <div class="hero-grain"></div>
-    <div class="hero-grain"></div>
-    <span class="hero-glyph g1">ʃ</span>
-    <span class="hero-glyph g2">ə</span>
-    <span class="hero-glyph g3">¶</span>
-
-    <div class="hero-inner">
-      <div class="hero-eyebrow">A Living Archive</div>
-      <h1 class="hero-title">
-        On <em>language</em>, <em>teaching</em>, <span class="amp">&amp;</span> the <em>students</em>
-        we get to know.
-      </h1>
-      <p class="hero-lede">
-        From corpus labs and editing practica to study-abroad classrooms in Mexico, London, and Salzburg,
-        our faculty mentor students through the work of language. This archive collects what they have done
-        together &mdash; the projects, the breakthroughs, and the moments worth remembering.
-      </p>
-
-      <div class="hero-rule"></div>
-      <div class="hero-meta-row">
-        <div class="item">
-          <span class="label">Disciplines</span>
-          <span class="value italic">Linguistics &middot; TESOL &middot; Editing</span>
-        </div>
-        <div class="item">
-          <span class="label">Updated</span>
-          <span class="value italic" id="hero-updated">—</span>
-        </div>
-        <div class="item">
-          <span class="label">Edition</span>
-          <span class="value italic">Volume I, 2026</span>
-        </div>
+  <!-- Two-panel: word cloud + disciplines -->
+  <section class="section">
+    <h2>At a Glance</h2>
+    <div class="panels">
+      <div class="panel">
+        <h3>Themes &amp; Keywords</h3>
+        <div class="word-cloud" id="word-cloud"></div>
+      </div>
+      <div class="panel">
+        <h3>Activity by Discipline</h3>
+        <svg id="discipline-svg" viewBox="0 0 240 240" style="display:block; margin: 0 auto; max-width: 240px;"></svg>
+        <div id="discipline-legend" style="font-size: 0.8125rem; color: var(--text-medium); margin-top: 0.75rem;"></div>
       </div>
     </div>
   </section>
 
-  <!-- NAVY BAND: AI Summary + Stats -->
-  <div class="navy-band">
-    <span class="navy-band-glyph" style="font-size:320px;top:-80px;right:-30px;transform:rotate(8deg)">"</span>
-    <div class="navy-band-inner">
-      <section aria-labelledby="summary-heading">
-        <div class="summary-wrap">
-          <div class="summary-eyebrow" id="summary-heading">Editor&rsquo;s Synthesis &middot; Generated from current entries</div>
-          <div class="summary-text" id="summary-text"><span class="summary-loading">Reading the archive</span></div>
-          <div class="summary-meta" id="summary-meta"></div>
-        </div>
-      </section>
-      <section class="stats-strip" id="stats-strip">
-        <div class="stat"><div class="stat-number" id="stat-mentors">—</div><div class="stat-label">Mentors</div></div>
-        <div class="stat"><div class="stat-number" id="stat-students">—</div><div class="stat-label">Students Mentored</div></div>
-        <div class="stat"><div class="stat-number" id="stat-projects">—</div><div class="stat-label">Projects &amp; Venues</div></div>
-        <div class="stat"><div class="stat-number" id="stat-disciplines">—</div><div class="stat-label">Discipline Areas</div></div>
-      </section>
+  <!-- Gallery -->
+  <section class="section">
+    <h2>Gallery</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- Entries -->
+  <section class="section">
+    <h2>Entries</h2>
+
+    <div class="entries-controls">
+      <input type="search" id="search" placeholder="Search entries…" aria-label="Search entries">
+      <select id="filter-discipline" aria-label="Filter by discipline">
+        <option value="">All disciplines</option>
+      </select>
+      <select id="filter-type" aria-label="Filter by type">
+        <option value="">All types</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="mentor">By mentor</option>
+        <option value="title">By title</option>
+      </select>
+    </div>
+
+    <div class="entries-count" id="entries-count">—</div>
+    <div class="entries-list" id="entries-list"></div>
+  </section>
+
+</main>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo"><img src="../assets/logos/ling_horiz_white.png" alt="BYU Linguistics"></div>
+      <p>4064 JFSB<br>Brigham Young University<br>Provo, UT 84602</p>
+      <p>Office: 801-422-2937<br>Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a></p>
+    </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/faculty-staff-directory">Faculty &amp; Staff</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="entry.html">Submit Faculty Entry</a></li>
+        <li><a href="../MentoredStudent/student-view.html">Student Experiences</a></li>
+      </ul>
     </div>
   </div>
+</footer>
 
-  <!-- PAPER SECTION: pull quote, visuals, entries -->
-  <div class="paper-section">
-    <div class="paper-section-inner">
-
-      <section class="pull-quote" id="pull-quote" style="display:none;">
-        <div class="text" id="pull-quote-text"></div>
-        <div class="attribution" id="pull-quote-attr"></div>
-      </section>
-
-      <section class="cloud-gallery-row">
-        <div class="section-block">
-          <div class="block-header">
-            <div class="block-title"><span class="num">i.</span>Recurring themes</div>
-            <div class="block-sub">word cloud</div>
-          </div>
-          <div class="word-cloud" id="word-cloud"><span class="empty">Themes will appear as entries are added.</span></div>
-          <div class="block-header" style="margin-top: 36px;">
-            <div class="block-title"><span class="num">ii.</span>By discipline</div>
-            <div class="block-sub">entries per area</div>
-          </div>
-          <div class="discipline-viz">
-            <svg class="discipline-svg" id="discipline-svg" viewBox="0 0 200 200">
-              <text x="100" y="105" text-anchor="middle" font-family="Crimson Pro, serif" font-style="italic" fill="#6B7385" font-size="13">no data yet</text>
-            </svg>
-            <div class="discipline-legend" id="discipline-legend"></div>
-          </div>
-        </div>
-        <div class="section-block">
-          <div class="block-header">
-            <div class="block-title"><span class="num">iii.</span>From the field</div>
-            <div class="block-sub">images shared by mentors</div>
-          </div>
-          <div class="gallery" id="gallery"></div>
-        </div>
-      </section>
-
-      <div class="ornament-divider"><span>❧ · ❧</span></div>
-
-      <section class="entries-section">
-        <div class="section-divider">
-          <div class="title"><span class="num">iv.</span>The entries</div>
-          <div class="meta" id="entries-count"></div>
-        </div>
-        <div class="entries-controls">
-          <div><label for="search">Search</label><input type="text" id="search" placeholder="Mentor, project, student, anything…"></div>
-          <div><label for="filter-discipline">Discipline</label><select id="filter-discipline"><option value="">All disciplines</option></select></div>
-          <div><label for="filter-type">Venue type</label><select id="filter-type"><option value="">All types</option></select></div>
-          <div><label for="sort">Sort by</label>
-            <select id="sort">
-              <option value="date-desc">Newest first</option>
-              <option value="date-asc">Oldest first</option>
-              <option value="mentor-asc">Mentor (A–Z)</option>
-              <option value="mentor-desc">Mentor (Z–A)</option>
-              <option value="venue-asc">Project (A–Z)</option>
-              <option value="students-desc">Most students</option>
-              <option value="discipline-asc">Discipline</option>
-            </select>
-          </div>
-        </div>
-        <div class="entries-list" id="entries-list"><div class="entry-empty">Loading entries…</div></div>
-      </section>
-
-    </div>
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA · 801-422-4636</span>
+    <span>© 2026 Brigham Young University</span>
   </div>
-  <main style="display:none"></main>
+</div>
 
-  <!-- DETAIL MODAL -->
-  <div class="modal-backdrop" id="modal-backdrop">
-    <div class="modal" role="dialog" aria-modal="true">
-      <button class="modal-close" id="modal-close" aria-label="Close">×</button>
-      <div class="modal-inner" id="modal-inner"></div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-quote">
-          &ldquo;Using language is indeed miraculous. If language did not exist and someone proposed it, it would be dismissed as an impossibility.&rdquo;
-          <span class="who">Randall L. Jones</span>
-        </div>
-        <div class="footer-contact">
-          4064 JFSB &middot; Brigham Young University<br>
-          Provo, UT 84602<br>
-          <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a> &middot; 801-422-2937
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div>&copy; 2026 Brigham Young University Department of Linguistics</div>
-        <div><a href="https://ling.byu.edu/" style="color: var(--byu-tan-soft); text-decoration: none;">ling.byu.edu</a></div>
-      </div>
-    </div>
-  </footer>
-
-  <script src="storage.js"></script>
-  <script src="seed-data.js"></script>
-  <script src="view.js"></script>
+<script src="storage.js"></script>
+<script src="seed-data.js"></script>
+<script src="view.js"></script>
 </body>
 </html>

@@ -63,7 +63,7 @@
   async function showReport() {
     gate.style.display    = 'none';
     report.style.display  = 'block';
-    document.body.style.background = 'var(--paper)';
+    document.body.style.background = 'var(--bg-soft)';
     await loadAndRender();
   }
 
@@ -121,7 +121,7 @@
     if (!entries.length) {
       container.innerHTML =
         '<div style="text-align:center;padding:60px 20px;' +
-        'font-family:var(--font-display);font-style:italic;color:var(--ink-mute);">' +
+        'font-family:var(--font-sans);font-style:italic;color:var(--text-medium);">' +
         'No entries yet.</div>';
       return;
     }
@@ -174,7 +174,7 @@
         fields.push(
           '<div class="admin-field">' +
           '<div class="admin-field-label">Image attached</div>' +
-          '<img src="' + e.image + '" alt="" style="max-width:240px;border-radius:3px;border:1px solid var(--rule-soft);" onerror="this.style.display=\'none\'">' +
+          '<img src="' + e.image + '" alt="" style="max-width:240px;border-radius:3px;border:1px solid var(--border);" onerror="this.style.display=\'none\'">' +
           '</div>'
         );
       }
@@ -183,7 +183,7 @@
         '<div class="admin-entry-header">' +
         '<div>' +
           '<div class="admin-entry-name">' + esc(e.mentor || '—') + '</div>' +
-          '<div style="margin-top:4px;font-size:14px;color:var(--ink-soft);font-family:var(--font-display);">' +
+          '<div style="margin-top:4px;font-size:14px;color:var(--text-medium);font-family:var(--font-sans);">' +
             esc(e.venueType || '') +
             (e.venue ? ' · ' + esc(e.venue) : '') +
             (e.discipline ? ' · ' + esc(e.discipline) : '') +

@@ -70,7 +70,7 @@
   async function showReport() {
     gate.style.display    = 'none';
     report.style.display  = 'block';
-    document.body.style.background = 'var(--paper)';
+    document.body.style.background = 'var(--bg-soft)';
     await loadAndRender();
   }
 
@@ -133,7 +133,7 @@
     if (!entries.length) {
       container.innerHTML =
         '<div style="text-align:center;padding:60px 20px;' +
-        'font-family:var(--font-display);font-style:italic;color:var(--ink-mute);">' +
+        'font-family:var(--font-sans);font-style:italic;color:var(--text-medium);">' +
         'No entries yet.</div>';
       return;
     }
@@ -171,19 +171,19 @@
         fields.push(
           '<div class="admin-field">' +
           '<div class="admin-field-label">Image attached</div>' +
-          '<img src="' + e.image + '" alt="" style="max-width:240px;border-radius:3px;border:1px solid var(--rule-soft);" onerror="this.style.display=\'none\'">' +
+          '<img src="' + e.image + '" alt="" style="max-width:240px;border-radius:3px;border:1px solid var(--border);" onerror="this.style.display=\'none\'">' +
           '</div>'
         );
       }
       if (!fields.length) {
-        fields.push('<div style="font-style:italic;color:var(--ink-mute);">No reflections recorded.</div>');
+        fields.push('<div style="font-style:italic;color:var(--text-medium);">No reflections recorded.</div>');
       }
 
       return '<div class="admin-entry">' +
         '<div class="admin-entry-header">' +
         '<div>' +
           '<div class="admin-entry-name">' + esc(e.studentName || '—') + '</div>' +
-          '<div style="margin-top:4px;font-size:14px;color:var(--ink-soft);font-family:var(--font-display);">' +
+          '<div style="margin-top:4px;font-size:14px;color:var(--text-medium);font-family:var(--font-sans);">' +
             'mentored by ' + esc(e.mentorName || '—') +
             ' · ' + esc(e.program || '') +
             (e.venueType ? ' · ' + esc(e.venueType) : '') +
@@ -221,7 +221,7 @@
       '<div style="margin-bottom:8px;">' +
         '<span class="chip ' + esc(r.aim) + '">' + esc(r.promptLabel || '') + '</span>' +
       '</div>' +
-      '<div style="font-family:var(--font-display);font-style:italic;color:var(--ink-mute);font-size:13px;line-height:1.5;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dotted var(--rule-soft);">' +
+      '<div style="font-family:var(--font-sans);font-style:italic;color:var(--text-medium);font-size:13px;line-height:1.5;margin-bottom:10px;padding-bottom:8px;border-bottom:1px dotted var(--border);">' +
         esc(r.promptFull || '') +
       '</div>' +
       '<div class="admin-field-content serif-em">' +
