@@ -1,0 +1,77 @@
+============================================================
+  LING MATERIALS — DEPLOYMENT GUIDE
+============================================================
+
+This update keeps the same folder structure you already have on
+GitHub. Just replace the existing files with these. Below is exactly
+what to put where.
+
+============================================================
+  WHAT TO UPLOAD
+============================================================
+
+ROOT OF YOUR REPOSITORY (LingMaterials/)
+---------------------------------------
+  index.html           ← landing page
+  netlify.toml         ← serverless config (only needed for Netlify)
+  README.md            ← project notes
+  CHANGES.md           ← what changed in this update
+  api/summary.js       ← serverless AI summary (Vercel format)
+  netlify/functions/summary.js  ← serverless AI summary (Netlify)
+
+INSIDE FacultyMentoring/  (REPLACE the whole folder)
+----------------------------------------------------
+  entry.html           ← faculty submission form
+  entry.js
+  view.html            ← public faculty archive
+  view.js
+  admin.html           ← PASSWORD-GATED admin page (NEW)
+  admin.js             ← admin logic + CSV export (NEW)
+  styles.css           ← shared design system (copied here)
+  storage.js           ← shared storage shim (copied here)
+  seed-data.js         ← faculty sample data (copied here)
+
+INSIDE MentoredStudent/  (REPLACE the whole folder)
+---------------------------------------------------
+  student-entry.html   ← student submission form
+  student-entry.js
+  student-view.html    ← public student archive
+  student-view.js
+  admin.html           ← PASSWORD-GATED admin page (NEW)
+  admin.js             ← admin logic + CSV export (NEW)
+  styles.css           ← shared design system (copied here)
+  student-styles.css   ← student-specific styles
+  storage.js           ← shared storage shim (copied here)
+  student-seed.js      ← student sample data (copied here)
+
+============================================================
+  ADMIN ACCESS
+============================================================
+
+Faculty admin URL:
+  https://dpdewey.github.io/LingMaterials/FacultyMentoring/admin.html
+
+Student admin URL:
+  https://dpdewey.github.io/LingMaterials/MentoredStudent/admin.html
+
+Password (for both):  ShaneReeseMentors
+
+These pages:
+  - Are tagged noindex/nofollow (search engines skip them)
+  - Are NOT linked from any public page (only accessible by typing URL)
+  - Show ALL data including private fields and real names
+  - Have a "Download CSV" button for full data export
+
+The password is client-side only — fine for keeping casual visitors
+out, NOT real security. For sensitive data you'd want NetID/SSO.
+
+============================================================
+  WHY EACH FOLDER HAS ITS OWN COPY OF styles.css, storage.js, etc.
+============================================================
+
+Each folder is intentionally self-contained. This means:
+  - You can open any URL directly without depending on root files
+  - GitHub Pages serves each page correctly with no path issues
+  - The design system files are duplicated but that's a tiny cost
+
+Don't be alarmed by the duplicates. They are intentional.
