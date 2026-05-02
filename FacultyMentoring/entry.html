@@ -40,7 +40,7 @@
     <h1>Submit a Mentoring Entry</h1>
     <p class="hero-statement">
       Document a mentoring activity, project, or outcome.
-      Use the toggle on any field to keep specific information
+      Use the toggle on the form or any field to keep specific information
       private (visible only in the admin view).
     </p>
   </div>
@@ -56,7 +56,7 @@
         Mark entire entry as private (admin-only)
       </label>
       <div class="help">
-        Use this if everything in this entry should remain confidential.
+        Use this if everything in this entry should remain private.
         Private entries don't appear in the public archive.
       </div>
     </div>
@@ -64,7 +64,7 @@
     <!-- 1. Mentor -->
     <div class="form-card">
       <h2>1. Mentor Information</h2>
-      <p class="form-help">Who is this mentoring activity led by?</p>
+      <p class="form-help">Who was this mentoring activity led by?</p>
 
       <div class="form-grid">
         <div class="form-row">
@@ -86,17 +86,10 @@
       <div class="form-row">
         <label>Disciplines / focus areas</label>
         <div class="form-checkbox-list">
-          <label><input type="checkbox" name="discipline" value="Phonetics"> Phonetics</label>
-          <label><input type="checkbox" name="discipline" value="Phonology"> Phonology</label>
-          <label><input type="checkbox" name="discipline" value="Syntax"> Syntax</label>
-          <label><input type="checkbox" name="discipline" value="Semantics"> Semantics</label>
-          <label><input type="checkbox" name="discipline" value="Sociolinguistics"> Sociolinguistics</label>
           <label><input type="checkbox" name="discipline" value="TESOL"> TESOL</label>
-          <label><input type="checkbox" name="discipline" value="Applied Linguistics"> Applied Linguistics</label>
+          <label><input type="checkbox" name="discipline" value="English Applied Linguistics"> English Applied Linguistics</label>
           <label><input type="checkbox" name="discipline" value="Editing & Publishing"> Editing &amp; Publishing</label>
           <label><input type="checkbox" name="discipline" value="Linguistic Computing / Computational Linguistics"> Linguistic Computing / Computational Linguistics</label>
-          <label><input type="checkbox" name="discipline" value="Language Acquisition"> Language Acquisition</label>
-          <label><input type="checkbox" name="discipline" value="Corpus Linguistics"> Corpus Linguistics</label>
           <label><input type="checkbox" name="discipline" value="Other"> Other</label>
         </div>
       </div>
@@ -121,10 +114,12 @@
             <option>Independent research project</option>
             <option>Senior thesis / capstone</option>
             <option>Course-based research</option>
-            <option>Lab assistantship</option>
+            <option>Research/Lab assistantship</option>
             <option>Internship supervision</option>
             <option>Study abroad / field work</option>
-            <option>Curriculum development</option>
+            <option>Teaching assistantship</option>
+            <option>MA thesis work</option>
+            <option>Office hour interaction</option>
             <option>Other</option>
           </select>
         </div>
@@ -180,10 +175,10 @@
       </div>
     </div>
 
-    <!-- 4. Accomplishments -->
+    <!-- 4. Experpience Description -->
     <div class="form-card">
-      <h2>4. Accomplishments &amp; Outcomes</h2>
-      <p class="form-help">What was produced or achieved through this mentoring?</p>
+      <h2>4. Experience Description</h2>
+      <p class="form-help">Describe the experience. Tell what was produced or achieved through this mentoring?</p>
 
       <div class="form-row">
         <label for="accomplishments">
@@ -194,38 +189,48 @@
       </div>
     </div>
 
-    <!-- 5. Notes -->
+    <!-- 5. ExperienceNotes -->
     <div class="form-card">
-      <h2>5. Mentor Notes</h2>
-      <p class="form-help">Internal notes, context, or details for departmental reference.</p>
+      <h2>5. Mentor Formal Notes</h2>
+      <p class="form-help">Provide any notes or details for departmental reference (e.g., sources of funding, co-contributor roles, area of stewardship--teaching, scholarship, citizenship).</p>
 
       <div class="form-row">
         <label for="notes">
           Notes
           <label class="privacy-toggle"><input type="checkbox" data-private="notes"> private</label>
         </label>
-        <textarea id="notes"></textarea>
+        <textarea id="notes" placeholder="e.g., Sources of funding: Humanities Mentoring Grant. Co-contributor roles: Jane Smith contributed to data collection; Carlos Reyes contributed to analysis. Area of stewardship: Mentored scholarship."></textarea>
       </div>
     </div>
 
     <!-- 6. Impact -->
-    <div class="form-card">
-      <h2>6. Impact Statement</h2>
-      <p class="form-help">In your own words: how did this mentoring affect the student(s) involved?</p>
+<div class="form-card">
+  <h2>6. Impact Statement: Faculty and Student</h2>
+  
+  <div class="form-row">
+    <label for="impact-faculty">
+      Faculty Impact
+      <label class="privacy-toggle"><input type="checkbox" data-private="impact-faculty"> private</label>
+    </label>
+    <p class="form-help">How did this mentoring affect you—your motivation, research trajectory, teaching methods, or future approach to mentoring?</p>
+    <textarea id="impact-faculty" placeholder="e.g., This collaboration allowed me to pilot a new data collection method that I will now integrate into my Ling 301 course."></textarea>
+  </div>
 
-      <div class="form-row">
-        <label for="impact">
-          Impact
-          <label class="privacy-toggle"><input type="checkbox" data-private="impact"> private</label>
-        </label>
-        <textarea id="impact" placeholder="e.g., This project gave Maria her first taste of corpus methods, which directly led to her decision to pursue a PhD in computational linguistics."></textarea>
-      </div>
-    </div>
+  <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
 
+  <div class="form-row">
+    <label for="impact-student">
+      Student Impact
+      <label class="privacy-toggle"><input type="checkbox" data-private="impact-student"> private</label>
+    </label>
+    <p class="form-help">How did this experience influence the student’s professional development, analytical skills, career trajectory, or personal growth.</p>
+    <textarea id="impact-student" placeholder="e.g., Mastering these documentation techniques gave the student the technical confidence to apply for a competitive internship in the field."></textarea>
+  </div>
+</div>
     <!-- 7. Image -->
     <div class="form-card">
       <h2>7. Image (optional)</h2>
-      <p class="form-help">An optional image — a research poster, conference photo, or workspace shot. Stored locally in your browser.</p>
+      <p class="form-help">You may upload an optional image — a research poster, conference photo, or workspace shot.</p>
       <div class="form-row">
         <label for="image">Upload image</label>
         <input type="file" id="image" accept="image/*">

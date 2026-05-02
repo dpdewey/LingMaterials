@@ -6,8 +6,167 @@
   'use strict';
 
   /* -------- Stopwords -------- */
+  // Comprehensive stopword list — covers articles, pronouns, modals,
+  // common verbs (all tenses & forms), contractions, vague nouns,
+  // and high-frequency words that don't carry topical meaning in
+  // narrative/reflective writing about mentoring.
   const STOPWORDS = new Set((
-    'a about above after again against all am an and any are aren as at be because been before being below between both but by could did do does doing down during each few for for from further had has have having he her here hers herself him himself his how into is it its itself just let me more most my myself nor not now of off on once only or other our ours ourselves out over own same she should so some such than that the their theirs them themselves then there these they this those through too under until up very was we were what when where which while who whom why will with would you your yours yourself yourselves get got really very also one two three four five six seven eight nine ten thing things made make makes making went going go come came really lot lots like just much many some any every all year years time times day days will would have has had been being what when where while who which that this these those them him her us our their first second third like also kind sort way ways even still much many more most '
+    // Articles, conjunctions, prepositions
+    'a an the and but or nor so yet for of in on at by to from with into onto upon ' +
+    'about above across after against along among around before behind below beneath ' +
+    'beside between beyond despite during except inside outside over through throughout ' +
+    'under underneath until via within without near off down up out ' +
+    // Pronouns & possessives (all forms)
+    'i me my mine myself we us our ours ourselves you your yours yourself yourselves ' +
+    'he him his himself she her hers herself it its itself they them their theirs themselves ' +
+    'who whom whose which what whatever whoever whomever ' +
+    // Demonstratives & determiners
+    'this that these those some any all both each every either neither none many much ' +
+    'few several other another such same different various certain own ' +
+    // Be / have / do verbs (all tenses & forms)
+    'is am are was were be been being isn aren wasn weren ' +
+    'has have had having hasn haven hadn ' +
+    'do does did doing done don doesn didn ' +
+    // Modal verbs & contractions
+    'will would shall should can could may might must ought ' +
+    'won wouldn shan shouldn cannot couldn mustn mightn ' +
+    // Common contractions (with apostrophes stripped by the regex)
+    'im youre hes shes its were theyre ive youve weve theyve ill youll hell shell theyll ' +
+    'id youd hed shed wed theyd wont didnt doesnt dont isnt arent wasnt werent ' +
+    'hasnt havent hadnt cant couldnt wouldnt shouldnt mustnt mightnt shant ' +
+    'thats whats whos heres theres lets ' +
+    // High-frequency narrative verbs (all common forms)
+    'go goes going gone went ' +
+    'come comes coming came ' +
+    'get gets getting got gotten ' +
+    'give gives giving gave given ' +
+    'take takes taking took taken ' +
+    'make makes making made ' +
+    'put puts putting ' +
+    'see sees seeing saw seen ' +
+    'know knows knowing knew known ' +
+    'think thinks thinking thought ' +
+    'say says saying said ' +
+    'tell tells telling told ' +
+    'ask asks asking asked ' +
+    'find finds finding found ' +
+    'feel feels feeling felt ' +
+    'want wants wanting wanted ' +
+    'need needs needing needed ' +
+    'try tries trying tried ' +
+    'use uses using used ' +
+    'work works working worked ' +
+    'help helps helping helped ' +
+    'keep keeps keeping kept ' +
+    'let lets letting ' +
+    'start starts starting started ' +
+    'turn turns turning turned ' +
+    'leave leaves leaving left ' +
+    'mean means meaning meant ' +
+    'show shows showing showed shown ' +
+    'hear hears hearing heard ' +
+    'play plays playing played ' +
+    'run runs running ran ' +
+    'move moves moving moved ' +
+    'live lives living lived ' +
+    'believe believes believing believed ' +
+    'hold holds holding held ' +
+    'bring brings bringing brought ' +
+    'happen happens happening happened ' +
+    'write writes writing wrote written ' +
+    'sit sits sitting sat ' +
+    'stand stands standing stood ' +
+    'lose loses losing lost ' +
+    'pay pays paying paid ' +
+    'meet meets meeting met ' +
+    'set sets setting ' +
+    'send sends sending sent ' +
+    'expect expects expecting expected ' +
+    'remember remembers remembering remembered ' +
+    'consider considers considering considered ' +
+    'become becomes becoming became ' +
+    'seem seems seeming seemed ' +
+    'look looks looking looked ' +
+    'call calls calling called ' +
+    'follow follows following followed ' +
+    // Vague nouns
+    'thing things something anything nothing everything someone anyone everyone noone ' +
+    'somewhere anywhere everywhere nowhere ' +
+    'way ways stuff bit lot lots part parts side sides kind kinds sort sorts type types ' +
+    'point points piece pieces issue issues matter matters case cases reason reasons ' +
+    // Time & quantity
+    'time times year years month months week weeks day days hour hours minute minutes ' +
+    'today tomorrow yesterday morning afternoon evening night midnight noon ' +
+    'often sometimes always never usually frequently rarely occasionally already ' +
+    'now then later soon early late ' +
+    'ago since while during ' +
+    'one two three four five six seven eight nine ten eleven twelve ' +
+    'first second third fourth fifth sixth seventh ' +
+    'once twice ' +
+    // Quantifiers & intensifiers
+    'very really quite rather pretty fairly somewhat extremely incredibly absolutely ' +
+    'only just even still also too more most less least much many enough ' +
+    'almost nearly approximately roughly exactly precisely ' +
+    'big small large little tiny huge enormous massive ' +
+    'good bad better worse best worst nice fine okay ' +
+    'old new young high low long short wide narrow deep shallow ' +
+    'great greater greatest ' +
+    'whole entire complete full empty ' +
+    // Conjunctions & discourse markers
+    'because although though however therefore thus hence moreover furthermore nevertheless ' +
+    'whereas whether unless until than as if when where why how ' +
+    'yet still even though although while whereas given since because ' +
+    'also additionally further additionally besides ' +
+    'actually basically essentially generally normally typically usually ' +
+    'maybe perhaps possibly probably likely surely certainly definitely obviously ' +
+    'indeed truly really actually literally ' +
+    // Common adverbs
+    'here there everywhere anywhere somewhere ' +
+    'forward backward upward downward inward outward ' +
+    'together alone apart aside away back ' +
+    'well however away around inside outside ' +
+    // Additional narrative verbs (final pass)
+    'spend spends spending spent ' +
+    'read reads reading ' +
+    'eat eats eating ate eaten ' +
+    'watch watches watching watched ' +
+    'add adds adding added ' +
+    'change changes changing changed ' +
+    'open opens opening opened ' +
+    'close closes closing closed ' +
+    'wait waits waiting waited ' +
+    'walk walks walking walked ' +
+    'talk talks talking talked ' +
+    'speak speaks speaking spoke spoken ' +
+    'answer answers answering answered ' +
+    'wonder wonders wondering wondered ' +
+    'realize realizes realizing realized ' +
+    'understand understands understanding understood ' +
+    'continue continues continuing continued ' +
+    'happen happens happening happened ' +
+    'allow allows allowing allowed ' +
+    'agree agrees agreeing agreed ' +
+    'decide decides deciding decided ' +
+    'hope hopes hoping hoped ' +
+    'love loves loving loved ' +
+    'like likes liking liked ' +
+    'mention mentions mentioning mentioned ' +
+    'notice notices noticing noticed ' +
+    'happen happens happened ' +
+    // More quantifiers / vague descriptors
+    'next previous current former latter prior recent subsequent ' +
+    'else such above below behind ahead ' +
+    'ever never always forever often often ' +
+    'wise foolish smart stupid clever simple complex easy hard difficult ' +
+    'true false correct wrong right wrong real fake ' +
+    // Filler/transition that often shows up in narratives
+    'instance example case scenario situation context circumstance ' +
+    'particularly especially specifically generally usually probably likely ' +
+    'literally truly genuinely honestly frankly basically simply easily ' +
+    'mostly partly fully entirely completely totally absolutely ' +
+    'either neither both together apart alone single double ' +
+    // Polite/conversational filler
+    'please thanks thank okay ok yes yeah yep nope alright '
   ).split(/\s+/).filter(Boolean));
 
   /* -------- DOM -------- */
@@ -223,7 +382,9 @@
         .split(/\s+/);
       words.forEach(function (w) {
         if (!w) return;
-        w = w.replace(/^['\-]+|['\-]+$/g, '');
+        // Strip ALL apostrophes (so didn't → didnt, students' → students)
+        // and trim leading/trailing hyphens
+        w = w.replace(/'/g, '').replace(/^-+|-+$/g, '');
         if (w.length < 4) return;
         if (STOPWORDS.has(w)) return;
         if (/\d/.test(w)) return;
@@ -536,11 +697,11 @@
       );
     }
     modalInner.innerHTML = fields.join('');
-    modalBackdrop.classList.add('show');
+    modalBackdrop.classList.add('active');
   }
 
   function closeModal() {
-    modalBackdrop.classList.remove('show');
+    modalBackdrop.classList.remove('active');
   }
   modalClose.addEventListener('click', closeModal);
   modalBackdrop.addEventListener('click', function (e) {

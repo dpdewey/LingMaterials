@@ -1,70 +1,101 @@
 /* =========================================================
-   Entry page — handles form submission and image preview
+   Faculty entry page — handles form submission for the BYU
+   brand-compliant form layout. Reads inputs by id (since
+   the form fields use id rather than name), handles privacy
+   toggles via data-private attributes, and writes a
+   backward-compatible entry shape so view.js and the seed
+   data both keep working.
    ========================================================= */
 
 (function () {
   'use strict';
 
-  const form          = document.getElementById('mentoring-form');
-  const dropzone      = document.getElementById('dropzone');
-  const fileInput     = document.getElementById('image');
-  const previewWrap   = document.getElementById('preview-wrap');
-  const previewImg    = document.getElementById('preview-img');
-  const previewName   = document.getElementById('preview-name');
-  const previewSize   = document.getElementById('preview-size');
-  const removeImgBtn  = document.getElementById('remove-img');
-  const submitBtn     = document.getElementById('submit-btn');
-  const toast         = document.getElementById('toast');
+  const form = document.getElementById('mentoring-form');
+  if (!form) return;
 
-  const MAX_BYTES   = 4 * 1024 * 1024;        // 4MB raw
-  const MAX_DIMENSION = 1200;                  // resize to this max side after compression
-  const COMPRESS_QUALITY = 0.78;
+  const fileInput = document.getElementById('image');
 
-  let imageDataUrl = null;
-  let imageFileName = '';
+  const $ = function (id) { return document.getElementById(id); };
+  const val = function (id) {
+    const el = $(id);
+    return el ? (el.value || '').trim() : '';
+  };
 
-  /* -------- Toast -------- */
-  function showToast(msg, kind) {
-    toast.textContent = msg;
-    toast.className = 'toast show' + (kind ? ' ' + kind : '');
-    clearTimeout(showToast._t);
-    showToast._t = setTimeout(function () { toast.className = 'toast'; }, 3500);
+  function generateId() {
+    return 'entry_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
   }
 
-  /* -------- Privacy toggle visual feedback -------- */
-  document.querySelectorAll('.privacy-toggle, .privacy-master').forEach(function (toggle) {
-    const cb = toggle.querySelector('input[type="checkbox"]');
-    if (!cb) return;
-    cb.addEventListener('change', function () {
-      toggle.classList.toggle('checked', cb.checked);
+  // Inline status message (added above the form)
+  function showStatus(msg, kind) {
+    let el = document.getElementById('entry-status');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'entry-status';
+      el.style.cssText =
+        'margin: 1rem 0; padding: 0.875rem 1rem; border-radius: 4px; ' +
+        'font-size: 0.9375rem; font-weight: 500; line-height: 1.4;';
+      form.parentNode.insertBefore(el, form);
+    }
+    if (kind === 'success') {
+      el.style.background = '#E6F4EA';
+      el.style.color = '#006141';
+      el.style.border = '1px solid #B7E1C7';
+    } else if (kind === 'error') {
+      el.style.background = '#FCE8E8';
+      el.style.color = '#A3082A';
+      el.style.border = '1px solid #F4B7B7';
+    } else {
+      el.style.background = '#F0F4FA';
+      el.style.color = '#002E5D';
+      el.style.border = '1px solid #C9D7E8';
+    }
+    el.textContent = msg;
+    try { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+  }
+
+  function getDisciplines() {
+    const out = [];
+    form.querySelectorAll('input[name="discipline"]:checked').forEach(function (cb) {
+      out.push(cb.value);
     });
-  });
-
-  /* -------- File handling -------- */
-  function fmtSize(bytes) {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    return out;
   }
 
+  function getMentees() {
+    const raw = val('mentees');
+    if (!raw) return [];
+    return raw.split(/[,;\n]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+  }
+
+  function getPrivacyFlags() {
+    const masterEl = $('all-private');
+    const isAll = !!(masterEl && masterEl.checked);
+    const flags = {};
+    form.querySelectorAll('input[type="checkbox"][data-private]').forEach(function (cb) {
+      const key = cb.getAttribute('data-private');
+      flags[key] = isAll || cb.checked;
+    });
+    return { allPrivate: isAll, privacyFlags: flags };
+  }
+
+  // Image: resize + compress to JPEG
+  const MAX_DIMENSION = 1200;
+  const COMPRESS_QUALITY = 0.78;
   function compressImage(file) {
     return new Promise(function (resolve, reject) {
       const reader = new FileReader();
       reader.onload = function (e) {
         const img = new Image();
         img.onload = function () {
-          // Resize to fit within MAX_DIMENSION on the longer edge
           let w = img.width, h = img.height;
           if (w > MAX_DIMENSION || h > MAX_DIMENSION) {
             if (w > h) { h = Math.round(h * MAX_DIMENSION / w); w = MAX_DIMENSION; }
-            else      { w = Math.round(w * MAX_DIMENSION / h); h = MAX_DIMENSION; }
+            else       { w = Math.round(w * MAX_DIMENSION / h); h = MAX_DIMENSION; }
           }
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', COMPRESS_QUALITY);
-          resolve(dataUrl);
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', COMPRESS_QUALITY));
         };
         img.onerror = function () { reject(new Error('Could not read image')); };
         img.src = e.target.result;
@@ -74,132 +105,123 @@
     });
   }
 
-  function handleFile(file) {
-    if (!file) return;
-    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) {
-      showToast('Please choose a JPG, PNG, or WEBP image.', 'error');
-      return;
+  form.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Saving…';
     }
-    if (file.size > MAX_BYTES) {
-      showToast('Image is larger than 4 MB. Please choose a smaller file.', 'error');
-      return;
-    }
-    imageFileName = file.name;
-    compressImage(file)
-      .then(function (dataUrl) {
-        imageDataUrl = dataUrl;
-        previewImg.src = dataUrl;
-        previewName.textContent = file.name;
-        // Approximate compressed size from base64 length
-        const approxBytes = Math.round((dataUrl.length - 22) * 3 / 4);
-        previewSize.textContent = fmtSize(file.size) + ' → ' + fmtSize(approxBytes) + ' (compressed)';
-        previewWrap.style.display = 'flex';
-      })
-      .catch(function (err) {
-        showToast('Image processing failed: ' + err.message, 'error');
-      });
-  }
 
-  fileInput.addEventListener('change', function (e) {
-    handleFile(e.target.files[0]);
-  });
-
-  // Drag and drop
-  ['dragenter', 'dragover'].forEach(function (ev) {
-    dropzone.addEventListener(ev, function (e) {
-      e.preventDefault(); e.stopPropagation();
-      dropzone.classList.add('drag');
-    });
-  });
-  ['dragleave', 'drop'].forEach(function (ev) {
-    dropzone.addEventListener(ev, function (e) {
-      e.preventDefault(); e.stopPropagation();
-      dropzone.classList.remove('drag');
-    });
-  });
-  dropzone.addEventListener('drop', function (e) {
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFile(e.dataTransfer.files[0]);
-    }
-  });
-
-  removeImgBtn.addEventListener('click', function () {
-    imageDataUrl = null;
-    imageFileName = '';
-    fileInput.value = '';
-    previewWrap.style.display = 'none';
-  });
-
-  /* -------- ID generation -------- */
-  function generateId() {
-    return 'entry_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
-  }
-
-  /* -------- Submit -------- */
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Submitting…';
-
-    const fd = new FormData(form);
-    // Normalize student list
-    const studentRaw = (fd.get('students') || '').toString().trim();
-    const students = studentRaw
-      .split(/[,;\n]+/)
-      .map(function (s) { return s.trim(); })
-      .filter(Boolean);
-
-    const id = generateId();
-    // Read privacy flags
-    const masterPrivate = document.getElementById('privacy-master');
-    const isAllPrivate = masterPrivate && masterPrivate.checked;
-    const privacyFlags = {
-      accomplishments: isAllPrivate || (form.querySelector('[data-priv="accomplishments"]') || {}).checked || false,
-      notes:           isAllPrivate || (form.querySelector('[data-priv="notes"]') || {}).checked || false,
-      impact:          isAllPrivate || (form.querySelector('[data-priv="impact"]') || {}).checked || false
-    };
-
-    const entry = {
-      id:              id,
-      mentor:          (fd.get('mentor') || '').toString().trim(),
-      venueType:       (fd.get('venueType') || '').toString().trim(),
-      venue:           (fd.get('venue') || '').toString().trim(),
-      discipline:      (fd.get('discipline') || '').toString().trim(),
-      term:            (fd.get('term') || '').toString().trim(),
-      students:        students,
-      accomplishments: (fd.get('accomplishments') || '').toString().trim(),
-      notes:           (fd.get('notes') || '').toString().trim(),
-      impact:          (fd.get('impact') || '').toString().trim(),
-      privacyFlags:    privacyFlags,
-      allPrivate:      isAllPrivate,
-      image:           imageDataUrl,
-      imageName:       imageFileName,
-      createdAt:       new Date().toISOString()
-    };
+    showStatus('Saving entry…', 'info');
 
     try {
-      // Save under shared key so the public view can read it
-      const key = 'mentoring:' + id;
-      const result = await window.storage.set(key, JSON.stringify(entry), true);
-      if (!result) throw new Error('Storage returned no confirmation.');
+      // Optional image
+      let imageDataUrl = null;
+      let imageFileName = '';
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        try {
+          imageDataUrl = await compressImage(fileInput.files[0]);
+          imageFileName = fileInput.files[0].name;
+        } catch (e) {
+          console.warn('Image compression failed — saving without image.', e);
+        }
+      }
 
-      // Invalidate any cached AI summary on the view side
+      const mentor = val('mentor-name');
+      const title  = val('title');
+      if (!mentor) {
+        showStatus('Please enter the mentor name before saving.', 'error');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitBtn.dataset.originalText || 'Save Entry';
+        }
+        return;
+      }
+
+      const disciplines    = getDisciplines();
+      const mentees        = getMentees();
+      const privacy        = getPrivacyFlags();
+      const impactFaculty  = val('impact-faculty');
+      const impactStudent  = val('impact-student');
+
+      // Build a date/term string for back-compat with seed entries that use 'term'
+      const dateStr = val('date');
+      let term = '';
+      if (dateStr) {
+        try {
+          const d = new Date(dateStr);
+          term = d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        } catch (e) { term = dateStr; }
+      }
+
+      // Combined impact for the modal that expects a single field
+      const impactCombined = [
+        impactFaculty ? 'Faculty: ' + impactFaculty : '',
+        impactStudent ? 'Student: ' + impactStudent : ''
+      ].filter(Boolean).join('\n\n');
+
+      const entry = {
+        id:              generateId(),
+        createdAt:       new Date().toISOString(),
+
+        mentor:          mentor,
+        mentorRole:      val('mentor-role'),
+
+        // Keep BOTH the array and a joined string so view.js (which uses
+        // a single 'discipline' string) keeps working.
+        disciplines:     disciplines,
+        discipline:      disciplines.join(', '),
+
+        title:           title,
+        venueType:       val('activity-type'),
+        venue:           val('venue') || title,
+        date:            dateStr,
+        term:            term,
+        location:        val('location'),
+
+        students:        mentees,
+        mentees:         mentees,
+        menteeLevel:     val('mentee-level'),
+        menteeCount:     val('mentee-count'),
+
+        accomplishments: val('accomplishments'),
+        notes:           val('notes'),
+        impactFaculty:   impactFaculty,
+        impactStudent:   impactStudent,
+        impact:          impactCombined,
+
+        privacyFlags:    privacy.privacyFlags,
+        allPrivate:      privacy.allPrivate,
+
+        image:           imageDataUrl,
+        imageName:       imageFileName
+      };
+
+      if (!window.storage) {
+        throw new Error('Storage backend is not available. Please reload the page.');
+      }
+      const key = 'mentoring:' + entry.id;
+      const result = await window.storage.set(key, JSON.stringify(entry), true);
+      if (!result) throw new Error('Storage write returned no confirmation.');
+
       try {
         await window.storage.delete('mentoring-summary:cache', true);
-      } catch (e) { /* nothing cached yet — fine */ }
+      } catch (e) { /* fine if there is no cache yet */ }
 
-      showToast('Entry submitted. Thank you for documenting this work.', 'success');
+      showStatus('Entry saved. Redirecting to the archive…', 'success');
       form.reset();
-      removeImgBtn.click();
-      submitBtn.textContent = 'Submit Entry';
-      submitBtn.disabled = false;
-      // Scroll to top so user sees confirmation
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(function () { window.location.href = 'view.html'; }, 1200);
+
     } catch (err) {
-      console.error(err);
-      showToast('Could not submit: ' + err.message, 'error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Submit Entry';
+      console.error('Save failed:', err);
+      showStatus('Could not save entry: ' + err.message, 'error');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitBtn.dataset.originalText || 'Save Entry';
+      }
     }
   });
 
