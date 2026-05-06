@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Faculty Admin</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner" style="padding: 0 0.5rem;">
+    <h1>Faculty Mentoring &middot; Admin</h1>
+    <p class="hero-statement">
+      Password-protected view of all faculty mentoring entries,
+      including private fields. Use the CSV export for departmental
+      reporting and review.
+    </p>
+  </div>
+</section>
+
+<main class="main" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+
+  <!-- Gate (locked state) -->
+  <div id="gate" class="gate-card">
+    <h2>Admin Access</h2>
+    <p class="help">Enter the admin password to view all entries including private ones.</p>
+    <form id="gate-form">
+      <div class="form-row">
+        <input type="password" id="gate-pw" placeholder="Password" autofocus>
+      </div>
+      <div class="form-row" id="gate-err" style="color: var(--error); display: none; font-size: 0.875rem; margin-top: 0;">
+        Incorrect password.
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%;">Unlock</button>
+    </form>
+    <p class="help" style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--text-light);">
+      Note: this is a soft barrier intended to keep casual visitors out. It is
+      not a security boundary suitable for sensitive personal data.
+    </p>
+  </div>
+
+  <!-- Report (unlocked state) -->
+  <div id="report" style="display:none;">
+
+    <div class="admin-toolbar">
+      <div class="admin-title">Faculty Mentoring &middot; Admin View</div>
+      <div class="admin-toolbar-actions">
+        <button id="export-csv" class="btn btn-secondary">Download CSV</button>
+        <button id="logout" class="btn btn-secondary">Lock</button>
+      </div>
+    </div>
+
+    <div class="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-num" id="stat-total">&mdash;</div><div class="admin-stat-label">Total entries</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="stat-public">&mdash;</div><div class="admin-stat-label">Fully public</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="stat-mixed">&mdash;</div><div class="admin-stat-label">Mixed privacy</div></div>
+      <div class="admin-stat"><div class="admin-stat-num" id="stat-allpriv">&mdash;</div><div class="admin-stat-label">All-private</div></div>
+    </div>
+
+    <section class="section">
+      <h2>All Entries (incl. private)</h2>
+      <div id="entries-container"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<script src="../../storage.js"></script>
+<script src="../../FacultyMentoring/seed-data.js"></script>
+<script src="../../FacultyMentoring/admin.js"></script>
+</body>
+</html>
