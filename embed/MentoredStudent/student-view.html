@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Experiences</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner" style="padding: 0 0.5rem;">
+    <h1>Student Experiences</h1>
+    <p class="hero-statement">
+      Students reflect on transformative mentoring experiences and how
+      they shaped development across the four BYU Aims.
+    </p>
+    <p class="hero-meta">Last updated <span id="hero-updated">&mdash;</span></p>
+  </div>
+</section>
+
+<main class="main" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+
+  <!-- Aims banner -->
+  <div class="aims-banner">
+    <h3>Reflections by Aim</h3>
+    <div class="aims-banner-grid">
+      <div class="aim-pill"><div class="aim-name">Spiritual</div><div class="aim-count" id="aim-count-spiritual">&mdash;</div></div>
+      <div class="aim-pill"><div class="aim-name">Intellectual</div><div class="aim-count" id="aim-count-intellectual">&mdash;</div></div>
+      <div class="aim-pill"><div class="aim-name">Character</div><div class="aim-count" id="aim-count-character">&mdash;</div></div>
+      <div class="aim-pill"><div class="aim-name">Service</div><div class="aim-count" id="aim-count-service">&mdash;</div></div>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-students">&mdash;</div><div class="stat-label">Students</div></div>
+    <div class="stat"><div class="stat-num" id="stat-mentors">&mdash;</div><div class="stat-label">Mentors</div></div>
+    <div class="stat"><div class="stat-num" id="stat-programs">&mdash;</div><div class="stat-label">Programs</div></div>
+    <div class="stat"><div class="stat-num" id="stat-aims">&mdash;</div><div class="stat-label">Aim reflections</div></div>
+  </div>
+
+  <!-- Summary -->
+  <section class="section">
+    <div class="summary-block">
+      <h3>Summary</h3>
+      <div class="summary-text" id="summary-text">Generating summary&hellip;</div>
+      <div class="summary-meta" id="summary-meta"></div>
+    </div>
+  </section>
+
+  <!-- Pull quote -->
+  <section class="section hidden" id="pull-quote">
+    <div class="pull-quote">
+      <p class="pull-quote-text" id="pull-quote-text"></p>
+      <div class="pull-quote-attr" id="pull-quote-attr"></div>
+    </div>
+  </section>
+
+  <!-- Themes + Aims breakdown -->
+  <section class="section">
+    <h2>At a Glance</h2>
+    <div class="panels">
+      <div class="panel">
+        <h3>Themes &amp; Keywords</h3>
+        <div class="word-cloud" id="word-cloud"></div>
+      </div>
+      <div class="panel">
+        <h3>Distribution Across Aims</h3>
+        <div id="aims-breakdown" style="font-size: 0.875rem;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section">
+    <h2>Gallery</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- Entries -->
+  <section class="section">
+    <h2>Student Reflections</h2>
+
+    <div class="entries-controls">
+      <input type="search" id="search" placeholder="Search reflections&hellip;" aria-label="Search reflections">
+      <select id="filter-aim" aria-label="Filter by aim">
+        <option value="">All aims</option>
+        <option value="spiritual">Spiritual</option>
+        <option value="intellectual">Intellectual</option>
+        <option value="character">Character</option>
+        <option value="service">Service</option>
+      </select>
+      <select id="filter-venue" aria-label="Filter by venue">
+        <option value="">All venues</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="name">By name</option>
+        <option value="title">By title</option>
+      </select>
+    </div>
+
+    <div class="entries-count" id="entries-count">&mdash;</div>
+    <div class="entries-list" id="entries-list"></div>
+  </section>
+
+</main>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<script src="../../storage.js"></script>
+<script src="../../student-seed.js"></script>
+<script src="../../MentoredStudent/student-view.js"></script>
+</body>
+</html>

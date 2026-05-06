@@ -1,0 +1,1558 @@
+/* ============================================================
+   BYU Linguistics Mentoring — Brightspot-replica styles
+   Brand: navy #002E5D, white, royal #0047BA, IBM Plex Sans
+   Modeled on https://ling.byu.edu/ and brand.byu.edu/web-theme
+   ============================================================ */
+
+/* ---- IBM Plex Sans (BYU's official web font) ---- */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
+/* ---- BYU brand tokens ---- */
+:root{
+  /* Primary palette */
+  --byu-navy:        #002E5D;
+  --byu-navy-deep:   #001E3D;
+  --byu-navy-soft:   #0a3a6e;
+  --byu-white:       #FFFFFF;
+  --byu-royal:       #0047BA;
+  --byu-royal-hover: #0038A0;
+
+  /* Text colors per brand spec */
+  --text-dark:       #141414;
+  --text-navy:       #002E5D;
+  --text-medium:     #666666;
+  --text-light:      #8a8a8a;
+
+  /* Surfaces */
+  --bg-page:         #FFFFFF;
+  --bg-soft:         #F5F5F5;
+  --bg-tint:         #FAFAFA;
+  --border:          #E5E5E5;
+  --border-strong:   #CCCCCC;
+
+  /* Accent (interface-only, not dominant) */
+  --info:    #006073;
+  --success: #006141;
+  --warning: #8C3A00;
+  --error:   #A3082A;
+
+  /* Layout */
+  --maxw:        1200px;
+  --maxw-narrow: 920px;
+  --topbar-h:    44px;
+  --navbar-h:    72px;
+
+  /* Typography stack */
+  --font-sans: "IBM Plex Sans", Helvetica, Arial, sans-serif;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 2px 8px rgba(0,46,93,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,46,93,0.12);
+
+  --radius:    4px;
+  --radius-lg: 8px;
+}
+
+/* ---- Reset / base ---- */
+*,*::before,*::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--byu-royal); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--byu-royal-hover); text-decoration: underline; }
+
+/* Typography per BYU spec — IBM Plex Sans, weight scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  color: var(--text-navy);
+  margin: 0 0 .5em 0;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1.1; }
+h2 { font-size: clamp(1.5rem, 2.5vw, 2.125rem); font-weight: 650; line-height: 1.2; }
+h3 { font-size: 1.375rem; font-weight: 640; line-height: 1.3; }
+h4 { font-size: 1.125rem; font-weight: 600; }
+h5 { font-size: 1rem; font-weight: 500; }
+h6 { font-size: .9375rem; font-weight: 475; text-transform: uppercase; letter-spacing: .05em; color: var(--text-medium); }
+
+p { margin: 0 0 1em 0; }
+
+/* ============================================================
+   HEADER — strict Brightspot pattern
+   Top navy bar (BYU monogram + breadcrumbs) → white nav bar
+   ============================================================ */
+
+.byu-topbar {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+.byu-topbar-inner {
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.byu-topbar a {
+  color: var(--byu-white);
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.byu-topbar a:hover { text-decoration: underline; }
+.byu-topbar .byu-mono {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+}
+.byu-topbar .sep {
+  color: rgba(255,255,255,0.45);
+  font-weight: 300;
+  user-select: none;
+}
+.byu-topbar .spacer { flex: 1; }
+.byu-topbar .topbar-link { font-weight: 500; opacity: 0.9; }
+.byu-topbar .topbar-link:hover { opacity: 1; }
+
+/* White nav bar — page title left, links right */
+.byu-navbar {
+  background: var(--byu-white);
+  border-bottom: 1px solid var(--border);
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: var(--shadow-sm);
+}
+.byu-navbar-inner {
+  max-width: var(--maxw);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.byu-navbar .page-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-navy);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.byu-navbar .page-title small {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+.byu-navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+}
+.byu-navbar nav a {
+  color: var(--text-dark);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s, color .15s;
+}
+.byu-navbar nav a:hover { color: var(--byu-navy); border-bottom-color: var(--byu-royal); text-decoration: none; }
+.byu-navbar nav a.active { color: var(--byu-navy); border-bottom-color: var(--byu-navy); }
+
+/* Mobile nav */
+@media (max-width: 760px) {
+  .byu-navbar { height: auto; padding: 0.75rem 0; }
+  .byu-navbar-inner { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .byu-navbar nav { gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+  .byu-topbar-inner { gap: 0.75rem; font-size: 0.875rem; }
+  .byu-topbar .topbar-link.optional { display: none; }
+}
+
+/* ============================================================
+   HERO — Brightspot-style: H1 + intro statement + image
+   ============================================================ */
+
+.hero {
+  background: var(--bg-page);
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.hero h1 {
+  font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  color: var(--text-navy);
+  margin: 0 0 1.5rem 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.hero .hero-subtitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-medium);
+  margin-bottom: 1rem;
+}
+.hero-statement {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--text-dark);
+  font-weight: 500;
+  max-width: 760px;
+  border-left: 4px solid var(--byu-navy);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 1.5rem 0 0 0;
+}
+.hero-meta {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  margin-top: 1.5rem;
+}
+.hero-meta strong { color: var(--text-dark); }
+
+/* ============================================================
+   QUICK LINKS — Brightspot strip of large text links
+   ============================================================ */
+
+.quick-links {
+  background: var(--bg-soft);
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.quick-links-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.quick-links h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem 1.5rem;
+}
+.quick-links-grid a {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--byu-navy);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid transparent;
+}
+.quick-links-grid a::after { content: "→"; color: var(--byu-royal); transition: transform .15s; }
+.quick-links-grid a:hover { color: var(--byu-royal); border-bottom-color: var(--byu-royal); }
+.quick-links-grid a:hover::after { transform: translateX(4px); }
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+
+.main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+.main-narrow {
+  max-width: var(--maxw-narrow);
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+.section {
+  margin-bottom: 3rem;
+}
+.section:last-child { margin-bottom: 0; }
+.section h2 {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--byu-navy);
+}
+
+/* ============================================================
+   STATS STRIP
+   ============================================================ */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.5rem;
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 2.5rem 2rem;
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
+}
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--byu-white);
+  letter-spacing: -0.02em;
+}
+.stat-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.5rem;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SUMMARY BLOCK
+   ============================================================ */
+
+.summary-block {
+  background: var(--bg-soft);
+  border-left: 4px solid var(--byu-navy);
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin: 2rem 0;
+}
+.summary-block h3 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin-bottom: 0.75rem;
+  border: none;
+  padding: 0;
+}
+.summary-text {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+.summary-meta {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  margin-top: 1rem;
+}
+
+/* ============================================================
+   PULL QUOTE
+   ============================================================ */
+
+.pull-quote {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 3rem 2rem;
+  border-radius: var(--radius-lg);
+  margin: 3rem 0;
+  text-align: center;
+}
+.pull-quote-text {
+  font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 1.25rem 0;
+  font-style: italic;
+}
+.pull-quote-text::before { content: "\201C"; }
+.pull-quote-text::after  { content: "\201D"; }
+.pull-quote-attr {
+  font-size: 0.9375rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  font-weight: 500;
+}
+
+/* ============================================================
+   PANELS / TWO-COLUMN LAYOUT
+   ============================================================ */
+
+.panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+@media (max-width: 880px) { .panels { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+.panel h3 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  border: none;
+  padding: 0;
+}
+
+/* ============================================================
+   WORD CLOUD
+   ============================================================ */
+
+.word-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+  align-items: baseline;
+  min-height: 120px;
+}
+.word-cloud span {
+  color: var(--byu-navy);
+  font-weight: 500;
+  cursor: default;
+  transition: color .15s;
+}
+.word-cloud span:hover { color: var(--byu-royal); }
+.word-cloud .w-xl { font-size: 1.5rem; font-weight: 700; }
+.word-cloud .w-lg { font-size: 1.25rem; font-weight: 600; }
+.word-cloud .w-md { font-size: 1.0625rem; font-weight: 500; }
+.word-cloud .w-sm { font-size: 0.9375rem; font-weight: 400; color: var(--text-medium); }
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.gallery img,
+.gallery .gallery-tile {
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+.gallery-empty {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  font-style: italic;
+}
+
+/* ============================================================
+   ENTRIES LIST
+   ============================================================ */
+
+.entries-controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+}
+.entries-controls input,
+.entries-controls select {
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--byu-white);
+  color: var(--text-dark);
+}
+.entries-controls input:focus,
+.entries-controls select:focus {
+  outline: none;
+  border-color: var(--byu-royal);
+  box-shadow: 0 0 0 2px rgba(0,71,186,0.2);
+}
+.entries-controls input { flex: 1; min-width: 200px; }
+.entries-count {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  margin-bottom: 1rem;
+}
+
+.entries-list {
+  display: grid;
+  gap: 1rem;
+}
+.entry-card {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+  cursor: pointer;
+}
+.entry-card:hover {
+  border-color: var(--byu-royal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.entry-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+.entry-card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-navy);
+  margin: 0;
+}
+.entry-card-date {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  white-space: nowrap;
+}
+.entry-card-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  margin-bottom: 0.75rem;
+}
+.entry-card-meta span::before { content: "• "; color: var(--text-light); }
+.entry-card-meta span:first-child::before { content: ""; }
+.entry-card-snippet {
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg-soft);
+  color: var(--byu-navy);
+  border: 1px solid var(--border);
+}
+.tag-private {
+  background: #FFF3E0;
+  color: #8C3A00;
+  border-color: #FFD9A8;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,30,60,0.65);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+.modal-backdrop.active { display: flex; }
+.modal-inner {
+  background: var(--byu-white);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+}
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-medium);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close:hover { background: var(--bg-soft); color: var(--text-dark); }
+
+/* ============================================================
+   FORMS
+   ============================================================ */
+
+.form-card {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+.form-card h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  border: none;
+}
+.form-card .form-help {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  margin-bottom: 1.5rem;
+}
+.form-row { margin-bottom: 1.25rem; }
+.form-row label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+.form-row .label-help {
+  font-weight: 400;
+  color: var(--text-medium);
+  font-size: 0.8125rem;
+}
+.form-row input[type="text"],
+.form-row input[type="email"],
+.form-row input[type="date"],
+.form-row select,
+.form-row textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  background: var(--byu-white);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  transition: border-color .15s, box-shadow .15s;
+}
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: var(--byu-royal);
+  box-shadow: 0 0 0 3px rgba(0,71,186,0.15);
+}
+.form-row textarea { min-height: 100px; resize: vertical; line-height: 1.55; }
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.25rem;
+}
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+.form-checkbox-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem 1rem;
+}
+.form-checkbox-list label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 400;
+  font-size: 0.9375rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Privacy toggle */
+.privacy-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  margin-left: 0.75rem;
+  font-weight: 400;
+  user-select: none;
+}
+.privacy-toggle input[type="checkbox"] { margin: 0; }
+.master-privacy {
+  background: #FFF3E0;
+  border: 1px solid #FFD9A8;
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+.master-privacy label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  color: #8C3A00;
+  margin: 0;
+}
+.master-privacy .help {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  margin-top: 0.4rem;
+  font-weight: 400;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s, transform .05s;
+  text-decoration: none;
+  line-height: 1.2;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+}
+.btn-primary:hover {
+  background: var(--byu-royal);
+  text-decoration: none;
+  color: var(--byu-white);
+}
+.btn-secondary {
+  background: var(--byu-white);
+  color: var(--byu-navy);
+  border-color: var(--byu-navy);
+}
+.btn-secondary:hover {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  text-decoration: none;
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-medium);
+  border-color: var(--border-strong);
+}
+.btn-ghost:hover {
+  background: var(--bg-soft);
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   PORTAL CARDS — landing page
+   ============================================================ */
+
+.portal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+@media (max-width: 760px) { .portal-grid { grid-template-columns: 1fr; } }
+
+.portal-card {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.portal-card:hover {
+  border-color: var(--byu-royal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.portal-card-header {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 1.5rem 1.75rem;
+}
+.portal-card-header h2 {
+  color: var(--byu-white);
+  font-size: 1.375rem;
+  margin: 0 0 0.4rem 0;
+  border: none;
+  padding: 0;
+}
+.portal-card-header p {
+  margin: 0;
+  font-size: 0.9375rem;
+  opacity: 0.9;
+}
+.portal-card-body {
+  padding: 1.5rem 1.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.portal-card-body p {
+  font-size: 0.9375rem;
+  color: var(--text-medium);
+  flex: 1;
+}
+.portal-card-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   ADMIN
+   ============================================================ */
+
+.admin-toolbar {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.admin-toolbar .admin-title {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+.admin-toolbar-actions { display: flex; gap: 0.5rem; }
+.admin-toolbar .btn-secondary {
+  background: transparent;
+  color: var(--byu-white);
+  border-color: rgba(255,255,255,0.4);
+}
+.admin-toolbar .btn-secondary:hover {
+  background: var(--byu-white);
+  color: var(--byu-navy);
+  border-color: var(--byu-white);
+}
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.admin-stat {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  text-align: center;
+}
+.admin-stat-num { font-size: 2rem; font-weight: 700; color: var(--byu-navy); line-height: 1; }
+.admin-stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-medium); margin-top: 0.4rem; font-weight: 500; }
+
+.gate-card {
+  max-width: 420px;
+  margin: 4rem auto;
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+.gate-card h2 {
+  border: none;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+.gate-card .help {
+  color: var(--text-medium);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   AIMS BANNER (student archive)
+   ============================================================ */
+
+.aims-banner {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
+}
+.aims-banner h3 {
+  color: var(--byu-white);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  border: none;
+  padding: 0;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.aims-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 720px) { .aims-banner-grid { grid-template-columns: repeat(2, 1fr); } }
+.aim-pill {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 1rem;
+  border-radius: var(--radius);
+  text-align: center;
+}
+.aim-pill .aim-name {
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+.aim-pill .aim-count {
+  font-size: 1.875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Aims accordion (entry form) */
+.aims-accordion { display: grid; gap: 1rem; }
+.aim-card {
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.aim-card-header {
+  background: var(--bg-soft);
+  padding: 0.875rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: var(--byu-navy);
+  cursor: pointer;
+  user-select: none;
+}
+.aim-card-header:hover { background: #ECECEC; }
+.aim-card-body { padding: 1.25rem; }
+.aim-prompts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.aim-prompt-tile {
+  background: var(--bg-soft);
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius);
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  border: 1px solid var(--border);
+  font-style: italic;
+}
+
+/* ============================================================
+   AREA FOOTER + UNIVERSITY FOOTER
+   ============================================================ */
+
+.area-footer {
+  background: var(--byu-navy-deep);
+  color: var(--byu-white);
+  padding: 3rem 1.5rem 2rem;
+  margin-top: 4rem;
+}
+.area-footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 2.5rem;
+}
+@media (max-width: 760px) { .area-footer-inner { grid-template-columns: 1fr; gap: 2rem; } }
+.area-footer h4 {
+  color: var(--byu-white);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+.area-footer p,
+.area-footer li { font-size: 0.9375rem; opacity: 0.9; line-height: 1.6; }
+.area-footer ul { list-style: none; padding: 0; margin: 0; }
+.area-footer ul li { margin-bottom: 0.4rem; }
+.area-footer a { color: var(--byu-white); text-decoration: none; opacity: 0.9; }
+.area-footer a:hover { text-decoration: underline; opacity: 1; }
+.area-footer-logo { margin-bottom: 1rem; }
+.area-footer-logo img { max-width: 240px; height: auto; }
+
+.university-footer {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 1.5rem;
+  font-size: 0.8125rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.university-footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  opacity: 0.9;
+}
+.university-footer .byu-mark {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-size: 1rem;
+  color: var(--byu-white);
+}
+.university-footer a { color: var(--byu-white); }
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+.muted { color: var(--text-medium); }
+.center { text-align: center; }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+.hidden { display: none !important; }
+.visually-hidden { position: absolute !important; clip: rect(1px,1px,1px,1px); width: 1px; height: 1px; overflow: hidden; }
+
+/* Sr-only / accessible focus */
+*:focus-visible {
+  outline: 2px solid var(--byu-royal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   JS-GENERATED ENTRY ROW STYLES
+   These match the markup output by view.js / student-view.js
+   ============================================================ */
+
+/* Faculty entry rows */
+.entry-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+  align-items: start;
+}
+.entry-row + .entry-row { margin-top: 0.75rem; }
+.entries-list { display: block; }
+.entries-list > .entry-row,
+.entries-list > .student-entry-row { margin-top: 0.75rem; }
+.entries-list > .entry-row:first-child,
+.entries-list > .student-entry-row:first-child { margin-top: 0; }
+.entry-row:hover {
+  border-color: var(--byu-royal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.entry-row .row-num {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  padding-top: 4px;
+  text-align: center;
+}
+.entry-row .meta { min-width: 0; }
+.entry-row .mentor-line {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+.entry-row .mentor-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-navy);
+}
+.entry-row .date {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+}
+.entry-row .project {
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+.entry-row .project .type {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg-soft);
+  color: var(--byu-navy);
+  margin-right: 0.5rem;
+}
+.entry-row .students {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  line-height: 1.4;
+}
+.entry-row .right-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  text-align: right;
+  white-space: nowrap;
+}
+.entry-row .right-meta .student-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--byu-navy);
+  line-height: 1;
+}
+.entry-row .right-meta span:not(.student-count):not(.discipline-tag) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-medium);
+}
+.entry-row .discipline-tag {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--byu-royal);
+  background: rgba(0,71,186,0.08);
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 640px) {
+  .entry-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .entry-row .row-num { display: none; }
+  .entry-row .right-meta { flex-direction: row; align-items: center; }
+}
+
+/* Student entry rows */
+.student-entry-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+  align-items: start;
+}
+.student-entry-row:hover {
+  border-color: var(--byu-royal);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.student-entry-row .row-num {
+  font-size: 0.8125rem;
+  color: var(--text-light);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  padding-top: 4px;
+  text-align: center;
+}
+.student-entry-row .meta { min-width: 0; }
+.student-entry-row .name-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+.student-entry-row .student-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-navy);
+}
+.student-entry-row .mentor-line-small {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+}
+.student-entry-row .date-mono {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  font-variant-numeric: tabular-nums;
+}
+.student-entry-row .venue-line {
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+.student-entry-row .venue-line .type {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--bg-soft);
+  color: var(--byu-navy);
+  margin-right: 0.5rem;
+}
+.student-entry-row .aims-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+.aim-chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(0,71,186,0.1);
+  color: var(--byu-royal);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.aim-chip.spiritual    { background: rgba(0,46,93,0.1); color: var(--byu-navy); }
+.aim-chip.intellectual { background: rgba(0,71,186,0.1); color: var(--byu-royal); }
+.aim-chip.character    { background: rgba(0,96,115,0.1); color: var(--info); }
+.aim-chip.service      { background: rgba(0,97,65,0.1); color: var(--success); }
+
+.student-entry-row .right-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  text-align: right;
+  white-space: nowrap;
+}
+.student-entry-row .right-meta .aims-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--byu-navy);
+  line-height: 1;
+}
+.student-entry-row .right-meta span:not(.aims-count) {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-medium);
+}
+
+@media (max-width: 640px) {
+  .student-entry-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .student-entry-row .row-num { display: none; }
+  .student-entry-row .right-meta { flex-direction: row; align-items: center; }
+}
+
+/* Discipline donut legend rows */
+.discipline-row {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  margin-bottom: 0.3rem;
+}
+.discipline-row .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+.discipline-row .name { color: var(--text-dark); }
+.discipline-row .count { color: var(--text-medium); font-size: 0.8125rem; }
+
+/* Gallery items with captions */
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.gallery-item .caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: linear-gradient(to top, rgba(0,30,60,0.85), transparent);
+  color: var(--byu-white);
+  padding: 1.5rem 0.75rem 0.5rem;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Empty states */
+.entry-empty,
+.gallery-empty,
+.word-cloud .empty {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-medium);
+  font-size: 0.9375rem;
+}
+.entry-empty .symbol,
+.word-cloud .empty .symbol { display: none; }
+
+/* Aims breakdown bars (student view) */
+.aims-bar-row {
+  display: grid;
+  grid-template-columns: 1fr 100%;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.aims-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  grid-column: 1 / -1;
+}
+.aims-bar-name { color: var(--byu-navy); font-weight: 600; }
+.aims-bar-count { color: var(--text-medium); font-weight: 400; }
+.aims-bar-track {
+  grid-column: 1 / -1;
+  height: 6px;
+  background: var(--bg-soft);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.aims-bar-fill {
+  height: 100%;
+  background: var(--byu-navy);
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.aims-bar-fill.spiritual    { background: var(--byu-navy); }
+.aims-bar-fill.intellectual { background: var(--byu-royal); }
+.aims-bar-fill.character    { background: var(--info); }
+.aims-bar-fill.service      { background: var(--success); }
+
+/* Modal sub-title */
+.modal-sub {
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.modal-inner h2 {
+  font-size: 1.625rem;
+  margin-bottom: 0.4rem;
+  border: none;
+  padding: 0;
+  padding-right: 2rem;
+}
+.modal-field {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.modal-field:last-child { border-bottom: none; }
+.modal-field-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.modal-field-value {
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  line-height: 1.55;
+}
+
+.anon-banner {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: #FFF3E0;
+  color: #8C3A00;
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================================
+   MODAL FIELD CONTENT (matches markup generated by view.js
+   and student-view.js when an entry is opened)
+   ============================================================ */
+
+.modal-inner .field {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.modal-inner .field:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.modal-inner .field-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+.modal-inner .field-content {
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  line-height: 1.55;
+}
+.modal-inner .field-content.serif {
+  font-style: italic;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+.modal-inner .modal-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   EMBED OVERRIDES
+   These rules adjust the page for being embedded inside a
+   parent CMS (Brightspot). The parent already provides the
+   BYU header, navigation, and footer — so we hide ours and
+   tighten up spacing.
+   ============================================================ */
+
+/* Hide the BYU chrome — the parent CMS provides this already */
+.byu-topbar,
+.byu-navbar,
+.area-footer,
+.university-footer { display: none !important; }
+
+/* Make the body transparent so the parent's background shows through */
+body {
+  background: transparent !important;
+}
+
+/* Trim the hero so it doesn't feel like a second page header.
+   The parent CMS already has the page title in its own banner. */
+.hero {
+  padding: 1.5rem 0 1rem !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+.hero h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem) !important;
+  margin-bottom: 0.5rem !important;
+}
+.hero .hero-subtitle { display: none !important; }
+.hero-statement {
+  font-size: 1.0625rem !important;
+  margin-top: 0.75rem !important;
+}
+
+/* Reduce outer padding so embed sits flush in its container */
+.main { padding: 1.5rem 0 2rem !important; }
+.main-narrow { padding: 1.5rem 0 2rem !important; }
+
+/* Section headings tighter */
+.section { margin-bottom: 2rem !important; }
+.section h2 { margin-bottom: 1rem !important; }
+
+/* Quick-links can stay; just reduce padding */
+.quick-links { padding: 1.25rem 0 !important; }
+
+/* Modal still works as a true overlay; nothing to change there */

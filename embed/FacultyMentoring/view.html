@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Mentoring Archive</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner" style="padding: 0 0.5rem;">
+    <h1>Faculty Mentoring Archive</h1>
+    <p class="hero-statement">
+      A collection of faculty-mentored experiential learning &mdash; research group
+      work, presentations, teaching assistantship successes, and other
+      student-development outcomes documented by Department of Linguistics
+      faculty members.
+    </p>
+    <p class="hero-meta">Last updated <span id="hero-updated">&mdash;</span></p>
+  </div>
+</section>
+
+<main class="main" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+
+  <!-- Stats strip -->
+  <div class="stats">
+    <div class="stat"><div class="stat-num" id="stat-projects">&mdash;</div><div class="stat-label">Projects</div></div>
+    <div class="stat"><div class="stat-num" id="stat-mentors">&mdash;</div><div class="stat-label">Mentors</div></div>
+    <div class="stat"><div class="stat-num" id="stat-students">&mdash;</div><div class="stat-label">Students</div></div>
+    <div class="stat"><div class="stat-num" id="stat-disciplines">&mdash;</div><div class="stat-label">Disciplines</div></div>
+  </div>
+
+  <!-- AI summary block -->
+  <section class="section">
+    <div class="summary-block">
+      <h3>Summary</h3>
+      <div class="summary-text" id="summary-text">Generating summary&hellip;</div>
+      <div class="summary-meta" id="summary-meta"></div>
+    </div>
+  </section>
+
+  <!-- Pull quote (hidden until populated) -->
+  <section class="section hidden" id="pull-quote">
+    <div class="pull-quote">
+      <p class="pull-quote-text" id="pull-quote-text"></p>
+      <div class="pull-quote-attr" id="pull-quote-attr"></div>
+    </div>
+  </section>
+
+  <!-- Two-panel: word cloud + disciplines -->
+  <section class="section">
+    <h2>At a Glance</h2>
+    <div class="panels">
+      <div class="panel">
+        <h3>Themes &amp; Keywords</h3>
+        <div class="word-cloud" id="word-cloud"></div>
+      </div>
+      <div class="panel">
+        <h3>Activity by Discipline</h3>
+        <svg id="discipline-svg" viewBox="0 0 240 240" style="display:block; margin: 0 auto; max-width: 240px;"></svg>
+        <div id="discipline-legend" style="font-size: 0.8125rem; color: var(--text-medium); margin-top: 0.75rem;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section">
+    <h2>Gallery</h2>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <!-- Entries -->
+  <section class="section">
+    <h2>Entries</h2>
+
+    <div class="entries-controls">
+      <input type="search" id="search" placeholder="Search entries&hellip;" aria-label="Search entries">
+      <select id="filter-discipline" aria-label="Filter by discipline">
+        <option value="">All disciplines</option>
+      </select>
+      <select id="filter-type" aria-label="Filter by type">
+        <option value="">All types</option>
+      </select>
+      <select id="sort" aria-label="Sort">
+        <option value="date-desc">Newest first</option>
+        <option value="date-asc">Oldest first</option>
+        <option value="mentor">By mentor</option>
+        <option value="title">By title</option>
+      </select>
+    </div>
+
+    <div class="entries-count" id="entries-count">&mdash;</div>
+    <div class="entries-list" id="entries-list"></div>
+  </section>
+
+</main>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal-inner">
+    <button class="modal-close" id="modal-close" aria-label="Close">&times;</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<script src="../../storage.js"></script>
+<script src="../../seed-data.js"></script>
+<script src="../../FacultyMentoring/view.js"></script>
+</body>
+</html>

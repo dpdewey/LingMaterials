@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit Student Experience</title>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner" style="padding: 0 0.5rem;">
+    <h1>Share Your Mentored Experience</h1>
+    <p class="hero-statement">
+      Reflect on a transformative mentoring experience &mdash;
+      research, internship, study abroad, conference, project &mdash;
+      and how it shaped your development across the four BYU Aims.
+    </p>
+  </div>
+</section>
+
+<main class="main-narrow" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+
+  <form id="student-form" novalidate>
+
+    <div class="master-privacy">
+      <label>
+        <input type="checkbox" id="all-private">
+        Mark entire entry as private (admin-only)
+      </label>
+      <div class="help">
+        Use this if everything in this entry should remain confidential.
+      </div>
+    </div>
+
+    <!-- 1. Student info -->
+    <div class="form-card">
+      <h2>1. About You</h2>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="student-name">
+            Your name
+            <label class="privacy-toggle"><input type="checkbox" id="anonymous"> share anonymously</label>
+          </label>
+          <input type="text" id="student-name" required>
+          <div class="form-help" style="margin-top: 0.4rem;">
+            If you check "share anonymously," your name will appear as
+            "Anonymous student" in the public archive &mdash; but the
+            department admin will still see your real name for records.
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="program">Program</label>
+          <select id="program">
+            <option value="">— select —</option>
+            <option>Linguistics BA</option>
+            <option>Applied English Linguistics BA</option>
+            <option>Editing and Publishing BA</option>
+            <option>Linguistics MA</option>
+            <option>TESOL MA</option>
+            <option>Linguistics Minor</option>
+            <option>Linguistic Computing / Computational Linguistics Minor</option>
+            <option>TESOL Minor</option>
+            <option>Editing Minor</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="grad-year">Expected/actual graduation year</label>
+          <input type="text" id="grad-year" placeholder="e.g., 2025">
+        </div>
+        <div class="form-row">
+          <label for="mentor-name">
+            Mentor name
+            <label class="privacy-toggle"><input type="checkbox" data-private="mentorName"> private</label>
+          </label>
+          <input type="text" id="mentor-name">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Experience -->
+    <div class="form-card">
+      <h2>2. The Experience</h2>
+
+      <div class="form-row">
+        <label for="title">Title or short description</label>
+        <input type="text" id="title" required placeholder="e.g., Field research documenting Wao language in Ecuador">
+      </div>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="venue">Venue / context</label>
+          <input type="text" id="venue" placeholder="e.g., LSA Conference, fNIRS Lab, study abroad">
+        </div>
+        <div class="form-row">
+          <label for="date">Date / period</label>
+          <input type="text" id="date" placeholder="e.g., Summer 2024">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="narrative">
+          Your story
+          <label class="privacy-toggle"><input type="checkbox" data-private="narrative"> private</label>
+        </label>
+        <textarea id="narrative" rows="6" placeholder="Tell us about the experience. What did you do? What did you learn? How did this experience change your attitudes or your approach to life?"></textarea>
+      </div>
+    </div>
+
+    <!-- 3. BYU Aims accordion -->
+    <div class="form-card">
+      <h2>3. The Four BYU Aims</h2>
+      <p class="form-help">
+        How did this mentored experience contribute to your development
+        in each of the four BYU Aims? Respond to whichever aims are
+        relevant &mdash; you don't need to fill in all four.
+      </p>
+
+      <div class="aims-accordion">
+
+        <div class="aim-card">
+          <div class="aim-card-header" data-aim="spiritual">
+            <span>Spiritually Strengthening</span>
+            <span class="aim-card-toggle">+</span>
+          </div>
+          <div class="aim-card-body">
+            <div class="aim-prompts">
+              <div class="aim-prompt-tile">How did this experience deepen your faith or testimony?</div>
+              <div class="aim-prompt-tile">Did your mentor model integration of faith and learning?</div>
+              <div class="aim-prompt-tile">Did the work draw you closer to Christ or teach you something about discipleship?</div>
+            </div>
+            <div class="form-row">
+              <label>
+                Your reflection
+                <label class="privacy-toggle"><input type="checkbox" data-private="aim-spiritual"> private</label>
+              </label>
+              <textarea data-aim="spiritual" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="aim-card">
+          <div class="aim-card-header" data-aim="intellectual">
+            <span>Intellectually Enlarging</span>
+            <span class="aim-card-toggle">+</span>
+          </div>
+          <div class="aim-card-body">
+            <div class="aim-prompts">
+              <div class="aim-prompt-tile">What new knowledge or skills did you develop?</div>
+              <div class="aim-prompt-tile">How did you learn to think more rigorously or critically?</div>
+              <div class="aim-prompt-tile">Did you encounter ideas that reshaped your thinking?</div>
+            </div>
+            <div class="form-row">
+              <label>
+                Your reflection
+                <label class="privacy-toggle"><input type="checkbox" data-private="aim-intellectual"> private</label>
+              </label>
+              <textarea data-aim="intellectual" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="aim-card">
+          <div class="aim-card-header" data-aim="character">
+            <span>Character-Building</span>
+            <span class="aim-card-toggle">+</span>
+          </div>
+          <div class="aim-card-body">
+            <div class="aim-prompts">
+              <div class="aim-prompt-tile">What habits, virtues, or convictions did this experience develop?</div>
+              <div class="aim-prompt-tile">How did you learn to persevere or take responsibility?</div>
+              <div class="aim-prompt-tile">How did your relationships with others change?</div>
+            </div>
+            <div class="form-row">
+              <label>
+                Your reflection
+                <label class="privacy-toggle"><input type="checkbox" data-private="aim-character"> private</label>
+              </label>
+              <textarea data-aim="character" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="aim-card">
+          <div class="aim-card-header" data-aim="service">
+            <span>Lifelong Learning &amp; Service</span>
+            <span class="aim-card-toggle">+</span>
+          </div>
+          <div class="aim-card-body">
+            <div class="aim-prompts">
+              <div class="aim-prompt-tile">How did you serve others through this experience?</div>
+              <div class="aim-prompt-tile">How will you continue learning and serving going forward?</div>
+              <div class="aim-prompt-tile">How does this prepare you to bless your community or family?</div>
+            </div>
+            <div class="form-row">
+              <label>
+                Your reflection
+                <label class="privacy-toggle"><input type="checkbox" data-private="aim-service"> private</label>
+              </label>
+              <textarea data-aim="service" rows="4"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 4. Image -->
+    <div class="form-card">
+      <h2>4. Image (optional)</h2>
+      <p class="form-help">Upload a photo from the experience.</p>
+      <div class="form-row">
+        <label for="image">Upload image</label>
+        <input type="file" id="image" accept="image/*">
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Submit Reflection</button>
+      <a href="student-view.html" class="btn btn-ghost">Cancel</a>
+    </div>
+
+  </form>
+
+</main>
+
+<script>
+// Aim accordion toggle (lightweight inline)
+document.querySelectorAll('.aim-card-header').forEach(h => {
+  h.addEventListener('click', e => {
+    const card = h.parentElement;
+    card.classList.toggle('open');
+    const body = card.querySelector('.aim-card-body');
+    const toggle = h.querySelector('.aim-card-toggle');
+    if (card.classList.contains('open')) {
+      body.style.display = 'block';
+      if (toggle) toggle.textContent = '−';
+    } else {
+      body.style.display = 'none';
+      if (toggle) toggle.textContent = '+';
+    }
+  });
+  // start collapsed
+  const body = h.parentElement.querySelector('.aim-card-body');
+  if (body) body.style.display = 'none';
+});
+</script>
+<script src="../../storage.js"></script>
+<script src="../../MentoredStudent/student-seed.js"></script>
+<script src="../../MentoredStudent/student-entry.js"></script>
+</body>
+</html>
