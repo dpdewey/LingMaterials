@@ -653,41 +653,61 @@ function handleSubmit() {
     likert[item.id] = sel ? sel.value : '—';
   });
 
-  // Build FormData
-  const fd = new FormData();
-  fd.append(FORM_CONFIG.fields.name,    nameEl.value.trim());
-  fd.append(FORM_CONFIG.fields.school,  document.getElementById('school').value.trim()  || '—');
-  fd.append(FORM_CONFIG.fields.years,   document.getElementById('years').value           || '—');
-  fd.append(FORM_CONFIG.fields.classes, document.getElementById('classes').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.a1,      document.getElementById('a1').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.a2,      document.getElementById('a2').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b1,      document.getElementById('b1').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b2,      document.getElementById('b2').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b3,      document.getElementById('b3').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b4,      document.getElementById('b4').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b5,      document.getElementById('b5').value.trim() || '—');
-  fd.append(FORM_CONFIG.fields.b6,      document.getElementById('b6').value.trim() || '—');
-  LIKERT_ITEMS.forEach(item => {
-    fd.append(FORM_CONFIG.fields[item.id], likert[item.id]);
-  });
+  // Build and submit via hidden iframe (see below)
 
   statusEl.className = 'submit-status show wait';
   statusEl.textContent = 'Sending your survey…';
   btn.disabled = true;
 
-  // Google Forms doesn't return a useful response to JS, so we use no-cors and
-  // assume success if the fetch doesn't throw. This is the standard pattern.
-  fetch(FORM_CONFIG.url, { method: 'POST', mode: 'no-cors', body: fd })
-    .then(() => {
-      statusEl.className = 'submit-status show ok';
-      statusEl.textContent = '✓ Survey submitted! Thank you for sharing your experience.';
-      btn.textContent = 'SUBMITTED ✓';
-    })
-    .catch(() => {
-      statusEl.className = 'submit-status show error';
-      statusEl.textContent = '✗ Something went wrong. Check your internet connection and try again.';
-      btn.disabled = false;
-    });
+  // Build a hidden form and submit it into a hidden iframe.
+  // This is the most reliable way to POST to Google Forms from an external page
+  // because Google Forms blocks fetch/XHR with CORS headers but accepts a
+  // standard form POST targeting a hidden iframe.
+  let iframe = document.getElementById('_gf_iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = '_gf_iframe';
+    iframe.id   = '_gf_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  const form = document.createElement('form');
+  form.method  = 'POST';
+  form.action  = FORM_CONFIG.url;
+  form.target  = '_gf_iframe';
+  form.style.display = 'none';
+
+  // Append all fields as hidden inputs
+  for (const [key, entryId] of Object.entries(FORM_CONFIG.fields)) {
+    let val = '';
+    const el = document.getElementById(key);
+    if (el) {
+      val = el.tagName === 'SELECT' ? el.value : el.value.trim();
+    } else {
+      // Likert radio
+      const checked = document.querySelector(`input[name="${key}"]:checked`);
+      val = checked ? checked.value : '';
+    }
+    if (val) {
+      const input = document.createElement('input');
+      input.type  = 'hidden';
+      input.name  = entryId;
+      input.value = val;
+      form.appendChild(input);
+    }
+  }
+
+  document.body.appendChild(form);
+
+  iframe.onload = () => {
+    statusEl.className = 'submit-status show ok';
+    statusEl.textContent = '✓ Survey submitted! Thank you for sharing your experience.';
+    btn.textContent = 'SUBMITTED ✓';
+    document.body.removeChild(form);
+  };
+
+  form.submit();
 }
 
 // Hide setup notice once the form URL is configured
