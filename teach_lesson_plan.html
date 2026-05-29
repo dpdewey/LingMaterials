@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEACH! — Annotated Lesson Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:   #0f0f1e;
+    --paper: #fff8eb;
+    --teal:  #00c2b3;
+    --coral: #ff5c39;
+    --sand:  #f0ddb0;
+    --lilac: #c8b8f0;
+    --lime:  #c4f542;
+    --border: 2.5px solid var(--ink);
+    --shadow: 4px 4px 0 var(--ink);
+    --r: 3px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+  }
+
+  /* MASTHEAD */
+  .masthead {
+    border-bottom: 4px solid var(--ink);
+    padding-bottom: 1rem;
+    margin-bottom: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .masthead h1 {
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.8rem;
+    text-shadow: 3px 3px 0 var(--teal);
+    line-height: 1;
+  }
+  .masthead-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    opacity: .65;
+    margin-top: .3rem;
+  }
+  .meta {
+    text-align: right;
+    font-family: 'Space Mono', monospace;
+    font-size: .68rem;
+    line-height: 1.8;
+    opacity: .75;
+  }
+
+  /* ANNOTATION KEY */
+  .annotation-key {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.6rem;
+    padding: .8rem 1rem;
+    border: var(--border);
+    border-radius: var(--r);
+    background: #fff;
+    box-shadow: var(--shadow);
+    font-size: .78rem;
+  }
+  .annotation-key-title {
+    font-family: 'Space Mono', monospace;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    width: 100%;
+    opacity: .6;
+    margin-bottom: .3rem;
+  }
+  .key-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .5rem;
+    flex: 1;
+    min-width: 200px;
+  }
+  .key-swatch {
+    width: 10px;
+    flex-shrink: 0;
+    margin-top: .2rem;
+    border-radius: 2px;
+  }
+  .key-swatch.personal { background: var(--sand); border: 2px solid #c9a84c; height: 40px; }
+  .key-swatch.modeling { background: var(--teal); height: 40px; }
+  .key-text strong { font-family: 'Space Mono', monospace; font-size: .68rem; display: block; }
+
+  /* OVERVIEW TABLE */
+  .overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+    margin-bottom: 1.8rem;
+    border: var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .overview-table thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: .63rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: .45rem .7rem;
+    background: var(--ink);
+    color: var(--paper);
+    text-align: left;
+  }
+  .overview-table tbody tr:nth-child(even) { background: #fff; }
+  .overview-table tbody tr:last-child { background: var(--lime); font-weight: 700; }
+  .overview-table tbody td {
+    padding: .45rem .7rem;
+    border-bottom: 1.5px solid rgba(15,15,30,.12);
+    vertical-align: top;
+  }
+  .overview-table tbody td:first-child {
+    font-family: 'Space Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--coral);
+    white-space: nowrap;
+  }
+  .overview-table tbody td:last-child {
+    font-family: 'Space Mono', monospace;
+    font-size: .72rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* PHASE BLOCKS */
+  .phase {
+    margin-bottom: 1.6rem;
+    border: var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .phase-head {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    padding: .5rem .9rem;
+  }
+  .phase-num {
+    font-family: 'Bungee', sans-serif;
+    font-size: .7rem;
+    letter-spacing: .05em;
+  }
+  .phase-title {
+    font-family: 'Bungee', sans-serif;
+    font-size: .95rem;
+    flex: 1;
+  }
+  .phase-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: .62rem;
+    opacity: .8;
+    text-align: right;
+    line-height: 1.5;
+  }
+  .phase-body {
+    background: #fff;
+    padding: .9rem 1.1rem;
+    font-size: .85rem;
+  }
+  .phase-body p { margin-bottom: .6rem; }
+  .phase-body p:last-child { margin-bottom: 0; }
+  .phase-body ol, .phase-body ul {
+    padding-left: 1.4rem;
+    margin: .4rem 0 .6rem;
+  }
+  .phase-body li { margin-bottom: .3rem; }
+  .phase-body strong { font-weight: 700; }
+  .phase-body em { font-style: italic; color: #555; }
+
+  /* ANNOTATION BOXES */
+  /* Personal note — my own reminder to myself */
+  .note-personal {
+    background: var(--sand);
+    border-left: 4px solid #c9a84c;
+    padding: .55rem .8rem;
+    font-size: .8rem;
+    margin-top: .7rem;
+    font-style: italic;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .note-personal::before {
+    content: '✎ My note: ';
+    font-family: 'Space Mono', monospace;
+    font-size: .65rem;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    display: block;
+    margin-bottom: .2rem;
+    opacity: .7;
+  }
+
+  /* Modeling note — for colleagues watching me teach */
+  .note-modeling {
+    background: rgba(0, 194, 179, .12);
+    border-left: 4px solid var(--teal);
+    padding: .55rem .8rem;
+    font-size: .8rem;
+    margin-top: .7rem;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .note-modeling::before {
+    content: '👁 Modeling note: ';
+    font-family: 'Space Mono', monospace;
+    font-size: .65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    display: block;
+    margin-bottom: .2rem;
+    color: #008a7e;
+  }
+
+  /* Phase colour coding */
+  .ph-warmup  { background: var(--teal);  color: var(--ink); }
+  .ph-vocab   { background: #7c5cba;      color: #fff; }
+  .ph-pair    { background: var(--coral); color: #fff; }
+  .ph-clinic  { background: var(--lime);  color: var(--ink); }
+  .ph-group   { background: var(--teal);  color: var(--ink); }
+  .ph-debate  { background: var(--coral); color: #fff; }
+  .ph-wrap    { background: var(--sand);  color: var(--ink); }
+
+  /* Vocab mini table */
+  .vocab-mini {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .8rem;
+    margin: .5rem 0;
+  }
+  .vocab-mini thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: .6rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: .3rem .5rem;
+    border-bottom: 2px solid var(--ink);
+    text-align: left;
+    background: rgba(15,15,30,.05);
+  }
+  .vocab-mini tbody tr { border-bottom: 1px solid rgba(15,15,30,.1); }
+  .vocab-mini tbody td { padding: .35rem .5rem; vertical-align: top; }
+  .vocab-mini tbody td:first-child { font-family: 'Space Mono', monospace; font-size: .72rem; color: #7c5cba; width: 22%; }
+  .vocab-mini tbody td:nth-child(2) { width: 22%; color: #888; font-size: .75rem; }
+  .vocab-mini tbody td:last-child { font-style: italic; color: #555; }
+
+  /* Patterns mini */
+  .patterns-mini {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .8rem;
+    margin: .5rem 0;
+  }
+  .patterns-mini thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: .6rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: .3rem .5rem;
+    border-bottom: 2px solid var(--ink);
+    text-align: left;
+    background: rgba(15,15,30,.05);
+  }
+  .patterns-mini tbody tr { border-bottom: 1px solid rgba(15,15,30,.1); }
+  .patterns-mini tbody td { padding: .35rem .5rem; vertical-align: top; }
+  .patterns-mini tbody td:first-child { font-weight: 600; width: 30%; color: #7c5cba; }
+  .patterns-mini tbody td:last-child { font-family: 'Space Mono', monospace; font-size: .72rem; color: var(--coral); }
+
+  /* Teacher notes section */
+  .teacher-notes {
+    background: var(--sand);
+    border: var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 1rem 1.2rem;
+    margin-top: 1rem;
+  }
+  .teacher-notes h2 {
+    font-family: 'Bungee', sans-serif;
+    font-size: .9rem;
+    margin-bottom: .8rem;
+    border-bottom: 2px dashed rgba(15,15,30,.3);
+    padding-bottom: .4rem;
+  }
+  .teacher-notes p { font-size: .84rem; margin-bottom: .55rem; }
+  .teacher-notes p:last-child { margin-bottom: 0; }
+  .teacher-notes strong { color: var(--coral); }
+
+  hr.dashed { border: none; border-top: 2px dashed rgba(15,15,30,.15); margin: 1.5rem 0; }
+
+  .footer {
+    margin-top: 2rem;
+    border-top: 2px dashed rgba(15,15,30,.2);
+    padding-top: .7rem;
+    font-family: 'Space Mono', monospace;
+    font-size: .6rem;
+    opacity: .5;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    body { font-size: 11.5px; padding: 1rem; }
+    .phase { page-break-inside: avoid; }
+    .masthead h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div>
+    <h1>TEACH!</h1>
+    <div class="masthead-sub">Annotated Lesson Plan &nbsp;·&nbsp; Teacher's Copy</div>
+  </div>
+  <div class="meta">
+    Level: B2–C1 &nbsp;·&nbsp; Advanced ESL for Teachers<br>
+    Duration: 55 minutes<br>
+    Teacher talk target: ≤ 18 min (≤ 1/3)
+  </div>
+</div>
+
+<!-- ANNOTATION KEY -->
+<div class="annotation-key">
+  <div class="annotation-key-title">How to read the annotations in this plan</div>
+  <div class="key-item">
+    <div class="key-swatch personal"></div>
+    <div class="key-text">
+      <strong>✎ MY NOTE</strong>
+      Personal reminders and teaching decisions I've made for myself — things I want to remember in the moment.
+    </div>
+  </div>
+  <div class="key-item">
+    <div class="key-swatch modeling"></div>
+    <div class="key-text">
+      <strong>👁 MODELING NOTE</strong>
+      Explanations for colleagues who are watching me teach — the "why" behind what they're seeing me do.
+    </div>
+  </div>
+</div>
+
+<p style="font-size:1.1rem; font-style:italic; margin-bottom:1.3rem; font-weight:600">
+  "Talking About Teaching: Beliefs, Feelings, and the Language of the Classroom"
+</p>
+
+<!-- OVERVIEW TABLE -->
+<table class="overview-table">
+  <thead>
+    <tr>
+      <th>Phase</th>
+      <th>Activity</th>
+      <th>Time</th>
+      <th>TTT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1 — Warm-up</td><td>Survey as stimulus — silent reading + personal reflection</td><td>5 min</td><td>~2 min</td></tr>
+    <tr><td>2 — Vocabulary</td><td>Lexical sets: teaching language + affective vocabulary</td><td>10 min</td><td>~4 min</td></tr>
+    <tr><td>3 — Interaction 1</td><td>Pair discussion — beliefs questions (Section A)</td><td>8 min</td><td>~1 min</td></tr>
+    <tr><td>4 — Language Clinic 1</td><td>Open floor — grammar and communication questions</td><td>5 min</td><td>~3 min</td></tr>
+    <tr><td>5 — Interaction 2</td><td>Jigsaw group discussion — practices (Section B)</td><td>12 min</td><td>~2 min</td></tr>
+    <tr><td>6 — Interaction 3</td><td>Likert debate — opinions (Section C), whole class</td><td>8 min</td><td>~2 min</td></tr>
+    <tr><td>7 — Language Clinic 2</td><td>Open floor — communicative patterns, questions raised</td><td>4 min</td><td>~2 min</td></tr>
+    <tr><td>8 — Wrap-up</td><td>Reflection + handout / QR code distribution</td><td>3 min</td><td>~2 min</td></tr>
+    <tr><td><strong>TOTAL</strong></td><td></td><td><strong>55 min</strong></td><td><strong>~18 min</strong></td></tr>
+  </tbody>
+</table>
+
+<!-- PHASE 1 -->
+<div class="phase">
+  <div class="phase-head ph-warmup">
+    <span class="phase-num">PHASE 1</span>
+    <span class="phase-title">Warm-Up — Survey as Stimulus</span>
+    <div class="phase-meta">5 min &nbsp;·&nbsp; TTT ~2 min</div>
+  </div>
+  <div class="phase-body">
+    <ol>
+      <li>Distribute (or show QR for) the TEACH! survey. <strong>2 minutes silent reading</strong> — not to answer it, just to read through.</li>
+      <li>Ask: <em>"What surprised you? Which question felt the most personal?"</em> — 1 min silent reflection, then 1 min open share. Take 2–3 responses; do not comment or evaluate.</li>
+      <li>Frame the lesson: <em>"Today we use this survey as our starting point — not to fill it in as a questionnaire, but to build the vocabulary and language you'd need to answer it really well, and to hear what each other thinks."</em></li>
+    </ol>
+    <div class="note-personal">I want the opening to feel low-stakes. By asking what surprised them rather than what they think, I'm inviting curiosity rather than performance. I'll resist the urge to comment on their answers — my job here is just to open the door.</div>
+    <div class="note-modeling">Notice that I'm not asking participants to introduce themselves or state their teaching experience. That kind of opening puts people on the spot and costs time. Instead, the survey question does the work — it signals immediately that this class is about their professional lives, not abstract grammar.</div>
+  </div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase">
+  <div class="phase-head ph-vocab">
+    <span class="phase-num">PHASE 2</span>
+    <span class="phase-title">Vocabulary Input</span>
+    <div class="phase-meta">10 min &nbsp;·&nbsp; TTT ~4 min</div>
+  </div>
+  <div class="phase-body">
+    <p>Refer participants to <strong>Vocabulary Sets 1 and 2</strong> on the handout. For each word: pronounce it → give one example sentence → invite a second example or a synonym from the group. Keep moving. The handout carries the detail — I don't need to explain everything.</p>
+
+    <p><strong>Set 1 — The Language of Teaching (8 words):</strong></p>
+    <table class="vocab-mini">
+      <thead><tr><th>Word</th><th>Part of speech</th><th>Example sentence</th></tr></thead>
+      <tbody>
+        <tr><td>to foster</td><td>verb</td><td><em>"I try to foster a sense of curiosity."</em></td></tr>
+        <tr><td>to facilitate</td><td>verb</td><td><em>"My job is to facilitate discussion."</em></td></tr>
+        <tr><td>scaffolding</td><td>noun</td><td><em>"I use pictures as scaffolding."</em></td></tr>
+        <tr><td>corrective feedback</td><td>noun phrase</td><td><em>"I give corrective feedback through questions."</em></td></tr>
+        <tr><td>to elicit</td><td>verb</td><td><em>"I try to elicit the rule from them."</em></td></tr>
+        <tr><td>proficiency</td><td>noun</td><td><em>"Her proficiency improved after six months."</em></td></tr>
+        <tr><td>structured / unstructured</td><td>adjective</td><td><em>"I prefer structured tasks for beginners."</em></td></tr>
+        <tr><td>autonomy</td><td>noun</td><td><em>"Building autonomy means learning without me."</em></td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Set 2 — Affective and Emotional Vocabulary (9 words):</strong></p>
+    <table class="vocab-mini">
+      <thead><tr><th>Word</th><th>Part of speech</th><th>Example sentence</th></tr></thead>
+      <tbody>
+        <tr><td>apprehensive</td><td>adjective</td><td><em>"Students feel apprehensive before their first oral exam."</em></td></tr>
+        <tr><td>daunted</td><td>adjective</td><td><em>"New teachers can feel daunted by large or mixed-level classes."</em></td></tr>
+        <tr><td>absorbed</td><td>adjective</td><td><em>"The class was so absorbed in the task I didn't want to stop them."</em></td></tr>
+        <tr><td>exasperated</td><td>adjective</td><td><em>"I felt exasperated after explaining the same rule five times."</em></td></tr>
+        <tr><td>invigorated</td><td>adjective</td><td><em>"A good discussion can leave both teacher and students feeling invigorated."</em></td></tr>
+        <tr><td>fulfilled</td><td>adjective</td><td><em>"It's deeply fulfilling when a struggling student finally breaks through."</em></td></tr>
+        <tr><td>secure</td><td>adjective</td><td><em>"Learners need to feel secure before they'll take risks with language."</em></td></tr>
+        <tr><td>validated</td><td>adjective</td><td><em>"Students feel validated when their ideas are taken seriously."</em></td></tr>
+        <tr><td>vulnerable</td><td>adjective</td><td><em>"Speaking a new language in public can feel deeply vulnerable."</em></td></tr>
+      </tbody>
+    </table>
+
+    <div class="note-personal">I'll spend a little more time on Set 2 than Set 1 — these emotional words are less familiar and more likely to come up in the discussions that follow. My aim is for participants to have at least two or three of these words "active" and ready to use before Phase 3.</div>
+    <div class="note-modeling">I've deliberately chosen words that are one level above the obvious choices. "Apprehensive" instead of "nervous," "exasperated" instead of "frustrated," "fulfilled" instead of "happy." These aren't obscure — they're the words that appear in psychology, education, and professional development literature, and they give learners a more precise vocabulary for describing emotional experience. Notice also that I'm not just listing definitions — I'm asking participants for examples, which keeps teacher talk low and activates their own knowledge.</div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase">
+  <div class="phase-head ph-pair">
+    <span class="phase-num">PHASE 3</span>
+    <span class="phase-title">Pair Discussion — Beliefs (Section A)</span>
+    <div class="phase-meta">8 min &nbsp;·&nbsp; TTT ~1 min</div>
+  </div>
+  <div class="phase-body">
+    <p><strong>Setup:</strong> Pairs (or triads if odd number). 6 minutes talking, 2 minutes brief whole-class share.</p>
+    <p><strong>Task (Discussion Card A on handout):</strong> <em>"Choose one of the two belief questions. Answer it out loud to your partner — as if you were filling in the survey aloud. Try to use at least three words from the vocabulary lists. Your partner should ask at least one follow-up question."</em></p>
+    <p><strong>Follow-up question starters (on handout):</strong> "What made you think that?" / "Can you give me an example from your own classroom?" / "Has that belief changed over the years?"</p>
+    <p><strong>Feedback (2 min):</strong> Ask 2 pairs to share one thing their partner said that surprised or interested them. Keep the focus on content, not language.</p>
+    <div class="note-personal">I'll circulate during the pair work and listen rather than intervene. If a pair finishes early, I'll ask them to swap questions and try the second one. I'll make a note of any interesting vocabulary use or errors I want to bring back in Language Clinic 2 — but anonymously.</div>
+    <div class="note-modeling">The task asks them to "answer the survey question out loud" rather than "have a conversation about teaching." This framing is intentional — it gives participants a clear, concrete output to aim for, which reduces the anxiety that open-ended discussion tasks can produce. The vocabulary constraint ("use three words from the list") nudges them toward the target language without making it feel like a language exercise.</div>
+  </div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase">
+  <div class="phase-head ph-clinic">
+    <span class="phase-num">PHASE 4</span>
+    <span class="phase-title">Language Clinic 1 — Open Floor</span>
+    <div class="phase-meta">5 min &nbsp;·&nbsp; TTT ~3 min</div>
+  </div>
+  <div class="phase-body">
+    <p>I'll say: <em>"Before we go further — this time belongs to you. Any question about language, grammar, or how to express something that came up in the discussion. What have you got?"</em></p>
+    <p>Take 2–3 questions. Answer concisely. Write anything unresolved on the board as a "parking lot" item to return to. If no questions surface immediately, prompt: <em>"Did anyone reach for a word they couldn't find? Or notice a grammar pattern that felt uncertain?"</em></p>
+    <p><strong>Grammar points that tend to arise naturally from this discussion:</strong></p>
+    <table class="patterns-mini">
+      <thead><tr><th>Likely question</th><th>Key pattern to highlight</th></tr></thead>
+      <tbody>
+        <tr><td>Past habits vs. current practice</td><td>"I used to… but now I tend to…"</td></tr>
+        <tr><td>Degrees of certainty in beliefs</td><td>"I think…" vs. "I tend to believe…" vs. "I'm not entirely sure, but…"</td></tr>
+        <tr><td>Emotion words + gerund or infinitive</td><td>"I find correcting errors exasperating" vs. "I find it exasperating to correct errors"</td></tr>
+        <tr><td>Active vs. passive for classroom processes</td><td>"I correct mistakes" vs. "Mistakes are corrected when…"</td></tr>
+      </tbody>
+    </table>
+    <div class="note-personal">I genuinely don't know what questions will come up here — and that's fine. If I'm honest about uncertainty ("That's a good question — I'd say both are possible, but…"), I'm modelling the kind of intellectual honesty I want in the room.</div>
+    <div class="note-modeling">The Language Clinic is a scheduled slot for participants to direct their own learning. It's not a grammar lesson I've planned in advance — it's a space I've protected in the plan so that their questions have a home. This matters: if there's no dedicated slot, language questions either interrupt the flow or get suppressed altogether. Notice that I position the first clinic after the pair discussion, when participants have just been using language and are most likely to have live questions.</div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase">
+  <div class="phase-head ph-group">
+    <span class="phase-num">PHASE 5</span>
+    <span class="phase-title">Jigsaw Group Discussion — Practices (Section B)</span>
+    <div class="phase-meta">12 min &nbsp;·&nbsp; TTT ~2 min</div>
+  </div>
+  <div class="phase-body">
+    <p><strong>Setup:</strong> Groups of 3–4. Each group gets one question cluster. 8 minutes discussion, 4 minutes report-back — one spokesperson per group, 45–60 seconds each.</p>
+    <table class="vocab-mini">
+      <thead><tr><th>Group</th><th colspan="2">Focus question(s)</th></tr></thead>
+      <tbody>
+        <tr><td>Group 1</td><td colspan="2">B1 + B3 — Lesson structure and the activities they use most</td></tr>
+        <tr><td>Group 2</td><td colspan="2">B2 — How they handle mistakes and errors</td></tr>
+        <tr><td>Group 3</td><td colspan="2">B5 — How they help students who feel apprehensive or daunted</td></tr>
+        <tr><td>Group 4</td><td colspan="2">B6 — What actually happens when students work in pairs or groups</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:.6rem"><strong>Task I give them:</strong> <em>"Discuss your question as a group. Choose one person to share your group's main idea with the class in 2–3 sentences. Try to use at least two vocabulary words from either set."</em></p>
+    <p>During the report-back, I'll listen and write key vocabulary or interesting phrases on the board — but I will not evaluate, correct, or summarize their ideas for them.</p>
+    <div class="note-personal">I'll assign groups rather than letting people self-select — mixed groups tend to produce richer discussion. If the class is small (fewer than 8), I'll cut to two or three groups and combine the question clusters.</div>
+    <div class="note-modeling">The jigsaw structure is doing several things at once: it gives everyone a clear role, it means the report-back is genuinely new information for the rest of the class (not repetition), and it keeps group discussion focused. Notice that I've assigned Group 3 the question about emotionally supporting students — this is the question most likely to generate use of our affective vocabulary from Set 2. I've put it in the middle of the sequence so those words have been introduced but the group has had some time to sit with them.</div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase">
+  <div class="phase-head ph-debate">
+    <span class="phase-num">PHASE 6</span>
+    <span class="phase-title">Likert Debate — Opinions (Section C)</span>
+    <div class="phase-meta">8 min &nbsp;·&nbsp; TTT ~2 min</div>
+  </div>
+  <div class="phase-body">
+    <p>I'll read out 3–4 opinion statements from Section C — choosing the ones most likely to divide the group. Participants show their position with hand signals (hand raised high = strongly agree, flat/low = disagree). I'll then ask one person from each end of the spectrum to explain their position in one or two sentences.</p>
+    <p><strong>My preferred statements for debate (on Discussion Card C):</strong></p>
+    <ul>
+      <li><em>"Letting students use their own language in class helps them learn English."</em> (C3)</li>
+      <li><em>"It's better to ask a student a question about their mistake than to just correct it for them."</em> (C4 vs. C5)</li>
+      <li><em>"I worry that students will pick up each other's mistakes if they practise together too much."</em> (C9)</li>
+      <li><em>"When students feel secure in the classroom, they learn English more quickly."</em> (C11)</li>
+    </ul>
+    <p>After the last statement, I may share my own view — framed as: <em>"For what it's worth, I tend to think…"</em> — but only briefly, and only after everyone else has spoken.</p>
+    <div class="note-personal">The statement about peer errors (C9) is the one I find most reliably provocative with teacher groups — there's usually a strong split. I'll use it second-to-last so it's not the final note, but it tends to generate the most heat. If the debate catches fire, I'll let it run into some of the wrap-up time.</div>
+    <div class="note-modeling">The hand-signal technique is borrowed from Philosophy for Children and debate pedagogy. It makes positions visible without putting anyone on the spot to speak first, and it gives me an immediate read of the room. I also use it because it's physical — people move, the energy shifts, and it signals that this is a different kind of activity. Notice I don't share my own opinion until the end, and even then I hedge it. This is deliberate: as the teacher-facilitator, my opinion carries disproportionate weight, and I want them arguing with each other, not with me.</div>
+  </div>
+</div>
+
+<!-- PHASE 7 -->
+<div class="phase">
+  <div class="phase-head ph-clinic">
+    <span class="phase-num">PHASE 7</span>
+    <span class="phase-title">Language Clinic 2 — Communicative Patterns</span>
+    <div class="phase-meta">4 min &nbsp;·&nbsp; TTT ~2 min</div>
+  </div>
+  <div class="phase-body">
+    <p>I'll ask: <em>"In the debate just now — was there anything you wanted to say but couldn't find the words for? Or did you notice a pattern — a way of disagreeing, hedging, or inviting a response — that you'd like to look at together?"</em></p>
+    <p>I'll refer participants to the <strong>Language Clinic</strong> table on the handout and highlight 1–2 patterns based on what came up naturally in the lesson. If I noted anything on my slip of paper during the fluency activities, I'll bring it back now — anonymously and constructively.</p>
+    <table class="patterns-mini">
+      <thead><tr><th>Function</th><th>Pattern</th></tr></thead>
+      <tbody>
+        <tr><td>Expressing belief with uncertainty</td><td>"I tend to think that…"</td></tr>
+        <tr><td>Softening a disagreement</td><td>"I see your point, but…"</td></tr>
+        <tr><td>Drawing on experience</td><td>"In my experience…" / "From what I've seen…"</td></tr>
+        <tr><td>Inviting a response</td><td>"Does that match your experience?"</td></tr>
+        <tr><td>Acknowledging complexity</td><td>"It depends on…"</td></tr>
+        <tr><td>Contrasting past and present habits</td><td>"I used to… but now I tend to…"</td></tr>
+        <tr><td>Naming something difficult to articulate</td><td>"It's hard to put into words, but…"</td></tr>
+      </tbody>
+    </table>
+    <div class="note-personal">By this point, 50 minutes in, participants are usually warmed up and willing to ask more honest questions than they were at the start. I'll stay flexible — if someone raises something interesting, I'll give it the time it deserves rather than rushing to the wrap-up.</div>
+    <div class="note-modeling">The second Language Clinic is positioned at the end of the main discussion sequence, not the beginning — by design. Learners tend to ask better questions about language they've just been struggling to use than about language presented in the abstract. Placing the clinic here also means I'm not front-loading grammar, which would send the signal that accuracy matters more than communication.</div>
+  </div>
+</div>
+
+<!-- PHASE 8 -->
+<div class="phase">
+  <div class="phase-head ph-wrap">
+    <span class="phase-num">PHASE 8</span>
+    <span class="phase-title">Wrap-Up</span>
+    <div class="phase-meta">3 min &nbsp;·&nbsp; TTT ~2 min</div>
+  </div>
+  <div class="phase-body">
+    <ol>
+      <li>Distribute the TEACH! handout (or display the QR code for digital access via Google Drive).</li>
+      <li>Final question — no pressure to answer: <em>"If you could change one small thing about how you teach English next week — just one thing — what might it be?"</em> 30 seconds silent thought, then 2–3 volunteers share.</li>
+      <li>Close: <em>"You've been doing exactly what we ask our own students to do — using language to think out loud, to explain yourself, to disagree, and to reflect. That's not easy, and it takes a certain willingness to feel vulnerable. Thank you for that."</em></li>
+    </ol>
+    <div class="note-personal">The closing question is meant to be small and concrete — "one thing next week" rather than "what will you change about your teaching." Big questions produce polite non-answers. Small ones sometimes produce real ones.</div>
+    <div class="note-modeling">Notice that I use the word "vulnerable" in the closing — one of our vocabulary items from Set 2. This is intentional: I want to model the use of affective vocabulary in a genuine context, not just a practice sentence. The best vocabulary teaching happens when learners see the words used meaningfully by a real speaker in a real moment.</div>
+  </div>
+</div>
+
+<hr class="dashed">
+
+<!-- TEACHER NOTES -->
+<div class="teacher-notes">
+  <h2>General Notes — Things I Keep in Mind Throughout</h2>
+  <p><strong>On who these learners are:</strong> These are experienced professionals — some with 20 or 30 years in the classroom. I treat them as colleagues, not students. The most powerful moments in a lesson like this come from their experience, not from anything I've planned. My job is to create the conditions for that experience to surface.</p>
+  <p><strong>On error correction:</strong> During fluency activities (Phases 3, 5, 6), I don't correct mid-utterance. I jot interesting errors or patterns on a slip of paper and bring 1–2 back anonymously in Language Clinic 2 — framed as: <em>"I noticed a pattern that might be worth a look."</em> Correcting a colleague's spoken English in front of peers can feel daunting. I want to model the kind of respectful, delayed feedback I'd recommend in their own classrooms.</p>
+  <p><strong>On the Language Clinics:</strong> If the group is reluctant to raise questions, I'll model the kind of question I'm looking for: <em>"I'll start — here's something I'm genuinely uncertain about…"</em> Showing that the teacher doesn't have all the answers matters, especially with experienced teachers who may be used to being the authority in the room.</p>
+  <p><strong>On timing:</strong> Phase 6 (the Likert debate) is the most likely to overrun — and I'll let it if the quality of discussion warrants it. I'd rather the wrap-up be two minutes than cut off a genuine exchange of professional views. The reflection section on the handout compensates for a shortened ending.</p>
+  <p><strong>On the handout:</strong> It's designed to work as a standalone reference after class — vocabulary, communicative patterns, discussion tasks, and a personal reflection section. Participants who access it via QR code can use it on their phones during the lesson. I'll mention this at the start so they know it's there.</p>
+</div>
+
+<div class="footer">
+  <span>TEACH! — Annotated Lesson Plan &nbsp;·&nbsp; Teacher's Copy &nbsp;·&nbsp; Advanced ESL B2–C1</span>
+  <span>55 minutes &nbsp;·&nbsp; TTT target ≤ 18 min</span>
+</div>
+
+</body>
+</html>
