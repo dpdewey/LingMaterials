@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Brain Drain Lesson Plan (Revised)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #1a1208;
+    --cream:  #fdf6e3;
+    --ochre:  #c78b20;
+    --terra:  #b84c2a;
+    --forest: #3a6b35;
+    --sky:    #5b8db8;
+    --sand:   #e8d5a3;
+    --moss:   #8aad6e;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+    /* revision accent colours */
+    --rev-a: #7c3aed;   /* critique A — multimodal  */
+    --rev-b: #0369a1;   /* critique B — output      */
+    --rev-c: #b45309;   /* critique C — interaction */
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.68;
+    padding: 0 0 60px 0;
+  }
+
+  .masthead {
+    background: var(--ink);
+    padding: 26px 40px 20px;
+    border-bottom: 5px solid var(--ochre);
+    position: relative; overflow: hidden;
+  }
+  .masthead::before {
+    content: ''; position: absolute; right: -40px; top: -40px;
+    width: 220px; height: 220px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(199,139,32,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .brand { font-family: 'Bungee', sans-serif; font-size: 2.5rem; color: var(--ochre); letter-spacing: 1px; line-height: 1; }
+  .brand span { color: var(--terra); }
+  .subtitle { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.95rem; color: #bbb; margin-top: 5px; }
+
+  .meta-strip {
+    background: var(--ochre); color: var(--ink);
+    padding: 9px 40px; display: flex; flex-wrap: wrap; gap: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: var(--border);
+  }
+  .meta-strip span::before { content: '▸ '; }
+
+  /* ── REVISION BANNER ── */
+  .rev-banner {
+    background: #1e1b4b; color: #e0e7ff;
+    padding: 10px 40px; font-size: 11.5px;
+    border-bottom: 3px solid var(--rev-a);
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+  }
+  .rev-banner strong { font-family: 'Bungee', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: #a5b4fc; }
+  .rev-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 8px; border-radius: 2px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+    border: 1.5px solid currentColor;
+  }
+  .rev-chip.a { color: #c4b5fd; border-color: #7c3aed; }
+  .rev-chip.b { color: #7dd3fc; border-color: #0369a1; }
+  .rev-chip.c { color: #fcd34d; border-color: #b45309; }
+
+  .main { max-width: 900px; margin: 0 auto; padding: 30px 24px; }
+
+  /* ── ANNOTATION KEY ── */
+  .key-box {
+    border: var(--border); padding: 14px 18px; background: var(--sand);
+    display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 4px;
+  }
+  .key-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .ks-ochre { width: 14px; height: 32px; background: var(--ochre); border: 2px solid var(--ink); flex-shrink: 0; }
+  .ks-forest { width: 14px; height: 32px; background: var(--forest); border: 2px solid var(--ink); flex-shrink: 0; }
+  .ks-rev { width: 14px; height: 32px; background: var(--rev-a); border: 2px solid var(--ink); flex-shrink: 0; }
+
+  .section-head {
+    font-family: 'Bungee', sans-serif; font-size: 1rem;
+    background: var(--ink); color: var(--ochre);
+    padding: 7px 16px; margin: 34px 0 0 0;
+    letter-spacing: 0.08em; border-left: 6px solid var(--ochre);
+  }
+
+  /* ── OVERVIEW TABLE ── */
+  .overview-table { width: 100%; border-collapse: collapse; margin-top: 16px; border: var(--border); }
+  .overview-table th {
+    background: var(--ink); color: var(--ochre);
+    font-family: 'Bungee', sans-serif; font-size: 0.73rem;
+    letter-spacing: 0.08em; padding: 8px 12px; text-align: left; border-right: 2px solid #333;
+  }
+  .overview-table td { padding: 7px 12px; border: 1.5px solid #ccc; vertical-align: top; }
+  .overview-table tr:nth-child(even) td { background: #f7f0dc; }
+  .overview-table tr.total td { background: var(--ink); color: var(--ochre); font-weight: 700; }
+  .overview-table tr.new-row td { background: #f3e8ff; border-left: 4px solid var(--rev-a); }
+  .overview-table tr.mod-row td { background: #e0f2fe; border-left: 4px solid var(--rev-b); }
+  .time-pill {
+    display: inline-block; background: var(--ochre); color: var(--ink);
+    font-weight: 700; font-size: 10.5px; padding: 2px 7px; border-radius: 2px; white-space: nowrap;
+  }
+  .new-badge {
+    display: inline-block; background: var(--rev-a); color: #fff;
+    font-family: 'Bungee', sans-serif; font-size: 8px; letter-spacing: 0.07em;
+    padding: 1px 5px; margin-left: 6px; vertical-align: middle;
+  }
+  .mod-badge {
+    display: inline-block; background: var(--rev-b); color: #fff;
+    font-family: 'Bungee', sans-serif; font-size: 8px; letter-spacing: 0.07em;
+    padding: 1px 5px; margin-left: 6px; vertical-align: middle;
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase-block { border: var(--border); box-shadow: var(--shadow); margin-top: 24px; overflow: hidden; }
+  .phase-header {
+    background: var(--terra); color: var(--cream);
+    padding: 10px 18px; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: var(--border); flex-wrap: wrap; gap: 8px;
+  }
+  .phase-header.new-phase { background: var(--rev-a); }
+  .phase-header.mod-phase { background: var(--rev-b); }
+  .phase-number { font-family: 'Bungee', sans-serif; font-size: 1.05rem; letter-spacing: 0.05em; }
+  .phase-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    background: rgba(255,255,255,0.2); color: #fff;
+    padding: 2px 8px; letter-spacing: 0.06em; font-weight: 700; border: 1px solid rgba(255,255,255,0.4);
+  }
+  .phase-time {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    background: var(--ink); color: var(--cream);
+    padding: 3px 10px; letter-spacing: 0.05em; font-weight: 700;
+  }
+  .phase-body { padding: 18px 20px; }
+
+  /* ── NOTES ── */
+  .note-my {
+    background: #fffbf0; border-left: 5px solid var(--ochre);
+    padding: 10px 14px; margin: 12px 0; font-size: 12.5px;
+  }
+  .note-my::before {
+    content: '✎ MY NOTE'; display: block; font-family: 'Bungee', sans-serif;
+    font-size: 9.5px; color: var(--ochre); letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+  .note-obs {
+    background: #f0f7f0; border-left: 5px solid var(--forest);
+    padding: 10px 14px; margin: 12px 0; font-size: 12.5px;
+  }
+  .note-obs::before {
+    content: '👁 MODELING NOTE'; display: block; font-family: 'Bungee', sans-serif;
+    font-size: 9.5px; color: var(--forest); letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+  .note-rev {
+    background: #faf5ff; border-left: 5px solid var(--rev-a);
+    padding: 10px 14px; margin: 12px 0; font-size: 12.5px;
+  }
+  .note-rev::before {
+    content: '★ REVISION NOTE'; display: block; font-family: 'Bungee', sans-serif;
+    font-size: 9.5px; color: var(--rev-a); letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+
+  h3.sub {
+    font-family: 'Space Mono', monospace; font-size: 11.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em; color: var(--forest);
+    margin: 16px 0 6px; border-bottom: 1.5px dashed var(--forest); padding-bottom: 3px;
+  }
+  h3.sub.sky { color: var(--sky); border-color: var(--sky); }
+  h3.sub.purple { color: var(--rev-a); border-color: var(--rev-a); }
+  h3.sub.blue { color: var(--rev-b); border-color: var(--rev-b); }
+
+  .proc { list-style: decimal; padding-left: 22px; margin: 10px 0; }
+  .proc li { margin-bottom: 7px; }
+  .proc li strong { color: var(--terra); }
+
+  blockquote.prompt {
+    border-left: 4px solid var(--terra); padding: 8px 14px; margin: 10px 0;
+    font-family: 'Fraunces', serif; font-style: italic; font-size: 13px; color: #333; background: #fff8f5;
+  }
+
+  .vocab-inline {
+    display: inline-block; background: var(--moss); color: var(--ink);
+    padding: 1px 6px; border: 1.5px solid var(--ink);
+    font-weight: 700; font-size: 12px; margin: 0 2px;
+  }
+
+  table.vocab-t { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12.5px; }
+  table.vocab-t th {
+    background: var(--ink); color: var(--cream); padding: 6px 10px;
+    text-align: left; font-family: 'Bungee', sans-serif; font-size: 10px; letter-spacing: 0.07em;
+  }
+  table.vocab-t td { padding: 6px 10px; border: 1.5px solid #ccc; vertical-align: top; }
+  table.vocab-t tr:nth-child(even) td { background: #f7f0dc; }
+  table.vocab-t td:first-child { font-weight: 700; color: var(--forest); white-space: nowrap; }
+
+  .ttt-bar {
+    font-size: 11px; background: var(--moss); border: 1.5px solid var(--ink);
+    display: inline-block; padding: 2px 8px; margin-top: 8px; font-weight: 700;
+  }
+
+  /* ── VIDEO TASK BOX ── */
+  .video-box {
+    border: 3px solid var(--rev-a); box-shadow: 5px 5px 0 var(--rev-a);
+    margin: 14px 0; overflow: hidden;
+  }
+  .vb-head {
+    background: var(--rev-a); color: #fff;
+    font-family: 'Bungee', sans-serif; font-size: 0.9rem;
+    padding: 9px 16px; letter-spacing: 0.07em;
+    border-bottom: 3px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .vb-url {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    background: rgba(0,0,0,0.3); color: #e0e7ff;
+    padding: 2px 8px; letter-spacing: 0.04em;
+  }
+  .vb-body { padding: 14px 18px; background: #faf5ff; }
+  .vb-steps { list-style: none; padding: 0; margin: 10px 0; }
+  .vb-steps li {
+    padding: 7px 10px; margin-bottom: 6px;
+    border-left: 4px solid var(--rev-a); background: #fff;
+    font-size: 12.5px; display: flex; gap: 10px;
+  }
+  .vb-step-num {
+    font-family: 'Bungee', sans-serif; font-size: 1rem;
+    color: var(--rev-a); min-width: 22px; flex-shrink: 0;
+  }
+  .vb-notice {
+    border: 2px dashed var(--rev-a); padding: 9px 13px;
+    background: #fff; font-size: 12px; margin-top: 10px;
+    font-family: 'Fraunces', serif; font-style: italic; color: #444;
+  }
+  .vb-notice strong { font-style: normal; color: var(--rev-a); }
+
+  /* ── INTERACTION TOOLKIT ── */
+  .toolkit-box {
+    border: 3px solid var(--rev-c); box-shadow: 5px 5px 0 var(--rev-c);
+    margin: 14px 0; overflow: hidden;
+  }
+  .tb-head {
+    background: var(--rev-c); color: #fff;
+    font-family: 'Bungee', sans-serif; font-size: 0.88rem;
+    padding: 8px 16px; letter-spacing: 0.07em; border-bottom: 3px solid var(--ink);
+  }
+  .tb-body { padding: 12px 16px; background: #fffbf0; }
+  .tb-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 8px; }
+  .tb-col { border: 2px solid var(--ink); overflow: hidden; }
+  .tb-col-head {
+    background: var(--ink); color: #fcd34d;
+    font-family: 'Bungee', sans-serif; font-size: 8.5px;
+    padding: 5px 9px; letter-spacing: 0.1em;
+  }
+  .tb-col ul { list-style: none; padding: 8px 10px; background: #fff; }
+  .tb-col ul li {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 11.5px; padding: 3px 0; border-bottom: 1px dotted #ddd; color: #333;
+  }
+  .tb-col ul li:last-child { border-bottom: none; }
+  .tb-model {
+    background: #fef9c3; border-top: 2px solid var(--ink);
+    padding: 9px 14px; font-size: 12px;
+  }
+  .tb-model strong { color: var(--rev-c); }
+
+  /* ── OUTPUT TASK BOX ── */
+  .output-box {
+    border: 3px solid var(--rev-b); box-shadow: 5px 5px 0 var(--rev-b);
+    margin: 14px 0; overflow: hidden;
+  }
+  .ob-head {
+    background: var(--rev-b); color: #fff;
+    font-family: 'Bungee', sans-serif; font-size: 0.88rem;
+    padding: 8px 16px; letter-spacing: 0.07em; border-bottom: 3px solid var(--ink);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .ob-badge {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    background: rgba(255,255,255,0.25); color: #fff;
+    padding: 2px 8px; border: 1px solid rgba(255,255,255,0.5);
+  }
+  .ob-body { padding: 14px 18px; background: #f0f9ff; }
+  .ob-options { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 10px 0; }
+  .ob-opt { border: 2px solid var(--ink); overflow: hidden; box-shadow: 3px 3px 0 var(--ink); }
+  .ob-opt-head {
+    background: var(--ink); color: #7dd3fc;
+    font-family: 'Bungee', sans-serif; font-size: 8.5px;
+    padding: 5px 9px; letter-spacing: 0.09em;
+  }
+  .ob-opt-body { padding: 9px 10px; background: #fff; font-size: 11.5px; }
+  .ob-scaffold {
+    background: #e0f2fe; border-top: 2px dashed var(--rev-b);
+    padding: 9px 14px; font-size: 12px;
+  }
+  .ob-scaffold strong { color: var(--rev-b); }
+
+  /* ── PERSPECTIVE CARDS ── */
+  .persp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+  .persp-card { border: var(--border); overflow: hidden; box-shadow: var(--shadow); }
+  .persp-card .pc-head { padding: 8px 13px; font-family: 'Bungee', sans-serif; font-size: 0.8rem; letter-spacing: 0.05em; }
+  .persp-card.stay .pc-head { background: var(--forest); color: var(--cream); }
+  .persp-card.leave .pc-head { background: var(--sky); color: var(--cream); }
+  .persp-card ul { list-style: none; padding: 10px 13px; font-size: 12px; background: #fff; }
+  .persp-card ul li { margin-bottom: 5px; padding-left: 14px; position: relative; }
+  .persp-card ul li::before { content: '→'; position: absolute; left: 0; color: #aaa; }
+
+  .footer {
+    background: var(--ink); color: #888; font-size: 10.5px;
+    padding: 12px 40px; text-align: center;
+    border-top: 3px solid var(--ochre); margin-top: 40px; letter-spacing: 0.04em;
+  }
+  .footer strong { color: var(--ochre); }
+
+  @media print { .phase-block { break-inside: avoid; } .video-box { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brand">Teach <span>for</span> Success</div>
+  <div class="subtitle">Lesson Plan (Revised) · Brain Drain vs. Community Development: Should I Stay or Should I Go?</div>
+</div>
+
+<div class="meta-strip">
+  <span>Level: Advanced ESL B2–C1</span>
+  <span>Time: 55–65 min</span>
+  <span>Class size: 6–20</span>
+  <span>Audience: Rural university educators, Peru</span>
+  <span>Focus: Discussion + Economic Vocabulary</span>
+</div>
+
+<!-- REVISION BANNER -->
+<div class="rev-banner">
+  <strong>REVISION LOG</strong>
+  <span class="rev-chip a">★ A — MULTIMODAL INPUT</span> New Phase 2b: authentic video stimulus + noticing task
+  <span class="rev-chip b">★ B — EXTENDED OUTPUT</span> Phase 8 restructured: mini position statement (spoken/written)
+  <span class="rev-chip c">★ C — INTERACTIONAL COMPETENCE</span> Interaction Toolkit added before Phase 3
+</div>
+
+<div class="main">
+
+  <div class="key-box">
+    <strong style="font-family:'Bungee',sans-serif;font-size:0.78rem;letter-spacing:0.07em;">ANNOTATION KEY</strong>
+    <div class="key-item"><div class="ks-ochre"></div><div><strong>✎ MY NOTE</strong> — personal reminders and in-the-moment cues</div></div>
+    <div class="key-item"><div class="ks-forest"></div><div><strong>👁 MODELING NOTE</strong> — pedagogical rationale for observing colleagues</div></div>
+    <div class="key-item"><div class="ks-rev"></div><div><strong>★ REVISION NOTE</strong> — explains what changed and why, per the three critique points</div></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section-head">LESSON OVERVIEW</div>
+  <table class="overview-table">
+    <tr><th>PHASE</th><th>ACTIVITY</th><th>TIME</th><th>TTT</th></tr>
+    <tr><td>1 — Warm-up</td><td>Survey as stimulus — silent reading + personal reflection</td><td><span class="time-pill">5 min</span></td><td>2 min</td></tr>
+    <tr><td>2 — Vocabulary</td><td>Lexical sets — economic migration + community development language</td><td><span class="time-pill">8 min</span></td><td>4 min</td></tr>
+    <tr class="new-row"><td>2b — Video <span class="new-badge">NEW ★A</span></td><td>Authentic video stimulus — noticing task + language mining</td><td><span class="time-pill">7 min</span></td><td>2 min</td></tr>
+    <tr><td>3 — Interaction 1</td><td>Pair discussion — Section A personal experience questions <em>(now includes Interaction Toolkit ★C)</em></td><td><span class="time-pill">9 min</span></td><td>1 min</td></tr>
+    <tr><td>4 — Language Clinic 1</td><td>Open floor — grammar, vocabulary, and interaction questions</td><td><span class="time-pill">5 min</span></td><td>3 min</td></tr>
+    <tr><td>5 — Interaction 2</td><td>Perspective task — Stay vs. Leave argument cards (jigsaw)</td><td><span class="time-pill">12 min</span></td><td>2 min</td></tr>
+    <tr><td>6 — Interaction 3</td><td>Likert debate — whole-class statements <em>(trim to 2–3 items if short on time)</em></td><td><span class="time-pill">6 min</span></td><td>2 min</td></tr>
+    <tr><td>7 — Language Clinic 2</td><td>Open floor — patterns noticed, gaps identified</td><td><span class="time-pill">4 min</span></td><td>2 min</td></tr>
+    <tr class="mod-row"><td>8 — Output + Wrap-up <span class="mod-badge">MOD ★B</span></td><td>Mini position statement (spoken or written) + one-word close</td><td><span class="time-pill">9 min</span></td><td>2 min</td></tr>
+    <tr class="total"><td colspan="2"><strong>TOTAL (full version)</strong> · <em style="font-weight:normal;">Trim Phase 6 to 2 items for 55-min version</em></td><td><strong>65 min</strong></td><td><strong>~20 min</strong></td></tr>
+  </table>
+
+  <!-- ══════════════════════════════════════
+       PHASE 1 — unchanged
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 1 — WARM-UP</div>
+      <div class="phase-time">5 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Distribute or display the <strong>Teach for Success Brain Drain Survey</strong>. Give participants 2 minutes to read silently — not to complete it, just to scan it and notice which questions feel most personal.</li>
+        <li>Ask: <em>"Which question hit closest to home? Did any question make you want to answer immediately — or made you hesitate?"</em> (1 min think time; 1 min open share — take 2–3 brief responses with no commentary.)</li>
+        <li>Frame the lesson: <em>"Today the survey is our starting point. We're going to talk about one of the most important decisions your students face — and maybe one that shaped your own life. We'll also build the English vocabulary you need to have this conversation at a high level."</em></li>
+      </ol>
+      <div class="note-my">
+        This is the one topic I don't need to sell. In my experience with rural university educators, the question "should I stay or should I go?" is personal for almost everyone in the room — they either stayed, came back, or have a sibling or child who left. I simply hand out the survey and let the room's energy do the work. The hesitation I watch for: who pauses longest on Question 3 ("Have you ever felt guilty…"). That's the question I'll return to in Phase 6.
+      </div>
+      <div class="note-obs">
+        The warm-up follows the same structure as previous Teach for Success lessons: the survey is used as an <em>activator</em>, not a data instrument. By asking participants to read before they speak, the teacher lowers the entry threshold — everyone has something to look at, which prevents the awkward silence that can accompany cold civic or emotional topics.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 2 — slightly trimmed to make room for 2b
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 2 — VOCABULARY INPUT</div>
+      <div class="phase-time">8 MIN · TTT: ~4 MIN</div>
+    </div>
+    <div class="phase-body">
+      <p>Refer participants to <strong>Vocabulary Set 1 and Set 2</strong> on the handout. This phase is now slightly shorter (8 min, down from 10) to create space for Phase 2b. Prioritise Sets 1 and 2 but move quickly — the video in Phase 2b will activate much of this vocabulary naturally.</p>
+
+      <h3 class="sub">Set 1 — Economic Migration &amp; Development Vocabulary (8 items)</h3>
+      <p style="margin-bottom:8px;">For each item: pronounce → one example sentence → invite a second example or synonym from participants. Do not lecture.</p>
+
+      <table class="vocab-t">
+        <tr><th>WORD / PHRASE</th><th>MEANING IN CONTEXT</th><th>EXAMPLE</th></tr>
+        <tr><td>brain drain (n)</td><td>the emigration of educated or skilled workers from a region, leaving it less developed</td><td><em>"Ayacucho has experienced significant brain drain as graduates move to Lima."</em></td></tr>
+        <tr><td>urban migration (n)</td><td>the movement of people from rural to urban areas in search of better opportunities</td><td><em>"Urban migration has accelerated since the university opened in our province."</em></td></tr>
+        <tr><td>community investment (n)</td><td>the use of money, time, or skills to develop and improve a local community</td><td><em>"Young doctors who return home are a form of community investment."</em></td></tr>
+        <tr><td>entrepreneurship (n)</td><td>the activity of setting up new businesses, often while taking on financial risk</td><td><em>"Rural entrepreneurship can create jobs without requiring people to leave."</em></td></tr>
+        <tr><td>to retain (v)</td><td>to keep someone rather than losing them to another place</td><td><em>"How can rural provinces retain their most talented graduates?"</em></td></tr>
+        <tr><td>economic opportunity (n)</td><td>the chance to earn a living wage, advance professionally, or build wealth</td><td><em>"Students leave because economic opportunities in Lima are far greater."</em></td></tr>
+        <tr><td>remittances (n)</td><td>money sent home by workers living in another city or country</td><td><em>"Remittances from Lima help many rural families survive."</em></td></tr>
+        <tr><td>local talent pipeline (n)</td><td>a system that develops skilled people within a community and keeps them there</td><td><em>"Our university could become a local talent pipeline if salaries were competitive."</em></td></tr>
+      </table>
+
+      <h3 class="sub">Set 2 — Expressing Values, Tension, and Identity (9 items)</h3>
+      <table class="vocab-t">
+        <tr><th>WORD</th><th>MEANING</th><th>USE IN CONTEXT</th></tr>
+        <tr><td>torn (adj)</td><td>unable to choose between two things you value equally</td><td><em>"Many graduates feel torn between their career and their family obligations."</em></td></tr>
+        <tr><td>rooted (adj)</td><td>having a strong connection to a place, culture, or community</td><td><em>"I feel deeply rooted here — leaving would feel like losing part of myself."</em></td></tr>
+        <tr><td>obligated (adj)</td><td>feeling a strong duty or responsibility to do something</td><td><em>"Some students feel obligated to return and repay their community."</em></td></tr>
+        <tr><td>ambitious (adj)</td><td>having a strong desire to succeed, achieve, or do more</td><td><em>"Being ambitious isn't incompatible with staying."</em></td></tr>
+        <tr><td>resentful (adj)</td><td>feeling bitterness toward a situation that seems unfair</td><td><em>"Those who stayed can feel resentful watching peers advance in Lima."</em></td></tr>
+        <tr><td>pragmatic (adj)</td><td>dealing with problems in a practical, realistic way</td><td><em>"A pragmatic approach means looking at what salaries are actually available."</em></td></tr>
+        <tr><td>conflicted (adj)</td><td>experiencing two opposing feelings or values at the same time</td><td><em>"I felt genuinely conflicted when I got the job offer in Arequipa."</em></td></tr>
+        <tr><td>indebted (adj)</td><td>feeling that you owe something to a person or community</td><td><em>"Many scholarship recipients feel indebted to their home province."</em></td></tr>
+        <tr><td>underutilized (adj)</td><td>not being used to full potential or capacity</td><td><em>"Talented young people feel underutilized in areas with few professional opportunities."</em></td></tr>
+      </table>
+
+      <div class="note-my">
+        I always write <span class="vocab-inline">brain drain</span>, <span class="vocab-inline">torn</span>, and <span class="vocab-inline">rooted</span> on the board immediately — these three tend to unlock conversations that couldn't happen before. Don't over-dwell here: Phase 2b will activate much of this vocabulary better than any drill.
+      </div>
+      <div class="note-obs">
+        The Set 2 words are all gradable adjectives describing internal states — they move learners from reporting facts ("many people leave") to expressing personal experience ("I felt conflicted because…"). Without this register, discussion at B2–C1 stays at the surface.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~4 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 2b — NEW: VIDEO STIMULUS  ★ CRITIQUE A
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header new-phase">
+      <div class="phase-number">PHASE 2b — VIDEO STIMULUS &amp; NOTICING TASK <span class="phase-tag">NEW · CRITIQUE A: MULTIMODAL INPUT</span></div>
+      <div class="phase-time">7 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="video-box">
+        <div class="vb-head">
+          📱 PRIMARY CLIP — FACEBOOK REEL (SHORT, AUTHENTIC)
+          <div class="vb-url">facebook.com/reel/1517899552904437</div>
+        </div>
+        <div class="vb-body">
+          <p style="font-size:12.5px;margin-bottom:10px;">This is a short first-person video — the genre of testimonial reel common on Facebook and TikTok in Peru — in which a young person from a rural background speaks directly to camera about the stay-vs-leave decision. It provides exactly what text-based input cannot: authentic prosody, hedging, emotional register, and the kind of spontaneous self-disclosure that serves as a discourse model for learners.</p>
+
+          <ul class="vb-steps">
+            <li><span class="vb-step-num">1</span><span>Before playing: <em>"We're going to watch a short clip — about 60–90 seconds. Don't take notes. Just watch and listen. One question: what does this person feel?"</em></span></li>
+            <li><span class="vb-step-num">2</span><span><strong>Play the clip once</strong> without pause. Let participants absorb it as a whole.</span></li>
+            <li><span class="vb-step-num">3</span><span>Quick whole-class check (30 sec): <em>"One word — what does this person feel?"</em> Take 3–4 responses. Write the words on the board. Note whether participants reach for Set 2 vocabulary unprompted.</span></li>
+            <li><span class="vb-step-num">4</span><span><strong>Play the clip a second time.</strong> This time ask participants to notice: <em>"What arguments do you hear — for staying, or for leaving? And notice how they say it — do they sound certain, or uncertain?"</em></span></li>
+            <li><span class="vb-step-num">5</span><span>Pair check (60 sec): <em>"What did you notice? One argument, one language point."</em> Brief open share. You are now ready to move to Phase 3.</span></li>
+          </ul>
+
+          <div class="vb-notice">
+            <strong>⚠ FALLBACK NOTE:</strong> If the Facebook reel is unavailable (no internet, platform access restrictions), use one of these alternatives — all freely available on YouTube: <br><br>
+            <strong>Option A:</strong> Search "Peru jóvenes migración Lima testimonio" on YouTube — numerous first-person short clips exist (2–4 min). <br>
+            <strong>Option B:</strong> The YouTube clip <em>"Brain Drain in Peru: Top Scientists Leaving Country"</em> (Al Jazeera, ~3 min) works well with more academic groups. <br>
+            <strong>Option C (no internet):</strong> The teacher reads a 200-word first-person monologue aloud — see the <em>Read-Aloud Script</em> on the handout (bottom of page 2). Same viewing task applies.
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub purple">Language Mining — What Did They Say and How?</h3>
+      <p style="margin-bottom:8px;font-size:12.5px;">After the second viewing, the teacher briefly draws attention to <em>how</em> the speaker communicated — not just what they said. This is the "discourse model" function of authentic input.</p>
+
+      <table class="vocab-t">
+        <tr><th>LIKELY SPEAKER FEATURE</th><th>WHAT TO HIGHLIGHT FOR LEARNERS</th></tr>
+        <tr><td>Hesitation / self-repair</td><td><em>"I mean… what I'm trying to say is…"</em> — signals authentic thinking-in-real-time; models that hesitation is not failure</td></tr>
+        <tr><td>Hedging</td><td><em>"I kind of feel like…" / "I guess…" / "It's complicated"</em> — shows how native or fluent speakers signal uncertainty without being vague</td></tr>
+        <tr><td>Loaded vocabulary</td><td>Note any words from Set 2 that the speaker uses (or near-equivalents in Spanish, if the clip is bilingual) — this validates the vocabulary input</td></tr>
+        <tr><td>Pragmatic stance</td><td>Does the speaker defend their choice or apologise for it? — a rich point for Phase 3 discussion</td></tr>
+      </table>
+
+      <div class="note-my">
+        I play the clip twice without pause and resist the urge to narrate over it. The second time, I watch participants' faces rather than the screen — the moment someone says "that's exactly how I felt" is worth more than any comprehension question. If the reel is unavailable, the read-aloud works surprisingly well. The shift in modality — the teacher as voice rather than slide presenter — also models a kind of performative language use.
+      </div>
+      <div class="note-obs">
+        The two-viewing structure mirrors listening pedagogy best practice: first for gist and affect, second for specific content and form. Asking "what do you notice about <em>how</em> they say it?" directly addresses Critique A's point about pragmatics and interaction models. The clip functions as pre-task input that seeds both the content and the register of everything that follows.
+      </div>
+      <div class="note-rev">
+        <strong>Why this phase was added (Critique A):</strong> The original lesson relied entirely on text-based, teacher-mediated input. This phase provides authentic spoken discourse — a real person, unscripted, navigating the same decision the participants face — which supports comprehension (the content is now embodied, not abstract), provides a pragmatic model (how do fluent speakers hedge, repair, and negotiate stance?), and creates an emotional bridging moment that makes the pair discussion in Phase 3 feel immediately personal rather than academic.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 3 — adds Interaction Toolkit  ★ CRITIQUE C
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 3 — INTERACTION 1: PAIR DISCUSSION</div>
+      <div class="phase-time">9 MIN · TTT: ~1 MIN</div>
+    </div>
+    <div class="phase-body">
+
+      <!-- INTERACTION TOOLKIT — NEW ★C -->
+      <div class="toolkit-box">
+        <div class="tb-head">🗣 INTERACTION TOOLKIT — DISPLAY BEFORE PAIRS BEGIN <span style="font-size:9px;font-weight:normal;letter-spacing:0.05em;opacity:0.85;">NEW · CRITIQUE C: INTERACTIONAL COMPETENCE</span></div>
+        <div class="tb-body">
+          <p style="font-size:12px;margin-bottom:8px;">Before releasing pairs, spend <strong>60–90 seconds</strong> pointing to this toolkit on the board or handout. Model two phrases aloud yourself — one from each column. You are not teaching these; you are <em>making them visible and usable</em>.</p>
+          <div class="tb-grid">
+            <div class="tb-col">
+              <div class="tb-col-head">ENTERING / TURN-TAKING</div>
+              <ul>
+                <li>"Can I jump in here?"</li>
+                <li>"Sorry to interrupt, but…"</li>
+                <li>"Building on what you said…"</li>
+                <li>"That actually reminds me…"</li>
+              </ul>
+            </div>
+            <div class="tb-col">
+              <div class="tb-col-head">SOFTENING DISAGREEMENT</div>
+              <ul>
+                <li>"I see your point, but…"</li>
+                <li>"I'm not sure I agree — for me…"</li>
+                <li>"That may be true, although…"</li>
+                <li>"I'd push back on that a little…"</li>
+              </ul>
+            </div>
+            <div class="tb-col">
+              <div class="tb-col-head">CHECKING &amp; REPAIR</div>
+              <ul>
+                <li>"Do you mean that…?"</li>
+                <li>"Sorry — are you saying…?"</li>
+                <li>"What I mean is…"</li>
+                <li>"Let me rephrase that…"</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tb-model">
+            <strong>Quick teacher model (30 sec):</strong> Point to the second column and say, aloud and naturally: <em>"Watch how I'd use this if my partner said 'young people should always stay.' I'd say: 'I see your point — community matters. But I'm not sure I agree that it's always the right choice. For me it depends on what the person actually needs.'"</em> Then release to pairs. No further explanation needed.
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Put participants in pairs, ideally mixed by age or years at the institution. Refer them to <strong>Section A</strong> on the handout.</li>
+        <li>They choose two questions to discuss for 7 minutes. Circulate and <strong>listen only</strong> — note language for the clinic, including interaction patterns (are they using toolkit moves?). Do not join, correct, or comment.</li>
+        <li>Bring the class together. One sentence from one pair. Move immediately to the Language Clinic.</li>
+      </ol>
+
+      <h3 class="sub">Section A Questions (on handout)</h3>
+      <ol class="proc">
+        <li>Did you face a choice between staying in your hometown and moving to a larger city? What factors most influenced your decision — or what factors would influence it if you had to choose now?</li>
+        <li>Think of a <strong>former student</strong> who left the region. Think of one who stayed. Who do you think made the better choice? Is it fair to compare them?</li>
+        <li>Is there a difference between leaving for <strong>economic reasons</strong> and leaving for <strong>personal ambitions</strong>? Does the reason change how you feel about it?</li>
+        <li>What would need to change in your province for a talented twenty-five-year-old to <strong>choose to stay</strong> — not out of obligation, but because it genuinely seemed like the best option?</li>
+      </ol>
+
+      <blockquote class="prompt">
+        "Choose any two. You don't have to agree. Use the interaction toolkit on your handout if it helps — especially if you want to disagree with your partner. You have 7 minutes."
+      </blockquote>
+
+      <div class="note-my">
+        Question 2 is the one I find most reliably generates animated discussion with teacher groups. I also now explicitly ask participants to try at least one phrase from the toolkit during the discussion — not because I'll check, but because naming the goal makes it more likely they'll attempt it.
+      </div>
+      <div class="note-obs">
+        The toolkit is displayed, briefly modelled, and then left visible — it is not drilled or tested. This is consistent with the research principle that interactional competence develops through exposure to models and opportunity for use, not through metalinguistic instruction. The teacher's 30-second demonstration is critical: it shows the moves <em>in context</em>, not as a list.
+      </div>
+      <div class="note-rev">
+        <strong>Why this was added (Critique C):</strong> The original lesson assumed that providing discussion questions was sufficient for rich interaction. Research on interactional competence (Pekarek Doehler &amp; Pocorny, 2019; Walsh, 2011) shows that learners need explicit orientation to turn-taking, repair, and stance negotiation — not as grammar rules but as conversational tools. The toolkit gives participants the language to <em>manage</em> the interaction itself, not just contribute content to it.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~1 minute</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 4 — unchanged except minor reference to toolkit
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 4 — LANGUAGE CLINIC 1</div>
+      <div class="phase-time">5 MIN · TTT: ~3 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Open: <em>"Any grammar or vocabulary questions from your pair discussion? Anything you wanted to say but couldn't find the English for?"</em></li>
+        <li>Add: <em>"Did anyone use a phrase from the interaction toolkit? Did it feel natural or awkward?"</em> — treat this as genuine feedback, not evaluation.</li>
+        <li>Share 1–2 language patterns you noticed while circulating. No names. Rephrase into a target form and write on the board.</li>
+        <li>Ask participants to produce a second example sentence using the target form.</li>
+      </ol>
+
+      <h3 class="sub">Anticipated Language Needs</h3>
+      <table class="vocab-t">
+        <tr><th>LIKELY LEARNER FORM</th><th>TARGET FORM</th></tr>
+        <tr><td>"He decided to go because he wanted earn more money."</td><td>"He left <em>in order to</em> / <em>so that he could</em> earn a better wage."</td></tr>
+        <tr><td>"Many peoples go to Lima."</td><td>"<em>A significant proportion of</em> graduates migrate to Lima."</td></tr>
+        <tr><td>"I don't think it's good that young people leave."</td><td>"I'm <em>skeptical</em> that this trend benefits the region in the long term."</td></tr>
+        <tr><td>"She came back because she felt she must."</td><td>"She returned because she felt <em>obligated</em> / <em>indebted</em> to her community."</td></tr>
+        <tr><td>"But — but — I want to say something." (interruption)</td><td>"<em>Can I jump in here?</em> / <em>Building on what you said…</em>"</td></tr>
+      </table>
+      <p style="font-size:12px;color:#666;margin-top:8px;font-style:italic;">Note the last row — drawn from the toolkit, now treated as target language for repair, not just a social nicety.</p>
+      <div class="note-obs">
+        Adding a toolkit-sourced example to the clinic treats interactional language as legitimate grammar — which it is. "Can I jump in?" is as rule-governed as any verb tense, and learners benefit from seeing it treated as such.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~3 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 5 — unchanged
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 5 — INTERACTION 2: PERSPECTIVE TASK (JIGSAW)</div>
+      <div class="phase-time">12 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Setup — Argument Groups</h3>
+      <p>Divide into two groups. Group A receives the <strong>Case for Staying</strong> panel on the handout. Group B receives the <strong>Case for Leaving</strong> panel. Give groups 3 minutes to read and identify the 3 strongest arguments on their card.</p>
+      <p style="margin-top:6px;"><em>Note: assign groups strategically — if you know who has personally left and returned, consider putting them in the opposing group for maximum productive tension.</em></p>
+
+      <h3 class="sub">Expert Pairs — Structured Argument Exchange</h3>
+      <p style="margin-top:8px;">Reform into A-B pairs. Each person <em>advocates for their assigned position</em> for 4 minutes, then drops the role: <em>"Now, what do you actually think?"</em> (2 min)</p>
+
+      <blockquote class="prompt">
+        "For the first four minutes: argue the position on your card as strongly as you can, even if it's not your own view. Use the toolkit to interrupt and push back. Then we'll drop the roles."
+      </blockquote>
+
+      <div class="persp-grid">
+        <div class="persp-card stay">
+          <div class="pc-head">GROUP A — THE CASE FOR STAYING</div>
+          <ul>
+            <li>Rural communities lose their best talent just when they need it most</li>
+            <li>Universities, schools, and clinics in rural areas desperately need qualified staff</li>
+            <li>Lima is already overcrowded; internal migration creates urban poverty, not just rural poverty</li>
+            <li>Entrepreneurship and remote work now make it possible to build a career without leaving</li>
+            <li>Social capital — family networks, trust, community relationships — is worth more than a higher salary</li>
+            <li>Who will teach the next generation if all the teachers leave?</li>
+            <li>Cultural identity and ancestral knowledge are lost when educated youth become urban</li>
+          </ul>
+        </div>
+        <div class="persp-card leave">
+          <div class="pc-head">GROUP B — THE CASE FOR LEAVING</div>
+          <ul>
+            <li>Professional development, specialist training, and career advancement rarely exist in rural areas</li>
+            <li>Salaries in Lima can be 3–4× higher for the same work</li>
+            <li>Young people have the right to pursue the best opportunities available, regardless of geography</li>
+            <li>Migrants send remittances home — often more economic impact than staying on a low local salary</li>
+            <li>Exposure to urban life, education systems, and networks creates leaders who can later return with more</li>
+            <li>Staying in a limited environment can produce frustration, resentment, and underperformance</li>
+            <li>The brain drain problem is the government's responsibility to fix, not the individual's burden to carry</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-my">
+        The role-play element is what makes Phase 5 work. When I say "you are now arguing the position on your card as if your life depends on it," something shifts. The forced advocacy reveals arguments people know but don't usually say out loud. The "drop the role" moment is often the most honest conversation of the lesson.
+      </div>
+      <div class="note-obs">
+        Assigning positions protects participants from social pressure: if your position was assigned, you are not personally judged for it. This is especially valuable on emotionally loaded topics.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 6 — unchanged; note to trim if needed
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 6 — INTERACTION 3: LIKERT DEBATE</div>
+      <div class="phase-time">6 MIN · TTT: ~2 MIN <em style="font-size:10px;opacity:0.8;">(trim to 2 statements if needed)</em></div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure — Opinion Continuum</h3>
+      <ol class="proc">
+        <li>Read a statement from Section C. Participants show position on a 1–5 scale (fingers, paper, or physical position in the room).</li>
+        <li>Call on one person from each extreme: "One sentence — why did you choose that number?" Open briefly to the floor.</li>
+        <li>Repeat with 2–3 statements. Move quickly — this is temperature-taking, not debate. <strong>If short on time, use Statements 1 and 6 only.</strong></li>
+      </ol>
+
+      <h3 class="sub">Section C Statements (select 2–4)</h3>
+      <ol class="proc">
+        <li>"Young people who leave their rural community to work in Lima are, in some sense, <strong>abandoning</strong> the people who need them most."</li>
+        <li>"It is the <strong>government's responsibility</strong>, not the individual's, to make rural areas attractive enough to retain talent."</li>
+        <li>"Universities in rural regions should focus more on preparing students to <strong>build businesses locally</strong> than to compete for jobs in national corporations."</li>
+        <li>"A person who studied with a scholarship from a rural province has a <strong>moral obligation</strong> to return and contribute to that community."</li>
+        <li>"Brain drain is actually good for rural communities in the long run, because migrants return with <strong>more skills, capital, and ambition</strong> than they left with."</li>
+        <li>"Teachers and professors who stay in rural areas are <strong>making a greater social contribution</strong> than those who pursue more prestigious careers in cities."</li>
+      </ol>
+
+      <div class="note-my">
+        Statement 6 is the one I save for last — these participants are the ones who stayed. Asking them to rate whether they believe they made a greater social contribution than those who left always produces the most honest responses of the lesson.
+      </div>
+      <div class="note-obs">
+        Statements 1 and 4 use morally loaded language ("abandoning," "moral obligation") deliberately. At B2–C1, learners need practice recognizing and responding to loaded language — agreeing, disagreeing, softening, or strengthening it.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 7 — unchanged
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 7 — LANGUAGE CLINIC 2</div>
+      <div class="phase-time">4 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Ask: <em>"Did you find any words from Set 2 that you ended up using? Which ones felt natural? Which felt forced?"</em></li>
+        <li>Ask: <em>"Was there anything you wanted to say in the debate — a nuance, a qualification — that you couldn't express in English?"</em></li>
+        <li>Address 1–2 items. Write any new target forms on the board. Close quickly.</li>
+      </ol>
+      <div class="note-obs">
+        The second Language Clinic is explicitly meta-linguistic — it asks learners to reflect on their own language use, not just produce language. Asking "which words felt natural?" validates the vocabulary input: some words will feel immediately usable, others will take time.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PHASE 8 — EXTENDED OUTPUT + wrap-up  ★ CRITIQUE B
+  ══════════════════════════════════════ -->
+  <div class="phase-block">
+    <div class="phase-header mod-phase">
+      <div class="phase-number">PHASE 8 — OUTPUT TASK + WRAP-UP <span class="phase-tag">REVISED · CRITIQUE B: EXTENDED PRODUCTION</span></div>
+      <div class="phase-time">9 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+
+      <div class="output-box">
+        <div class="ob-head">
+          ✍ MINI POSITION STATEMENT — 90-SECOND TASK
+          <div class="ob-badge">CHOOSE ONE FORMAT</div>
+        </div>
+        <div class="ob-body">
+          <p style="font-size:12.5px;margin-bottom:10px;">Participants now produce a short, sustained position statement — moving from the fluency of pair discussion toward greater accuracy and complexity. Give 3 minutes to prepare, then 90 seconds each to deliver.</p>
+
+          <div class="ob-options">
+            <div class="ob-opt">
+              <div class="ob-opt-head">🗣 OPTION A — SPOKEN</div>
+              <div class="ob-opt-body">Each participant addresses the room for 90 seconds: <em>"My position on brain drain is… The strongest argument for [staying/leaving] is… However, I also believe…"</em> Best for small groups (6–10).</div>
+            </div>
+            <div class="ob-opt">
+              <div class="ob-opt-head">✍ OPTION B — WRITTEN</div>
+              <div class="ob-opt-body">Participants write a 100–120 word paragraph on the handout reflection box: <em>"Should talented young people in rural Peru stay or leave — and why?"</em> Best for larger groups. Can be shared aloud by volunteers.</div>
+            </div>
+            <div class="ob-opt">
+              <div class="ob-opt-head">🎙 OPTION C — RECORDED</div>
+              <div class="ob-opt-body">Participants record a voice memo on their phones (60–90 sec). Best for online or hybrid contexts. Can be shared in a class group or reviewed individually. Enables task repetition outside class.</div>
+            </div>
+          </div>
+
+          <div class="ob-scaffold">
+            <strong>Language scaffold for the board:</strong>
+            <span style="font-family:'Fraunces',serif;font-style:italic;font-size:12px;">
+              "My position is that… · The main reason is… · I recognise that… but I still think… · The video we watched [or: the argument that moved me most] was… · Ultimately, I believe…"
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sub">One-Word Close (preserved from original)</h3>
+      <ol class="proc">
+        <li>After the output task, close with:
+          <blockquote class="prompt">"One word from today's vocabulary that you'll think about after you leave — just say it aloud. No explanation needed."</blockquote>
+        </li>
+        <li>Go around the room once. No comments. Let each word stand alone.</li>
+        <li>Distribute or display the handout. Invite participants to complete the survey if they haven't already.</li>
+      </ol>
+
+      <div class="note-my">
+        The output task changes the lesson's ending register. The one-word close still happens — I've kept it because it's the most emotionally precise moment in the lesson — but it now follows a moment of genuine sustained production. The 3-minute preparation window before speaking or writing is important: participants are not improvising; they are consolidating. What I notice is that the vocabulary from Set 2 appears far more reliably in the output task than in any of the discussions.
+      </div>
+      <div class="note-obs">
+        The three-format option (spoken / written / recorded) is not mere flexibility — each has distinct pedagogical properties. Spoken output with an audience creates real communicative pressure and rehearses academic presentation. Written output forces syntactic complexity that spontaneous speech rarely requires. Recorded output enables task repetition, which research consistently shows accelerates both fluency and accuracy. For this group — educators who value evidence-based practice — naming these differences explicitly can itself become a productive meta-discussion.
+      </div>
+      <div class="note-rev">
+        <strong>Why Phase 8 was restructured (Critique B):</strong> The original wrap-up was a one-word close — elegant but insufficiently productive. The critique correctly identifies that discussion-based lessons often end without sustained output, which means fluency develops but complexity and accuracy do not. The mini position statement creates a production cycle (input → discussion → output) that recycles vocabulary and arguments from the entire lesson into a single, more demanding communicative act. The scaffold on the board reduces anxiety without removing the cognitive challenge.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Teach for Success</strong> &nbsp;·&nbsp; Brain Drain — Lesson Plan (Revised: Multimodal Input · Extended Output · Interactional Competence) &nbsp;·&nbsp; Advanced ESL B2–C1
+</div>
+
+</body>
+</html>

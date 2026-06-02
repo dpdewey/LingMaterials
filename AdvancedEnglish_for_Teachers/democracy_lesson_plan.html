@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Democracy & Voting Lesson Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0f1e;
+    --paper: #fff8eb;
+    --teal: #00b89c;
+    --sand: #f0a500;
+    --coral: #e8432b;
+    --blue: #2563eb;
+    --lilac: #c4b5fd;
+    --mint: #bbf7d0;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.65;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 40px 22px;
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    border-bottom: 5px solid var(--teal);
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.6rem;
+    color: var(--teal);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .brand span { color: var(--sand); }
+  .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: #ccc;
+    margin-top: 4px;
+  }
+
+  /* ── META STRIP ── */
+  .meta-strip {
+    background: var(--teal);
+    color: var(--ink);
+    padding: 10px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: var(--border);
+  }
+  .meta-strip span::before { content: '▸ '; }
+
+  /* ── MAIN LAYOUT ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-head {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.05rem;
+    background: var(--ink);
+    color: var(--teal);
+    padding: 8px 16px;
+    margin: 36px 0 0 0;
+    letter-spacing: 0.08em;
+    border-left: 6px solid var(--teal);
+  }
+
+  /* ── OVERVIEW TABLE ── */
+  .overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    border: var(--border);
+  }
+  .overview-table th {
+    background: var(--ink);
+    color: var(--sand);
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    text-align: left;
+    border-right: 2px solid #333;
+  }
+  .overview-table td {
+    padding: 7px 12px;
+    border: 1.5px solid #ccc;
+    vertical-align: top;
+  }
+  .overview-table tr:nth-child(even) td { background: #f5f0e3; }
+  .overview-table tr.total td {
+    background: var(--ink);
+    color: var(--sand);
+    font-weight: 700;
+  }
+  .time-pill {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase-block {
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin-top: 24px;
+    overflow: hidden;
+  }
+  .phase-header {
+    background: var(--sand);
+    padding: 10px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--border);
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .phase-number {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+  .phase-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 10px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+  }
+  .phase-body { padding: 18px 20px; }
+
+  /* ── NOTE TYPES ── */
+  .note-my {
+    background: #fffbf0;
+    border-left: 5px solid var(--sand);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 12.5px;
+  }
+  .note-my::before {
+    content: '✎ MY NOTE';
+    display: block;
+    font-family: 'Bungee', sans-serif;
+    font-size: 9.5px;
+    color: var(--sand);
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+  .note-obs {
+    background: #f0fcfa;
+    border-left: 5px solid var(--teal);
+    padding: 10px 14px;
+    margin: 12px 0;
+    font-size: 12.5px;
+  }
+  .note-obs::before {
+    content: '👁 MODELING NOTE';
+    display: block;
+    font-family: 'Bungee', sans-serif;
+    font-size: 9.5px;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+
+  /* ── KEY / LEGEND ── */
+  .key-box {
+    border: var(--border);
+    padding: 14px 18px;
+    margin: 20px 0 0 0;
+    background: #f9f5ec;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .key-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .key-swatch-sand { width: 14px; height: 32px; background: var(--sand); border: 2px solid var(--ink); flex-shrink: 0; }
+  .key-swatch-teal { width: 14px; height: 32px; background: var(--teal); border: 2px solid var(--ink); flex-shrink: 0; }
+
+  /* ── INLINE STYLED ELEMENTS ── */
+  .proc { list-style: decimal; padding-left: 22px; margin: 10px 0; }
+  .proc li { margin-bottom: 7px; }
+  .proc li strong { color: var(--coral); }
+
+  .vocab-inline {
+    display: inline-block;
+    background: var(--lilac);
+    color: var(--ink);
+    padding: 1px 6px;
+    border: 1.5px solid var(--ink);
+    font-weight: 700;
+    font-size: 12px;
+    margin: 0 2px;
+  }
+
+  blockquote.prompt {
+    border-left: 4px solid var(--coral);
+    padding: 8px 14px;
+    margin: 10px 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #333;
+    background: #fff3f0;
+  }
+
+  h3.sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--teal);
+    margin: 16px 0 6px;
+    border-bottom: 1.5px dashed var(--teal);
+    padding-bottom: 3px;
+  }
+
+  .ttt-bar {
+    font-size: 11px;
+    background: var(--mint);
+    border: 1.5px solid var(--ink);
+    display: inline-block;
+    padding: 2px 8px;
+    margin-top: 8px;
+    font-weight: 700;
+  }
+
+  table.vocab-t {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 12.5px;
+  }
+  table.vocab-t th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px 10px;
+    text-align: left;
+    font-family: 'Bungee', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.07em;
+  }
+  table.vocab-t td {
+    padding: 6px 10px;
+    border: 1.5px solid #ccc;
+    vertical-align: top;
+  }
+  table.vocab-t tr:nth-child(even) td { background: #f5f0e3; }
+  table.vocab-t td:first-child { font-weight: 700; white-space: nowrap; color: var(--blue); }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 12px 0;
+  }
+  .compare-card {
+    border: var(--border);
+    overflow: hidden;
+  }
+  .compare-card .cc-head {
+    padding: 7px 12px;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .compare-card.usa .cc-head { background: var(--blue); color: #fff; }
+  .compare-card.peru .cc-head { background: var(--coral); color: #fff; }
+  .compare-card ul {
+    list-style: none;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .compare-card ul li::before { content: '→ '; color: #999; }
+  .compare-card ul li { margin-bottom: 5px; }
+
+  /* ── FOOTER STRIP ── */
+  .footer {
+    background: var(--ink);
+    color: #888;
+    font-size: 10.5px;
+    padding: 12px 40px;
+    text-align: center;
+    border-top: 3px solid var(--teal);
+    margin-top: 40px;
+    letter-spacing: 0.04em;
+  }
+  .footer strong { color: var(--teal); }
+
+  @media print {
+    .phase-block { break-inside: avoid; }
+    .compare-grid { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div>
+    <div class="brand">Teach <span>for</span> Success</div>
+    <div class="subtitle">Lesson Plan · Democracy &amp; Voting: Comparing Systems, Questioning Results</div>
+  </div>
+</div>
+
+<!-- META STRIP -->
+<div class="meta-strip">
+  <span>Level: Advanced ESL B2–C1</span>
+  <span>Time: 55 minutes</span>
+  <span>Class size: 6–20</span>
+  <span>Topic: Democracy &amp; Voting</span>
+  <span>Focus: Discussion + Civic Vocabulary</span>
+</div>
+
+<div class="main">
+
+  <!-- ANNOTATION KEY -->
+  <div class="key-box">
+    <strong style="font-family:'Bungee',sans-serif;font-size:0.8rem;letter-spacing:0.07em;">ANNOTATION KEY</strong>
+    <div class="key-item">
+      <div class="key-swatch-sand"></div>
+      <div><strong>✎ MY NOTE</strong> — personal reminders in your own voice (e.g., pacing cues, personal reactions)</div>
+    </div>
+    <div class="key-item">
+      <div class="key-swatch-teal"></div>
+      <div><strong>👁 MODELING NOTE</strong> — pedagogical rationale for observing colleagues</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW TABLE -->
+  <div class="section-head">LESSON OVERVIEW</div>
+
+  <table class="overview-table">
+    <tr>
+      <th>PHASE</th>
+      <th>ACTIVITY</th>
+      <th>TIME</th>
+      <th>TTT</th>
+    </tr>
+    <tr>
+      <td>Warm-up</td>
+      <td>Survey as stimulus — silent reading + personal reflection</td>
+      <td><span class="time-pill">5 min</span></td>
+      <td>2 min</td>
+    </tr>
+    <tr>
+      <td>Vocabulary</td>
+      <td>Lexical sets — civic vocabulary + political process language</td>
+      <td><span class="time-pill">10 min</span></td>
+      <td>4 min</td>
+    </tr>
+    <tr>
+      <td>Interaction 1</td>
+      <td>Pair discussion — Section A beliefs about democracy</td>
+      <td><span class="time-pill">8 min</span></td>
+      <td>1 min</td>
+    </tr>
+    <tr>
+      <td>Language Clinic 1</td>
+      <td>Open floor — grammar and communication questions</td>
+      <td><span class="time-pill">5 min</span></td>
+      <td>3 min</td>
+    </tr>
+    <tr>
+      <td>Interaction 2</td>
+      <td>Comparison task — Peru vs. U.S. voting systems (jigsaw)</td>
+      <td><span class="time-pill">12 min</span></td>
+      <td>2 min</td>
+    </tr>
+    <tr>
+      <td>Interaction 3</td>
+      <td>Likert debate — Section C whole-class discussion</td>
+      <td><span class="time-pill">8 min</span></td>
+      <td>2 min</td>
+    </tr>
+    <tr>
+      <td>Language Clinic 2</td>
+      <td>Open floor — language patterns noticed, questions raised</td>
+      <td><span class="time-pill">4 min</span></td>
+      <td>2 min</td>
+    </tr>
+    <tr>
+      <td>Wrap-up</td>
+      <td>Reflection + handout distribution</td>
+      <td><span class="time-pill">3 min</span></td>
+      <td>2 min</td>
+    </tr>
+    <tr class="total">
+      <td colspan="2"><strong>TOTAL</strong></td>
+      <td><strong>55 min</strong></td>
+      <td><strong>~18 min</strong></td>
+    </tr>
+  </table>
+
+  <!-- ── PHASE 1 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 1 — WARM-UP</div>
+      <div class="phase-time">5 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Distribute or display the <strong>Teach for Success Democracy &amp; Voting Survey</strong>. Give participants 2 minutes to read silently — not to answer it yet, just to read.</li>
+        <li>Ask: <em>"What surprised you? Which question felt the most political? Which felt the most personal?"</em> (1 min think time; 1 min open share — take 2–3 brief responses with no commentary from you.)</li>
+        <li>Frame the lesson: <em>"Today we use this survey as our starting point. We're going to discuss what it's asking, compare voting systems from two different countries, and build the vocabulary you'd need to have this conversation really well in English."</em></li>
+      </ol>
+
+      <div class="note-my">
+        When I distribute the survey I tell participants: "Don't fill it in yet — just look it over." In my experience with groups that include Peruvian participants, the question about <em>compulsory voting</em> tends to generate the most immediate reaction. If someone raises it unprompted, I note it briefly and park it: "Great — we'll definitely get to that."
+      </div>
+
+      <div class="note-obs">
+        The survey is used here as a <em>pre-task activator</em>, not a data collection instrument. By asking participants to read before discussing, the teacher creates a low-stakes entry point — everyone has already "looked at" the content before they're asked to say anything about it. This reduces the pressure that comes from cold-calling on civic or political topics.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 2 — VOCABULARY INPUT</div>
+      <div class="phase-time">10 MIN · TTT: ~4 MIN</div>
+    </div>
+    <div class="phase-body">
+      <p>Refer participants to <strong>Vocabulary Set 1 and Set 2</strong> on the handout.</p>
+
+      <h3 class="sub">Set 1 — Civic &amp; Electoral Process Vocabulary (8 items)</h3>
+      <p style="margin-bottom:8px;">For each word: pronounce it → give one short example sentence → ask participants for a second example or a synonym from their own country's context. Do <em>not</em> lecture. Keep it a rapid exchange.</p>
+
+      <table class="vocab-t">
+        <tr><th>WORD / PHRASE</th><th>MEANING IN CONTEXT</th><th>EXAMPLE</th></tr>
+        <tr><td>runoff (n)</td><td>a second election held when no candidate wins a majority in the first round</td><td><em>"Neither candidate got 50%, so there will be a runoff next month."</em></td></tr>
+        <tr><td>compulsory voting (n)</td><td>a system where citizens are legally required to vote or face a penalty</td><td><em>"Peru has compulsory voting — you can be fined for not showing up."</em></td></tr>
+        <tr><td>polling station (n)</td><td>a place where people go to cast their vote</td><td><em>"The polling station in my district opened three hours late."</em></td></tr>
+        <tr><td>electoral fraud (n)</td><td>illegal actions that affect the outcome of an election</td><td><em>"Several candidates claimed electoral fraud, but observers found no evidence."</em></td></tr>
+        <tr><td>to annul (v)</td><td>to officially declare that something (like an election result) has no legal force</td><td><em>"The losing candidate called on authorities to annul the first round."</em></td></tr>
+        <tr><td>voter turnout (n)</td><td>the percentage of eligible voters who actually vote</td><td><em>"Voter turnout in the 2020 U.S. election was the highest in over a century."</em></td></tr>
+        <tr><td>electoral college (n)</td><td>a body of electors that formally elects the U.S. president rather than a direct popular vote</td><td><em>"A candidate can win the popular vote but still lose in the electoral college."</em></td></tr>
+        <tr><td>logistical failure (n)</td><td>a breakdown in the practical organization of an event, like an election</td><td><em>"Logistical failures delayed the opening of hundreds of polling stations."</em></td></tr>
+      </table>
+
+      <h3 class="sub">Set 2 — Affective &amp; Evaluative Vocabulary (9 items)</h3>
+      <p style="margin-bottom:8px;">These are the words participants will need to express opinions and feelings about civic systems. Show the progression box on the handout and ask: <em>"Which of these do you use? Which are new?"</em></p>
+
+      <table class="vocab-t">
+        <tr><th>WORD</th><th>MEANING</th><th>USE IN CONTEXT</th></tr>
+        <tr><td>disillusioned (adj)</td><td>disappointed because something is not as good as expected</td><td><em>"Many voters are disillusioned with the entire political system."</em></td></tr>
+        <tr><td>skeptical (adj)</td><td>not easily convinced; having doubts about something</td><td><em>"I'm skeptical that the reforms will actually change anything."</em></td></tr>
+        <tr><td>empowered (adj)</td><td>feeling confident and in control of your own life or decisions</td><td><em>"Casting a vote can make people feel empowered."</em></td></tr>
+        <tr><td>apathetic (adj)</td><td>showing no interest or concern</td><td><em>"When politicians ignore voters, people become apathetic."</em></td></tr>
+        <tr><td>vigilant (adj)</td><td>watchful and alert, especially to detect problems</td><td><em>"Citizens need to remain vigilant about how votes are counted."</em></td></tr>
+        <tr><td>outraged (adj)</td><td>furious at something felt to be unjust</td><td><em>"Protesters were outraged by the slow vote count."</em></td></tr>
+        <tr><td>reassured (adj)</td><td>having had fears reduced; made to feel less worried</td><td><em>"The observer report reassured many people that no fraud had occurred."</em></td></tr>
+        <tr><td>accountable (adj)</td><td>required to explain and justify your actions</td><td><em>"Election officials must be held accountable for logistical failures."</em></td></tr>
+        <tr><td>legitimate (adj)</td><td>conforming to the law; accepted as valid</td><td><em>"The winners of the first round are legitimate, according to the JNE."</em></td></tr>
+      </table>
+
+      <div class="note-my">
+        I usually write <span class="vocab-inline">runoff</span>, <span class="vocab-inline">compulsory voting</span>, and <span class="vocab-inline">legitimate</span> on the board at the start because these three words come up immediately in both Peruvian and U.S. discussion contexts. The others I introduce as they appear naturally in the conversation.
+      </div>
+
+      <div class="note-obs">
+        The two-set structure mirrors the lesson's dual goal: civic content and affective/evaluative language. In advanced ESL, learners often have content knowledge but lack the evaluative register to express it. Set 2 directly addresses this gap.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~4 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 3 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 3 — INTERACTION 1: PAIR DISCUSSION</div>
+      <div class="phase-time">8 MIN · TTT: ~1 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Put participants in pairs (mixed nationalities where possible). Refer them to <strong>Discussion Section A</strong> on the handout.</li>
+        <li>Ask them to discuss two questions (their choice) for 6 minutes. Circulate — <strong>do not join pairs, do not correct, only listen</strong>. Note language for the Language Clinic.</li>
+        <li>Bring the class back. Ask one pair to share their most interesting point — one sentence only. Move on quickly.</li>
+      </ol>
+
+      <h3 class="sub">Section A Discussion Prompts (on the handout)</h3>
+      <ol class="proc">
+        <li>In your country, is voting <strong>compulsory</strong> or <strong>voluntary</strong>? What do you think about that? What are the advantages and disadvantages of each approach?</li>
+        <li>What do you think the purpose of voting is? Is it a <strong>duty</strong>, a <strong>right</strong>, or something else?</li>
+        <li>Have you ever felt <strong>disillusioned</strong> with an election result? What happened? What did you do?</li>
+        <li>What would make you trust or distrust the results of an election?</li>
+      </ol>
+
+      <blockquote class="prompt">
+        "Choose any two of these — the ones that interest you most. You don't have to agree with your partner. You have 6 minutes."
+      </blockquote>
+
+      <div class="note-my">
+        Question 1 is the one I use most reliably with groups that include Peruvian participants. Compulsory voting is so normal in Peru that many are genuinely surprised — even amused — that Americans choose whether to vote. This contrast almost always generates real, animated discussion.
+      </div>
+
+      <div class="note-obs">
+        Giving pairs a choice of questions respects learner autonomy and avoids the awkwardness of directing someone to discuss a topic they find sensitive. The "most interesting point — one sentence" closure is intentional: it prevents the class becoming a round of full-pair reports, which drains energy from the next phase.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~1 minute</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 4 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 4 — LANGUAGE CLINIC 1</div>
+      <div class="phase-time">5 MIN · TTT: ~3 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Open the floor: <em>"Any grammar or vocabulary questions from your pair discussions?"</em></li>
+        <li>Share 1–2 patterns you noticed while circulating — no names, no shame. Rephrase what you heard into a model form. Write it on the board.</li>
+        <li>Ask: <em>"Can anyone expand or improve on this? Can you use [target word] in a sentence?"</em></li>
+      </ol>
+
+      <h3 class="sub">Anticipated Language Needs</h3>
+      <table class="vocab-t">
+        <tr><th>LEARNER FORM</th><th>LIKELY TARGET</th></tr>
+        <tr><td>"In my country, we must to vote."</td><td>"In my country, we <em>have to</em> vote." / "Voting is compulsory."</td></tr>
+        <tr><td>"The candidate said the election was not real."</td><td>"The candidate <em>claimed</em> / <em>alleged</em> the election was fraudulent."</td></tr>
+        <tr><td>"People don't believe in voting anymore."</td><td>"Many voters have become <em>apathetic</em> / <em>disillusioned</em> with the process."</td></tr>
+        <tr><td>"The result was not accepted."</td><td>"The result was <em>contested</em> / <em>disputed</em>."</td></tr>
+      </table>
+
+      <div class="note-obs">
+        The Language Clinic is positioned <em>after</em> communication, not before. This means learners encounter the language need organically, making the correction more memorable. The teacher's job here is fast, precise, non-judgmental form repair — not a grammar lesson.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~3 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 5 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 5 — INTERACTION 2: COMPARISON TASK (JIGSAW)</div>
+      <div class="phase-time">12 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Setup — Expert Groups</h3>
+      <p>Divide the class into two groups. Group A reviews the <strong>Peru comparison panel</strong> on the handout (bottom of page 1). Group B reviews the <strong>U.S. comparison panel</strong>. Give groups 3 minutes to read and identify 3–4 key facts about their system.</p>
+
+      <h3 class="sub">Expert Pairs — Comparison Conversation</h3>
+      <p style="margin-top:6px;">Regroup into pairs with one A and one B each. They have 6 minutes to discuss these three questions without looking at each other's panels (information gap):</p>
+
+      <blockquote class="prompt">
+        1. How does your system decide who wins? &nbsp;·&nbsp; 2. What could go wrong, and what safeguards exist? &nbsp;·&nbsp; 3. Which element of the other person's system would you most want to adopt — or reject?
+      </blockquote>
+
+      <h3 class="sub">Comparison Reference — For Handout Panels</h3>
+
+      <div class="compare-grid">
+        <div class="compare-card peru">
+          <div class="cc-head">🇵🇪 PERU</div>
+          <ul>
+            <li>Two-round system; need &gt;50% to win outright</li>
+            <li>Compulsory voting for ages 18–70; fine for abstaining</li>
+            <li>First round April 12, 2026 — major delays in Lima</li>
+            <li>Runoff: Fujimori (17%) vs. Sánchez (12%), June 7</li>
+            <li>Margin 2nd–3rd: only ~21,200 votes (0.09%)</li>
+            <li>Stanford study: delays caused ~27,000 lost votes but did <em>not</em> change who advanced</li>
+            <li>JNE oversees; ONPE administers polling stations</li>
+            <li>9 presidents in the last decade due to impeachment</li>
+          </ul>
+        </div>
+        <div class="compare-card usa">
+          <div class="cc-head">🇺🇸 UNITED STATES (2020)</div>
+          <ul>
+            <li>Electoral College system; win = 270 of 538 electoral votes</li>
+            <li>Voluntary voting; no legal penalty for abstaining</li>
+            <li>2020 turnout: 66.6% — highest since 1900</li>
+            <li>Biden: 306 EV, 51.3% popular vote</li>
+            <li>Record 100M+ votes cast before Election Day (mail + early)</li>
+            <li>Winner can lose popular vote and still win (e.g., 2016)</li>
+            <li>CISA declared 2020 "most secure election in U.S. history"</li>
+            <li>Trump refused to concede; Jan. 6 Capitol attack followed</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-my">
+        The 2026 Peru election is ideal comparison material because it's current and participants in Peru-based programs have lived experience with it. For groups in the U.S., the 2020 election material offers a parallel narrative: logistical anxieties, contested results, and fraud allegations without evidence. I try not to editorialize on either — both cases let the facts speak.
+      </div>
+
+      <div class="note-obs">
+        The jigsaw structure creates a genuine information gap. This is not a simulation — Group A genuinely knows things Group B does not until they talk. The epistemic inequality is a real communicative pressure that drives authentic language use. The closing question ("Which element would you most want to adopt or reject?") is evaluative, which means learners must draw on Set 2 affective vocabulary.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 6 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 6 — INTERACTION 3: LIKERT DEBATE</div>
+      <div class="phase-time">8 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure — Opinion Continuum</h3>
+      <ol class="proc">
+        <li>Read one statement aloud from Section C of the handout (or from the survey). Ask participants to physically stand or show on a numbered scale (1–5) where they stand.</li>
+        <li>Call on one person from each end of the scale: "Can you say why you chose that number — one sentence?" Then open briefly to the floor.</li>
+        <li>Repeat with 2–3 more statements. Move fast — the goal is opinion exchange, not debate.</li>
+      </ol>
+
+      <h3 class="sub">Section C Statements (select 3–4)</h3>
+      <ol class="proc">
+        <li>"Compulsory voting produces <strong>better democracy</strong> than voluntary voting."</li>
+        <li>"When an election has logistical problems, the result should be <strong>annulled</strong> and re-run, regardless of the size of the problems."</li>
+        <li>"The <strong>Electoral College</strong> is an unfair system that should be abolished."</li>
+        <li>"A candidate who <strong>refuses to concede</strong> after losing is dangerous to democracy."</li>
+        <li>"In general, <strong>international election observers</strong> make elections more trustworthy."</li>
+        <li>"Democracy is in <strong>serious trouble</strong> in many countries right now."</li>
+      </ol>
+
+      <div class="note-my">
+        Statement 1 (compulsory voting) and Statement 4 (refusing to concede) are the two I find most reliably produce strong reactions across nationalities. Statement 3 (Electoral College) works well in groups with both U.S. and non-U.S. participants — Americans often feel defensive, which is itself an interesting discussion point.
+      </div>
+
+      <div class="note-obs">
+        The physical continuum — standing or using fingers to show 1–5 — avoids the passivity of a show of hands. When people <em>move</em>, the room reorganizes, creating visible disagreement that gives the discussion concrete shape. The teacher's role is purely traffic management here: select speakers from extremes, ensure all voices are heard, and resist the urge to comment on the content.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 7 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 7 — LANGUAGE CLINIC 2</div>
+      <div class="phase-time">4 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Ask: <em>"Did you notice any words or phrases you wanted to use but couldn't find?"</em></li>
+        <li>Ask: <em>"Which vocabulary from the handout did you end up using? Which didn't feel natural?"</em></li>
+        <li>Address 1–2 items. Write any new target forms on the board. Keep it brief.</li>
+      </ol>
+
+      <div class="note-obs">
+        The second Language Clinic is more learner-driven than the first. By this point, participants have spoken for around 30 minutes and have a felt sense of their own gaps. Asking "what did you want to say but couldn't?" is far more useful than a grammar exercise, because it starts from communicative need. The teacher's job is to supply the form, not evaluate the effort.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- ── PHASE 8 ── -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 8 — WRAP-UP &amp; REFLECTION</div>
+      <div class="phase-time">3 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Ask one closing question — small and concrete:
+          <blockquote class="prompt">"One thing from today's discussion that you want to keep thinking about — what is it? Just a word or a phrase."</blockquote>
+        </li>
+        <li>Collect responses quickly — go around the room once, no comments. Let the responses stand.</li>
+        <li>Distribute or display the handout QR. Remind participants the survey is available to complete if they wish.</li>
+      </ol>
+
+      <div class="note-my">
+        I genuinely find this closing question the most interesting moment of the lesson. "Compulsory," "legitimate," "apathetic" — what participants carry away tells you more about their relationship to civic life than any formal assessment would.
+      </div>
+
+      <div class="note-obs">
+        The round-the-room closing without commentary is a deliberate structural choice. It gives every person exactly one moment of equal airtime. It also ends the lesson on learner voices — not the teacher's summary — which models the belief that the participants' knowledge is the content of the lesson.
+      </div>
+
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <strong>Teach for Success</strong> &nbsp;·&nbsp; Democracy &amp; Voting — Lesson Plan &nbsp;·&nbsp; Advanced ESL B2–C1 &nbsp;·&nbsp; Scan the QR code on the handout for the survey and digital materials
+</div>
+
+</body>
+</html>

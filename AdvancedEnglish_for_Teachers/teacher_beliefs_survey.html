@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEACH TO SUCCESS! — Teacher Beliefs &amp; Practices Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ── TOKENS ─────────────────────────────────────────── */
+  :root {
+    --ink:    #0f0f1e;
+    --paper:  #fff8eb;
+    --teal:   #00c2b3;
+    --coral:  #ff5c39;
+    --sand:   #f5e6c8;
+    --lilac:  #c8b8f0;
+    --lime:   #c4f542;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+    --r:      4px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    min-height: 100vh;
+    padding-bottom: 4rem;
+  }
+
+  /* ── HERO HEADER ──────────────────────────────────────── */
+  .hero {
+    background: var(--teal);
+    border-bottom: var(--border);
+    padding: 2.5rem 2rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: var(--coral);
+    border-radius: 50%;
+    opacity: .25;
+  }
+  .hero-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--lime);
+    padding: .25rem .7rem;
+    border-radius: 2px;
+    margin-bottom: .9rem;
+  }
+  .hero h1 {
+    font-family: 'Bungee', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    line-height: 1;
+    color: var(--ink);
+    text-shadow: 4px 4px 0 rgba(0,0,0,.15);
+    margin-bottom: .6rem;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink);
+    opacity: .85;
+    max-width: 560px;
+  }
+
+  /* ── IDENTITY STRIP ───────────────────────────────────── */
+  .identity {
+    background: var(--sand);
+    border-bottom: var(--border);
+    padding: 1.5rem 2rem;
+  }
+  .identity-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 520px) { .identity-inner { grid-template-columns: 1fr; } }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────── */
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
+  }
+
+  /* ── SECTION HEADERS ─────────────────────────────────── */
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    margin: 2.4rem 0 1.2rem;
+  }
+  .section-badge {
+    font-family: 'Bungee', sans-serif;
+    font-size: .75rem;
+    letter-spacing: .08em;
+    background: var(--ink);
+    color: var(--paper);
+    padding: .3rem .8rem;
+    border-radius: var(--r);
+    white-space: nowrap;
+  }
+  .section-badge.coral  { background: var(--coral); color: var(--paper); }
+  .section-badge.lilac  { background: #7c5cba; color: var(--paper); }
+  .section-badge.lime   { background: var(--ink); color: var(--lime); }
+  .section-line {
+    flex: 1;
+    height: 3px;
+    background: var(--ink);
+    border-radius: 2px;
+  }
+  .section-title {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+
+  /* ── QUESTION CARDS ──────────────────────────────────── */
+  .q-card {
+    background: #fff;
+    border: var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 1.3rem 1.5rem 1.4rem;
+    margin-bottom: 1.2rem;
+    transition: transform .12s, box-shadow .12s;
+  }
+  .q-card:focus-within {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+  .q-label {
+    display: flex;
+    align-items: flex-start;
+    gap: .65rem;
+    margin-bottom: .85rem;
+  }
+  .q-num {
+    font-family: 'Space Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    background: var(--teal);
+    color: var(--ink);
+    padding: .2rem .5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: .15rem;
+    flex-shrink: 0;
+  }
+  .q-num.coral { background: var(--coral); color: #fff; }
+  .q-num.lilac { background: var(--lilac); color: var(--ink); }
+  .q-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+  .q-hint {
+    font-size: .82rem;
+    font-style: italic;
+    opacity: .65;
+    margin-bottom: .75rem;
+    padding-left: 2.4rem;
+  }
+
+  /* ── FORM CONTROLS ───────────────────────────────────── */
+  label.field-label {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: .4rem;
+    color: var(--ink);
+  }
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    width: 100%;
+    border: 2.5px solid var(--ink);
+    border-radius: var(--r);
+    padding: .6rem .8rem;
+    font-family: 'Fraunces', serif;
+    font-size: .95rem;
+    background: var(--paper);
+    color: var(--ink);
+    outline: none;
+    transition: box-shadow .15s;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  select:focus,
+  textarea:focus {
+    box-shadow: 3px 3px 0 var(--teal);
+  }
+  textarea { resize: vertical; min-height: 110px; }
+
+  /* ── LIKERT TABLE ────────────────────────────────────── */
+  .likert-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+  .likert-table thead th {
+    font-family: 'Space Mono', monospace;
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    padding: .5rem .3rem;
+    text-align: center;
+    border-bottom: 2.5px solid var(--ink);
+    line-height: 1.2;
+  }
+  .likert-table thead th:first-child { text-align: left; width: 44%; }
+  .likert-table tbody tr { border-bottom: 1.5px solid rgba(15,15,30,.15); }
+  .likert-table tbody tr:last-child { border-bottom: none; }
+  .likert-table tbody td {
+    padding: .7rem .3rem;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .likert-table tbody td:first-child {
+    text-align: left;
+    padding-left: 0;
+    font-size: .9rem;
+    line-height: 1.4;
+  }
+  .likert-table input[type="radio"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--coral);
+    cursor: pointer;
+  }
+  @media (max-width: 580px) {
+    .likert-table, .likert-table thead, .likert-table tbody,
+    .likert-table th, .likert-table td, .likert-table tr { display: block; }
+    .likert-table thead { display: none; }
+    .likert-table tbody tr {
+      border: 2px solid var(--ink);
+      border-radius: var(--r);
+      margin-bottom: 1rem;
+      padding: .8rem;
+      background: #fff;
+    }
+    .likert-table tbody td { text-align: left; padding: .25rem 0; }
+    .likert-table tbody td::before {
+      content: attr(data-label);
+      font-family: 'Space Mono', monospace;
+      font-size: .62rem;
+      text-transform: uppercase;
+      display: inline-block;
+      width: 110px;
+      color: #666;
+    }
+    .likert-table tbody td:first-child { font-weight: 600; margin-bottom: .4rem; }
+  }
+
+  /* ── SUBMIT ZONE ─────────────────────────────────────── */
+  .submit-zone {
+    background: var(--lilac);
+    border: var(--border);
+    border-radius: var(--r);
+    box-shadow: var(--shadow);
+    padding: 1.5rem;
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+  .submit-btn {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: .06em;
+    background: var(--coral);
+    color: #fff;
+    border: var(--border);
+    border-radius: var(--r);
+    padding: .85rem 3rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform .1s, box-shadow .1s;
+  }
+  .submit-btn:hover:not(:disabled) {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0 var(--ink);
+  }
+  .submit-btn:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .submit-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  .submit-status {
+    display: none;
+    margin-top: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: .85rem;
+    padding: .7rem 1rem;
+    border-radius: var(--r);
+    border: 2px solid var(--ink);
+  }
+  .submit-status.show   { display: block; }
+  .submit-status.ok     { background: var(--lime); }
+  .submit-status.error  { background: #ffe0db; }
+  .submit-status.wait   { background: var(--sand); }
+
+  /* ── SETUP NOTICE ────────────────────────────────────── */
+  .setup-notice {
+    background: var(--lime);
+    border: var(--border);
+    border-radius: var(--r);
+    padding: 1rem 1.3rem;
+    font-family: 'Space Mono', monospace;
+    font-size: .78rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .setup-notice strong { font-size: .85rem; }
+
+  /* ── DIVIDER ─────────────────────────────────────────── */
+  hr.fancy {
+    border: none;
+    border-top: 2.5px dashed rgba(15,15,30,.2);
+    margin: 2rem 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">ESL Professional Survey</div>
+    <h1>TEACH TO SUCCESS!</h1>
+    <p class="hero-sub">A survey about how you think about teaching English — and what you do in your classroom every day. There are no right or wrong answers. Your experience is what matters.</p>
+  </div>
+</header>
+
+<!-- ── IDENTITY ─────────────────────────────────────────── -->
+<div class="identity">
+  <div class="identity-inner">
+    <div>
+      <label class="field-label" for="name">Your Name *</label>
+      <input type="text" id="name">
+    </div>
+    <div>
+      <label class="field-label" for="school">School or Institution</label>
+      <input type="text" id="school">
+    </div>
+    <div>
+      <label class="field-label" for="years">Years Teaching English</label>
+      <select id="years">
+        <option value="">— Select —</option>
+        <option>Less than 1 year</option>
+        <option>1–3 years</option>
+        <option>4–7 years</option>
+        <option>8–15 years</option>
+        <option>More than 15 years</option>
+      </select>
+    </div>
+    <div>
+      <label class="field-label" for="classes">Classes You Teach</label>
+      <input type="text" id="classes" placeholder="e.g. Grade 7, Grade 8, Adult beginners">
+    </div>
+  </div>
+</div>
+
+<!-- ── MAIN ──────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- SETUP NOTICE -->
+  <div class="setup-notice" id="setupNotice">
+    <strong>⚙ ADMINISTRATOR SETUP REQUIRED</strong><br>
+    Before sharing this page, replace <code>REPLACE_WITH_YOUR_FORM_RESPONSE_URL</code> and all
+    <code>entry.XXXXXXXXX</code> placeholder values in the <code>FORM_CONFIG</code> block near
+    the bottom of this file with your actual Google Form response URL and field entry IDs.
+    See the comments in the code for step-by-step instructions.
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION A — BELIEFS (OPEN-ENDED)
+  ══════════════════════════════════════════════════════════ -->
+  <div class="section-head">
+    <span class="section-badge coral">SECTION A</span>
+    <span class="section-title">What You Believe About Teaching English</span>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- A1 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num coral">A1</span>
+      <span class="q-text">In your view, how do students learn a new language? What do you think helps them most — and what gets in the way?</span>
+    </div>
+    <p class="q-hint">Think about what you have noticed over the years with your own students. There are no correct answers here.</p>
+    <textarea id="a1" placeholder="Share your thoughts…"></textarea>
+  </div>
+
+  <!-- A2 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num coral">A2</span>
+      <span class="q-text">Think about students who have truly succeeded in your English classes. What did that look like? What does student success mean to you? What student behavior or development makes you feel most satisfied as a teacher</span>
+    </div>
+    <p class="q-hint">Think about the students you work with most. What would you hope for them?</p>
+    <textarea id="a2" placeholder="Describe what success looks like for your students…"></textarea>
+  </div>
+
+  <hr class="fancy">
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION B — PRACTICES (OPEN-ENDED)
+  ══════════════════════════════════════════════════════════ -->
+  <div class="section-head">
+    <span class="section-badge">SECTION B</span>
+    <span class="section-title">What You Do in the Classroom</span>
+    <div class="section-line"></div>
+  </div>
+
+  <!-- B1 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B1</span>
+      <span class="q-text">Walk us through a typical lesson of yours. What usually happens from the moment students arrive to the end of class? Short descriptors are fine.</span>
+    </div>
+    <p class="q-hint">For example: a warm-up, then presenting something new, then practice, then a freer activity — or whatever your usual pattern is.</p>
+    <textarea id="b1" placeholder="Describe your typical lesson from start to finish…"></textarea>
+  </div>
+
+  <!-- B2 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B2</span>
+      <span class="q-text">When a student makes a mistake in English, what do you usually do? Do you correct right away, wait, or let it go? How do you decide?</span>
+    </div>
+    <p class="q-hint">You can think about both spoken mistakes and written ones. Do you do anything different depending on the activity?</p>
+    <textarea id="b2" placeholder="Describe how you handle student mistakes…"></textarea>
+  </div>
+
+  <!-- B3 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B3</span>
+      <span class="q-text">What kinds of activities or tasks do you use most often to get students speaking or writing in English? Why do those work well for you?</span>
+    </div>
+    <p class="q-hint">For example: role-plays, pair conversations, games, drills, dictations, project work, songs — whatever you actually use.</p>
+    <textarea id="b3" placeholder="List and describe the activities you rely on most…"></textarea>
+  </div>
+
+  <!-- B4 -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B4</span>
+      <span class="q-text">How do you check whether your students are making progress? How do you use what you find out to decide what to teach next?</span>
+    </div>
+    <p class="q-hint">Include both formal tests and informal checks — anything you use to understand where your students are.</p>
+    <textarea id="b4" placeholder="Describe how you assess your students and what you do with that information…"></textarea>
+  </div>
+
+  <!-- B5 — Positive classroom atmosphere / positive psychology -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B5</span>
+      <span class="q-text">How do you help students feel confident and positive about learning English — especially those who feel nervous, embarrassed, or like they "can't do it"?</span>
+    </div>
+    <p class="q-hint">Think about things you say, activities you choose, or ways you set up the classroom to make students feel safe to try.</p>
+    <textarea id="b5" placeholder="Share what you do to build confidence and a positive atmosphere…"></textarea>
+  </div>
+
+  <!-- B6 — Peer interaction -->
+  <div class="q-card">
+    <div class="q-label">
+      <span class="q-num">B6</span>
+      <span class="q-text">How much do you use pair work or group work in your lessons? What do you see as the benefits — or the challenges — of having students practice English with each other rather than only with you?</span>
+    </div>
+    <p class="q-hint">Think about what actually happens when students work together in your classroom.</p>
+    <textarea id="b6" placeholder="Describe how you use pair or group work, and what you've noticed…"></textarea>
+  </div>
+
+  <hr class="fancy">
+
+  <!-- ══════════════════════════════════════════════════════
+       SECTION C — LIKERT OPINIONS
+  ══════════════════════════════════════════════════════════ -->
+  <div class="section-head">
+    <span class="section-badge lilac">SECTION C</span>
+    <span class="section-title">Your Opinions on Common Teaching Approaches</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="q-card">
+    <div class="q-label" style="margin-bottom:.4rem">
+      <span class="q-num lilac">C</span>
+      <span class="q-text">Read each statement and circle how much you agree or disagree.</span>
+    </div>
+    <p class="q-hint" style="margin-bottom:1rem">
+      1 = Strongly Disagree &nbsp;·&nbsp; 2 = Disagree &nbsp;·&nbsp; 3 = Not Sure &nbsp;·&nbsp; 4 = Agree &nbsp;·&nbsp; 5 = Strongly Agree
+    </p>
+
+    <table class="likert-table">
+      <thead>
+        <tr>
+          <th>Statement</th>
+          <th>1<br>SD</th>
+          <th>2<br>D</th>
+          <th>3<br>NS</th>
+          <th>4<br>A</th>
+          <th>5<br>SA</th>
+        </tr>
+      </thead>
+      <tbody id="likertBody">
+        <!-- Rows injected by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-zone">
+    <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">SUBMIT SURVEY ▶</button>
+    <div class="submit-status" id="submitStatus"></div>
+  </div>
+
+</main>
+
+<script>
+/* ─────────────────────────────────────────────────
+   LIKERT STATEMENTS  (plain-language, jargon-free)
+   ───────────────────────────────────────────────── */
+const LIKERT_ITEMS = [
+  // General teaching approaches
+  { id: 'c1',  text: 'Students learn English best by actually using it in real situations, not just doing grammar exercises.' },
+  { id: 'c2',  text: 'Teaching grammar rules directly and explicitly is important at every level.' },
+  { id: 'c3',  text: 'Letting students use their own language (e.g. Spanish, Mongolian) in class helps them learn English, rather than slowing them down.' },
+
+  // Error correction — prompts vs recasts
+  { id: 'c4',  text: 'When a student makes a mistake, it is better to ask a question or give a hint ("Can you say that again?") so they can try to correct themselves.' },
+  { id: 'c5',  text: 'When a student makes a mistake, it is better to just repeat what they said — correctly — and move on, without stopping to focus on the error.' },
+  { id: 'c6',  text: 'Stopping to correct mistakes during a speaking activity does more harm than good because it interrupts the flow.' },
+
+  // Peer-to-peer interaction
+  { id: 'c7',  text: 'Students practicing English with each other is just as valuable as practicing with the teacher.' },
+  { id: 'c8',  text: 'When students work in pairs or groups, they practice more English than they would in a teacher-led activity.' },
+  { id: 'c9',  text: 'I worry that students will pick up each other\'s mistakes if they practice English together too much.' },
+
+  // Positive classroom climate / wellbeing
+  { id: 'c10', text: 'Helping students feel good about themselves as English learners is just as important as teaching grammar or vocabulary.' },
+  { id: 'c11', text: 'When students feel relaxed and safe in class, they learn English more quickly.' },
+  { id: 'c12', text: 'I regularly celebrate small wins and moments of progress with my students, not just final grades.' },
+
+  // Assessment and learner ownership
+  { id: 'c13', text: 'Standardized tests give a fair and accurate picture of what my students can really do in English.' },
+  { id: 'c14', text: 'Helping students think about and take charge of their own learning is one of my main jobs as a teacher.' },
+];
+
+const tbody = document.getElementById('likertBody');
+LIKERT_ITEMS.forEach(item => {
+  const tr = document.createElement('tr');
+  let cells = `<td data-label="">${item.text}</td>`;
+  for (let v = 1; v <= 5; v++) {
+    cells += `<td data-label="${v}"><input type="radio" name="${item.id}" value="${v}" aria-label="${item.text} — ${v}"></td>`;
+  }
+  tr.innerHTML = cells;
+  tbody.appendChild(tr);
+});
+
+/* ─────────────────────────────────────────────────
+   GOOGLE FORM CONFIG
+   ─────────────────────────────────────────────────
+   HOW TO GET THESE VALUES:
+   1. Create your Google Form with one field per question below.
+   2. Open the live form URL (ends in /viewform).
+   3. Right-click anywhere → Inspect → Network tab.
+   4. Fill in one dummy answer and click Submit.
+   5. In the Network tab, find the POST request to …/formResponse.
+   6. Change /viewform to /formResponse in the URL and paste it as "url" below.
+   7. In the request payload, each field appears as entry.XXXXXXXXX=value.
+      Copy those entry IDs into the fields object below.
+   ───────────────────────────────────────────────── */
+const FORM_CONFIG = {
+  url: 'https://docs.google.com/forms/d/e/1FAIpQLSfTJ38GrUQrvCVEoOABdr_ZlUv8wdXIs1QeNSKkw_e_bPQbLw/formResponse',
+  fields: {
+    name:    'entry.50854446',
+    school:  'entry.1642608791',
+    years:   'entry.1241126396',
+    classes: 'entry.477761882',
+    // Section A
+    a1:      'entry.1115952245',
+    a2:      'entry.540540081',
+    // Section B
+    b1:      'entry.1627566241',
+    b2:      'entry.1703866304',
+    b3:      'entry.1865068352',
+    b4:      'entry.1703017791',
+    b5:      'entry.1461431146',
+    b6:      'entry.140573204',
+    // Section C — Likert (one entry ID per statement)
+    c1:      'entry.1362041271',
+    c2:      'entry.1445659324',
+    c3:      'entry.581921488',
+    c4:      'entry.1540276156',
+    c5:      'entry.956576613',
+    c6:      'entry.1345104035',
+    c7:      'entry.480450983',
+    c8:      'entry.622256355',
+    c9:      'entry.406313550',
+    c10:     'entry.1730572000',
+    c11:     'entry.1744451729',
+    c12:     'entry.761564659',
+    c13:     'entry.1104286955',
+    c14:     'entry.45024490',
+  }
+};
+
+/* ─────────────────────────────────────────────────
+   SUBMIT HANDLER
+   ───────────────────────────────────────────────── */
+function handleSubmit() {
+  const statusEl = document.getElementById('submitStatus');
+  const btn      = document.getElementById('submitBtn');
+  const nameEl   = document.getElementById('name');
+
+  if (FORM_CONFIG.url.includes('REPLACE_WITH')) {
+    statusEl.className = 'submit-status show error';
+    statusEl.textContent = '⚠ This form has not been connected to Google Forms yet. Please contact the administrator.';
+    return;
+  }
+
+  // Gather Likert values
+  const likert = {};
+  LIKERT_ITEMS.forEach(item => {
+    const sel = document.querySelector(`input[name="${item.id}"]:checked`);
+    likert[item.id] = sel ? sel.value : '—';
+  });
+
+  // Build and submit via hidden iframe (see below)
+
+  statusEl.className = 'submit-status show wait';
+  statusEl.textContent = 'Sending your survey…';
+  btn.disabled = true;
+
+  // Build a hidden form and submit it into a hidden iframe.
+  // This is the most reliable way to POST to Google Forms from an external page
+  // because Google Forms blocks fetch/XHR with CORS headers but accepts a
+  // standard form POST targeting a hidden iframe.
+  let iframe = document.getElementById('_gf_iframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = '_gf_iframe';
+    iframe.id   = '_gf_iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+
+  const form = document.createElement('form');
+  form.method  = 'POST';
+  form.action  = FORM_CONFIG.url;
+  form.target  = '_gf_iframe';
+  form.style.display = 'none';
+
+  // Append all fields as hidden inputs
+  for (const [key, entryId] of Object.entries(FORM_CONFIG.fields)) {
+    let val = '';
+    const el = document.getElementById(key);
+    if (el) {
+      val = el.tagName === 'SELECT' ? el.value : el.value.trim();
+    } else {
+      // Likert radio
+      const checked = document.querySelector(`input[name="${key}"]:checked`);
+      val = checked ? checked.value : '';
+    }
+    if (val) {
+      const input = document.createElement('input');
+      input.type  = 'hidden';
+      input.name  = entryId;
+      input.value = val;
+      form.appendChild(input);
+    }
+  }
+
+  document.body.appendChild(form);
+
+  iframe.onload = () => {
+    statusEl.className = 'submit-status show ok';
+    statusEl.textContent = '✓ Survey submitted! Thank you for sharing your experience.';
+    btn.textContent = 'SUBMITTED ✓';
+    document.body.removeChild(form);
+  };
+
+  form.submit();
+}
+
+// Hide setup notice once the form URL is configured
+if (!FORM_CONFIG.url.includes('REPLACE_WITH')) {
+  document.getElementById('setupNotice').style.display = 'none';
+}
+</script>
+</body>
+</html>

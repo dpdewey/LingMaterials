@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Brain Drain Handout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #1a1208;
+    --cream:  #fdf6e3;
+    --ochre:  #c78b20;
+    --terra:  #b84c2a;
+    --forest: #3a6b35;
+    --sky:    #5b8db8;
+    --sand:   #e8d5a3;
+    --moss:   #8aad6e;
+    --lilac:  #c9b8f5;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    padding: 22px 40px 16px;
+    border-bottom: 5px solid var(--terra);
+  }
+  .brand {
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.2rem; color: var(--terra);
+    letter-spacing: 1px; line-height: 1;
+  }
+  .brand span { color: var(--ochre); }
+  .subtitle {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 0.92rem; color: #bbb; margin-top: 4px;
+  }
+
+  /* ── META STRIP ── */
+  .meta-strip {
+    background: var(--terra); color: var(--cream);
+    padding: 9px 40px; display: flex; flex-wrap: wrap; gap: 18px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; border-bottom: var(--border);
+  }
+  .meta-strip span::before { content: '▸ '; }
+
+  .main { max-width: 860px; margin: 0 auto; padding: 26px 22px 0; }
+
+  /* ── SECTION HEADS ── */
+  .section-head {
+    font-family: 'Bungee', sans-serif; font-size: 0.95rem;
+    background: var(--ink); color: var(--terra);
+    padding: 7px 16px; margin: 30px 0 0 0;
+    letter-spacing: 0.08em; border-left: 6px solid var(--terra);
+  }
+
+  /* ── VOCAB CARDS ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 12px; margin-top: 14px;
+  }
+  .vocab-card { border: var(--border); box-shadow: 4px 4px 0 var(--ink); overflow: hidden; }
+  .vc-head {
+    background: var(--ink); color: var(--ochre);
+    font-family: 'Bungee', sans-serif; font-size: 0.76rem;
+    padding: 6px 10px; letter-spacing: 0.05em;
+  }
+  .vc-body { padding: 10px 11px; background: #fff; }
+  .vc-body .def { font-size: 11.5px; color: #444; margin-bottom: 5px; }
+  .vc-body .ex {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 11.5px; color: var(--terra);
+    border-left: 3px solid var(--terra); padding-left: 7px;
+  }
+
+  /* ── AFFECT CARDS ── */
+  .affect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+    gap: 12px; margin-top: 14px;
+  }
+  .affect-card { border: var(--border); box-shadow: 4px 4px 0 var(--ink); overflow: hidden; }
+  .ac-head {
+    padding: 6px 10px; font-family: 'Bungee', sans-serif;
+    font-size: 0.77rem; letter-spacing: 0.04em;
+  }
+  .ac-body { padding: 9px 11px; background: #fff; font-size: 11.5px; }
+  .ac-body .def { color: #444; margin-bottom: 5px; }
+  .ac-body .try { font-weight: 700; font-size: 10.5px; color: var(--forest); letter-spacing: 0.04em; }
+
+  /* Color variants */
+  .ac-head.c1 { background: var(--forest); color: #fff; }
+  .ac-head.c2 { background: var(--sky); color: #fff; }
+  .ac-head.c3 { background: var(--ochre); color: var(--ink); }
+  .ac-head.c4 { background: var(--moss); color: var(--ink); }
+  .ac-head.c5 { background: var(--terra); color: #fff; }
+  .ac-head.c6 { background: #7c6a4a; color: #fff; }
+  .ac-head.c7 { background: #4a7c6a; color: #fff; }
+  .ac-head.c8 { background: var(--lilac); color: var(--ink); }
+  .ac-head.c9 { background: #c4763a; color: #fff; }
+
+  /* ── PROGRESSION BOX ── */
+  .prog-box {
+    border: var(--border); display: flex; margin: 14px 0;
+    overflow: hidden; box-shadow: var(--shadow);
+  }
+  .prog-step { flex: 1; padding: 10px 12px; text-align: center; font-size: 11px; }
+  .prog-step .label {
+    font-family: 'Bungee', sans-serif; font-size: 9px;
+    letter-spacing: 0.1em; margin-bottom: 4px; display: block;
+  }
+  .prog-step.basic { background: #d4edba; }
+  .prog-step.mid { background: #fde68a; }
+  .prog-step.adv { background: var(--sand); }
+  .prog-arrow {
+    display: flex; align-items: center; padding: 0 5px;
+    font-size: 1.3rem; color: #999; background: var(--cream);
+    border-left: 1.5px solid var(--ink); border-right: 1.5px solid var(--ink);
+  }
+
+  /* ── DISCUSSION BLOCKS ── */
+  .disc-block {
+    border: var(--border); box-shadow: var(--shadow);
+    margin-top: 16px; overflow: hidden;
+  }
+  .disc-head {
+    background: var(--ochre); color: var(--ink);
+    padding: 8px 16px; font-family: 'Bungee', sans-serif;
+    font-size: 0.88rem; letter-spacing: 0.06em;
+    border-bottom: var(--border);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
+  }
+  .disc-badge {
+    background: var(--ink); color: var(--ochre);
+    font-size: 10px; padding: 2px 8px;
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    display: flex; align-items: center;
+  }
+  .disc-body { padding: 14px 18px; }
+  .disc-body ol { list-style: none; padding: 0; }
+  .disc-body ol li {
+    padding: 8px 0 8px 0; border-bottom: 1.5px dashed #ccc;
+    font-size: 12.5px; display: flex; gap: 10px; align-items: baseline;
+  }
+  .disc-body ol li:last-child { border-bottom: none; }
+  .disc-body ol li .qnum {
+    font-family: 'Bungee', sans-serif; font-size: 1rem;
+    color: var(--terra); min-width: 22px;
+  }
+  .disc-body ol li .qtext strong { color: var(--forest); }
+
+  /* ── PERSPECTIVE PANELS ── */
+  .persp-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 14px;
+  }
+  .persp-card { border: var(--border); box-shadow: var(--shadow); overflow: hidden; }
+  .pc-head {
+    padding: 9px 14px; font-family: 'Bungee', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.05em;
+  }
+  .pc-head.stay { background: var(--forest); color: #fff; }
+  .pc-head.leave { background: var(--sky); color: #fff; }
+  .persp-card ul { list-style: none; padding: 12px 14px; background: #fff; font-size: 12px; }
+  .persp-card ul li {
+    padding: 4px 0; border-bottom: 1px solid #eee;
+    display: flex; gap: 8px; align-items: baseline;
+  }
+  .persp-card ul li:last-child { border-bottom: none; }
+  .persp-card ul li::before { content: '→'; color: #aaa; flex-shrink: 0; }
+  .persp-task {
+    background: var(--sand); border-top: var(--border);
+    padding: 9px 14px; font-size: 12px; font-style: italic;
+    font-family: 'Fraunces', serif; color: #333;
+  }
+
+  /* ── LIKERT ITEMS ── */
+  .likert-items { margin-top: 14px; }
+  .likert-item { border: var(--border); box-shadow: 3px 3px 0 var(--ink); margin-bottom: 12px; overflow: hidden; }
+  .li-stmt {
+    padding: 9px 14px; background: #fff; font-size: 12.5px;
+    border-bottom: 1.5px solid #ccc;
+  }
+  .li-stmt strong { color: var(--terra); }
+  .li-scale {
+    background: var(--sand); padding: 8px 14px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .li-label { font-size: 10px; color: #666; font-style: italic; }
+  .li-dots { display: flex; gap: 6px; }
+  .li-dot {
+    width: 26px; height: 26px;
+    border: 2px solid var(--ink); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bungee', sans-serif; font-size: 0.65rem;
+    background: var(--cream);
+  }
+
+  /* ── LANGUAGE BOX ── */
+  .lang-box { border: var(--border); box-shadow: var(--shadow); margin-top: 16px; overflow: hidden; }
+  .lb-head {
+    background: var(--forest); color: var(--cream);
+    font-family: 'Bungee', sans-serif; font-size: 0.88rem;
+    padding: 8px 16px; letter-spacing: 0.06em; border-bottom: var(--border);
+  }
+  .lb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .lb-col { padding: 14px 16px; border-right: var(--border); }
+  .lb-col:last-child { border-right: none; }
+  .lb-col h4 {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--forest); margin-bottom: 8px;
+    border-bottom: 1.5px dashed var(--forest); padding-bottom: 3px;
+  }
+  .lb-col ul { list-style: none; padding: 0; }
+  .lb-col ul li {
+    font-family: 'Fraunces', serif; font-style: italic;
+    font-size: 12px; padding: 3px 0; border-bottom: 1px dotted #ccc; color: #333;
+  }
+  .lb-col ul li:last-child { border-bottom: none; }
+
+  /* ── REFLECTION BOX ── */
+  .reflect-box {
+    border: var(--border); box-shadow: var(--shadow);
+    margin-top: 16px; overflow: hidden;
+  }
+  .rb-head {
+    background: var(--ochre); color: var(--ink);
+    font-family: 'Bungee', sans-serif; font-size: 0.88rem;
+    padding: 8px 16px; letter-spacing: 0.06em; border-bottom: var(--border);
+  }
+  .rb-body { padding: 14px 18px; background: #fff; font-size: 12.5px; }
+  .rb-body p { margin-bottom: 8px; }
+  .rb-line { width: 100%; height: 0; border-bottom: 1.5px solid #ccc; margin-bottom: 18px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink); color: #888; font-size: 10.5px;
+    padding: 12px 40px; text-align: center;
+    border-top: 3px solid var(--terra); margin-top: 40px; letter-spacing: 0.04em;
+  }
+  .footer strong { color: var(--terra); }
+
+  @media print { .vocab-card, .affect-card, .disc-block { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brand">Teach <span>for</span> Success</div>
+  <div class="subtitle">Student Handout · Brain Drain vs. Community Development: Should I Stay or Should I Go?</div>
+</div>
+
+<div class="meta-strip">
+  <span>Advanced ESL B2–C1</span>
+  <span>Topic: Brain Drain &amp; Migration</span>
+  <span>Focus: Economic &amp; Identity Vocabulary</span>
+  <span>Rural University Educators, Peru</span>
+</div>
+
+<div class="main">
+
+  <!-- VOCAB SET 1 -->
+  <div class="section-head">VOCABULARY SET 1 — ECONOMIC MIGRATION &amp; DEVELOPMENT</div>
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="vc-head">BRAIN DRAIN (n)</div>
+      <div class="vc-body">
+        <div class="def">The emigration of educated or skilled people away from a region, leaving it less developed.</div>
+        <div class="ex">"Ayacucho experiences brain drain every year as graduates head to Lima."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">URBAN MIGRATION (n)</div>
+      <div class="vc-body">
+        <div class="def">The movement of people from rural to urban areas in search of opportunity.</div>
+        <div class="ex">"Urban migration is accelerating in the Andes as young people seek professional work."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">COMMUNITY INVESTMENT (n)</div>
+      <div class="vc-body">
+        <div class="def">Using money, time, or skills to develop and improve a local community.</div>
+        <div class="ex">"A doctor who returns home is one of the best forms of community investment."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">ENTREPRENEURSHIP (n)</div>
+      <div class="vc-body">
+        <div class="def">The activity of setting up and running new businesses, often with financial risk.</div>
+        <div class="ex">"Rural entrepreneurship can create local jobs without requiring migration."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">TO RETAIN (v)</div>
+      <div class="vc-body">
+        <div class="def">To keep talented people rather than losing them to another place.</div>
+        <div class="ex">"How can rural provinces retain their most qualified graduates?"</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">REMITTANCES (n)</div>
+      <div class="vc-body">
+        <div class="def">Money sent home by people working in another city or country.</div>
+        <div class="ex">"Remittances from Lima support many rural families each month."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">ECONOMIC OPPORTUNITY (n)</div>
+      <div class="vc-body">
+        <div class="def">The chance to earn a good wage, advance professionally, or build wealth.</div>
+        <div class="ex">"Students leave because economic opportunities in Lima are simply far greater."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">LOCAL TALENT PIPELINE (n)</div>
+      <div class="vc-body">
+        <div class="def">A system that develops skilled people within a community and keeps them there.</div>
+        <div class="ex">"Our university could become a talent pipeline if salaries were competitive."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCAB SET 2 -->
+  <div class="section-head">VOCABULARY SET 2 — VALUES, TENSION, AND IDENTITY</div>
+
+  <div class="prog-box">
+    <div class="prog-step basic">
+      <span class="label">BASIC</span>
+      sad · proud · guilty · worried · loyal
+    </div>
+    <div class="prog-arrow">→</div>
+    <div class="prog-step mid">
+      <span class="label">INTERMEDIATE</span>
+      frustrated · responsible · homesick · ambitious · disappointed
+    </div>
+    <div class="prog-arrow">→</div>
+    <div class="prog-step adv">
+      <span class="label">TODAY'S WORDS ★</span>
+      torn · rooted · obligated · conflicted · resentful · indebted · pragmatic
+    </div>
+  </div>
+
+  <div class="affect-grid">
+    <div class="affect-card">
+      <div class="ac-head c1">TORN (adj)</div>
+      <div class="ac-body">
+        <div class="def">Unable to choose between two things you value equally.</div>
+        <div class="try">TRY IT: "She felt torn between her career and _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c2">ROOTED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Having a deep connection to a place, community, or culture.</div>
+        <div class="try">TRY IT: "I feel deeply rooted here because _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c3">OBLIGATED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Feeling a strong duty or responsibility toward someone.</div>
+        <div class="try">TRY IT: "Scholarship students may feel obligated to _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c4">AMBITIOUS (adj)</div>
+      <div class="ac-body">
+        <div class="def">Having a strong desire to succeed and achieve more.</div>
+        <div class="try">TRY IT: "Being ambitious doesn't mean you have to _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c5">RESENTFUL (adj)</div>
+      <div class="ac-body">
+        <div class="def">Feeling bitterness about something that seems unfair.</div>
+        <div class="try">TRY IT: "Those who stayed can become resentful when _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c6">PRAGMATIC (adj)</div>
+      <div class="ac-body">
+        <div class="def">Dealing with problems in a practical, realistic way.</div>
+        <div class="try">TRY IT: "A pragmatic approach means looking at _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c7">CONFLICTED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Experiencing two opposing feelings or values at once.</div>
+        <div class="try">TRY IT: "I felt genuinely conflicted when _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c8">INDEBTED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Feeling that you owe something to a person or community.</div>
+        <div class="try">TRY IT: "Many graduates feel indebted to _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c9">UNDERUTILIZED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Not being used to your full potential or capacity.</div>
+        <div class="try">TRY IT: "Talented people feel underutilized when _______________."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION A -->
+  <div class="section-head">SECTION A — PAIR DISCUSSION</div>
+  <div class="disc-block">
+    <div class="disc-head">
+      <span>Choose any two questions — discuss with your partner</span>
+      <div class="disc-badge">6 MINUTES</div>
+    </div>
+    <div class="disc-body">
+      <ol>
+        <li><span class="qnum">1</span><span class="qtext">Did you face a choice between staying in your hometown and moving somewhere larger? What factors most influenced your decision — or what factors would influence it today?</span></li>
+        <li><span class="qnum">2</span><span class="qtext">Think of a <strong>former student</strong> who left the region. Think of one who stayed. Who do you think made the better choice — or is it even fair to compare them?</span></li>
+        <li><span class="qnum">3</span><span class="qtext">Is there a difference between leaving for <strong>economic reasons</strong> and leaving for <strong>personal ambition</strong>? Does the reason change how you feel about it morally?</span></li>
+        <li><span class="qnum">4</span><span class="qtext">What would need to change in your region for a talented 25-year-old to <strong>choose to stay</strong> — not out of obligation, but because it genuinely seemed like the best option?</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- PERSPECTIVE TASK -->
+  <div class="section-head">SECTION B — PERSPECTIVE TASK: THE CASE FOR STAYING vs. LEAVING</div>
+  <p style="margin-top:10px;font-size:12px;color:#666;">Your teacher will assign you Group A or Group B. Read your card, identify your 3 strongest arguments, then find a partner from the other group.</p>
+  <p style="margin-top:5px;font-size:12px;color:var(--terra);font-weight:700;">First 4 minutes: argue your assigned position as strongly as you can. Then drop the role and discuss what you actually think.</p>
+
+  <div class="persp-grid">
+    <div class="persp-card">
+      <div class="pc-head stay">GROUP A — THE CASE FOR STAYING</div>
+      <ul>
+        <li>Rural communities lose their best talent precisely when they need it most</li>
+        <li>Schools, hospitals, and universities in rural areas desperately need qualified staff</li>
+        <li>Lima is already overcrowded — internal migration creates urban poverty, not just rural poverty</li>
+        <li>Entrepreneurship and remote work now make it possible to build a strong career locally</li>
+        <li>Social capital — family networks, trust, deep community ties — is worth more than a higher salary</li>
+        <li>Who will teach the next generation if all the teachers leave?</li>
+        <li>Cultural identity and ancestral knowledge are lost when educated youth become fully urban</li>
+      </ul>
+      <div class="persp-task">Your role: argue strongly for staying. Then tell your partner what you <em>actually</em> think.</div>
+    </div>
+    <div class="persp-card">
+      <div class="pc-head leave">GROUP B — THE CASE FOR LEAVING</div>
+      <ul>
+        <li>Professional development and career advancement rarely exist in rural areas</li>
+        <li>Salaries in Lima can be 3–4× higher for the same work — this matters for families</li>
+        <li>Young people have the right to pursue the best opportunities available, wherever they are</li>
+        <li>Migrants send remittances home — often greater economic impact than staying on a low local salary</li>
+        <li>Urban experience builds leaders who may later return with more skills, capital, and networks</li>
+        <li>Staying in a limited environment can produce frustration, resentment, and underperformance</li>
+        <li>Brain drain is the government's responsibility to fix — not a burden individuals must carry alone</li>
+      </ul>
+      <div class="persp-task">Your role: argue strongly for leaving. Then tell your partner what you <em>actually</em> think.</div>
+    </div>
+  </div>
+
+  <!-- SECTION C LIKERT -->
+  <div class="section-head">SECTION C — WHERE DO YOU STAND?</div>
+  <p style="margin-top:10px;font-size:12px;color:#666;">Circle your position (1 = strongly disagree → 5 = strongly agree). Be ready to explain your choice in one sentence.</p>
+
+  <div class="likert-items">
+    <div class="likert-item">
+      <div class="li-stmt">1. Young people who leave their rural community to work in Lima are, in some sense, <strong>abandoning the people who need them most</strong>.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">2. It is the <strong>government's responsibility</strong>, not the individual's, to make rural areas attractive enough to retain talent.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">3. Rural universities should focus more on preparing students to <strong>build businesses locally</strong> than to compete for jobs in national corporations.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">4. A student who received a scholarship from a rural province has a <strong>moral obligation to return</strong> and contribute to that community.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">5. Brain drain is ultimately <strong>good for rural communities</strong> — migrants return with more skills, capital, and ambition than they left with.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">6. Teachers and professors who <strong>stay and work in rural areas</strong> are making a greater social contribution than those who pursue careers in larger cities.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LANGUAGE BOX -->
+  <div class="lang-box">
+    <div class="lb-head">USEFUL LANGUAGE — EXPRESSING MORAL POSITIONS &amp; QUALIFIED OPINIONS</div>
+    <div class="lb-body">
+      <div class="lb-col">
+        <h4>Expressing a Strong View</h4>
+        <ul>
+          <li>"There's a strong argument that …"</li>
+          <li>"I'm firmly convinced that …"</li>
+          <li>"This is, for me, a question of …"</li>
+          <li>"I don't think it's fair to say that …"</li>
+          <li>"The evidence clearly suggests …"</li>
+        </ul>
+      </div>
+      <div class="lb-col">
+        <h4>Qualifying and Softening</h4>
+        <ul>
+          <li>"That may be true, but we also have to consider …"</li>
+          <li>"It depends entirely on …"</li>
+          <li>"I used to think that, but now I'm less sure …"</li>
+          <li>"It's not as simple as saying …"</li>
+          <li>"I feel torn on this because …"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL REFLECTION -->
+  <div class="reflect-box">
+    <div class="rb-head">PERSONAL REFLECTION — TAKE HOME</div>
+    <div class="rb-body">
+      <p>After today's lesson, write a few sentences in response to one of these prompts. There are no correct answers.</p>
+      <p style="font-weight:700;margin-bottom:6px;">Choose one:</p>
+      <ol style="list-style:none;padding:0;font-size:12.5px;margin-bottom:10px;">
+        <li style="margin-bottom:4px;">→ Describe a moment when you felt <em>torn</em> or <em>conflicted</em> about staying in or leaving your community.</li>
+        <li style="margin-bottom:4px;">→ Describe one specific change that would make your province significantly more likely to retain talented young people.</li>
+        <li>→ If a student asked you today: "Should I stay or move to Lima?" — what would you tell them, and why?</li>
+      </ol>
+      <div class="rb-line"></div>
+      <div class="rb-line"></div>
+      <div class="rb-line"></div>
+      <div class="rb-line"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Teach for Success</strong> &nbsp;·&nbsp; Student Handout · Brain Drain vs. Community Development &nbsp;·&nbsp; Advanced ESL B2–C1
+</div>
+</body>
+</html>

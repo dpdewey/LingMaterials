@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Brain Drain Lesson Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:    #1a1208;
+    --cream:  #fdf6e3;
+    --ochre:  #c78b20;
+    --terra:  #b84c2a;
+    --forest: #3a6b35;
+    --sky:    #5b8db8;
+    --sand:   #e8d5a3;
+    --moss:   #8aad6e;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 13.5px;
+    line-height: 1.68;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    padding: 26px 40px 20px;
+    border-bottom: 5px solid var(--ochre);
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(199,139,32,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .brand {
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.5rem;
+    color: var(--ochre);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .brand span { color: var(--terra); }
+  .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #bbb;
+    margin-top: 5px;
+  }
+
+  /* ── META STRIP ── */
+  .meta-strip {
+    background: var(--ochre);
+    color: var(--ink);
+    padding: 9px 40px;
+    display: flex; flex-wrap: wrap; gap: 20px;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    border-bottom: var(--border);
+  }
+  .meta-strip span::before { content: '▸ '; }
+
+  /* ── MAIN ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 30px 24px; }
+
+  /* ── ANNOTATION KEY ── */
+  .key-box {
+    border: var(--border);
+    padding: 14px 18px;
+    background: var(--sand);
+    display: flex; gap: 28px; flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .key-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+  .ks-ochre { width: 14px; height: 32px; background: var(--ochre); border: 2px solid var(--ink); flex-shrink: 0; }
+  .ks-forest { width: 14px; height: 32px; background: var(--forest); border: 2px solid var(--ink); flex-shrink: 0; }
+
+  /* ── SECTION HEADS ── */
+  .section-head {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1rem;
+    background: var(--ink);
+    color: var(--ochre);
+    padding: 7px 16px;
+    margin: 34px 0 0 0;
+    letter-spacing: 0.08em;
+    border-left: 6px solid var(--ochre);
+  }
+
+  /* ── OVERVIEW TABLE ── */
+  .overview-table {
+    width: 100%; border-collapse: collapse;
+    margin-top: 16px; border: var(--border);
+  }
+  .overview-table th {
+    background: var(--ink); color: var(--ochre);
+    font-family: 'Bungee', sans-serif; font-size: 0.73rem;
+    letter-spacing: 0.08em; padding: 8px 12px;
+    text-align: left; border-right: 2px solid #333;
+  }
+  .overview-table td {
+    padding: 7px 12px; border: 1.5px solid #ccc; vertical-align: top;
+  }
+  .overview-table tr:nth-child(even) td { background: #f7f0dc; }
+  .overview-table tr.total td {
+    background: var(--ink); color: var(--ochre); font-weight: 700;
+  }
+  .time-pill {
+    display: inline-block; background: var(--ochre); color: var(--ink);
+    font-weight: 700; font-size: 10.5px; padding: 2px 7px; border-radius: 2px; white-space: nowrap;
+  }
+
+  /* ── PHASE BLOCKS ── */
+  .phase-block {
+    border: var(--border); box-shadow: var(--shadow);
+    margin-top: 24px; overflow: hidden;
+  }
+  .phase-header {
+    background: var(--terra); color: var(--cream);
+    padding: 10px 18px; display: flex;
+    justify-content: space-between; align-items: center;
+    border-bottom: var(--border); flex-wrap: wrap; gap: 8px;
+  }
+  .phase-number {
+    font-family: 'Bungee', sans-serif; font-size: 1.05rem;
+    letter-spacing: 0.05em;
+  }
+  .phase-time {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    background: var(--ink); color: var(--cream);
+    padding: 3px 10px; letter-spacing: 0.05em; font-weight: 700;
+  }
+  .phase-body { padding: 18px 20px; }
+
+  /* ── NOTE TYPES ── */
+  .note-my {
+    background: #fffbf0; border-left: 5px solid var(--ochre);
+    padding: 10px 14px; margin: 12px 0; font-size: 12.5px;
+  }
+  .note-my::before {
+    content: '✎ MY NOTE';
+    display: block; font-family: 'Bungee', sans-serif;
+    font-size: 9.5px; color: var(--ochre);
+    letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+  .note-obs {
+    background: #f0f7f0; border-left: 5px solid var(--forest);
+    padding: 10px 14px; margin: 12px 0; font-size: 12.5px;
+  }
+  .note-obs::before {
+    content: '👁 MODELING NOTE';
+    display: block; font-family: 'Bungee', sans-serif;
+    font-size: 9.5px; color: var(--forest);
+    letter-spacing: 0.1em; margin-bottom: 5px;
+  }
+
+  /* ── SUB-HEADS ── */
+  h3.sub {
+    font-family: 'Space Mono', monospace; font-size: 11.5px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--forest); margin: 16px 0 6px;
+    border-bottom: 1.5px dashed var(--forest); padding-bottom: 3px;
+  }
+
+  /* ── PROCEDURE LISTS ── */
+  .proc { list-style: decimal; padding-left: 22px; margin: 10px 0; }
+  .proc li { margin-bottom: 7px; }
+  .proc li strong { color: var(--terra); }
+
+  /* ── PROMPT QUOTES ── */
+  blockquote.prompt {
+    border-left: 4px solid var(--terra); padding: 8px 14px;
+    margin: 10px 0; font-family: 'Fraunces', serif;
+    font-style: italic; font-size: 13px; color: #333;
+    background: #fff8f5;
+  }
+
+  /* ── VOCAB INLINE ── */
+  .vocab-inline {
+    display: inline-block; background: var(--moss); color: var(--ink);
+    padding: 1px 6px; border: 1.5px solid var(--ink);
+    font-weight: 700; font-size: 12px; margin: 0 2px;
+  }
+
+  /* ── VOCAB TABLE ── */
+  table.vocab-t {
+    width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12.5px;
+  }
+  table.vocab-t th {
+    background: var(--ink); color: var(--cream); padding: 6px 10px;
+    text-align: left; font-family: 'Bungee', sans-serif; font-size: 10px; letter-spacing: 0.07em;
+  }
+  table.vocab-t td {
+    padding: 6px 10px; border: 1.5px solid #ccc; vertical-align: top;
+  }
+  table.vocab-t tr:nth-child(even) td { background: #f7f0dc; }
+  table.vocab-t td:first-child { font-weight: 700; color: var(--forest); white-space: nowrap; }
+
+  /* ── TTT BAR ── */
+  .ttt-bar {
+    font-size: 11px; background: var(--moss); border: 1.5px solid var(--ink);
+    display: inline-block; padding: 2px 8px; margin-top: 8px; font-weight: 700;
+  }
+
+  /* ── PERSPECTIVE CARDS ── */
+  .persp-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0;
+  }
+  .persp-card { border: var(--border); overflow: hidden; box-shadow: var(--shadow); }
+  .persp-card .pc-head {
+    padding: 8px 13px; font-family: 'Bungee', sans-serif;
+    font-size: 0.8rem; letter-spacing: 0.05em;
+  }
+  .persp-card.stay .pc-head { background: var(--forest); color: var(--cream); }
+  .persp-card.leave .pc-head { background: var(--sky); color: var(--cream); }
+  .persp-card ul { list-style: none; padding: 10px 13px; font-size: 12px; background: #fff; }
+  .persp-card ul li { margin-bottom: 5px; padding-left: 14px; position: relative; }
+  .persp-card ul li::before { content: '→'; position: absolute; left: 0; color: #aaa; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink); color: #888; font-size: 10.5px;
+    padding: 12px 40px; text-align: center;
+    border-top: 3px solid var(--ochre); margin-top: 40px; letter-spacing: 0.04em;
+  }
+  .footer strong { color: var(--ochre); }
+
+  @media print { .phase-block { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="brand">Teach <span>for</span> Success</div>
+  <div class="subtitle">Lesson Plan · Brain Drain vs. Community Development: Should I Stay or Should I Go?</div>
+</div>
+
+<div class="meta-strip">
+  <span>Level: Advanced ESL B2–C1</span>
+  <span>Time: 55 minutes</span>
+  <span>Class size: 6–20</span>
+  <span>Audience: Rural university educators, Peru</span>
+  <span>Focus: Discussion + Economic Vocabulary</span>
+</div>
+
+<div class="main">
+
+  <div class="key-box">
+    <strong style="font-family:'Bungee',sans-serif;font-size:0.78rem;letter-spacing:0.07em;">ANNOTATION KEY</strong>
+    <div class="key-item"><div class="ks-ochre"></div><div><strong>✎ MY NOTE</strong> — personal reminders and in-the-moment cues</div></div>
+    <div class="key-item"><div class="ks-forest"></div><div><strong>👁 MODELING NOTE</strong> — pedagogical rationale for observing colleagues</div></div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section-head">LESSON OVERVIEW</div>
+  <table class="overview-table">
+    <tr>
+      <th>PHASE</th><th>ACTIVITY</th><th>TIME</th><th>TTT</th>
+    </tr>
+    <tr><td>Warm-up</td><td>Survey as stimulus — silent reading + personal reflection</td><td><span class="time-pill">5 min</span></td><td>2 min</td></tr>
+    <tr><td>Vocabulary</td><td>Lexical sets — economic migration + community development language</td><td><span class="time-pill">10 min</span></td><td>4 min</td></tr>
+    <tr><td>Interaction 1</td><td>Pair discussion — Section A personal experience questions</td><td><span class="time-pill">8 min</span></td><td>1 min</td></tr>
+    <tr><td>Language Clinic 1</td><td>Open floor — grammar and communication questions</td><td><span class="time-pill">5 min</span></td><td>3 min</td></tr>
+    <tr><td>Interaction 2</td><td>Perspective task — Stay vs. Leave argument cards (jigsaw)</td><td><span class="time-pill">12 min</span></td><td>2 min</td></tr>
+    <tr><td>Interaction 3</td><td>Likert debate — Section C whole-class statements</td><td><span class="time-pill">8 min</span></td><td>2 min</td></tr>
+    <tr><td>Language Clinic 2</td><td>Open floor — language patterns noticed, gaps identified</td><td><span class="time-pill">4 min</span></td><td>2 min</td></tr>
+    <tr><td>Wrap-up</td><td>Closing reflection + handout distribution</td><td><span class="time-pill">3 min</span></td><td>2 min</td></tr>
+    <tr class="total"><td colspan="2"><strong>TOTAL</strong></td><td><strong>55 min</strong></td><td><strong>~18 min</strong></td></tr>
+  </table>
+
+  <!-- PHASE 1 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 1 — WARM-UP</div>
+      <div class="phase-time">5 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Distribute or display the <strong>Teach for Success Brain Drain Survey</strong>. Give participants 2 minutes to read silently — not to complete it, just to scan it and notice which questions feel most personal.</li>
+        <li>Ask: <em>"Which question hit closest to home? Did any question make you want to answer immediately — or made you hesitate?"</em> (1 min think time; 1 min open share — take 2–3 brief responses with no commentary.)</li>
+        <li>Frame the lesson: <em>"Today the survey is our starting point. We're going to talk about one of the most important decisions your students face — and maybe one that shaped your own life. We'll also build the English vocabulary you need to have this conversation at a high level."</em></li>
+      </ol>
+      <div class="note-my">
+        This is the one topic I don't need to sell. In my experience with rural university educators, the question "should I stay or should I go?" is personal for almost everyone in the room — they either stayed, came back, or have a sibling or child who left. I simply hand out the survey and let the room's energy do the work. The hesitation I watch for: who pauses longest on Question 3 ("Have you ever felt guilty…"). That's the question I'll return to in Phase 6.
+      </div>
+      <div class="note-obs">
+        The warm-up follows the same structure as previous Teach for Success lessons: the survey is used as an <em>activator</em>, not a data instrument. By asking participants to read before they speak, the teacher lowers the entry threshold — everyone has something to look at, which prevents the awkward silence that can accompany cold civic or emotional topics. Importantly, the framing immediately signals that the teacher's own lived experience is also in the room.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 2 — VOCABULARY INPUT</div>
+      <div class="phase-time">10 MIN · TTT: ~4 MIN</div>
+    </div>
+    <div class="phase-body">
+      <p>Refer participants to <strong>Vocabulary Set 1 and Set 2</strong> on the handout.</p>
+
+      <h3 class="sub">Set 1 — Economic Migration &amp; Development Vocabulary (8 items)</h3>
+      <p style="margin-bottom:8px;">For each item: pronounce → one example sentence from a Peruvian context → invite a second example or synonym from participants. Move quickly; this is exchange, not lecture.</p>
+
+      <table class="vocab-t">
+        <tr><th>WORD / PHRASE</th><th>MEANING IN CONTEXT</th><th>EXAMPLE</th></tr>
+        <tr><td>brain drain (n)</td><td>the emigration of educated or skilled workers from a region, leaving it less developed</td><td><em>"Ayacucho has experienced significant brain drain as graduates move to Lima."</em></td></tr>
+        <tr><td>urban migration (n)</td><td>the movement of people from rural to urban areas in search of better opportunities</td><td><em>"Urban migration has accelerated since the university opened in our province."</em></td></tr>
+        <tr><td>community investment (n)</td><td>the use of money, time, or skills to develop and improve a local community</td><td><em>"Young doctors who return home are a form of community investment."</em></td></tr>
+        <tr><td>entrepreneurship (n)</td><td>the activity of setting up new businesses, often while taking on financial risk</td><td><em>"Rural entrepreneurship can create jobs without requiring people to leave."</em></td></tr>
+        <tr><td>to retain (v)</td><td>to keep someone or something rather than losing them to another place</td><td><em>"How can rural provinces retain their most talented graduates?"</em></td></tr>
+        <tr><td>economic opportunity (n)</td><td>the chance to earn a living wage, advance professionally, or build wealth</td><td><em>"Students leave because economic opportunities in Lima are far greater."</em></td></tr>
+        <tr><td>remittances (n)</td><td>money sent home by workers living in another city or country</td><td><em>"Remittances from Lima help many rural families survive."</em></td></tr>
+        <tr><td>local talent pipeline (n)</td><td>a system that develops skilled people within a community and keeps them there</td><td><em>"Our university could become a local talent pipeline if salaries were competitive."</em></td></tr>
+      </table>
+
+      <h3 class="sub">Set 2 — Expressing Values, Tension, and Identity (9 items)</h3>
+      <p style="margin-bottom:8px;">These are the words participants need to express the emotional and ethical dimensions of this topic at B2–C1 level.</p>
+
+      <table class="vocab-t">
+        <tr><th>WORD</th><th>MEANING</th><th>USE IN CONTEXT</th></tr>
+        <tr><td>torn (adj)</td><td>unable to choose between two things you value equally</td><td><em>"Many graduates feel torn between their career and their family obligations."</em></td></tr>
+        <tr><td>rooted (adj)</td><td>having a strong connection to a place, culture, or community</td><td><em>"I feel deeply rooted here — leaving would feel like losing part of myself."</em></td></tr>
+        <tr><td>obligated (adj)</td><td>feeling a strong duty or responsibility to do something</td><td><em>"Some students feel obligated to return and repay their community."</em></td></tr>
+        <tr><td>ambitious (adj)</td><td>having a strong desire to succeed, achieve, or do more</td><td><em>"Being ambitious isn't incompatible with staying — it depends on the opportunities available."</em></td></tr>
+        <tr><td>resentful (adj)</td><td>feeling bitterness toward a person or situation that seems unfair</td><td><em>"Those who stayed can feel resentful watching peers advance in Lima."</em></td></tr>
+        <tr><td>pragmatic (adj)</td><td>dealing with problems in a practical, realistic way rather than an idealistic one</td><td><em>"A pragmatic approach means looking at what salaries are actually available here."</em></td></tr>
+        <tr><td>conflicted (adj)</td><td>experiencing two opposing feelings or values at the same time</td><td><em>"I felt genuinely conflicted when I got the job offer in Arequipa."</em></td></tr>
+        <tr><td>indebted (adj)</td><td>feeling that you owe something to a person or community</td><td><em>"Many scholarship recipients feel indebted to their home province."</em></td></tr>
+        <tr><td>underutilized (adj)</td><td>not being used to full potential or capacity</td><td><em>"Talented young people feel underutilized in areas with few professional opportunities."</em></td></tr>
+      </table>
+
+      <div class="note-my">
+        I always write <span class="vocab-inline">brain drain</span>, <span class="vocab-inline">torn</span>, and <span class="vocab-inline">rooted</span> on the board immediately, because these three words tend to unlock conversations that couldn't happen before. "Rooted" in particular is often new to B2 learners but immediately resonates — I've had participants say "that's exactly the word I needed in English."
+      </div>
+      <div class="note-obs">
+        The Set 2 words are all gradable adjectives describing internal states. This is pedagogically deliberate: they provide learners with the emotional vocabulary to move from reporting facts ("many people leave") to expressing personal experience ("I felt conflicted because…"). Without this register, discussion at B2–C1 stays at the surface.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~4 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 3 — INTERACTION 1: PAIR DISCUSSION</div>
+      <div class="phase-time">8 MIN · TTT: ~1 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Put participants in pairs, ideally mixed by age or years at the institution. Refer them to <strong>Section A</strong> on the handout.</li>
+        <li>They choose two questions to discuss for 6 minutes. Circulate and <strong>listen only</strong> — note language for the clinic. Do not join, correct, or comment.</li>
+        <li>Bring the class together. One sentence from one pair. Move immediately to the Language Clinic.</li>
+      </ol>
+
+      <h3 class="sub">Section A Questions (on the handout)</h3>
+      <ol class="proc">
+        <li>Did you face a choice between staying in your hometown and moving to a larger city? What factors most influenced your decision — or what factors would influence it if you had to choose now?</li>
+        <li>Think of a <strong>former student</strong> who left the region. Think of one who stayed. Who do you think made the better choice? Is it fair to compare them?</li>
+        <li>Is there a difference between leaving for <strong>economic reasons</strong> and leaving for <strong>personal ambitions</strong>? Does the reason change how you feel about it?</li>
+        <li>What would need to change in your province for a talented twenty-five-year-old to <strong>choose to stay</strong> — not out of obligation, but because it genuinely seemed like the best option?</li>
+      </ol>
+
+      <blockquote class="prompt">
+        "Choose any two. You don't have to agree. You have 6 minutes — talk as much as you like."
+      </blockquote>
+
+      <div class="note-my">
+        Question 2 is the one I find most reliably generates animated discussion with teacher groups. The comparison of two former students is concrete and real — it avoids the abstraction of "young people in general." I often hear people say "I actually thought of someone specific immediately." If a pair finishes their two questions early, I nudge them toward Question 4, which tends to produce more forward-looking, solution-oriented language.
+      </div>
+      <div class="note-obs">
+        The pair-work format is essential for this topic because brain drain is emotionally loaded. Group or whole-class formats can create pressure to perform a socially acceptable position ("of course young people should stay!"). Pairs allow people to be more honest about ambivalence or personal regret — which produces richer language than rehearsed opinion.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~1 minute</div>
+    </div>
+  </div>
+
+  <!-- PHASE 4 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 4 — LANGUAGE CLINIC 1</div>
+      <div class="phase-time">5 MIN · TTT: ~3 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Open: <em>"Any grammar or vocabulary questions from your pair discussion? Anything you wanted to say but couldn't find the English for?"</em></li>
+        <li>Share 1–2 language patterns you noticed while circulating. No names. Rephrase into a target form and write it on the board.</li>
+        <li>Ask participants to produce a second example sentence using the target form.</li>
+      </ol>
+
+      <h3 class="sub">Anticipated Language Needs</h3>
+      <table class="vocab-t">
+        <tr><th>LIKELY LEARNER FORM</th><th>TARGET FORM</th></tr>
+        <tr><td>"He decided to go because he wanted earn more money."</td><td>"He left <em>in order to</em> / <em>so that he could</em> earn a better wage."</td></tr>
+        <tr><td>"Many peoples go to Lima."</td><td>"<em>Large numbers of</em> / <em>A significant proportion of</em> graduates migrate to Lima."</td></tr>
+        <tr><td>"I don't think it's good that young people leave."</td><td>"I'm <em>skeptical</em> that this trend benefits the region in the long term."</td></tr>
+        <tr><td>"She came back because she felt she must."</td><td>"She returned because she felt <em>obligated</em> / <em>indebted</em> to her community."</td></tr>
+        <tr><td>"The town is missing important persons."</td><td>"The community is losing its most <em>skilled</em> / <em>educated</em> residents to urban migration."</td></tr>
+      </table>
+      <div class="note-obs">
+        The first Language Clinic targets two common weaknesses at B2: insufficient lexical precision (using simple words when more precise ones are available) and the absence of cohesive devices that show logical relationship (because → in order to; I think → I'm skeptical that). The teacher's role is to provide the form cleanly without correcting the person who produced it.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~3 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 5 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 5 — INTERACTION 2: PERSPECTIVE TASK (JIGSAW)</div>
+      <div class="phase-time">12 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Setup — Argument Groups</h3>
+      <p>Divide into two groups. Group A receives the <strong>Case for Staying</strong> panel on the handout. Group B receives the <strong>Case for Leaving</strong> panel. Give groups 3 minutes to read and identify the 3 strongest arguments on their card.</p>
+      <p style="margin-top:6px;"><em>Note: assign groups strategically — if you know who has personally left and returned, consider putting them in the opposing group for maximum productive tension.</em></p>
+
+      <h3 class="sub">Expert Pairs — Structured Argument Exchange</h3>
+      <p style="margin-top:8px;">Reform into A-B pairs. Each person must <em>advocate for their assigned position</em> (even if they personally disagree) for 4 minutes. Then drop the role and discuss openly: <em>"Now, what do you actually think?"</em> (2 min)</p>
+
+      <blockquote class="prompt">
+        "For the first four minutes: argue the position on your card as strongly as you can, even if it's not your own view. Then we'll drop the roles."
+      </blockquote>
+
+      <h3 class="sub">Perspective Reference — For Handout Panels</h3>
+
+      <div class="persp-grid">
+        <div class="persp-card stay">
+          <div class="pc-head">GROUP A — THE CASE FOR STAYING</div>
+          <ul>
+            <li>Rural communities lose their best talent just when they need it most</li>
+            <li>Universities, schools, and clinics in rural areas desperately need qualified staff</li>
+            <li>Lima is already overcrowded; internal migration creates urban poverty, not just rural poverty</li>
+            <li>Entrepreneurship and remote work now make it possible to build a career without leaving</li>
+            <li>Social capital — family networks, trust, community relationships — is worth more than a higher salary</li>
+            <li>Who will teach the next generation if all the teachers leave?</li>
+            <li>Cultural identity and ancestral knowledge are lost when educated youth become urban</li>
+          </ul>
+        </div>
+        <div class="persp-card leave">
+          <div class="pc-head">GROUP B — THE CASE FOR LEAVING</div>
+          <ul>
+            <li>Professional development, specialist training, and career advancement rarely exist in rural areas</li>
+            <li>Salaries in Lima can be 3–4× higher for the same work</li>
+            <li>Young people have the right to pursue the best opportunities available, regardless of geography</li>
+            <li>Migrants send remittances home — often more economic impact than staying on a low local salary</li>
+            <li>Exposure to urban life, education systems, and networks creates leaders who can later return with more</li>
+            <li>Staying in a limited environment can produce frustration, resentment, and underperformance</li>
+            <li>The brain drain problem is the government's responsibility to fix, not the individual's burden to carry</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-my">
+        The role-play element is what makes Phase 5 work. When I simply ask "do you think people should stay or leave?" I get polite, uncommitted answers. When I say "you are now arguing the position on your card as if your life depends on it," something shifts. The forced advocacy reveals the arguments people know but don't usually say out loud. The "now drop it — what do you actually think?" moment at the end is often the most honest conversation of the lesson.
+      </div>
+      <div class="note-obs">
+        Assigning positions — rather than letting learners choose — serves two pedagogical purposes. First, it exposes learners to the full range of arguments on both sides, which deepens their understanding and vocabulary. Second, it protects participants from social pressure: if your position was assigned, you are not personally judged for it. This is especially valuable on emotionally loaded topics where some participants may feel their own choices are implicitly under scrutiny.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 6 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 6 — INTERACTION 3: LIKERT DEBATE</div>
+      <div class="phase-time">8 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure — Opinion Continuum</h3>
+      <ol class="proc">
+        <li>Read a statement from Section C. Participants show their position on a 1–5 scale (fingers, paper, or physical position in the room).</li>
+        <li>Call on one person from each extreme: "One sentence — why did you choose that number?" Open briefly to the floor.</li>
+        <li>Repeat with 3–4 statements. Move quickly — this is temperature-taking, not debate.</li>
+      </ol>
+
+      <h3 class="sub">Section C Statements (select 3–4)</h3>
+      <ol class="proc">
+        <li>"Young people who leave their rural community to work in Lima are, in some sense, <strong>abandoning</strong> the people who need them most."</li>
+        <li>"It is the <strong>government's responsibility</strong>, not the individual's, to make rural areas attractive enough to retain talent."</li>
+        <li>"Universities in rural regions should focus more on preparing students to <strong>build businesses locally</strong> than to compete for jobs in national corporations."</li>
+        <li>"A person who studied with a scholarship from a rural province has a <strong>moral obligation</strong> to return and contribute to that community."</li>
+        <li>"Brain drain is actually good for rural communities in the long run, because migrants return with <strong>more skills, capital, and ambition</strong> than they left with."</li>
+        <li>"Teachers and professors who stay in rural areas are <strong>making a greater social contribution</strong> than those who pursue more prestigious careers in cities."</li>
+      </ol>
+
+      <div class="note-my">
+        Statement 6 is the one I save for last, because it is the most personally relevant to the room. These participants are the ones who stayed. Asking them whether they believe they made a greater social contribution than those who left — and asking them to rate it from 1 to 5 — always produces visible emotion and the most honest responses of the lesson. I find myself looking forward to this moment every time.
+      </div>
+      <div class="note-obs">
+        Statements 1 and 4 both use morally loaded language ("abandoning," "moral obligation") deliberately. At B2–C1, learners need practice recognizing and responding to loaded language — agreeing or disagreeing with it, softening or strengthening it. This is a high-frequency skill in academic and professional English that is rarely taught directly.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 7 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 7 — LANGUAGE CLINIC 2</div>
+      <div class="phase-time">4 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>Ask: <em>"Did you find any words from Set 2 that you ended up using? Which ones felt natural? Which felt forced?"</em></li>
+        <li>Ask: <em>"Was there anything you wanted to say in the debate — a nuance, a qualification — that you couldn't express in English?"</em></li>
+        <li>Address 1–2 items. Write any new target forms on the board. Close quickly.</li>
+      </ol>
+      <div class="note-obs">
+        The second Language Clinic is explicitly meta-linguistic: it asks learners to reflect on their own language use, not just produce language. This is a higher-order skill that contributes to long-term acquisition. Asking "which words felt natural?" also validates the vocabulary input — learners hear that some words will feel immediately usable and others will take time to become active.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+  <!-- PHASE 8 -->
+  <div class="phase-block">
+    <div class="phase-header">
+      <div class="phase-number">PHASE 8 — WRAP-UP &amp; REFLECTION</div>
+      <div class="phase-time">3 MIN · TTT: ~2 MIN</div>
+    </div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc">
+        <li>One closing question — small and concrete:
+          <blockquote class="prompt">"One word from today's vocabulary that you'll think about after you leave — what is it? Just say it aloud. No explanation needed."</blockquote>
+        </li>
+        <li>Go around the room once. No comments. Let each word stand alone.</li>
+        <li>Distribute or display the handout QR. Invite participants to complete the survey if they haven't already.</li>
+      </ol>
+      <div class="note-my">
+        The words I most often hear at the close of this lesson: <em>rooted</em>, <em>torn</em>, <em>conflicted</em>, <em>obligated</em>. What strikes me every time is that participants are not choosing the most sophisticated vocabulary — they are choosing the word that describes exactly how they feel. That alignment between language and lived experience is, to me, what advanced ESL learning actually looks like.
+      </div>
+      <div class="note-obs">
+        Ending on learner voices — one word each, no commentary — is a structural inversion of the traditional lesson close (teacher summarizes, teacher evaluates). It signals that the lesson's content was the participants' experience, and that the teacher's job was to give them better English for expressing what they already know.
+      </div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <strong>Teach for Success</strong> &nbsp;·&nbsp; Brain Drain vs. Community Development — Lesson Plan &nbsp;·&nbsp; Advanced ESL B2–C1 &nbsp;·&nbsp; Rural University Educators, Peru
+</div>
+
+</body>
+</html>
