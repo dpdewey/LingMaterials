@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success &middot; Heritage, Mass Tourism &amp; the Words We Travel Under</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1c1418;
+  --paper: #f4ece6;
+  --c1: #0f6e6e;
+  --c2: #a8425a;
+  --c3: #e0a458;
+  --sand: #f3e7c4;
+  --border: 2.5px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif; font-size: 15px; line-height: 1.5;
+}
+.masthead {
+  background: var(--ink); color: var(--paper);
+  padding: 26px 40px 22px; border-bottom: 6px solid var(--c1);
+}
+.brand {
+  font-family: 'Bungee', sans-serif; font-size: 2rem; letter-spacing: 0.02em;
+  color: var(--c3); line-height: 1;
+}
+.brand span { font-size: 1.1rem; font-style: italic; color: var(--paper);
+  font-family: 'Fraunces', serif; }
+.subtitle {
+  font-family: 'Space Mono', monospace; font-size: 0.82rem; margin-top: 10px;
+  color: var(--paper); letter-spacing: 0.02em;
+}
+.meta-strip {
+  background: var(--c1); color: #fff; display: flex; flex-wrap: wrap; gap: 4px 28px;
+  padding: 9px 40px; font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.04em; border-bottom: var(--border);
+}
+.main { max-width: 920px; margin: 0 auto; padding: 28px 40px 10px; }
+.framing {
+  background: var(--sand); border: var(--border); box-shadow: var(--shadow);
+  padding: 16px 20px; margin: 4px 0 26px; font-size: 14px;
+}
+.framing strong { color: var(--c2); }
+.key-box {
+  border: var(--border); padding: 14px 18px; margin: 0 0 24px; background: #fff;
+}
+.key-item { display: flex; gap: 10px; align-items: flex-start; margin-top: 9px;
+  font-size: 12.5px; }
+.key-swatch-sand { width: 26px; height: 18px; background: var(--sand);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.key-swatch-teal { width: 26px; height: 18px; background: var(--c1);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.section-head {
+  font-family: 'Bungee', sans-serif; font-size: 0.92rem; letter-spacing: 0.05em;
+  background: var(--ink); color: var(--c3); padding: 7px 14px; margin: 30px 0 0;
+}
+table.ot { width: 100%; border-collapse: collapse; margin: 0 0 26px; font-size: 12.5px; }
+table.ot th {
+  background: var(--c2); color: #fff; text-align: left; padding: 7px 11px;
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+}
+table.ot td { padding: 7px 11px; border: 1.5px solid #cfc7b4; vertical-align: top; }
+table.ot tr:nth-child(even) td { background: #fff; }
+.pill { font-family: 'Space Mono', monospace; font-size: 10.5px; background: var(--c3);
+  border: 1.5px solid var(--ink); padding: 1px 7px; white-space: nowrap; }
+table.ot tr.total td { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.phase-block { border: var(--border); box-shadow: var(--shadow); margin: 0 0 22px;
+  background: #fff; break-inside: avoid; }
+.phase-header { display: flex; justify-content: space-between; align-items: baseline;
+  background: var(--c1); color: #fff; padding: 8px 16px; }
+.phase-number { font-family: 'Bungee', sans-serif; font-size: 0.82rem; letter-spacing: 0.04em; }
+.phase-time { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.04em; }
+.phase-body { padding: 16px 20px; }
+h3.sub { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--c2); margin: 16px 0 7px; }
+h3.sub:first-child { margin-top: 0; }
+ol.proc, ul.q { margin: 0 0 4px; padding-left: 20px; }
+ol.proc li, ul.q li { margin-bottom: 7px; }
+ul.q li { list-style: none; padding-left: 16px; position: relative; }
+ul.q li::before { content: '?'; position: absolute; left: 0; color: var(--c2);
+  font-family: 'Bungee', sans-serif; font-size: 11px; }
+.note-ant, .note-mod { padding: 11px 14px; margin: 12px 0; font-size: 12.5px;
+  border-left: 6px solid var(--ink); }
+.note-ant { background: var(--sand); }
+.note-mod { background: #fff; border: 1.5px dashed var(--c1); border-left: 6px solid var(--c1); }
+.note-ant strong, .note-mod strong { font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.note-mod strong { color: var(--c1); }
+.ttt-bar { font-size: 11px; background: var(--c3); border: 1.5px solid var(--ink);
+  display: inline-block; padding: 2px 9px; margin-top: 10px; font-weight: 700;
+  font-family: 'Space Mono', monospace; }
+table.vocab-t { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: 13px; }
+table.vocab-t td { padding: 6px 10px; border: 1.5px solid #d8d0bd; vertical-align: top; }
+table.vocab-t tr:nth-child(even) td { background: #faf6ec; }
+table.vocab-t td:first-child { font-weight: 700; color: var(--c1); white-space: nowrap; }
+.toolkit { background: var(--c3); border: var(--border); padding: 13px 16px; margin: 10px 0; }
+.toolkit ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+.toolkit ul li { margin-bottom: 4px; }
+.persp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+.persp-card { border: var(--border); overflow: hidden; box-shadow: 4px 4px 0 var(--ink); }
+.persp-card .pc-head { padding: 8px 13px; font-family: 'Bungee', sans-serif;
+  font-size: 0.74rem; letter-spacing: 0.04em; color: #fff; }
+.persp-card.a .pc-head { background: var(--c1); }
+.persp-card.b .pc-head { background: var(--c2); }
+.persp-card ul { list-style: none; padding: 11px 14px; font-size: 12.5px; background: #fff; margin: 0; }
+.persp-card ul li { margin-bottom: 6px; padding-left: 15px; position: relative; }
+.persp-card ul li::before { content: '\2192'; position: absolute; left: 0; color: #aaa; }
+.likert-list { margin: 8px 0; padding-left: 0; list-style: none; counter-reset: lk; }
+.likert-list li { background: #faf6ec; border: 1.5px solid #d8d0bd; padding: 9px 13px;
+  margin-bottom: 7px; font-size: 13px; position: relative; padding-left: 38px; }
+.likert-list li::before { counter-increment: lk; content: counter(lk); position: absolute;
+  left: 0; top: 0; bottom: 0; width: 28px; background: var(--c2); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bungee', sans-serif; font-size: 12px; }
+.format-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 10px 0; }
+.format-card { border: 1.5px solid var(--ink); padding: 10px 12px; font-size: 12px; background: #fff; }
+.format-card b { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--c1);
+  display: block; margin-bottom: 4px; letter-spacing: 0.04em; }
+.footer { background: var(--ink); color: #888; font-size: 10.5px; padding: 13px 40px;
+  text-align: center; border-top: 3px solid var(--c3); margin-top: 36px; letter-spacing: 0.04em; }
+.footer strong { color: var(--c3); }
+@media print { .phase-block, .persp-grid, .format-grid { break-inside: avoid; }
+  .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+@media (max-width: 680px) { .persp-grid, .format-grid { grid-template-columns: 1fr; }
+  .main { padding: 20px; } .masthead, .meta-strip { padding-left: 20px; padding-right: 20px; } }
+
+
+.intro-band { background: var(--sand); border: var(--border); box-shadow: var(--shadow);
+  padding: 16px 20px; margin: 6px 0 26px; font-size: 14.5px; }
+.h-section { border: var(--border); box-shadow: var(--shadow); background: #fff; margin: 0 0 22px;
+  break-inside: avoid; }
+.h-head { background: var(--c1); color: #fff; padding: 8px 16px; font-family: 'Bungee', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.04em; display: flex; justify-content: space-between; align-items: baseline; }
+.h-head .n { font-family: 'Space Mono', monospace; font-size: 10px; opacity: 0.85; }
+.h-body { padding: 15px 20px; }
+.notes-box { border: 1.5px dashed var(--c2); padding: 12px 16px; min-height: 90px;
+  background: repeating-linear-gradient(transparent, transparent 27px, #e9e2cf 27px, #e9e2cf 28px);
+  margin-top: 8px; }
+.stack-list { list-style: none; margin: 6px 0; padding-left: 0; counter-reset: st; }
+.stack-list li { background: #faf6ec; border: 1.5px solid #d8d0bd; padding: 9px 13px 9px 38px;
+  margin-bottom: 7px; font-size: 13.5px; position: relative; }
+.stack-list li::before { counter-increment: st; content: counter(st); position: absolute; left: 0;
+  top: 0; bottom: 0; width: 28px; background: var(--c2); color: #fff; display: flex; align-items: center;
+  justify-content: center; font-family: 'Bungee', sans-serif; font-size: 12px; }
+/* survey likert */
+.sv-item { border: 1.5px solid #d8d0bd; background: #fff; padding: 12px 15px; margin-bottom: 12px; }
+.sv-q { font-size: 14px; margin-bottom: 10px; }
+.sv-q b { color: var(--c2); font-family: 'Space Mono', monospace; font-size: 11px; margin-right: 6px; }
+.dots { display: flex; gap: 0; align-items: center; flex-wrap: wrap; }
+.dots .lbl { font-family: 'Space Mono', monospace; font-size: 9.5px; color: #888; width: 64px; }
+.dots .lbl.r { text-align: right; }
+.dot { width: 26px; height: 26px; border: 2px solid var(--ink); border-radius: 50%; margin: 0 5px;
+  cursor: pointer; background: #fff; transition: transform .08s; }
+.dot:hover { transform: scale(1.15); }
+.dot.sel { background: var(--c1); }
+.sv-open textarea { width: 100%; min-height: 70px; border: 1.5px solid var(--ink); padding: 9px 11px;
+  font-family: 'Fraunces', serif; font-size: 14px; resize: vertical; background: #fff; box-sizing: border-box; }
+.progress { font-family: 'Space Mono', monospace; font-size: 11px; background: var(--c3);
+  border: 1.5px solid var(--ink); display: inline-block; padding: 3px 11px; margin: 4px 0 18px; }
+.config-note { font-family: 'Space Mono', monospace; font-size: 10.5px; background: #faf6ec;
+  border: 1.5px dashed var(--c1); padding: 10px 13px; margin-top: 18px; color: #555; }
+</style></head><body>
+<div class="masthead"><div class="brand">Teach <span>for</span> Success</div>
+<div class="subtitle">Student Handout &middot; Heritage, Mass Tourism &amp; the Words We Travel Under</div></div>
+<div class="meta-strip"><span>Level: Advanced ESL B2&ndash;C1</span><span>Topic: Tourism &amp; Identity</span>
+<span>Focus: Sociolinguistic &amp; Cultural Vocabulary</span></div>
+<div class="main"><div class="intro-band">Places and people are reshaped by movement &mdash; by tourists who arrive in millions, and by the words we attach to those who come to stay. Today we look closely at both.</div><div class="h-section"><div class="h-head"><span>KEY WORDS</span><span class="n">vocabulary</span></div><div class="h-body"><h3 class="sub">Set 1 &mdash; Tourism &amp; heritage</h3><table class="vocab-t"><tr><td>heritage site (n.)</td><td>a place valued and protected for its cultural or natural significance</td></tr><tr><td>mass tourism (n.)</td><td>travel by very large numbers of people to the same destinations</td></tr><tr><td>to commodify (v.)</td><td>to turn something into a product to be bought and sold</td></tr><tr><td>carrying capacity (n.)</td><td>the number of visitors a place can absorb without damage</td></tr><tr><td>a caricature (n.)</td><td>an exaggerated, simplified version that distorts the original</td></tr><tr><td>authentic (adj.)</td><td>genuinely what it claims to be, not staged for visitors</td></tr></table><h3 class="sub">Set 2 &mdash; Migration &amp; labels</h3><table class="vocab-t"><tr><td>expatriate / expat (n.)</td><td>a person living abroad &mdash; a label that often signals privilege</td></tr><tr><td>immigrant (n.)</td><td>a person who moves to settle in a new country &mdash; often the less-privileged label</td></tr><tr><td>connotation (n.)</td><td>the feeling or judgement a word carries beyond its plain meaning</td></tr><tr><td>integration (n.)</td><td>the process of becoming part of a host society</td></tr><tr><td>perception (n.)</td><td>the way something or someone is seen and judged by others</td></tr><tr><td>privilege (n.)</td><td>an advantage held by some and not others, often unearned</td></tr></table></div></div><div class="h-section"><div class="h-head"><span>TALK IT THROUGH</span><span class="n">pair discussion</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">Discuss these with a partner. Aim for examples and honest opinions, not short answers.</p><ul class="q"><li>When you go abroad, are you a tourist or a traveller? What is the difference, really &mdash; and who decides?</li><li>Have you ever been called an expat or an immigrant? Did the word fit how you saw yourself?</li><li>Is there a place you love that tourism has changed? Was the change worth it?</li><li>Can a town stay true to itself while living off visitors? What would that take?</li></ul></div></div><div class="h-section"><div class="h-head"><span>USEFUL PHRASES</span><span class="n">interaction toolkit</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">Encourage these moves so the talk stays precise about language:</p><ul class="q" style="margin-top:6px;"><li>Examining a word: &ldquo;The word &lsquo;expat&rsquo; quietly assumes that&hellip;&rdquo;</li><li>Comparing labels: &ldquo;We&rsquo;d never call them that &mdash; we&rsquo;d say&hellip;&rdquo;</li><li>Conceding a tension: &ldquo;I see the economic case, but the cost is that&hellip;&rdquo;</li><li>Locating yourself: &ldquo;Speaking as someone who has lived abroad&hellip;&rdquo;</li></ul></div></div><div class="h-section"><div class="h-head"><span>TWO SIDES</span><span class="n">jigsaw</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">Group A argues that adapting a heritage place for mass tourism is a legitimate survival strategy; Group B argues it hollows out the very thing tourists came to see. Prepare 5 minutes, then pair across groups.</p><div class="persp-grid"><div class="persp-card a"><div class="pc-head">GROUP A &mdash; Survival strategy</div><ul><li>Tourist income funds the preservation that would otherwise fail</li><li>Cultures have always adapted; freezing them is its own distortion</li><li>Jobs let young people stay rather than migrate away</li><li>Visitors leave with real respect for an unfamiliar heritage</li></ul></div><div class="persp-card b"><div class="pc-head">GROUP B &mdash; Hollowing out</div><ul><li>Daily life is replaced by a daily performance for outsiders</li><li>Locals get priced out of their own historic centres</li><li>Authenticity becomes a brand managed for export</li><li>The place ends up a caricature of what it once was</li></ul></div></div><p style="font-size:13.5px;"><strong>Your task:</strong> In cross-group pairs, argue your side, then together finish: &ldquo;A heritage town keeps its soul as long as &hellip;&rdquo; Report the condition, not the debate.</p></div></div><div class="h-section"><div class="h-head"><span>WHERE DO YOU STAND?</span><span class="n">debate statements</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">For each statement, decide how strongly you agree or disagree &mdash; and be ready to give one reason.</p><ul class="stack-list"><li>Calling some migrants &ldquo;expats&rdquo; and others &ldquo;immigrants&rdquo; is simply honest description, not bias.</li><li>A town has the right to limit tourist numbers even if it costs local jobs.</li><li>There is no &ldquo;authentic&rdquo; culture left to protect; everything is already performance.</li><li>The words a society uses for newcomers shape their legal and social treatment more than any law.</li><li>Within a generation, the world&rsquo;s most famous heritage sites will be visited mainly as replicas or online.</li></ul></div></div><div class="h-section"><div class="h-head"><span>YOUR TURN</span><span class="n">output</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">Take a position on one of two questions: <em>Can a heritage place survive tourism without selling its soul?</em> or <em>Should we drop the expat/immigrant distinction altogether?</em> Choose your format.</p><div class="format-grid"><div class="format-card"><b>SPOKEN (60 sec)</b>A position with one real place or one real label as your evidence.</div><div class="format-card"><b>WRITTEN (4&ndash;5 lines)</b>A short letter to a newspaper that misused one of these words.</div><div class="format-card"><b>LANGUAGE TASK</b>Propose one word-choice rule you&rsquo;d teach your students about labelling people.</div></div><h3 class="sub">My notes</h3><div class="notes-box"></div></div></div><div class="h-section"><div class="h-head"><span>ONE WORD</span><span class="n">close</span></div><div class="h-body"><p style="margin-top:0;font-size:13.5px;">Each person offers one word they will think twice before using after this lesson.</p></div></div></div><div class="footer"><strong>Teach for Success</strong> &nbsp;&middot;&nbsp; Tourism &amp; Identity &mdash; Student Handout &nbsp;&middot;&nbsp; Advanced ESL B2&ndash;C1 &nbsp;&middot;&nbsp; Teacher Professional Development</div></body></html>

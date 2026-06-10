@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success &middot; Heritage, Mass Tourism &amp; the Words We Travel Under</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1c1418;
+  --paper: #f4ece6;
+  --c1: #0f6e6e;
+  --c2: #a8425a;
+  --c3: #e0a458;
+  --sand: #f3e7c4;
+  --border: 2.5px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif; font-size: 15px; line-height: 1.5;
+}
+.masthead {
+  background: var(--ink); color: var(--paper);
+  padding: 26px 40px 22px; border-bottom: 6px solid var(--c1);
+}
+.brand {
+  font-family: 'Bungee', sans-serif; font-size: 2rem; letter-spacing: 0.02em;
+  color: var(--c3); line-height: 1;
+}
+.brand span { font-size: 1.1rem; font-style: italic; color: var(--paper);
+  font-family: 'Fraunces', serif; }
+.subtitle {
+  font-family: 'Space Mono', monospace; font-size: 0.82rem; margin-top: 10px;
+  color: var(--paper); letter-spacing: 0.02em;
+}
+.meta-strip {
+  background: var(--c1); color: #fff; display: flex; flex-wrap: wrap; gap: 4px 28px;
+  padding: 9px 40px; font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.04em; border-bottom: var(--border);
+}
+.main { max-width: 920px; margin: 0 auto; padding: 28px 40px 10px; }
+.framing {
+  background: var(--sand); border: var(--border); box-shadow: var(--shadow);
+  padding: 16px 20px; margin: 4px 0 26px; font-size: 14px;
+}
+.framing strong { color: var(--c2); }
+.key-box {
+  border: var(--border); padding: 14px 18px; margin: 0 0 24px; background: #fff;
+}
+.key-item { display: flex; gap: 10px; align-items: flex-start; margin-top: 9px;
+  font-size: 12.5px; }
+.key-swatch-sand { width: 26px; height: 18px; background: var(--sand);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.key-swatch-teal { width: 26px; height: 18px; background: var(--c1);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.section-head {
+  font-family: 'Bungee', sans-serif; font-size: 0.92rem; letter-spacing: 0.05em;
+  background: var(--ink); color: var(--c3); padding: 7px 14px; margin: 30px 0 0;
+}
+table.ot { width: 100%; border-collapse: collapse; margin: 0 0 26px; font-size: 12.5px; }
+table.ot th {
+  background: var(--c2); color: #fff; text-align: left; padding: 7px 11px;
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+}
+table.ot td { padding: 7px 11px; border: 1.5px solid #cfc7b4; vertical-align: top; }
+table.ot tr:nth-child(even) td { background: #fff; }
+.pill { font-family: 'Space Mono', monospace; font-size: 10.5px; background: var(--c3);
+  border: 1.5px solid var(--ink); padding: 1px 7px; white-space: nowrap; }
+table.ot tr.total td { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.phase-block { border: var(--border); box-shadow: var(--shadow); margin: 0 0 22px;
+  background: #fff; break-inside: avoid; }
+.phase-header { display: flex; justify-content: space-between; align-items: baseline;
+  background: var(--c1); color: #fff; padding: 8px 16px; }
+.phase-number { font-family: 'Bungee', sans-serif; font-size: 0.82rem; letter-spacing: 0.04em; }
+.phase-time { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.04em; }
+.phase-body { padding: 16px 20px; }
+h3.sub { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--c2); margin: 16px 0 7px; }
+h3.sub:first-child { margin-top: 0; }
+ol.proc, ul.q { margin: 0 0 4px; padding-left: 20px; }
+ol.proc li, ul.q li { margin-bottom: 7px; }
+ul.q li { list-style: none; padding-left: 16px; position: relative; }
+ul.q li::before { content: '?'; position: absolute; left: 0; color: var(--c2);
+  font-family: 'Bungee', sans-serif; font-size: 11px; }
+.note-ant, .note-mod { padding: 11px 14px; margin: 12px 0; font-size: 12.5px;
+  border-left: 6px solid var(--ink); }
+.note-ant { background: var(--sand); }
+.note-mod { background: #fff; border: 1.5px dashed var(--c1); border-left: 6px solid var(--c1); }
+.note-ant strong, .note-mod strong { font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.note-mod strong { color: var(--c1); }
+.ttt-bar { font-size: 11px; background: var(--c3); border: 1.5px solid var(--ink);
+  display: inline-block; padding: 2px 9px; margin-top: 10px; font-weight: 700;
+  font-family: 'Space Mono', monospace; }
+table.vocab-t { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: 13px; }
+table.vocab-t td { padding: 6px 10px; border: 1.5px solid #d8d0bd; vertical-align: top; }
+table.vocab-t tr:nth-child(even) td { background: #faf6ec; }
+table.vocab-t td:first-child { font-weight: 700; color: var(--c1); white-space: nowrap; }
+.toolkit { background: var(--c3); border: var(--border); padding: 13px 16px; margin: 10px 0; }
+.toolkit ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+.toolkit ul li { margin-bottom: 4px; }
+.persp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+.persp-card { border: var(--border); overflow: hidden; box-shadow: 4px 4px 0 var(--ink); }
+.persp-card .pc-head { padding: 8px 13px; font-family: 'Bungee', sans-serif;
+  font-size: 0.74rem; letter-spacing: 0.04em; color: #fff; }
+.persp-card.a .pc-head { background: var(--c1); }
+.persp-card.b .pc-head { background: var(--c2); }
+.persp-card ul { list-style: none; padding: 11px 14px; font-size: 12.5px; background: #fff; margin: 0; }
+.persp-card ul li { margin-bottom: 6px; padding-left: 15px; position: relative; }
+.persp-card ul li::before { content: '\2192'; position: absolute; left: 0; color: #aaa; }
+.likert-list { margin: 8px 0; padding-left: 0; list-style: none; counter-reset: lk; }
+.likert-list li { background: #faf6ec; border: 1.5px solid #d8d0bd; padding: 9px 13px;
+  margin-bottom: 7px; font-size: 13px; position: relative; padding-left: 38px; }
+.likert-list li::before { counter-increment: lk; content: counter(lk); position: absolute;
+  left: 0; top: 0; bottom: 0; width: 28px; background: var(--c2); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bungee', sans-serif; font-size: 12px; }
+.format-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 10px 0; }
+.format-card { border: 1.5px solid var(--ink); padding: 10px 12px; font-size: 12px; background: #fff; }
+.format-card b { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--c1);
+  display: block; margin-bottom: 4px; letter-spacing: 0.04em; }
+.footer { background: var(--ink); color: #888; font-size: 10.5px; padding: 13px 40px;
+  text-align: center; border-top: 3px solid var(--c3); margin-top: 36px; letter-spacing: 0.04em; }
+.footer strong { color: var(--c3); }
+@media print { .phase-block, .persp-grid, .format-grid { break-inside: avoid; }
+  .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+@media (max-width: 680px) { .persp-grid, .format-grid { grid-template-columns: 1fr; }
+  .main { padding: 20px; } .masthead, .meta-strip { padding-left: 20px; padding-right: 20px; } }
+
+
+.intro-band { background: var(--sand); border: var(--border); box-shadow: var(--shadow);
+  padding: 16px 20px; margin: 6px 0 26px; font-size: 14.5px; }
+.h-section { border: var(--border); box-shadow: var(--shadow); background: #fff; margin: 0 0 22px;
+  break-inside: avoid; }
+.h-head { background: var(--c1); color: #fff; padding: 8px 16px; font-family: 'Bungee', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.04em; display: flex; justify-content: space-between; align-items: baseline; }
+.h-head .n { font-family: 'Space Mono', monospace; font-size: 10px; opacity: 0.85; }
+.h-body { padding: 15px 20px; }
+.notes-box { border: 1.5px dashed var(--c2); padding: 12px 16px; min-height: 90px;
+  background: repeating-linear-gradient(transparent, transparent 27px, #e9e2cf 27px, #e9e2cf 28px);
+  margin-top: 8px; }
+.stack-list { list-style: none; margin: 6px 0; padding-left: 0; counter-reset: st; }
+.stack-list li { background: #faf6ec; border: 1.5px solid #d8d0bd; padding: 9px 13px 9px 38px;
+  margin-bottom: 7px; font-size: 13.5px; position: relative; }
+.stack-list li::before { counter-increment: st; content: counter(st); position: absolute; left: 0;
+  top: 0; bottom: 0; width: 28px; background: var(--c2); color: #fff; display: flex; align-items: center;
+  justify-content: center; font-family: 'Bungee', sans-serif; font-size: 12px; }
+/* survey likert */
+.sv-item { border: 1.5px solid #d8d0bd; background: #fff; padding: 12px 15px; margin-bottom: 12px; }
+.sv-q { font-size: 14px; margin-bottom: 10px; }
+.sv-q b { color: var(--c2); font-family: 'Space Mono', monospace; font-size: 11px; margin-right: 6px; }
+.dots { display: flex; gap: 0; align-items: center; flex-wrap: wrap; }
+.dots .lbl { font-family: 'Space Mono', monospace; font-size: 9.5px; color: #888; width: 64px; }
+.dots .lbl.r { text-align: right; }
+.dot { width: 26px; height: 26px; border: 2px solid var(--ink); border-radius: 50%; margin: 0 5px;
+  cursor: pointer; background: #fff; transition: transform .08s; }
+.dot:hover { transform: scale(1.15); }
+.dot.sel { background: var(--c1); }
+.sv-open textarea { width: 100%; min-height: 70px; border: 1.5px solid var(--ink); padding: 9px 11px;
+  font-family: 'Fraunces', serif; font-size: 14px; resize: vertical; background: #fff; box-sizing: border-box; }
+.progress { font-family: 'Space Mono', monospace; font-size: 11px; background: var(--c3);
+  border: 1.5px solid var(--ink); display: inline-block; padding: 3px 11px; margin: 4px 0 18px; }
+.config-note { font-family: 'Space Mono', monospace; font-size: 10.5px; background: #faf6ec;
+  border: 1.5px dashed var(--c1); padding: 10px 13px; margin-top: 18px; color: #555; }
+</style></head><body>
+<div class="masthead"><div class="brand">Teach <span>for</span> Success</div>
+<div class="subtitle">Survey &middot; Heritage, Mass Tourism &amp; the Words We Travel Under</div></div>
+<div class="meta-strip"><span>Level: Advanced ESL B2&ndash;C1</span><span>Topic: Tourism &amp; Identity</span>
+<span>Focus: Sociolinguistic &amp; Cultural Vocabulary</span></div>
+<div class="main"><div class="intro-band" style="font-size:14px;">This short survey is a warm-up. There are no right answers &mdash; just mark how much you agree, and notice which statements stir something in you. We&rsquo;ll use your reactions to open the discussion.</div><div class="section-head">PART A &mdash; HOW MUCH DO YOU AGREE?</div><div class="progress" id="prog">0 / 8 answered</div><div style="margin-bottom:10px;"><div class="sv-item"><div class="sv-q"><b>1</b>Calling some migrants &ldquo;expats&rdquo; and others &ldquo;immigrants&rdquo; is simply honest description, not bias.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="0" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="0" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="0" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="0" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="0" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>2</b>A town has the right to limit tourist numbers even if it costs local jobs.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="1" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="1" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="1" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="1" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="1" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>3</b>There is no &ldquo;authentic&rdquo; culture left to protect; everything is already performance.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="2" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="2" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="2" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="2" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="2" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>4</b>The words a society uses for newcomers shape their legal and social treatment more than any law.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="3" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="3" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="3" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="3" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="3" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>5</b>Within a generation, the world&rsquo;s most famous heritage sites will be visited mainly as replicas or online.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="4" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="4" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="4" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="4" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="4" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>6</b>Tourism does more good than harm for the places it reaches.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="5" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="5" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="5" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="5" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="5" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>7</b>&ldquo;Expat&rdquo; and &ldquo;immigrant&rdquo; describe the same act with different respect.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="6" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="6" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="6" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="6" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="6" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div><div class="sv-item"><div class="sv-q"><b>8</b>A famous heritage site can stay authentic while living off visitors.</div><div class="dots"><span class="lbl">disagree</span><div class="dot" data-q="7" data-v="1" onclick="pick(this)"></div><div class="dot" data-q="7" data-v="2" onclick="pick(this)"></div><div class="dot" data-q="7" data-v="3" onclick="pick(this)"></div><div class="dot" data-q="7" data-v="4" onclick="pick(this)"></div><div class="dot" data-q="7" data-v="5" onclick="pick(this)"></div><span class="lbl r">agree</span></div></div></div><div class="section-head">PART B &mdash; IN YOUR WORDS</div><div class="sv-open" style="margin-top:12px;"><div class="sv-item"><div class="sv-q"><b>A</b>Have you ever been called an expat or an immigrant? Did the word fit how you saw yourself?</div><textarea placeholder="Write a sentence or two&hellip;"></textarea></div><div class="sv-item"><div class="sv-q"><b>B</b>Name a place tourism has changed. Was the change worth it?</div><textarea placeholder="Write a sentence or two&hellip;"></textarea></div></div><div class="config-note">This page works on its own &mdash; responses stay in the browser for in-class use. To collect submissions, it can be wired to a Google Form using the same hidden-iframe POST method as the rest of the suite (one form field per item, IDs verified with a pre-filled link).</div>
+<script>
+const picked = {};
+function pick(el){
+  const q = el.dataset.q;
+  document.querySelectorAll('.dot[data-q="'+q+'"]').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+  picked[q] = el.dataset.v;
+  document.getElementById('prog').textContent = Object.keys(picked).length + ' / 8 answered';
+}
+</script></div><div class="footer"><strong>Teach for Success</strong> &nbsp;&middot;&nbsp; Tourism &amp; Identity &mdash; Survey &nbsp;&middot;&nbsp; Advanced ESL B2&ndash;C1 &nbsp;&middot;&nbsp; Teacher Professional Development</div></body></html>

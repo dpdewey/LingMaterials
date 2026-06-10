@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success · Heritage, Mass Tourism &amp; the Words We Travel Under</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1c1418;
+  --paper: #f4ece6;
+  --c1: #0f6e6e;
+  --c2: #a8425a;
+  --c3: #e0a458;
+  --sand: #f3e7c4;
+  --border: 2.5px solid var(--ink);
+  --shadow: 6px 6px 0 var(--ink);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: 'Fraunces', Georgia, serif; font-size: 15px; line-height: 1.5;
+}
+.masthead {
+  background: var(--ink); color: var(--paper);
+  padding: 26px 40px 22px; border-bottom: 6px solid var(--c1);
+}
+.brand {
+  font-family: 'Bungee', sans-serif; font-size: 2rem; letter-spacing: 0.02em;
+  color: var(--c3); line-height: 1;
+}
+.brand span { font-size: 1.1rem; font-style: italic; color: var(--paper);
+  font-family: 'Fraunces', serif; }
+.subtitle {
+  font-family: 'Space Mono', monospace; font-size: 0.82rem; margin-top: 10px;
+  color: var(--paper); letter-spacing: 0.02em;
+}
+.meta-strip {
+  background: var(--c1); color: #fff; display: flex; flex-wrap: wrap; gap: 4px 28px;
+  padding: 9px 40px; font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.04em; border-bottom: var(--border);
+}
+.main { max-width: 920px; margin: 0 auto; padding: 28px 40px 10px; }
+.framing {
+  background: var(--sand); border: var(--border); box-shadow: var(--shadow);
+  padding: 16px 20px; margin: 4px 0 26px; font-size: 14px;
+}
+.framing strong { color: var(--c2); }
+.key-box {
+  border: var(--border); padding: 14px 18px; margin: 0 0 24px; background: #fff;
+}
+.key-item { display: flex; gap: 10px; align-items: flex-start; margin-top: 9px;
+  font-size: 12.5px; }
+.key-swatch-sand { width: 26px; height: 18px; background: var(--sand);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.key-swatch-teal { width: 26px; height: 18px; background: var(--c1);
+  border: 1.5px solid var(--ink); flex: 0 0 auto; margin-top: 2px; }
+.section-head {
+  font-family: 'Bungee', sans-serif; font-size: 0.92rem; letter-spacing: 0.05em;
+  background: var(--ink); color: var(--c3); padding: 7px 14px; margin: 30px 0 0;
+}
+table.ot { width: 100%; border-collapse: collapse; margin: 0 0 26px; font-size: 12.5px; }
+table.ot th {
+  background: var(--c2); color: #fff; text-align: left; padding: 7px 11px;
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+}
+table.ot td { padding: 7px 11px; border: 1.5px solid #cfc7b4; vertical-align: top; }
+table.ot tr:nth-child(even) td { background: #fff; }
+.pill { font-family: 'Space Mono', monospace; font-size: 10.5px; background: var(--c3);
+  border: 1.5px solid var(--ink); padding: 1px 7px; white-space: nowrap; }
+table.ot tr.total td { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.phase-block { border: var(--border); box-shadow: var(--shadow); margin: 0 0 22px;
+  background: #fff; break-inside: avoid; }
+.phase-header { display: flex; justify-content: space-between; align-items: baseline;
+  background: var(--c1); color: #fff; padding: 8px 16px; }
+.phase-number { font-family: 'Bungee', sans-serif; font-size: 0.82rem; letter-spacing: 0.04em; }
+.phase-time { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.04em; }
+.phase-body { padding: 16px 20px; }
+h3.sub { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--c2); margin: 16px 0 7px; }
+h3.sub:first-child { margin-top: 0; }
+ol.proc, ul.q { margin: 0 0 4px; padding-left: 20px; }
+ol.proc li, ul.q li { margin-bottom: 7px; }
+ul.q li { list-style: none; padding-left: 16px; position: relative; }
+ul.q li::before { content: '?'; position: absolute; left: 0; color: var(--c2);
+  font-family: 'Bungee', sans-serif; font-size: 11px; }
+.note-ant, .note-mod { padding: 11px 14px; margin: 12px 0; font-size: 12.5px;
+  border-left: 6px solid var(--ink); }
+.note-ant { background: var(--sand); }
+.note-mod { background: #fff; border: 1.5px dashed var(--c1); border-left: 6px solid var(--c1); }
+.note-ant strong, .note-mod strong { font-family: 'Space Mono', monospace; font-size: 10.5px;
+  letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+.note-mod strong { color: var(--c1); }
+.ttt-bar { font-size: 11px; background: var(--c3); border: 1.5px solid var(--ink);
+  display: inline-block; padding: 2px 9px; margin-top: 10px; font-weight: 700;
+  font-family: 'Space Mono', monospace; }
+table.vocab-t { width: 100%; border-collapse: collapse; margin: 6px 0 4px; font-size: 13px; }
+table.vocab-t td { padding: 6px 10px; border: 1.5px solid #d8d0bd; vertical-align: top; }
+table.vocab-t tr:nth-child(even) td { background: #faf6ec; }
+table.vocab-t td:first-child { font-weight: 700; color: var(--c1); white-space: nowrap; }
+.toolkit { background: var(--c3); border: var(--border); padding: 13px 16px; margin: 10px 0; }
+.toolkit ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; }
+.toolkit ul li { margin-bottom: 4px; }
+.persp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 12px 0; }
+.persp-card { border: var(--border); overflow: hidden; box-shadow: 4px 4px 0 var(--ink); }
+.persp-card .pc-head { padding: 8px 13px; font-family: 'Bungee', sans-serif;
+  font-size: 0.74rem; letter-spacing: 0.04em; color: #fff; }
+.persp-card.a .pc-head { background: var(--c1); }
+.persp-card.b .pc-head { background: var(--c2); }
+.persp-card ul { list-style: none; padding: 11px 14px; font-size: 12.5px; background: #fff; margin: 0; }
+.persp-card ul li { margin-bottom: 6px; padding-left: 15px; position: relative; }
+.persp-card ul li::before { content: '\2192'; position: absolute; left: 0; color: #aaa; }
+.likert-list { margin: 8px 0; padding-left: 0; list-style: none; counter-reset: lk; }
+.likert-list li { background: #faf6ec; border: 1.5px solid #d8d0bd; padding: 9px 13px;
+  margin-bottom: 7px; font-size: 13px; position: relative; padding-left: 38px; }
+.likert-list li::before { counter-increment: lk; content: counter(lk); position: absolute;
+  left: 0; top: 0; bottom: 0; width: 28px; background: var(--c2); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bungee', sans-serif; font-size: 12px; }
+.format-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 10px 0; }
+.format-card { border: 1.5px solid var(--ink); padding: 10px 12px; font-size: 12px; background: #fff; }
+.format-card b { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--c1);
+  display: block; margin-bottom: 4px; letter-spacing: 0.04em; }
+.footer { background: var(--ink); color: #888; font-size: 10.5px; padding: 13px 40px;
+  text-align: center; border-top: 3px solid var(--c3); margin-top: 36px; letter-spacing: 0.04em; }
+.footer strong { color: var(--c3); }
+@media print { .phase-block, .persp-grid, .format-grid { break-inside: avoid; }
+  .masthead { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+@media (max-width: 680px) { .persp-grid, .format-grid { grid-template-columns: 1fr; }
+  .main { padding: 20px; } .masthead, .meta-strip { padding-left: 20px; padding-right: 20px; } }
+</style>
+</head>
+<body>
+<div class="masthead">
+  <div class="brand">Teach <span>for</span> Success</div>
+  <div class="subtitle">Lesson Plan &middot; Heritage, Mass Tourism &amp; the Words We Travel Under</div>
+</div>
+<div class="meta-strip">
+  <span>Level: Advanced ESL B2&ndash;C1</span>
+  <span>Time: 65 min (55-min trim)</span>
+  <span>Class size: 6&ndash;20</span>
+  <span>Topic: Tourism &amp; Identity</span>
+  <span>Focus: Discussion + Sociolinguistic &amp; Cultural Vocabulary</span>
+</div>
+<div class="main">
+<div class="framing">When a historic town must survive on the expectations of millions of visitors, it can slowly become a performance of itself. And the people who cross borders to live there are sorted by language into <strong>&ldquo;expats&rdquo; or &ldquo;immigrants&rdquo; &mdash; two words for the same act, carrying very different weight.</strong> This lesson joins the economics of mass tourism to the quiet power of the labels we attach to people who move. It is a topic with obvious appeal to language teachers, who work in the machinery of labelling every day.</div>
+  <div class="key-box">
+    <strong style="font-family:'Bungee',sans-serif;font-size:0.78rem;letter-spacing:0.06em;">ANNOTATION KEY</strong>
+    <div class="key-item">
+      <div class="key-swatch-sand"></div>
+      <div><strong>&#9998; MY NOTE</strong> &mdash; personal reminders and in-the-moment cues. These are written as anticipations to plan around (&ldquo;it&rsquo;s anticipated that&hellip;,&rdquo; &ldquo;students will likely&hellip;&rdquo;) rather than records of past classes; adjust them to the group in the room.</div>
+    </div>
+    <div class="key-item">
+      <div class="key-swatch-teal"></div>
+      <div><strong>&#128065; MODELING NOTE</strong> &mdash; a facilitation move a presenter can demonstrate for observing colleagues. Written as something to try, since it's anticipated this material may be new to whoever delivers it.</div>
+    </div>
+  </div>
+
+  <div class="section-head">LESSON OVERVIEW</div>
+  <table class="ot">
+    <tr><th>PHASE</th><th>ACTIVITY</th><th>TIME</th><th>TTT</th></tr>
+    <tr><td>1 &mdash; Warm-up</td><td>Survey as stimulus &mdash; silent scan + personal reaction</td><td><span class="pill">5 min</span></td><td>2 min</td></tr>
+    <tr><td>2 &mdash; Vocabulary</td><td>Tourism &amp; heritage + Migration &amp; labels (Sets 1 &amp; 2)</td><td><span class="pill">8 min</span></td><td>4 min</td></tr>
+    <tr><td>2b &mdash; Video</td><td>Authentic stimulus &mdash; noticing task (read-aloud fallback)</td><td><span class="pill">7 min</span></td><td>2 min</td></tr>
+    <tr><td>3 &mdash; Interaction 1</td><td>Pair discussion &mdash; personal experience + Interaction Toolkit</td><td><span class="pill">9 min</span></td><td>1 min</td></tr>
+    <tr><td>4 &mdash; Language Clinic 1</td><td>Open floor &mdash; repair and upgrade from pair work</td><td><span class="pill">5 min</span></td><td>3 min</td></tr>
+    <tr><td>5 &mdash; Interaction 2</td><td>Jigsaw &mdash; preservation versus performance</td><td><span class="pill">12 min</span></td><td>2 min</td></tr>
+    <tr><td>6 &mdash; Interaction 3</td><td>Likert debate &mdash; whole-class statements</td><td><span class="pill">6 min</span></td><td>2 min</td></tr>
+    <tr><td>7 &mdash; Language Clinic 2</td><td>Meta-linguistic reflection on language used</td><td><span class="pill">4 min</span></td><td>2 min</td></tr>
+    <tr><td>8 &mdash; Output + Wrap-up</td><td>Mini position statement (spoken or written) + one-word close</td><td><span class="pill">9 min</span></td><td>2 min</td></tr>
+    <tr class="total"><td colspan="2"><strong>TOTAL</strong> &middot; Trim Phase 6 to 2 statements for the 55-min version</td><td><strong>65 min</strong></td><td><strong>~20 min</strong></td></tr>
+  </table>
+
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 1 &mdash; WARM-UP</div><div class="phase-time">5-8 MIN &middot; TTT: ~3 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Procedure</h3>
+      <ol class="proc"><li>Show a presentation/slides prefacing the <strong>Tourism &amp; Identity Survey</strong>. No student comment needed. Some key words may be introduced.
+      <li>Display the <strong>Tourism &amp; Identity Survey</strong>. 2 minutes silent reading &mdash; notice which statement names something you&rsquo;ve felt as a traveller, a host, or a migrant.</li><li>Ask: <em>&ldquo;Which question here describes a place you know, or a label you&rsquo;ve worn?&rdquo;</em> 2&ndash;3 brief responses, no evaluation.</li><li>Frame: today we look at two ways places and people get reshaped by movement &mdash; by tourists, and by the words we use for those who arrive.</li></ol><div class="note-ant"><strong>&#9998; MY NOTE</strong>It is anticipated that the expat/immigrant distinction will land hard with participants who have lived abroad. Students will likely recall being labelled one or the other; that lived experience is the richest possible evidence for the discussion.</div><div class="note-mod"><strong>&#128065; MODELING NOTE</strong>A presenter can model naming their own use of these words honestly. It&rsquo;s anticipated the group will treat &ldquo;expat&rdquo; as neutral; pointing to one&rsquo;s own habit of using it invites the same honesty from others.</div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 2 &mdash; VOCABULARY</div><div class="phase-time">8 MIN &middot; TTT: ~4 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Set 1 &mdash; Tourism &amp; heritage</h3>
+      <table class="vocab-t"><tr><td>heritage site (n.)</td><td>a place valued and protected for its cultural or natural significance</td></tr><tr><td>mass tourism (n.)</td><td>travel by very large numbers of people to the same destinations for leisure, entertainment or cultural exposure</td></tr><tr><td>to commodify (v.)</td><td>to turn something into a product to be bought and sold</td></tr><tr><td>carrying capacity (n.)</td><td>the number of visitors a place can absorb without damage</td></tr><tr><td>a caricature (n.)</td><td>an exaggerated, simplified version that distorts the original</td></tr><tr><td>authentic (adj.)</td><td>genuinely what it claims to be, not staged for visitors</td></tr><tr><td>extractive tourism (n.)</td><td>profit-driven travel that exploits and depletes local resources, cultures, and communities</td></tr><tr><td>environmental stewardship (adj.)</td><td>ethical responsibility to care for, protect, and preserve the Earth's natural resources</td></tr></table>
+      <h3 class="sub">Set 2 &mdash; Migration &amp; labels</h3>
+      <table class="vocab-t"><tr><td>expatriate / expat (n.)</td><td>a person living abroad &mdash; a label that often signals privilege</td></tr><tr><td>immigrant (n.)</td><td>a person who moves to settle in a new country &mdash; often the less-privileged label</td></tr><tr><td>connotation (n.)</td><td>the feeling or judgement a word carries beyond its plain meaning</td></tr><tr><td>integration (n.)</td><td>the process of becoming part of a host society</td></tr><tr><td>perception (n.)</td><td>the way something or someone is seen and judged by others</td></tr><tr><td>privilege (n.)</td><td>an advantage held by some and not others, often unearned</td></tr></table>
+      <div class="note-ant"><strong>&#9998; MY NOTE</strong>Students will likely define <em>connotation</em> as &ldquo;the real meaning.&rdquo; It&rsquo;s anticipated that testing pairs &mdash; <em>expat/immigrant, tourist/traveller</em> &mdash; makes the idea click faster than a dictionary line.</div>
+      <div class="ttt-bar">Teacher talk: ~4 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 2b &mdash; VIDEO STIMULUS</div><div class="phase-time">7 MIN &middot; TTT: ~2 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Stimulus</h3>
+      <p style="font-size:13.5px;margin-top:0;">Show a 2&ndash;3 minute clip on an over-touristed town adapting to survive, or a short piece on the expat-versus-immigrant distinction. Search terms: <em>&ldquo;overtourism Venice locals&rdquo;</em> or <em>&ldquo;expat vs immigrant difference&rdquo;</em>.</p>
+      <h3 class="sub">Noticing task</h3>
+      <ul class="q"><li>What did the place or person gain from tourism / migration? What did they have to give up?</li><li>Which word did the clip use &mdash; expat or immigrant &mdash; and what did that word quietly assume?</li><li>Have you seen a place near you change to meet visitors&rsquo; expectations? What changed?</li></ul>
+      <h3 class="sub">Read-aloud fallback (no connectivity)</h3>
+      <p style="font-size:13px;background:#faf6ec;border:1.5px solid #d8d0bd;padding:10px 13px;">Read aloud: &ldquo;Two people move abroad for work. One is called an expat and welcomed; the other is called an immigrant and watched. Same suitcase, same reason &mdash; different word, different life. Meanwhile the town they arrive in slowly rebuilds itself to look like the postcard tourists already bought.&rdquo; Proceed to the questions.</p>
+      <div class="note-mod"><strong>&#128065; MODELING NOTE</strong>It&rsquo;s anticipated the clip will use a loaded word without flagging it. A presenter can model the linguist&rsquo;s move &mdash; pausing on a single word and asking, &ldquo;why that word and not its neighbour?&rdquo;</div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 3 &mdash; INTERACTION 1 (PAIRS)</div><div class="phase-time">9 MIN &middot; TTT: ~1 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Pair discussion &mdash; personal experience</h3>
+      <ul class="q"><li>When you go abroad, are you a tourist or a traveller? What is the difference, really &mdash; and who decides?</li><li>Have you ever been called an expat or an immigrant? Did the word fit how you saw yourself?</li><li>Is there a place you love that tourism has changed? Was the change worth it?</li><li>Can a town stay true to itself while living off visitors? What would that take?</li></ul>
+      <div class="toolkit"><strong style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:0.05em;">INTERACTION TOOLKIT</strong><div style="font-size:12.5px;margin-top:4px;">Encourage these moves so the talk stays precise about language:</div><ul><li>Examining a word: &ldquo;The word &lsquo;expat&rsquo; quietly assumes that&hellip;&rdquo;</li><li>Comparing labels: &ldquo;We&rsquo;d never call them that &mdash; we&rsquo;d say&hellip;&rdquo;</li><li>Conceding a tension: &ldquo;I see the economic case, but the cost is that&hellip;&rdquo;</li><li>Locating yourself: &ldquo;Speaking as someone who has lived abroad&hellip;&rdquo;</li></ul></div>
+      
+      <div class="ttt-bar">Teacher talk: ~1 minute</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 4 &mdash; LANGUAGE CLINIC 1</div><div class="phase-time">5 MIN &middot; TTT: ~3 MIN</div></div>
+    <div class="phase-body">
+      <p style="font-size:13.5px;margin-top:0;">Surface the pairs&rsquo; language. Likely targets: the language of contrast and connotation (<em>whereas, carries the sense of, implies</em>), reported perception (<em>seen as, treated as</em>), and concession (<em>granted that, even so</em>). Reformulate two or three real utterances.</p>
+      <div class="note-ant"><strong>&#9998; MY NOTE</strong>It&rsquo;s anticipated participants will say &ldquo;people see them like&hellip;&rdquo; rather than &ldquo;treat them as.&rdquo; Students will likely pick up <em>seen as / treated as</em> quickly because the topic makes the structure feel necessary.</div>
+      <div class="ttt-bar">Teacher talk: ~3 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 5 &mdash; INTERACTION 2 (JIGSAW)</div><div class="phase-time">12 MIN &middot; TTT: ~2 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Living town, or open-air museum?</h3>
+      <p style="font-size:13.5px;margin-top:0;">Group A argues that adapting a heritage place for mass tourism is a legitimate survival strategy; Group B argues it hollows out the very thing tourists came to see. Prepare 5 minutes, then pair across groups.</p>
+      <div class="persp-grid"><div class="persp-card a"><div class="pc-head">GROUP A &mdash; Survival strategy</div><ul><li>Tourist income funds the preservation that would otherwise fail</li><li>Cultures have always adapted; freezing them is its own distortion</li><li>Jobs let young people stay rather than migrate away</li><li>Visitors leave with real respect for an unfamiliar heritage</li></ul></div><div class="persp-card b"><div class="pc-head">GROUP B &mdash; Hollowing out</div><ul><li>Daily life is replaced by a daily performance for outsiders</li><li>Locals get priced out of their own historic centres</li><li>Authenticity becomes a brand managed for export</li><li>The place ends up a caricature of what it once was</li></ul></div></div>
+      <h3 class="sub">Jigsaw task</h3>
+      <p style="font-size:13.5px;margin-top:0;">In cross-group pairs, argue your side, then together finish: &ldquo;A heritage town keeps its soul as long as &hellip;&rdquo; Report the condition, not the debate.</p>
+      <div class="note-mod"><strong>&#128065; MODELING NOTE</strong>It&rsquo;s anticipated participants will speak from the visitor&rsquo;s side by default. A presenter can model deliberately shifting the chair &mdash; &ldquo;now answer as the person who lives there&rdquo; &mdash; to surface the perspective tourism usually mutes.</div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 6 &mdash; INTERACTION 3 (LIKERT DEBATE)</div><div class="phase-time">6 MIN &middot; TTT: ~2 MIN</div></div>
+    <div class="phase-body">
+      <p style="font-size:13.5px;margin-top:0;">Read each statement aloud. Participants move or signal along a strongly-agree &harr; strongly-disagree line, then defend the position with one reason. Push for the language of qualified agreement and respectful challenge.</p>
+      <ul class="likert-list"><li>Calling some migrants &ldquo;expats&rdquo; and others &ldquo;immigrants&rdquo; is simply honest description, not bias.</li><li>A town has the right to limit tourist numbers even if it costs local jobs.</li><li>There is no &ldquo;authentic&rdquo; culture left to protect; everything is already performance.</li><li>The words a society uses for newcomers shape their legal and social treatment more than any law.</li><li>Within a generation, the world&rsquo;s most famous heritage sites will be visited mainly as replicas or online.</li></ul>
+      
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 7 &mdash; LANGUAGE CLINIC 2</div><div class="phase-time">4 MIN &middot; TTT: ~2 MIN</div></div>
+    <div class="phase-body">
+      <p style="font-size:13.5px;margin-top:0;">Ask each pair for one phrase to keep. It&rsquo;s anticipated useful chunks will surface &mdash; <em>a loaded term, to be priced out, at the mercy of, a double standard</em> &mdash; ready for the output.</p>
+      <div class="note-ant"><strong>&#9998; MY NOTE</strong>Students will likely seize on <em>double standard</em> once it appears. Naming it explicitly gives the output statements a sharp analytical hook.</div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+  <div class="phase-block">
+    <div class="phase-header"><div class="phase-number">PHASE 8 &mdash; OUTPUT + WRAP-UP</div><div class="phase-time">9 MIN &middot; TTT: ~2 MIN</div></div>
+    <div class="phase-body">
+      <h3 class="sub">Mini position statement &mdash; choose a format</h3>
+      <p style="font-size:13.5px;margin-top:0;">Take a position on one of two questions: <em>Can a heritage place survive tourism without selling its soul?</em> or <em>Should we drop the expat/immigrant distinction altogether?</em> Choose your format.</p>
+      <div class="format-grid"><div class="format-card"><b>SPOKEN (60 sec)</b>A position with one real place or one real label as your evidence.</div><div class="format-card"><b>WRITTEN (4&ndash;5 lines)</b>A short letter to a newspaper that misused one of these words.</div><div class="format-card"><b>LANGUAGE TASK</b>Propose one word-choice rule you&rsquo;d teach your students about labelling people.</div></div>
+      <h3 class="sub">One-word close</h3>
+      <p style="font-size:13.5px;margin-top:0;">Each person offers one word they will think twice before using after this lesson. It&rsquo;s anticipated <em>expat, authentic, exotic</em> will recur &mdash; no commentary.</p>
+      <div class="note-mod"><strong>&#128065; MODELING NOTE</strong>A presenter can model offering their own flagged word last, demonstrating that even language professionals carry habits worth re-examining.</div>
+      <div class="ttt-bar">Teacher talk: ~2 minutes</div>
+    </div>
+  </div>
+</div>
+<div class="footer"><strong>Teach for Success</strong> &nbsp;&middot;&nbsp; Tourism &amp; Identity &mdash; Lesson Plan &nbsp;&middot;&nbsp; Advanced ESL B2&ndash;C1 &nbsp;&middot;&nbsp; Teacher Professional Development</div>
+</body></html>
