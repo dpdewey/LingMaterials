@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Tourism &amp; Heritage Handout (B1–B2)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1e1208;--paper:#fdf8f0;--stone:#c8a96e;--burgundy:#7a1f2e;--sky:#4a90a4;--slate:#2c3e50;--cream:#f5e6c8;--border:3px solid var(--ink);--shadow:5px 5px 0 var(--ink);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Space Mono',monospace;background:var(--paper);color:var(--ink);font-size:13px;line-height:1.65;padding:0 0 60px;}
+.masthead{background:var(--slate);padding:22px 40px 16px;border-bottom:5px solid var(--stone);}
+.brand{font-family:'Bungee',sans-serif;font-size:2.2rem;color:var(--stone);letter-spacing:1px;line-height:1;}
+.brand span{color:var(--burgundy);}
+.subtitle{font-family:'Fraunces',serif;font-style:italic;font-size:.92rem;color:#8fa0b0;margin-top:4px;}
+.meta-strip{background:var(--burgundy);color:#fff;padding:9px 40px;display:flex;flex-wrap:wrap;gap:18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-bottom:var(--border);}
+.meta-strip span::before{content:'▸ ';}
+.main{max-width:860px;margin:0 auto;padding:26px 22px 0;}
+.sh{font-family:'Bungee',sans-serif;font-size:.95rem;background:var(--slate);color:var(--stone);padding:7px 16px;margin:30px 0 0;letter-spacing:.08em;border-left:6px solid var(--stone);}
+.sh.burg{background:var(--burgundy);color:#fff;border-color:var(--stone);}
+.sh.sky{background:var(--sky);color:#fff;border-color:var(--stone);}
+/* Vocab grid — slightly larger cards for B1-B2 since definitions are longer */
+.vg{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px;}
+.vc{border:var(--border);box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.vc-head{background:var(--slate);color:var(--stone);font-family:'Bungee',sans-serif;font-size:.75rem;padding:6px 10px;letter-spacing:.05em;}
+.vc-body{padding:10px 11px;background:#fff;}
+.vc-alt{font-size:11px;color:#7a6a50;margin-bottom:4px;font-style:italic;}
+.vc-def{font-size:11.5px;color:#334155;margin-bottom:5px;}
+.vc-ex{font-family:'Fraunces',serif;font-style:italic;font-size:11.5px;color:var(--sky);border-left:3px solid var(--stone);padding-left:7px;}
+/* Evaluative cards */
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-top:14px;}
+.ac{border:var(--border);box-shadow:4px 4px 0 var(--ink);overflow:hidden;}
+.ac-head{padding:6px 10px;font-family:'Bungee',sans-serif;font-size:.77rem;letter-spacing:.04em;}
+.ac-body{padding:9px 11px;background:#fff;}
+.ac-alt{font-size:10.5px;color:#888;font-style:italic;margin-bottom:3px;}
+.ac-def{font-size:11.5px;color:#334155;margin-bottom:5px;}
+.ac-try{font-weight:700;font-size:10.5px;color:var(--slate);letter-spacing:.04em;}
+.c1{background:var(--burgundy);color:#fff;}.c2{background:var(--slate);color:#fff;}.c3{background:var(--sky);color:#fff;}.c4{background:#4a3000;color:#fff;}
+.c5{background:#5a0e1a;color:#fff;}.c6{background:#1a3a4a;color:#fff;}.c7{background:#0e4a3a;color:#fff;}.c8{background:#4a3a00;color:#fff;}.c9{background:#3a0a2a;color:#fff;}
+/* Progress bar — same idea as other handouts */
+.pb{display:flex;margin:14px 0;overflow:hidden;border:var(--border);box-shadow:var(--shadow);}
+.ps{flex:1;padding:10px 12px;text-align:center;font-size:11px;}
+.ps .lbl{font-family:'Bungee',sans-serif;font-size:9px;letter-spacing:.1em;margin-bottom:4px;display:block;}
+.ps.a{background:#fde8d0;}.ps.b{background:var(--cream);}.ps.c{background:#ddeef5;}
+.pa{display:flex;align-items:center;padding:0 5px;font-size:1.3rem;color:#94a3b8;background:#f0ece4;border-left:1.5px solid var(--ink);border-right:1.5px solid var(--ink);}
+.tk-box{border:3px solid var(--stone);box-shadow:var(--shadow);margin:14px 0;overflow:hidden;}
+.tk-head{background:var(--stone);color:var(--ink);font-family:'Bungee',sans-serif;font-size:.82rem;padding:7px 14px;letter-spacing:.07em;border-bottom:var(--border);}
+.tk-body{padding:12px 16px;background:var(--paper);}
+.tk-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px;}
+.tk-col{border:2px solid var(--ink);overflow:hidden;}
+.tk-col-head{background:var(--ink);color:var(--stone);font-family:'Bungee',sans-serif;font-size:8.5px;padding:5px 9px;letter-spacing:.1em;}
+.tk-col ul{list-style:none;padding:8px 10px;background:#fff;}
+.tk-col ul li{font-family:'Fraunces',serif;font-style:italic;font-size:11.5px;padding:3px 0;border-bottom:1px dotted #ddd;color:#333;}
+.tk-col ul li:last-child{border-bottom:none;}
+.vs{border:3px solid var(--sky);box-shadow:var(--shadow);margin:14px 0;overflow:hidden;}
+.vs-head{background:var(--sky);color:#fff;font-family:'Bungee',sans-serif;font-size:.82rem;padding:7px 14px;letter-spacing:.07em;border-bottom:var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.vs-url{font-family:'Space Mono',monospace;font-size:10px;background:rgba(0,0,0,.25);color:#cef;padding:2px 7px;}
+.vs-body{padding:12px 16px;background:#eef6fa;}
+.vs-tasks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.vs-t{border:2px solid var(--ink);overflow:hidden;box-shadow:3px 3px 0 var(--ink);}
+.vs-t-head{background:var(--ink);color:var(--stone);font-family:'Bungee',sans-serif;font-size:8.5px;padding:5px 9px;letter-spacing:.1em;}
+.vs-t-body{padding:8px 10px;background:#fff;font-size:12px;color:#334155;}
+.vs-script{background:var(--paper);border-top:2px dashed var(--sky);padding:10px 14px;font-size:11.5px;margin-top:10px;}
+.vs-script strong{color:var(--slate);font-size:10px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:5px;font-family:'Bungee',sans-serif;}
+.db{border:var(--border);box-shadow:var(--shadow);margin-top:16px;overflow:hidden;}
+.db-head{background:var(--stone);color:var(--ink);padding:8px 16px;font-family:'Bungee',sans-serif;font-size:.88rem;letter-spacing:.06em;border-bottom:var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.db-badge{background:var(--ink);color:var(--stone);font-size:10px;padding:2px 8px;font-family:'Space Mono',monospace;font-weight:700;display:flex;align-items:center;}
+.db-body{padding:14px 18px;background:#fff;}
+.db-body ol{list-style:none;padding:0;}
+.db-body ol li{padding:8px 0;border-bottom:1.5px dashed #e2e8f0;font-size:12.5px;display:flex;gap:10px;align-items:baseline;}
+.db-body ol li:last-child{border-bottom:none;}
+.qn{font-family:'Bungee',sans-serif;font-size:1rem;color:var(--burgundy);min-width:22px;}
+.qt strong{color:var(--slate);}
+.pg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+.pc{border:var(--border);box-shadow:var(--shadow);overflow:hidden;}
+.pc-head{padding:9px 14px;font-family:'Bungee',sans-serif;font-size:.82rem;letter-spacing:.05em;}
+.pc-head.value{background:var(--burgundy);color:#fff;}
+.pc-head.protect{background:var(--sky);color:#fff;}
+.pc ul{list-style:none;padding:12px 14px;background:#fff;font-size:12px;color:#334155;}
+.pc ul li{padding:4px 0;border-bottom:1px solid #f1f5f9;display:flex;gap:8px;align-items:baseline;}
+.pc ul li:last-child{border-bottom:none;}
+.pc ul li::before{content:'→';color:#94a3b8;flex-shrink:0;}
+.persp-task{background:#f8fafc;border-top:var(--border);padding:9px 14px;font-size:12px;font-style:italic;font-family:'Fraunces',serif;color:#334155;}
+.li-items{margin-top:14px;}
+.li-item{border:var(--border);box-shadow:3px 3px 0 var(--ink);margin-bottom:12px;overflow:hidden;}
+.li-stmt{padding:9px 14px;background:#fff;font-size:12.5px;border-bottom:1.5px solid #e2e8f0;}
+.li-stmt strong{color:var(--burgundy);}
+.li-scale{background:var(--cream);padding:8px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.li-lbl{font-size:10px;color:#475569;font-style:italic;}
+.li-dots{display:flex;gap:6px;}
+.li-dot{width:26px;height:26px;border:2px solid var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bungee',sans-serif;font-size:.65rem;background:#fff;}
+.lb{border:var(--border);box-shadow:var(--shadow);margin-top:16px;overflow:hidden;}
+.lb-head{background:var(--sky);color:#fff;font-family:'Bungee',sans-serif;font-size:.88rem;padding:8px 16px;letter-spacing:.06em;border-bottom:var(--border);}
+.lb-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+.lb-col{padding:13px 15px;border-right:var(--border);background:#fff;}
+.lb-col:last-child{border-right:none;}
+.lb-col h4{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sky);margin-bottom:8px;border-bottom:1.5px dashed var(--sky);padding-bottom:3px;}
+.lb-col h4.s{color:var(--stone);border-color:var(--stone);}
+.lb-col h4.b{color:var(--burgundy);border-color:var(--burgundy);}
+.lb-col ul{list-style:none;padding:0;}
+.lb-col ul li{font-family:'Fraunces',serif;font-style:italic;font-size:12px;padding:3px 0;border-bottom:1px dotted #e2e8f0;color:#334155;}
+.lb-col ul li:last-child{border-bottom:none;}
+.ob{border:3px solid var(--burgundy);box-shadow:var(--shadow);margin-top:16px;overflow:hidden;}
+.ob-head{background:var(--burgundy);color:#fff;font-family:'Bungee',sans-serif;font-size:.85rem;padding:8px 16px;letter-spacing:.07em;border-bottom:var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.ob-badge{font-size:10px;background:rgba(0,0,0,.2);color:#fff;padding:2px 7px;border:1px solid rgba(255,255,255,.4);font-family:'Space Mono',monospace;}
+.ob-body{padding:14px 18px;background:#fdf0e8;}
+.ob-scaffold{background:var(--paper);border-top:2px dashed var(--burgundy);padding:9px 14px;font-size:12px;margin-top:10px;}
+.ob-scaffold strong{color:var(--burgundy);}
+.ob-line{width:100%;height:0;border-bottom:1.5px solid #e2e8f0;margin-bottom:18px;}
+.rb{border:var(--border);box-shadow:var(--shadow);margin-top:16px;overflow:hidden;}
+.rb-head{background:var(--slate);color:var(--stone);font-family:'Bungee',sans-serif;font-size:.85rem;padding:8px 16px;letter-spacing:.06em;border-bottom:var(--border);}
+.rb-body{padding:14px 18px;background:#fff;font-size:12.5px;}
+.rb-line{width:100%;height:0;border-bottom:1.5px solid #e2e8f0;margin-bottom:18px;}
+.footer{background:var(--slate);color:#8fa0b0;font-size:10.5px;padding:12px 40px;text-align:center;border-top:3px solid var(--stone);margin-top:40px;letter-spacing:.04em;}
+.footer strong{color:var(--stone);}
+</style>
+</head>
+<body>
+<div class="masthead">
+  <div class="brand">Teach <span>for</span> Success</div>
+  <div class="subtitle">Student Handout · Tourism &amp; Heritage: Who Does Machu Picchu Belong To? · Intermediate Adaptation B1–B2</div>
+</div>
+<div class="meta-strip">
+  <span>Intermediate ESL B1–B2</span><span>Topic: Tourism, Heritage &amp; Community</span><span>Focus: Community &amp; Opinion Vocabulary</span><span>Rural University Educators, Peru</span>
+</div>
+<div class="main">
+
+  <div class="sh">VOCABULARY SET 1 — TOURISM AND HERITAGE</div>
+  <div class="vg">
+    <div class="vc"><div class="vc-head">TOO MANY TOURISTS / OVERTOURISM (n)</div><div class="vc-body"><div class="vc-alt">Simpler: "too many tourists"</div><div class="vc-def">When a place gets more visitors than it can handle — the site is damaged and local life gets harder.</div><div class="vc-ex">"Machu Picchu has a problem with overtourism — the stone paths are slowly wearing away."</div></div></div>
+    <div class="vc"><div class="vc-head">VISITOR LIMIT / CARRYING CAPACITY (n)</div><div class="vc-body"><div class="vc-alt">Simpler: "visitor limit"</div><div class="vc-def">The maximum number of people a site can receive each day without being damaged.</div><div class="vc-ex">"The government is writing a report to set a visitor limit for Machu Picchu."</div></div></div>
+    <div class="vc"><div class="vc-head">HERITAGE SITE (n)</div><div class="vc-body"><div class="vc-def">A place that is important for its history or culture — often protected by the government or UNESCO.</div><div class="vc-ex">"Machu Picchu, Chan Chan, and the Nazca Lines are all UNESCO heritage sites in Peru."</div></div></div>
+    <div class="vc"><div class="vc-head">CONSERVATION (n)</div><div class="vc-body"><div class="vc-def">Protecting a place so that it is not damaged — so that it still exists in 100 years.</div><div class="vc-ex">"Conservation means controlling how many people visit Machu Picchu each day."</div></div></div>
+    <div class="vc"><div class="vc-head">FAIR SHARE OF MONEY / BENEFIT-SHARING (n)</div><div class="vc-body"><div class="vc-alt">Simpler: "fair share of the money"</div><div class="vc-def">When tourism income reaches the people and communities near the attraction — not just companies in Lima.</div><div class="vc-ex">"Communities near Rainbow Mountain fought because they were not getting a fair share of the tourist money."</div></div></div>
+    <div class="vc"><div class="vc-head">RESPONSIBLE TOURISM (n)</div><div class="vc-body"><div class="vc-def">Tourism that tries not to harm the environment or local communities, and supports local businesses.</div><div class="vc-ex">"Responsible tourism means hiring local guides and eating at local restaurants."</div></div></div>
+    <div class="vc"><div class="vc-head">LIVING CULTURE / LIVING HERITAGE (n)</div><div class="vc-body"><div class="vc-alt">Simpler: "living culture"</div><div class="vc-def">A cultural tradition that people still practise today — not in a museum, but in daily life.</div><div class="vc-ex">"The weavers of Chinchero practise a living culture — the same techniques as their grandmothers."</div></div></div>
+    <div class="vc"><div class="vc-head">CULTURAL TRADITION (n)</div><div class="vc-body"><div class="vc-def">A practice, ceremony, or skill that a community keeps and passes on from generation to generation.</div><div class="vc-ex">"The scissors dance is a cultural tradition of the Andes — it has existed for hundreds of years."</div></div></div>
+  </div>
+
+  <div class="sh burg">VOCABULARY SET 2 — OPINIONS AND EVALUATION</div>
+  <div class="pb">
+    <div class="ps a"><span class="lbl">SIMPLE</span>good · bad · unfair · ours</div>
+    <div class="pa">→</div>
+    <div class="ps b"><span class="lbl">INTERMEDIATE</span>damaged · ignored · one-sided · forced to leave</div>
+    <div class="pa">→</div>
+    <div class="ps c"><span class="lbl">TODAY'S WORDS ★</span>fragile · stewardship · agency · spectacle · left out</div>
+  </div>
+  <div class="ag">
+    <div class="ac"><div class="ac-head c1">UNFAIR (adj)</div><div class="ac-body"><div class="ac-def">When one group benefits and another pays the cost — and this is not right.</div><div class="ac-try">TRY IT: "It is unfair that the tourist money stays in Lima because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c2">FRAGILE (adj)</div><div class="ac-body"><div class="ac-def">Easy to damage — must be treated very carefully.</div><div class="ac-try">TRY IT: "The stone paths of Machu Picchu are fragile because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c3">BELONG TO (phr v)</div><div class="ac-body"><div class="ac-def">To be the property, right, or responsibility of a person or group.</div><div class="ac-try">TRY IT: "Machu Picchu belongs to _______________ because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c4">FORCED TO LEAVE / DISPLACEMENT (n)</div><div class="ac-body"><div class="ac-alt">Technical term: displacement</div><div class="ac-def">When people have to move from their home because rents go up or developers push them out.</div><div class="ac-try">TRY IT: "Some families near Cusco were forced to leave because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c5">TURNED INTO A SHOW / SPECTACLE (n)</div><div class="ac-body"><div class="ac-alt">Technical term: spectacle</div><div class="ac-def">When a real tradition is changed so it looks good for tourists instead of being lived honestly.</div><div class="ac-try">TRY IT: "A ceremony becomes a spectacle when _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c6">STEWARDSHIP (n)</div><div class="ac-body"><div class="ac-def">Taking care of something that belongs to everyone — protecting it for the future, not just using it.</div><div class="ac-try">TRY IT: "Local communities have practised stewardship of these sites because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c7">AGENCY / THE RIGHT TO DECIDE (phr)</div><div class="ac-body"><div class="ac-alt">Simpler: "the right to decide"</div><div class="ac-def">The power and freedom to make choices about things that affect you.</div><div class="ac-try">TRY IT: "Communities need agency over heritage sites because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c8">LEFT OUT / IGNORED (adj)</div><div class="ac-body"><div class="ac-def">When a group of people is not included in decisions or does not receive the same benefits as others.</div><div class="ac-try">TRY IT: "The people nearest Machu Picchu are often left out because _______________."</div></div></div>
+    <div class="ac"><div class="ac-head c9">ONE-SIDED (adj)</div><div class="ac-body"><div class="ac-def">When only one group benefits — the relationship is not fair or equal.</div><div class="ac-try">TRY IT: "The current tourism model is one-sided because _______________."</div></div></div>
+  </div>
+
+  <div class="sh sky">INTERACTION TOOLKIT — USE DURING ALL DISCUSSIONS</div>
+  <div class="tk-box">
+    <div class="tk-head">🗣 PHRASES FOR MANAGING THE CONVERSATION</div>
+    <div class="tk-body">
+      <div class="tk-grid">
+        <div class="tk-col"><div class="tk-col-head">ADDING TO THE CONVERSATION</div><ul><li>"Can I add something?"</li><li>"That's interesting — also…"</li><li>"I agree, and also…"</li><li>"Wait — I want to say…"</li></ul></div>
+        <div class="tk-col"><div class="tk-col-head">DISAGREEING POLITELY</div><ul><li>"I'm not sure about that…"</li><li>"I think it's different because…"</li><li>"Maybe, but what about…?"</li><li>"I don't completely agree…"</li></ul></div>
+        <div class="tk-col"><div class="tk-col-head">CHECKING UNDERSTANDING</div><ul><li>"Do you mean that…?"</li><li>"Can you explain more?"</li><li>"What do you mean by…?"</li><li>"So you're saying…?"</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh">VIDEO TASK — BEFORE YOUR FIRST DISCUSSION</div>
+  <div class="vs">
+    <div class="vs-head">📱 COMMUNITY RESIDENT NEAR A HERITAGE SITE<div class="vs-url">Search: "comunidad Machu Picchu turismo impacto / Vinicunca conflicto comunidad"</div></div>
+    <div class="vs-body">
+      <div class="vs-tasks">
+        <div class="vs-t"><div class="vs-t-head">FIRST VIEWING — FEELING</div><div class="vs-t-body"><p>This person lives near a famous tourist site. How do they feel?</p><p style="margin-top:6px;">One word: <span style="display:inline-block;width:140px;border-bottom:1.5px solid #ccc;height:14px;"></span></p><p style="margin-top:8px;">One problem they have: <span style="display:inline-block;width:100%;border-bottom:1.5px solid #ccc;height:14px;margin-top:4px;"></span></p></div></div>
+        <div class="vs-t"><div class="vs-t-head">SECOND VIEWING — WHAT THEY WANT</div><div class="vs-t-body"><p>What does this person want — more tourists, fewer tourists, or something different?</p><p style="margin-top:6px;">They want: <span style="display:inline-block;width:100%;border-bottom:1.5px solid #ccc;height:14px;margin-top:4px;"></span></p><p style="margin-top:10px;">A word from Set 2 that fits: <span style="display:inline-block;width:120px;border-bottom:1.5px solid #ccc;height:14px;"></span></p></div></div>
+      </div>
+      <div class="vs-script">
+        <strong>★ Read-Aloud Script (no-internet fallback)</strong>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:12px;line-height:1.75;color:#1e1208;">"I am a guide here. I was born in the village below the site. My family has lived in this valley for six generations. The tourists come for three hours, take photographs, and leave. Some are kind. Many don't look at me. They don't know that I am from the same people who built this place. Every morning the buses arrive before the sun comes up. The noise wakes my children. The prices in the market are higher now because the shops know tourists will pay more. Some of my neighbours sold their homes and moved to Cusco. The young people don't want to stay here anymore. And yet — I am proud to live here. I want the world to know this place. I just want to be seen in it. Not behind it."</p>
+        <p style="font-size:11px;color:var(--sky);margin-top:6px;">Task 1: One word for how this person feels. Task 2: What do they want from tourism?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sh">SECTION A — PAIR DISCUSSION</div>
+  <div class="db">
+    <div class="db-head"><span>Choose any two — name a real place or a real experience</span><div class="db-badge">7 MINUTES</div></div>
+    <div class="db-body"><ol>
+      <li><span class="qn">1</span><span class="qt">Have you visited Machu Picchu or another famous Peruvian site? If yes: what was it like? If no: what stopped you — and does that feel unfair?</span></li>
+      <li><span class="qn">2</span><span class="qt">If you live or teach near a tourist site: how has tourism <strong>changed life in your community</strong>? What got better — and what got worse?</span></li>
+      <li><span class="qn">3</span><span class="qt">Is there a place in your region that is beautiful or historically important but that <strong>tourists never visit</strong>? What would need to change?</span></li>
+      <li><span class="qn">4</span><span class="qt">When tourists take photos of local people, ceremonies, or sacred places without asking — is that a problem? Why?</span></li>
+    </ol></div>
+  </div>
+
+  <div class="sh">SECTION B — PERSPECTIVE TASK</div>
+  <p style="margin-top:10px;font-size:12px;color:#475569;">Your teacher will assign you Group A or Group B. First: argue your position strongly. Then: drop the role and say what you actually think.</p>
+  <div class="pg">
+    <div class="pc"><div class="pc-head value">GROUP A — TOURISM IS GOOD FOR PERU</div><ul>
+      <li>Tourism creates jobs for thousands of Peruvians — guides, cooks, hotel workers, artisans, drivers</li>
+      <li>The money from tourists helps pay for roads, services, and the conservation of important sites</li>
+      <li>When Machu Picchu becomes world-famous, Peruvians feel proud — it shows the world how important their history is</li>
+      <li>Many rural communities want more tourists, not fewer. The problem is that the money doesn't reach them</li>
+      <li>Tourists who hire local guides and buy from local markets do bring real benefits to communities</li>
+      <li>Without tourism, many Peruvians in regions like Cusco and Cajamarca would have much fewer opportunities</li>
+    </ul><div class="persp-task">Argue strongly that tourism is good. Then say what you <em>actually</em> think.</div></div>
+    <div class="pc"><div class="pc-head protect">GROUP B — TOURISM IS DAMAGING COMMUNITIES</div><ul>
+      <li>Machu Picchu is being physically damaged by too many visitors — the stonework is wearing away</li>
+      <li>The violence at Rainbow Mountain shows what happens when communities don't get a fair share of the tourist income</li>
+      <li>When rents go up because of tourists, local families are forced to leave their neighbourhoods</li>
+      <li>Most of the tourism money in Peru goes to Lima-based companies and foreign platforms — not to local people</li>
+      <li>Ceremonies and traditions are being changed to look good for tourists — they become a show instead of a real practice</li>
+      <li>The communities that live closest to these sites should have the right to decide what happens there</li>
+    </ul><div class="persp-task">Argue strongly that tourism damages communities. Then say what you <em>actually</em> think.</div></div>
+  </div>
+
+  <div class="sh burg">SECTION C — WHERE DO YOU STAND?</div>
+  <p style="margin-top:10px;font-size:12px;color:#475569;">Circle your answer (1 = strongly disagree → 5 = strongly agree). Be ready to explain in one sentence.</p>
+  <div class="li-items">
+    <div class="li-item"><div class="li-stmt">1. Machu Picchu should have a <strong>daily visitor limit</strong> — even if this means the price goes up and some Peruvians can no longer afford to visit.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+    <div class="li-item"><div class="li-stmt">2. The communities that <strong>live closest to heritage sites</strong> should control who visits — not the government in Lima, not international companies.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+    <div class="li-item"><div class="li-stmt">3. When a tourist photographs a local ceremony without asking, that is <strong>disrespectful and wrong</strong> — like taking something that is not yours.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+    <div class="li-item"><div class="li-stmt">4. The real problem is not <strong>too many tourists</strong> — it is that the money goes to Lima and leaves local communities with only the problems.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+    <div class="li-item"><div class="li-stmt">5. Taking students on a trip to a heritage site is one of the <strong>most important things I can do as a teacher</strong> — it tells them that this history belongs to them.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+    <div class="li-item"><div class="li-stmt">6. Peru has <strong>many beautiful and important places</strong> that tourists never visit — we should protect and promote those instead of sending everyone to Machu Picchu.</div><div class="li-scale"><span class="li-lbl">strongly disagree</span><div class="li-dots"><div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div></div><span class="li-lbl">strongly agree</span></div></div>
+  </div>
+
+  <div class="lb"><div class="lb-head">USEFUL LANGUAGE FOR DISCUSSIONS</div>
+    <div class="lb-body">
+      <div class="lb-col"><h4>Expressing Your Opinion</h4><ul><li>"I think that…"</li><li>"In my opinion…"</li><li>"I believe…"</li><li>"For me, the most important thing is…"</li><li>"I feel strongly that…"</li></ul></div>
+      <div class="lb-col"><h4 class="s">Agreeing &amp; Adding</h4><ul><li>"I agree, and also…"</li><li>"Yes, and another point is…"</li><li>"That's a good point — plus…"</li><li>"I had the same experience…"</li><li>"Exactly — because…"</li></ul></div>
+      <div class="lb-col"><h4 class="b">Disagreeing &amp; Questioning ★</h4><ul><li>"I'm not sure about that…"</li><li>"Maybe, but what about…?"</li><li>"I see what you mean, but…"</li><li>"Can you explain more?"</li><li>"What do you mean by…?"</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sh burg">OUTPUT TASK — END OF LESSON</div>
+  <div class="ob"><div class="ob-head">✍ MINI POSITION STATEMENT — 90 SECONDS<div class="ob-badge">CHOOSE FORMAT</div></div>
+    <div class="ob-body">
+      <p style="font-family:'Fraunces',serif;font-style:italic;font-size:13px;border-left:4px solid var(--burgundy);padding-left:10px;margin-bottom:12px;color:var(--burgundy);">"The government asks you: how should Peru manage its famous heritage sites — for tourists, for local communities, or for the sites themselves? Who should make the decisions?"</p>
+      <div class="ob-scaffold"><strong>Language scaffold:</strong><span style="font-family:'Fraunces',serif;font-style:italic;font-size:12px;display:block;margin-top:5px;line-height:1.8;">"I think Peru should… · The communities near these sites deserve… · The biggest problem is… · What gives me hope is… · The most important change would be…"</span></div>
+      <p style="font-size:12px;margin-top:12px;font-weight:700;">Preparation notes (3 minutes):</p>
+      <div style="margin-top:8px;"><div class="ob-line"></div><div class="ob-line"></div></div>
+    </div>
+  </div>
+
+  <div class="rb"><div class="rb-head">PERSONAL REFLECTION — TAKE HOME</div>
+    <div class="rb-body">
+      <p style="font-weight:700;margin-bottom:6px;">Choose one:</p>
+      <ol style="list-style:none;padding:0;font-size:12.5px;margin-bottom:10px;color:#334155;">
+        <li style="margin-bottom:5px;">→ Describe a place in your region that you love and that tourists never visit. Why does it matter to you — and why isn't it better known?</li>
+        <li style="margin-bottom:5px;">→ If you could write one rule for how tourists must behave at Peruvian heritage sites — what would it be?</li>
+        <li>→ Think about a student you teach. Would they feel that Machu Picchu belongs to them? Why or why not?</li>
+      </ol>
+      <div class="rb-line"></div><div class="rb-line"></div><div class="rb-line"></div>
+    </div>
+  </div>
+
+</div>
+<div class="footer"><strong>Teach for Success</strong> &nbsp;·&nbsp; Handout · Tourism &amp; Heritage (B1–B2 Adaptation) &nbsp;·&nbsp; Intermediate ESL &nbsp;·&nbsp; Rural University Educators, Peru</div>
+</body></html>
