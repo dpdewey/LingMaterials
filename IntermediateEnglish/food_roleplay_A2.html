@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talk About Food — Pair Role-Play (A2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f3e9;
+    --ink:#1c1a17;
+    --brick:#b0472f;
+    --herb:#4f6f52;
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-sm:4px 4px 0 var(--ink);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Fraunces",Georgia,serif;
+    font-size:19px;
+    line-height:1.45;
+    padding:32px 20px 64px;
+  }
+  .sheet{max-width:1040px;margin:0 auto;}
+
+  /* ---------- Header ---------- */
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-weight:700;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    font-size:14px;
+    color:var(--brick);
+    margin:0 0 6px;
+  }
+  h1{
+    font-family:"Bungee",sans-serif;
+    font-size:clamp(30px,6vw,52px);
+    line-height:.98;
+    margin:0;
+    letter-spacing:.01em;
+  }
+  .question{
+    font-size:clamp(20px,3.4vw,26px);
+    font-weight:700;
+    margin:14px 0 0;
+  }
+  .rule{
+    height:5px;
+    background:var(--ink);
+    border:none;
+    margin:20px 0 34px;
+  }
+
+  /* ---------- Generic box ---------- */
+  .box{
+    background:#fff;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:22px 24px;
+  }
+
+  /* ---------- How to play ---------- */
+  .how{margin-bottom:38px;}
+  .how-title{
+    font-family:"Bungee",sans-serif;
+    font-size:20px;
+    margin:0 0 14px;
+  }
+  .steps{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:step;
+  }
+  .steps li{
+    position:relative;
+    padding:8px 0 8px 50px;
+    border-top:1.5px solid rgba(28,26,23,.18);
+  }
+  .steps li:first-child{border-top:none;}
+  .steps li::before{
+    counter-increment:step;
+    content:counter(step);
+    position:absolute;
+    left:0;top:7px;
+    width:32px;height:32px;
+    background:var(--brick);
+    color:#fff;
+    font-family:"Space Mono",monospace;
+    font-weight:700;
+    font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--ink);
+  }
+
+  /* ---------- Role cards ---------- */
+  .section-label{
+    font-family:"Bungee",sans-serif;
+    font-size:18px;
+    margin:0 0 16px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .section-label::after{
+    content:"";flex:1;height:3px;background:var(--ink);
+  }
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+  }
+  .card{
+    background:#fff;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:20px 22px 22px;
+    display:flex;flex-direction:column;
+  }
+  .role{
+    font-family:"Space Mono",monospace;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--brick);
+    font-size:16px;
+    margin:0 0 10px;
+  }
+  .opinion{
+    font-size:18px;
+    margin:0 0 16px;
+    padding-left:14px;
+    border-left:4px solid var(--brick);
+  }
+  .mini{
+    font-family:"Space Mono",monospace;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
+  .words{
+    display:flex;flex-wrap:wrap;gap:7px;
+    margin:0 0 18px;
+  }
+  .words span{
+    background:var(--paper);
+    border:2px solid var(--ink);
+    padding:3px 9px;
+    font-size:15px;
+    font-weight:600;
+  }
+  .frames{
+    list-style:none;margin:0;padding:0;
+  }
+  .frames li{
+    position:relative;
+    padding:5px 0 5px 20px;
+    font-size:17px;
+  }
+  .frames li::before{
+    content:"›";
+    position:absolute;left:0;top:4px;
+    color:var(--brick);font-weight:700;
+  }
+
+  /* ---------- Talking together ---------- */
+  .together{
+    margin-top:40px;
+    background:var(--herb);
+    color:#fff;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:24px 26px 26px;
+  }
+  .together h2{
+    font-family:"Bungee",sans-serif;
+    font-size:22px;
+    margin:0 0 4px;
+  }
+  .together .sub{
+    margin:0 0 20px;
+    font-size:16px;
+    opacity:.92;
+  }
+  .talk-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .talk-col{
+    background:rgba(255,255,255,.10);
+    border:2px solid #fff;
+    padding:14px 16px;
+  }
+  .talk-col .mini{color:#fff;}
+  .talk-col ul{list-style:none;margin:0;padding:0;}
+  .talk-col li{
+    padding:4px 0 4px 18px;position:relative;font-size:16.5px;
+  }
+  .talk-col li::before{
+    content:"›";position:absolute;left:0;top:3px;font-weight:700;
+  }
+
+  /* ---------- Closer ---------- */
+  .closer{
+    margin-top:36px;
+    border:3px solid var(--ink);
+    box-shadow:var(--shadow-sm);
+    background:#fff;
+    padding:18px 24px;
+    font-size:18px;
+  }
+  .closer strong{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--brick);display:block;margin-bottom:6px;}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:720px){
+    body{font-size:18px;padding:22px 14px 48px;}
+    .cards{grid-template-columns:1fr;}
+    .talk-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Print ---------- */
+  @media print{
+    body{background:#fff;padding:0;font-size:13pt;}
+    .box,.card,.together,.closer{box-shadow:none;}
+    .together{background:#fff;color:var(--ink);}
+    .together h2,.together .sub,.talk-col .mini,.talk-col li{color:var(--ink);}
+    .talk-col{background:#fff;border-color:var(--ink);}
+    .card,.together,.how,.closer{break-inside:avoid;}
+    .cards{gap:14px;}
+    @page{margin:14mm;}
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <header>
+    <p class="eyebrow">Pair Role-Play · A2</p>
+    <h1>TALK ABOUT FOOD</h1>
+    <p class="question">Is home food better than restaurant food?</p>
+  </header>
+  <hr class="rule">
+
+  <section class="box how">
+    <h2 class="how-title">How to play</h2>
+    <ol class="steps">
+      <li>Work in pairs. Take one card each. You are <strong>A</strong> and <strong>B</strong>.</li>
+      <li>Read your card. Find <strong>2 words</strong> and <strong>1 sentence</strong> you can use.</li>
+      <li>Talk about the question for <strong>3 minutes</strong>. Stay in your role. Ask your partner questions.</li>
+      <li>Change cards. Take two new roles and talk again.</li>
+      <li>Tell the class: <strong>Who has the best idea? Why?</strong></li>
+    </ol>
+  </section>
+
+  <p class="section-label">Your roles</p>
+  <div class="cards">
+
+    <article class="card">
+      <p class="role">A Mother</p>
+      <p class="opinion">"Home food is good and cheap. I cook for my family."</p>
+      <p class="mini">Good words</p>
+      <div class="words">
+        <span>home</span><span>cook</span><span>family</span>
+        <span>cheap</span><span>healthy</span><span>save money</span>
+      </div>
+      <p class="mini">Say it like this</p>
+      <ul class="frames">
+        <li>I cook at home every day.</li>
+        <li>Home food is cheaper than restaurant food.</li>
+        <li>I cook for my family. It is good for us.</li>
+        <li>Restaurant food is too expensive.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <p class="role">A Student</p>
+      <p class="opinion">"I like restaurants. The food is fast and fun."</p>
+      <p class="mini">Good words</p>
+      <div class="words">
+        <span>restaurant</span><span>fast</span><span>fun</span>
+        <span>friends</span><span>busy</span><span>easy</span>
+      </div>
+      <p class="mini">Say it like this</p>
+      <ul class="frames">
+        <li>I am very busy. I have no time to cook.</li>
+        <li>I eat with my friends in a restaurant.</li>
+        <li>Restaurant food is fast and easy.</li>
+        <li>I like to try new food.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <p class="role">A Cook</p>
+      <p class="opinion">"I make new food in my restaurant. I love my job."</p>
+      <p class="mini">Good words</p>
+      <div class="words">
+        <span>make</span><span>restaurant</span><span>new</span>
+        <span>job</span><span>menu</span><span>special</span>
+      </div>
+      <p class="mini">Say it like this</p>
+      <ul class="frames">
+        <li>I make special food in my restaurant.</li>
+        <li>I love my job. I make new food every day.</li>
+        <li>Restaurant food can be very good.</li>
+        <li>Come and try my food!</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <p class="role">A Farmer</p>
+      <p class="opinion">"I grow good food. Fresh food is the best."</p>
+      <p class="mini">Good words</p>
+      <div class="words">
+        <span>grow</span><span>fresh</span><span>farm</span>
+        <span>vegetables</span><span>natural</span><span>the best</span>
+      </div>
+      <p class="mini">Say it like this</p>
+      <ul class="frames">
+        <li>I grow fresh food on my farm.</li>
+        <li>Fresh food is good for you.</li>
+        <li>Home food uses fresh things from the farm.</li>
+        <li>Fresh food is the best food.</li>
+      </ul>
+    </article>
+
+  </div>
+
+  <section class="together">
+    <h2>Talking together</h2>
+    <p class="sub">Use these with your partner. Take turns. Listen and answer.</p>
+    <div class="talk-grid">
+      <div class="talk-col">
+        <p class="mini">Ask your partner</p>
+        <ul>
+          <li>What do you think?</li>
+          <li>Why do you say that?</li>
+          <li>Do you agree with me?</li>
+        </ul>
+      </div>
+      <div class="talk-col">
+        <p class="mini">Say yes (agree)</p>
+        <ul>
+          <li>Yes, I agree.</li>
+          <li>That's true.</li>
+          <li>Me too!</li>
+        </ul>
+      </div>
+      <div class="talk-col">
+        <p class="mini">Say no (disagree)</p>
+        <ul>
+          <li>I don't agree.</li>
+          <li>Really? I think home food is better.</li>
+          <li>For me, ___ is the best.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer">
+    <strong>One more thing</strong>
+    Before you finish: say <em>one</em> food you cook at home, and <em>one</em> food you eat in a restaurant. Tell your partner which one you like more.
+  </section>
+
+</main>
+</body>
+</html>
