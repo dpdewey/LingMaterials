@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talk Sports — Chunks for A2–B1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a0a;
+    --paper:#fef8e7;
+    --field:#16a34a;     /* grass green */
+    --field-deep:#0f7a36;
+    --whistle:#ffcf2d;   /* bright yellow */
+    --jersey:#2563eb;    /* cobalt blue */
+    --flag:#ff5630;      /* orange-red (the "not into it" team) */
+    --line:#0a0a0a;
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-sm:4px 4px 0 var(--ink);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Fraunces',Georgia,serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    padding:18px;
+    background-image:
+      linear-gradient(rgba(10,10,10,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(10,10,10,.04) 1px,transparent 1px);
+    background-size:26px 26px;
+  }
+  .wrap{max-width:920px;margin:0 auto}
+
+  .mono{font-family:'Space Mono',monospace}
+  .bungee{font-family:'Bungee',cursive}
+
+  /* ---------- SCOREBOARD HERO ---------- */
+  .scoreboard{
+    background:var(--ink);
+    border:4px solid var(--ink);
+    box-shadow:var(--shadow);
+    padding:22px 22px 26px;
+    color:var(--whistle);
+    position:relative;
+    overflow:hidden;
+  }
+  .scoreboard::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(90deg,transparent 0 7px,rgba(255,255,255,.03) 7px 8px);
+    pointer-events:none;
+  }
+  .sb-top{display:flex;justify-content:space-between;align-items:center;
+    font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.12em;color:#9bd9b0}
+  .blink{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--flag);
+    margin-right:6px;animation:blink 1.4s steps(1) infinite;vertical-align:middle}
+  @keyframes blink{50%{opacity:.25}}
+  .sb-title{font-family:'Bungee',cursive;font-size:clamp(2.2rem,9vw,4.4rem);
+    line-height:.92;color:#fff;margin:10px 0 4px;text-shadow:3px 3px 0 var(--field)}
+  .sb-title .ball{color:var(--whistle)}
+  .sb-sub{font-family:'Fraunces',serif;font-style:italic;font-size:1.05rem;color:#cfe9d6;max-width:46ch}
+  .sb-score{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .pill{font-family:'Space Mono',monospace;font-weight:700;font-size:.72rem;
+    padding:7px 12px;border:2px solid var(--whistle);color:var(--whistle);letter-spacing:.05em}
+  .pill.green{border-color:var(--field);color:#7ee6a0}
+  .pill.solid{background:var(--whistle);color:var(--ink);border-color:var(--whistle)}
+
+  /* ---------- GENERIC SECTION ---------- */
+  section{margin-top:30px}
+  .eyebrow{display:inline-block;font-family:'Space Mono',monospace;font-weight:700;
+    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--ink);color:var(--paper);padding:5px 11px;margin-bottom:12px}
+  h2{font-family:'Bungee',cursive;font-size:clamp(1.4rem,5vw,2.1rem);line-height:1;margin-bottom:6px}
+  .lead{font-style:italic;font-size:1.05rem;margin-bottom:16px;max-width:62ch}
+  .note{font-family:'Space Mono',monospace;font-size:.78rem;background:var(--whistle);
+    border:2px solid var(--ink);padding:8px 12px;display:inline-block;box-shadow:var(--shadow-sm)}
+
+  /* ---------- CHUNK CARDS ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
+  .card{
+    background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);
+    padding:14px 14px 16px;position:relative;
+  }
+  .card .num{font-family:'Space Mono',monospace;font-weight:700;font-size:.72rem;
+    position:absolute;top:-13px;left:12px;background:var(--field);color:#fff;
+    border:2px solid var(--ink);padding:2px 8px}
+  .card.cool .num{background:var(--flag)}
+  .chunk{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem;margin:8px 0 6px}
+  .slot{display:inline-block;min-width:54px;text-align:center;
+    background:var(--whistle);border-bottom:3px solid var(--ink);padding:0 6px;font-weight:700;border-radius:2px}
+  .card.cool .slot{background:#ffd9cf}
+  .egs{font-family:'Space Mono',monospace;font-size:.74rem;color:#444;line-height:1.7}
+  .egs b{color:var(--jersey)}
+  .card.cool .egs b{color:var(--flag)}
+  .say{margin-top:10px;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;
+    background:var(--paper);border:2px solid var(--ink);padding:5px 9px;cursor:pointer}
+  .say:hover{background:var(--jersey);color:#fff}
+  .card.cool .say:hover{background:var(--flag);color:#fff}
+
+  /* ---------- BUILDER ---------- */
+  .builder{background:var(--field);border:4px solid var(--ink);box-shadow:var(--shadow);
+    padding:18px;color:#fff}
+  .builder.cool{background:var(--flag)}
+  .b-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .b-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{font-family:'Space Mono',monospace;font-weight:700;font-size:.72rem;cursor:pointer;
+    background:#fff;color:var(--ink);border:2px solid var(--ink);padding:6px 12px;box-shadow:var(--shadow-sm)}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--whistle)}
+  .counter{font-family:'Space Mono',monospace;font-size:.74rem;font-weight:700}
+  .stage{background:#fff;color:var(--ink);border:3px solid var(--ink);padding:18px;text-align:center}
+  .build-line{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.3rem,5vw,1.9rem);
+    line-height:1.45;min-height:2.4em;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px}
+  .bslot{display:inline-flex;align-items:center;justify-content:center;min-width:90px;height:1.6em;
+    background:#fff;border:2px dashed #999;border-radius:3px;padding:0 8px;color:#bbb;cursor:default}
+  .bslot.filled{background:var(--whistle);border:2px solid var(--ink);color:var(--ink);font-weight:700}
+  .bslot.active{border:2px solid var(--field);box-shadow:0 0 0 3px rgba(22,163,74,.25)}
+  .cool-stage .bslot.active{border-color:var(--flag);box-shadow:0 0 0 3px rgba(255,86,48,.25)}
+  .bank{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:16px}
+  .chip{font-family:'Space Mono',monospace;font-weight:700;font-size:.86rem;cursor:pointer;
+    background:var(--paper);border:2px solid var(--ink);padding:8px 13px;box-shadow:var(--shadow-sm);
+    transition:transform .06s,box-shadow .06s}
+  .chip:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .chip:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .chip.used{opacity:.35;pointer-events:none}
+  .b-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+  .btn{font-family:'Space Mono',monospace;font-weight:700;font-size:.8rem;cursor:pointer;
+    border:2px solid var(--ink);padding:9px 16px;box-shadow:var(--shadow-sm);background:#fff;color:var(--ink);
+    transition:transform .06s,box-shadow .06s}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+  .btn.go{background:var(--jersey);color:#fff}
+  .btn.ghost{background:transparent;color:#fff;border-color:#fff;box-shadow:4px 4px 0 rgba(0,0,0,.4)}
+  .cool .btn.go{background:var(--ink);color:var(--whistle)}
+
+  /* ---------- PERSONALIZE ---------- */
+  .me-card{background:#fff;border:3px solid var(--ink);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:14px}
+  .me-line{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;line-height:2}
+  .me-input{font-family:'Space Mono',monospace;font-weight:700;font-size:.95rem;
+    border:none;border-bottom:3px solid var(--jersey);background:#fffbe9;padding:2px 8px;min-width:130px;
+    color:var(--ink)}
+  .me-input:focus{outline:none;background:var(--whistle)}
+  .me-card.cool .me-input{border-color:var(--flag)}
+
+  /* ---------- FLASHCARDS ---------- */
+  .flip-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+  .flip{perspective:1000px;height:130px;cursor:pointer}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .flip-inner{transform:rotateY(180deg)}
+  .flip-face{position:absolute;inset:0;backface-visibility:hidden;border:3px solid var(--ink);
+    box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:12px;font-family:'Fraunces',serif}
+  .flip-front{background:var(--jersey);color:#fff;font-weight:600;font-size:1.05rem}
+  .flip-front.cool{background:var(--flag)}
+  .flip-back{background:#fff;color:var(--ink);transform:rotateY(180deg);font-weight:600;font-size:1.12rem}
+  .flip-back .slot{font-size:1rem}
+  .flip-hint{font-family:'Space Mono',monospace;font-size:.66rem;color:#fff;opacity:.85;position:absolute;bottom:7px;left:0;right:0;text-align:center}
+
+  footer{margin-top:40px;border-top:3px solid var(--ink);padding-top:14px;
+    font-family:'Space Mono',monospace;font-size:.72rem;color:#555;text-align:center}
+
+  @media (max-width:480px){
+    body{padding:12px}
+    .build-line{font-size:1.3rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO / SCOREBOARD -->
+  <header class="scoreboard">
+    <div class="sb-top">
+      <span><span class="blink"></span>LIVE · CLASSROOM</span>
+      <span class="mono">LEVEL A2–B1 · 60 MIN</span>
+    </div>
+    <h1 class="sb-title">TALK <span class="ball">SPORTS</span></h1>
+    <p class="sb-sub">Learn whole phrases — not single words. Each chunk has a <b style="color:var(--whistle)">slot</b> you fill to make it yours.</p>
+    <div class="sb-score">
+      <span class="pill solid">12 CHUNKS</span>
+      <span class="pill green">7 · FOR FANS</span>
+      <span class="pill">5 · NOT MY THING</span>
+    </div>
+  </header>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <span class="eyebrow">How to learn it</span>
+    <h2>One slot, many sentences</h2>
+    <p class="lead">A <em>chunk</em> is a ready-made phrase your mouth can say without thinking. Keep the frame, swap the slot, and you have ten sentences from one. Read it, hear it, fill it, then say it about you.</p>
+    <span class="note">▸ Read → 🔊 Hear → ✏️ Fill the slot → 🗣️ Say it about you</span>
+  </section>
+
+  <!-- FAN CHUNKS -->
+  <section>
+    <span class="eyebrow" style="background:var(--field);color:#fff">For fans · 7 chunks</span>
+    <h2>When you love sports</h2>
+    <div class="grid" id="fanGrid"></div>
+  </section>
+
+  <!-- COOL CHUNKS -->
+  <section>
+    <span class="eyebrow" style="background:var(--flag);color:#fff">Not my thing · 5 chunks</span>
+    <h2>When you’re not so into it</h2>
+    <p class="lead">Polite ways to say “no thanks” — and still keep the conversation going.</p>
+    <div class="grid" id="coolGrid"></div>
+  </section>
+
+  <!-- BUILDER -->
+  <section>
+    <span class="eyebrow">Practice 1 · Drop it in</span>
+    <h2>Build the chunk</h2>
+    <p class="lead">Tap a word to drop it into the blank. Build the sentence, hear it, then move on. There’s no single right answer — any word that makes sense wins.</p>
+    <div class="builder" id="builder">
+      <div class="b-head">
+        <div class="b-tabs">
+          <button class="tab" id="tabFan" aria-selected="true" onclick="setSet('fan')">⚽ FOR FANS</button>
+          <button class="tab" id="tabCool" aria-selected="false" onclick="setSet('cool')">🙅 NOT MY THING</button>
+        </div>
+        <span class="counter mono" id="counter"></span>
+      </div>
+      <div class="stage" id="stage">
+        <div class="build-line" id="buildLine"></div>
+        <div class="bank" id="bank"></div>
+        <div class="b-actions">
+          <button class="btn" onclick="resetSlots()">↺ Clear</button>
+          <button class="btn" onclick="sayBuild()">🔊 Say it</button>
+          <button class="btn go" onclick="nextChunk()">Next ▸</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONALIZE -->
+  <section>
+    <span class="eyebrow" style="background:var(--jersey);color:#fff">Practice 2 · Make it true for you</span>
+    <h2>Now about you</h2>
+    <p class="lead">Type real answers. These are sentences you can actually say to a partner. Read each one aloud twice.</p>
+    <div id="meZone"></div>
+    <button class="btn go" style="font-size:.85rem" onclick="sayAllMe()">🔊 Hear my sentences</button>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section>
+    <span class="eyebrow">Practice 3 · Test yourself</span>
+    <h2>Cover &amp; recall</h2>
+    <p class="lead">Read the meaning, say the chunk out loud, then tap to check. Do the whole set in under two minutes.</p>
+    <div class="flip-wrap" id="flips"></div>
+  </section>
+
+  <footer>
+    TALK SPORTS · chunk-based speaking practice · A2–B1 · designed for the Teach for Success classroom
+  </footer>
+
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const FAN = [
+  { text:"I'm a big fan of {0}.", bank:["football","basketball","volleyball","Alianza Lima","Liga de Quito"], meaning:"You love a sport or team" },
+  { text:"My favourite team is {0}.", bank:["Universitario","Barcelona SC","Emelec","Real Madrid"], meaning:"Name the team you support most" },
+  { text:"I support {0}.", bank:["Sporting Cristal","Liga de Quito","the national team","Barcelona"], meaning:"Say which team you're behind" },
+  { text:"Did you watch the {0} last night?", bank:["match","game","final"], meaning:"Start a chat about a game" },
+  { text:"{0} played really well.", bank:["The team","Our players","Ecuador","Peru"], meaning:"Praise a good performance" },
+  { text:"I play {0} every weekend.", bank:["football","volleyball","basketball","tennis"], meaning:"Talk about your own sport" },
+  { text:"We won {0} to {1}.", bank:["one","two","three","four","zero"], meaning:"Give the score (we won!)" }
+];
+const COOL = [
+  { text:"I'm not really into {0}.", bank:["sports","football","watching games"], meaning:"Say a sport isn't for you" },
+  { text:"Sports aren't really my thing.", bank:[], meaning:"A whole fixed phrase — memorise it" },
+  { text:"I'd rather {0}.", bank:["read","cook","sleep","listen to music"], meaning:"Say what you prefer to do" },
+  { text:"I prefer {0} to {1}.", bank:["music","books","films","sports","football","cooking"], meaning:"Compare two things" },
+  { text:"I don't follow {0}.", bank:["football","basketball","any team"], meaning:"You don't keep up with it" }
+];
+
+/* ---------------- CHUNK REFERENCE CARDS ---------------- */
+function slotsToHTML(text){
+  return text.replace(/\{(\d+)\}/g, '<span class="slot">____</span>');
+}
+function buildCards(list, mount, cool){
+  const el = document.getElementById(mount);
+  list.forEach((c,i)=>{
+    const egs = c.bank.length
+      ? c.bank.slice(0,4).map(w=>'<b>'+w+'</b>').join(' · ')
+      : '— say it as one whole piece —';
+    const card = document.createElement('div');
+    card.className = 'card'+(cool?' cool':'');
+    card.innerHTML =
+      '<span class="num">'+(i+1).toString().padStart(2,'0')+'</span>'+
+      '<div class="chunk">'+slotsToHTML(c.text)+'</div>'+
+      '<div class="egs">'+egs+'</div>'+
+      '<button class="say" onclick="speak(\''+sample(c).replace(/'/g,"\\'")+'\')">🔊 hear an example</button>';
+    el.appendChild(card);
+  });
+}
+function sample(c){
+  let t = c.text;
+  c.bank.forEach((_,i)=>{}); // noop
+  const fills = c.bank.length ? c.bank : [];
+  return t.replace(/\{(\d+)\}/g, (m,n)=> fills[n] || fills[0] || '…');
+}
+buildCards(FAN,'fanGrid',false);
+buildCards(COOL,'coolGrid',true);
+
+/* ---------------- AUDIO ---------------- */
+function speak(txt){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = 'en-US'; u.rate = .9;
+  window.speechSynthesis.speak(u);
+}
+
+/* ---------------- BUILDER ---------------- */
+let curSet = 'fan';
+let idx = 0;
+let filled = [];
+
+function activeList(){ return curSet==='fan' ? FAN : COOL; }
+function slotCount(text){ return (text.match(/\{(\d+)\}/g)||[]).length; }
+
+function setSet(s){
+  curSet = s; idx = 0;
+  document.getElementById('tabFan').setAttribute('aria-selected', s==='fan');
+  document.getElementById('tabCool').setAttribute('aria-selected', s==='cool');
+  document.getElementById('builder').classList.toggle('cool', s==='cool');
+  document.getElementById('stage').classList.toggle('cool-stage', s==='cool');
+  renderBuild();
+}
+
+function renderBuild(){
+  const list = activeList();
+  // skip fixed-phrase chunks (no bank) in the builder
+  let guard = 0;
+  while(list[idx].bank.length===0 && guard<list.length){ idx=(idx+1)%list.length; guard++; }
+  const c = list[idx];
+  filled = new Array(slotCount(c.text)).fill(null);
+  document.getElementById('counter').textContent = 'CHUNK '+(idx+1)+' / '+list.length;
+  paintLine();
+  paintBank();
+}
+
+function paintLine(){
+  const c = activeList()[idx];
+  let n = -1;
+  const active = filled.findIndex(x=>x===null);
+  const html = c.text.replace(/\{(\d+)\}/g, ()=>{
+    n++;
+    const val = filled[n];
+    const isActive = n===active;
+    return '<span class="bslot'+(val?' filled':'')+(isActive?' active':'')+'">'+(val||'____')+'</span>';
+  });
+  document.getElementById('buildLine').innerHTML = html;
+}
+
+function paintBank(){
+  const c = activeList()[idx];
+  const bank = document.getElementById('bank');
+  bank.innerHTML = '';
+  c.bank.forEach(w=>{
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = w;
+    chip.onclick = ()=>dropWord(w, chip);
+    bank.appendChild(chip);
+  });
+}
+
+function dropWord(w){
+  const slot = filled.findIndex(x=>x===null);
+  if(slot===-1) return;          // all slots full
+  filled[slot] = w;
+  paintLine();
+  // gentle echo of the word
+  speak(w);
+}
+
+function resetSlots(){
+  filled = filled.map(()=>null);
+  paintLine();
+}
+
+function currentSentence(){
+  const c = activeList()[idx];
+  let n=-1;
+  return c.text.replace(/\{(\d+)\}/g, ()=>{ n++; return filled[n]||'blank'; });
+}
+function sayBuild(){ speak(currentSentence()); }
+
+function nextChunk(){
+  idx = (idx+1) % activeList().length;
+  renderBuild();
+}
+setSet('fan');
+
+/* ---------------- PERSONALIZE ---------------- */
+const ME = [
+  "My favourite team is {0}.",
+  "I support {0}.",
+  "I play {0} every {1}.",
+  "I'm not really into {0}, but I love {1}.",
+  "I'd rather {0} than watch sports."
+];
+function buildMe(){
+  const zone = document.getElementById('meZone');
+  ME.forEach((t,i)=>{
+    const cool = i>=3;
+    const card = document.createElement('div');
+    card.className = 'me-card'+(cool?' cool':'');
+    let n=-1;
+    const html = t.replace(/\{(\d+)\}/g, ()=>{
+      n++;
+      return '<input class="me-input" data-card="'+i+'" placeholder="…" aria-label="fill in">';
+    });
+    card.innerHTML = '<div class="me-line">'+html+'</div>';
+    zone.appendChild(card);
+  });
+}
+buildMe();
+function sayAllMe(){
+  const cards = document.querySelectorAll('.me-card');
+  let queue = [];
+  cards.forEach((card,i)=>{
+    const inputs = card.querySelectorAll('.me-input');
+    let t = ME[i]; let n=-1;
+    t = t.replace(/\{(\d+)\}/g, ()=>{ n++; return inputs[n].value.trim()||'blank'; });
+    queue.push(t);
+  });
+  // speak them one after another
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  queue.forEach(t=>{
+    const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=.9;
+    window.speechSynthesis.speak(u);
+  });
+}
+
+/* ---------------- FLASHCARDS ---------------- */
+function buildFlips(){
+  const mount = document.getElementById('flips');
+  const all = FAN.map(c=>({...c,cool:false})).concat(COOL.map(c=>({...c,cool:true})));
+  all.forEach(c=>{
+    const f = document.createElement('div');
+    f.className='flip';
+    f.onclick=()=>f.classList.toggle('on');
+    f.innerHTML =
+      '<div class="flip-inner">'+
+        '<div class="flip-face flip-front'+(c.cool?' cool':'')+'">'+c.meaning+
+          '<span class="flip-hint">tap to reveal the chunk</span></div>'+
+        '<div class="flip-face flip-back">'+slotsToHTML(c.text)+'</div>'+
+      '</div>';
+    mount.appendChild(f);
+  });
+}
+buildFlips();
+</script>
+</body>
+</html>
