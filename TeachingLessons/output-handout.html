@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pushed Output — Teacher Review &amp; Self-Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15120E; --paper:#FBF7F0; --paper-2:#ECE3D4;
+    --volt:#2440E6; --pop:#FF2E8B;
+    --correct:#1f7a4d; --rethink:#B23A2E;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper-2);color:var(--ink);line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:36px 18px 80px}
+  header.hero{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:12px 12px 0 var(--volt);padding:34px 30px;margin-bottom:14px}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:12px;color:var(--pop)}
+  header.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,7vw,54px);line-height:.98;letter-spacing:-.02em;margin:10px 0 12px}
+  header.hero p{max-width:54ch;color:rgba(251,247,240,.85);font-size:16px}
+  .scorebar{position:sticky;top:0;z-index:20;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    margin:18px 0 30px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+  .scorebar .label{font-family:var(--mono);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  .track{flex:1;height:14px;background:var(--paper-2);border:2px solid var(--ink);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--volt);transition:width .4s ease}
+  #scoreNum{font-family:var(--mono);font-weight:700;font-size:13px;min-width:54px;text-align:right}
+  /* dials summary */
+  .dials{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  .dial{border:3px solid var(--ink);padding:18px 18px;box-shadow:6px 6px 0 var(--ink);background:var(--paper)}
+  .dial.v{border-top:10px solid var(--volt)} .dial.p{border-top:10px solid var(--pop)}
+  .dial .t{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .dial.v .t{color:var(--volt)} .dial.p .t{color:var(--pop)}
+  .dial h3{font-family:var(--display);font-weight:900;font-size:22px;margin:6px 0}
+  .dial p{font-size:14px;color:#5b544a}
+  .intro-block{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin-bottom:8px}
+  .intro-block > p{font-size:16px;margin-bottom:12px}
+  .try{background:var(--paper-2);border:2px solid var(--ink);padding:14px 16px;margin-top:10px}
+  .try .lbl{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--volt)}
+  .try ul{list-style:none;margin-top:8px}
+  .try li{padding:5px 0 5px 22px;position:relative;font-size:15px}
+  .try li::before{content:"→";position:absolute;left:0;font-weight:700}
+  /* quiz */
+  .quiz{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin:26px 0}
+  .keyterms{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--volt);padding:22px 24px;margin:26px 0}
+  .keyterms .kt-h{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--volt);margin-bottom:14px}
+  .keyterms dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}
+  .keyterms dt{font-family:var(--display);font-weight:900;font-size:16px;white-space:nowrap}
+  .keyterms dd{font-size:15px;color:#4a443b;margin:0;line-height:1.4}
+  @media (max-width:520px){.keyterms dl{grid-template-columns:1fr;gap:2px 0}.keyterms dd{margin-bottom:10px}}
+  .qlabel{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8a8170}
+  .q{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.22;margin:6px 0 16px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper);padding:13px 15px;font:inherit;font-size:15px;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  .opt:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .opt .mark{font-family:var(--mono);font-weight:700;flex:none;width:22px;height:22px;border:2px solid var(--ink);display:grid;place-items:center;font-size:12px;border-radius:50%}
+  .opt.correct{background:#e7f3ec;border-color:var(--correct);box-shadow:4px 4px 0 var(--correct)}
+  .opt.correct .mark{background:var(--correct);color:#fff;border-color:var(--correct)}
+  .opt.wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:4px 4px 0 var(--rethink);transform:translate(2px,2px)}
+  .opt.wrong .mark{background:var(--rethink);color:#fff;border-color:var(--rethink)}
+  .opt[disabled]{cursor:default;opacity:.96}
+  .fb{margin-top:14px;border-left:6px solid var(--ink);background:var(--paper-2);padding:12px 14px;font-size:15px;display:none}
+  .fb.show{display:block;animation:pop .25s ease}
+  .fb.ok{border-color:var(--correct)} .fb.no{border-color:var(--rethink)}
+  .fb b{font-family:var(--mono);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* chip pick */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0}
+  .chip{cursor:pointer;font:inherit;font-weight:600;font-size:14px;border:2px solid var(--ink);background:var(--paper);
+    padding:10px 14px;box-shadow:3px 3px 0 var(--ink)}
+  .chip:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .chip.hit{background:var(--pop);color:var(--paper);border-color:var(--ink)}
+  .chip.miss{background:#f6e6e4;color:var(--rethink);text-decoration:line-through}
+  .hintline{font-size:13px;color:#8a8170;font-family:var(--mono);margin-top:8px}
+  /* scenarios */
+  .scn{border:2px solid var(--ink);background:var(--paper);padding:14px 16px;margin-top:12px;box-shadow:4px 4px 0 var(--ink)}
+  .scn p.text{font-size:15px;margin-bottom:12px}
+  .toggle{display:flex;gap:10px}
+  .toggle button{flex:1;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper-2);padding:9px;box-shadow:3px 3px 0 var(--ink)}
+  .toggle button:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .toggle button.picked-right{background:#e7f3ec;border-color:var(--correct);box-shadow:3px 3px 0 var(--correct)}
+  .toggle button.picked-wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:3px 3px 0 var(--rethink)}
+  .toggle button[disabled]{cursor:default}
+  .finale{border:3px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px 26px;margin-top:30px;box-shadow:10px 10px 0 var(--pop);text-align:center;display:none}
+  .finale.show{display:block;animation:pop .3s ease}
+  .finale h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,40px);line-height:1.02;margin-bottom:8px}
+  .finale p{color:rgba(251,247,240,.85);max-width:46ch;margin:0 auto}
+  .commit{margin-top:34px;border:3px dashed var(--ink);padding:22px 24px;background:var(--paper)}
+  .commit h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px}
+  .commit textarea{width:100%;margin-top:12px;border:2px solid var(--ink);background:var(--paper-2);padding:12px;font:inherit;font-size:15px;min-height:70px;resize:vertical}
+  footer{margin-top:40px;font-family:var(--mono);font-size:12px;color:#8a8170;text-align:center;line-height:1.7}
+  :focus-visible{outline:3px solid var(--volt);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Teacher review · self-check · EFL</div>
+    <h1>Pushed output, on one page.</h1>
+    <p>Get more language out of every learner, more often, and stretch it a little further each time. Here's the idea, the moves to try tomorrow, and a few checks with instant feedback so you can test yourself.</p>
+  </header>
+
+  <div class="scorebar" aria-live="polite">
+    <span class="label">Checks done</span>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span id="scoreNum">0 / 4</span>
+  </div>
+
+  <div class="intro-block">
+    <p><strong>The idea.</strong> Input (the English students hear and read) gets learners ready, but it isn't enough on its own — they also have to <em>produce</em> language themselves. Producing makes learners notice what they can't yet say, test what they know, and — with practice — say it more and more automatically. The problem: in most classrooms, students hear and read a lot of English but say very little, and a few confident students do nearly all the talking.</p>
+    <p>So work on two dials at the same time:</p>
+    <div class="dials">
+      <div class="dial v"><span class="t">Dial 01</span><h3>Volume</h3><p>How much each learner says in a class — more turns, more words, more often.</p></div>
+      <div class="dial p"><span class="t">Dial 02</span><h3>Push</h3><p>How hard it makes them work — produce carefully and clearly, not just enough to be understood.</p></div>
+    </div>
+    <div class="try"><span class="lbl">Try it tomorrow</span>
+      <ul>
+        <li>Use pairs instead of hands-up — everyone answers every question at the same time.</li>
+        <li>Run a 4/3/2: the same talk to a new partner three times, with less time each round (4 → 3 → 2 minutes).</li>
+        <li>Make "say it again, but better" a regular habit between attempts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="keyterms">
+    <div class="kt-h">Key terms in plain English</div>
+    <dl>
+      <dt>Input</dt><dd>the English students hear and read.</dd>
+      <dt>Output</dt><dd>the English students say and write.</dd>
+      <dt>Pushed output</dt><dd>making students say things carefully and correctly — not just enough to be understood.</dd>
+      <dt>Volume</dt><dd>how much each student talks.</dd>
+      <dt>Push</dt><dd>how hard the task makes students work with the language.</dd>
+      <dt>Fluency</dt><dd>speaking smoothly, without long pauses.</dd>
+      <dt>Automatic</dt><dd>the words come without stopping to think.</dd>
+    </dl>
+  </div>
+
+  <!-- CHECK 1 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 1 · multiple choice</div>
+    <p class="q">In 90 seconds, which way of teaching gets the most total student talking?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The teacher asks a question and calls on confident students one at a time.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The teacher models three example answers clearly, then asks if there are questions.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Every student turns to a partner and both answer the same question at the same time.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 2 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 2 · click the right move</div>
+    <p class="q">All of these increase how much students talk. Click the one that also turns up the <strong>Push</strong> dial (makes the language harder).</p>
+    <div class="chips" data-pick>
+      <button class="chip">Switch from hands-up to pair work</button>
+      <button class="chip">Use think–pair–share</button>
+      <button class="chip" data-c>The second time, ask for a specific grammar point and one new detail</button>
+      <button class="chip">Add a second partner for the same task</button>
+    </div>
+    <p class="hintline">Push = making the language harder, not just getting more of it.</p>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 3 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 3 · multiple choice</div>
+    <p class="q">Why does repeating the same talk with less time each round (4/3/2) build fluency?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The new partners haven't heard it, so students learn new vocabulary each round.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Repeating the same ideas means students don't have to think about what to say, and less time pushes the words to come automatically.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Saying things faster trains students to speak quickly in real conversations.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 4 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 4 · pushed, or just chatting?</div>
+    <p class="q">Decide whether each activity helps students improve, or just fills time with talking.</p>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text">Students do a 4/3/2, and between rounds you ask them to add a linking word and correct one error they noticed.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="chat">
+      <p class="text">Students talk freely with a partner in English for ten minutes about anything, with no task, no goal, and no feedback.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text">An info-gap, where each partner has half the information and must ask and answer questions correctly to complete the chart.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+  </div>
+
+  <div class="finale" id="finale">
+    <h2>That's the engine.</h2>
+    <p id="finaleText"></p>
+  </div>
+
+  <div class="commit">
+    <h3>One move, next class.</h3>
+    <p>Don't try all of it. Pick the one move you'll use in your very next lesson — then write it somewhere you'll see it.</p>
+    <textarea placeholder="In my next class I will…"></textarea>
+  </div>
+
+  <footer>
+    Companion to the slide deck and facilitator demo pack.<br>
+    Sources: Swain (Output Hypothesis) · DeKeyser (skill acquisition / practice) · Nation (4/3/2 &amp; fluency) · Bygate (task repetition) · Gass &amp; Mackey (interaction) · Ortega · Brown &amp; Larson-Hall.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const total=4; let done=0;
+  const fill=document.getElementById('fill'); const scoreNum=document.getElementById('scoreNum');
+  const seen=new WeakSet();
+  function bump(el){ if(seen.has(el))return; seen.add(el); done++; scoreNum.textContent=done+' / '+total;
+    fill.style.width=(done/total*100)+'%'; if(done===total) showFinale(); }
+  function showFinale(){ const f=document.getElementById('finale');
+    document.getElementById('finaleText').textContent="More talking from every student, repeated and pushed a little further each time — using only the students and whiteboard you already have. Now scroll down and choose one move to try.";
+    f.classList.add('show'); f.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+  /* multiple choice */
+  document.querySelectorAll('.opts').forEach(group=>{
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    const correctMsg={
+      'Check 1':"Right. When students work in pairs, everyone talks at the same time, so every student practises. In the other two, only one student speaks at a time, or only the teacher speaks — the room looks busy, but almost no one is practising.",
+      'Check 3':"Exactly. The point isn't speed for its own sake. Repeating the same ideas means students don't have to think about what to say, so they can focus on how to say it — and less time each round makes the words come automatically."
+    };
+    const wrongMsg={
+      'Check 1':"Not quite. In that option only a few students speak, or mostly the teacher speaks. The amount of talking jumps only when everyone speaks at the same time.",
+      'Check 3':"Not quite. It's not about new vocabulary or just speaking fast. Fluency grows because students repeat ideas they already have (so it's easier to focus on the words) with less time each round (which makes the words come automatically)."
+    };
+    const qkey=quiz.querySelector('.qlabel').textContent.split('·')[0].trim();
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        if(group.dataset.locked)return; group.dataset.locked='1';
+        const right=opt.dataset.correct==='true';
+        opt.classList.add(right?'correct':'wrong'); opt.querySelector('.mark').textContent=right?'✓':'✕';
+        if(!right){ const r=[...group.querySelectorAll('.opt')].find(o=>o.dataset.correct==='true'); r.classList.add('correct'); r.querySelector('.mark').textContent='✓'; }
+        group.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+        fb.classList.add('show', right?'ok':'no'); fbText.textContent=right?correctMsg[qkey]:wrongMsg[qkey];
+        bump(quiz);
+      });
+    });
+  });
+
+  /* chip pick (single correct) */
+  document.querySelectorAll('[data-pick]').forEach(group=>{
+    if(!group.classList.contains('chips'))return;
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    group.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        if(group.dataset.locked)return;
+        if(chip.dataset.c!==undefined){
+          group.dataset.locked='1'; chip.classList.add('hit');
+          group.querySelectorAll('.chip').forEach(c=>c.disabled=true);
+          fb.classList.add('show','ok');
+          fbText.textContent='Yes. Pair work, think–pair–share and extra partners all add volume — more talking. Only asking for a specific grammar point and a new detail makes the language harder. That\u2019s the Push dial.';
+          bump(quiz);
+        } else {
+          chip.classList.add('miss'); chip.disabled=true;
+          fb.classList.add('show','no');
+          fbText.textContent='That one adds volume but not push — students talk more, but the language is not any harder. Look for the move that asks for something more difficult the second time.';
+        }
+      });
+    });
+  });
+
+  /* scenarios */
+  document.querySelectorAll('[data-scn]').forEach(scn=>{
+    const right=scn.dataset.right; const fb=scn.querySelector('[data-fb]'); const fbText=scn.querySelector('[data-fbtext]');
+    const msgs={
+      'pushed-ok':"Pushed. Students repeat and produce a lot, you make it harder, and you give feedback between rounds — volume and push together.",
+      'chat-pushed':"This one is actually pushed: the info-gap makes students use accurate English to finish a real task — they have to talk, and talk correctly.",
+      'chat-ok':"Right — this is just chatting. Free talk with no task, no goal, and no feedback gives volume but no push, so students stop improving.",
+      'pushed-chat':"Look again: with a clear task, a goal, and feedback, this makes the language harder instead of just filling time. That\u2019s pushed output."
+    };
+    const buttons=scn.querySelectorAll('.toggle button');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(scn.dataset.locked)return; scn.dataset.locked='1';
+        const pick=btn.dataset.pick; const correct=pick===right;
+        btn.classList.add(correct?'picked-right':'picked-wrong');
+        if(!correct){ const rb=[...buttons].find(b=>b.dataset.pick===right); rb.classList.add('picked-right'); }
+        buttons.forEach(b=>b.disabled=true);
+        fb.classList.add('show', correct?'ok':'no');
+        fbText.textContent = correct ? msgs[right+'-ok'] : msgs[pick+'-'+right];
+        const parentQuiz=scn.closest('[data-q]'); const all=[...parentQuiz.querySelectorAll('[data-scn]')];
+        if(all.every(s=>s.dataset.locked)) bump(parentQuiz);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

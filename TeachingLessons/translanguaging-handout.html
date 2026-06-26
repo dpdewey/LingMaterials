@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Translanguaging — Teacher Review &amp; Self-Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181410; --paper:#FBF7F0; --paper-2:#ECE7DB;
+    --es:#0F7A4D; --en:#C12C66;
+    --correct:#1f7a4d; --rethink:#B23A2E;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper-2);color:var(--ink);line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:36px 18px 80px}
+  header.hero{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:12px 12px 0 var(--es);padding:34px 30px;margin-bottom:14px}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:12px;color:var(--en)}
+  header.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,7vw,54px);line-height:.98;letter-spacing:-.02em;margin:10px 0 12px}
+  header.hero p{max-width:54ch;color:rgba(251,247,240,.85);font-size:16px}
+  .scorebar{position:sticky;top:0;z-index:20;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    margin:18px 0 30px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+  .scorebar .label{font-family:var(--mono);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  .track{flex:1;height:14px;background:var(--paper-2);border:2px solid var(--ink);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--es);transition:width .4s ease}
+  #scoreNum{font-family:var(--mono);font-weight:700;font-size:13px;min-width:54px;text-align:right}
+  .dials{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  .dial{border:3px solid var(--ink);padding:18px 18px;box-shadow:6px 6px 0 var(--ink);background:var(--paper)}
+  .dial.v{border-top:10px solid var(--es)} .dial.p{border-top:10px solid var(--en)}
+  .dial .t{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .dial.v .t{color:var(--es)} .dial.p .t{color:var(--en)}
+  .dial h3{font-family:var(--display);font-weight:900;font-size:22px;margin:6px 0}
+  .dial p{font-size:14px;color:#5b544a}
+  .intro-block{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin-bottom:8px}
+  .intro-block > p{font-size:16px;margin-bottom:12px}
+  .try{background:var(--paper-2);border:2px solid var(--ink);padding:14px 16px;margin-top:10px}
+  .try .lbl{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--es)}
+  .try ul{list-style:none;margin-top:8px}
+  .try li{padding:5px 0 5px 22px;position:relative;font-size:15px}
+  .try li::before{content:"→";position:absolute;left:0;font-weight:700}
+  .keyterms{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--es);padding:22px 24px;margin:26px 0}
+  .keyterms .kt-h{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--es);margin-bottom:14px}
+  .keyterms dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}
+  .keyterms dt{font-family:var(--display);font-weight:900;font-size:16px;white-space:nowrap}
+  .keyterms dd{font-size:15px;color:#4a443b;margin:0;line-height:1.4}
+  @media (max-width:520px){.keyterms dl{grid-template-columns:1fr;gap:2px 0}.keyterms dd{margin-bottom:10px}}
+  .quiz{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin:26px 0}
+  .qlabel{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8a8170}
+  .q{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.22;margin:6px 0 16px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper);padding:13px 15px;font:inherit;font-size:15px;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  .opt:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .opt .mark{font-family:var(--mono);font-weight:700;flex:none;width:22px;height:22px;border:2px solid var(--ink);display:grid;place-items:center;font-size:12px;border-radius:50%}
+  .opt.correct{background:#e7f3ec;border-color:var(--correct);box-shadow:4px 4px 0 var(--correct)}
+  .opt.correct .mark{background:var(--correct);color:#fff;border-color:var(--correct)}
+  .opt.wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:4px 4px 0 var(--rethink);transform:translate(2px,2px)}
+  .opt.wrong .mark{background:var(--rethink);color:#fff;border-color:var(--rethink)}
+  .opt[disabled]{cursor:default;opacity:.96}
+  .fb{margin-top:14px;border-left:6px solid var(--ink);background:var(--paper-2);padding:12px 14px;font-size:15px;display:none}
+  .fb.show{display:block;animation:pop .25s ease}
+  .fb.ok{border-color:var(--correct)} .fb.no{border-color:var(--rethink)}
+  .fb b{font-family:var(--mono);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0}
+  .chip{cursor:pointer;font:inherit;font-weight:600;font-size:14px;border:2px solid var(--ink);background:var(--paper);
+    padding:10px 14px;box-shadow:3px 3px 0 var(--ink)}
+  .chip:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .chip.hit{background:var(--es);color:var(--paper);border-color:var(--ink)}
+  .chip.miss{background:#f6e6e4;color:var(--rethink);text-decoration:line-through}
+  .hintline{font-size:13px;color:#8a8170;font-family:var(--mono);margin-top:8px}
+  .scn{border:2px solid var(--ink);background:var(--paper);padding:14px 16px;margin-top:12px;box-shadow:4px 4px 0 var(--ink)}
+  .scn p.text{font-size:15px;margin-bottom:12px}
+  .toggle{display:flex;gap:10px}
+  .toggle button{flex:1;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper-2);padding:9px;box-shadow:3px 3px 0 var(--ink)}
+  .toggle button:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .toggle button.picked-right{background:#e7f3ec;border-color:var(--correct);box-shadow:3px 3px 0 var(--correct)}
+  .toggle button.picked-wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:3px 3px 0 var(--rethink)}
+  .toggle button[disabled]{cursor:default}
+  .finale{border:3px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px 26px;margin-top:30px;box-shadow:10px 10px 0 var(--en);text-align:center;display:none}
+  .finale.show{display:block;animation:pop .3s ease}
+  .finale h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,40px);line-height:1.02;margin-bottom:8px}
+  .finale p{color:rgba(251,247,240,.85);max-width:46ch;margin:0 auto}
+  .commit{margin-top:34px;border:3px dashed var(--ink);padding:22px 24px;background:var(--paper)}
+  .commit h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px}
+  .commit textarea{width:100%;margin-top:12px;border:2px solid var(--ink);background:var(--paper-2);padding:12px;font:inherit;font-size:15px;min-height:70px;resize:vertical}
+  footer{margin-top:40px;font-family:var(--mono);font-size:12px;color:#8a8170;text-align:center;line-height:1.7}
+  :focus-visible{outline:3px solid var(--es);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Teacher review · self-check · EFL</div>
+    <h1>Translanguaging, on one page.</h1>
+    <p>Use students' Spanish to build their English — on purpose, with rules. Give the first language a clear job, and keep English as the final product. Here's the idea, the moves to try tomorrow, and a few checks with instant feedback.</p>
+  </header>
+
+  <div class="scorebar" aria-live="polite">
+    <span class="label">Checks done</span>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span id="scoreNum">0 / 4</span>
+  </div>
+
+  <div class="intro-block">
+    <p><strong>The idea.</strong> "English only" was a classroom rule, not a research finding. Your students think in Spanish whether you allow it or not, so the smart choice is to use that — with a plan. Let Spanish do the heavy thinking, then have students put their ideas into English. The key word is <em>strategic</em>: Spanish has a clear job, and English is still the goal.</p>
+    <p>So work on two dials at the same time:</p>
+    <div class="dials">
+      <div class="dial v"><span class="t">Dial 01</span><h3>Spanish for thinking</h3><p>Let the first language do real work — planning, understanding, finding ideas.</p></div>
+      <div class="dial p"><span class="t">Dial 02</span><h3>English for the product</h3><p>The final work — said or written — is always in English, and students know it from the start.</p></div>
+    </div>
+    <div class="try"><span class="lbl">Try it tomorrow</span>
+      <ul>
+        <li>Let students brainstorm one task in Spanish, then produce the result in English.</li>
+        <li>Before a hard English text, let students predict the content in Spanish first.</li>
+        <li>Always name the English product before they start: "You'll present this in English."</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="keyterms">
+    <div class="kt-h">Key terms in plain English</div>
+    <dl>
+      <dt>Translanguaging</dt><dd>using two languages together, on purpose, for different jobs.</dd>
+      <dt>L1</dt><dd>your first language (here, Spanish).</dd>
+      <dt>L2</dt><dd>the language you are learning (here, English).</dd>
+      <dt>Strategic</dt><dd>planned, with a clear job — not "anything goes."</dd>
+      <dt>The product</dt><dd>the final work students say or hand in (here, in English).</dd>
+      <dt>Cognitive load</dt><dd>how hard the brain is working at one time.</dd>
+      <dt>Idea ceiling</dt><dd>the limit on ideas when students can only say what their English can reach.</dd>
+    </dl>
+  </div>
+
+  <!-- CHECK 1 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 1 · multiple choice</div>
+    <p class="q">Which one is strategic translanguaging?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Spanish is banned completely; students may only ever use English.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Students brainstorm a debate in Spanish, then hold the debate itself in English.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Whenever a task feels hard, students switch to Spanish and finish the whole thing in Spanish.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 2 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 2 · click the right move</div>
+    <p class="q">All of these use Spanish. Click the one where <strong>English is still the final product</strong>.</p>
+    <div class="chips" data-pick>
+      <button class="chip" data-c>Plan in Spanish, then present the plan in English</button>
+      <button class="chip">Brainstorm in Spanish, then write the essay in Spanish</button>
+      <button class="chip">Discuss the answer in Spanish and hand it in in Spanish</button>
+      <button class="chip">Read the English text and summarize it in Spanish</button>
+    </div>
+    <p class="hintline">Strategic = Spanish does a job, but the thing students produce is in English.</p>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 3 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 3 · multiple choice</div>
+    <p class="q">Why let students think in Spanish first, instead of English only?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Because English isn't really that important for these students.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>So their ideas aren't limited by their English level — they think freely first, then put their best ideas into English.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Because it lets students avoid English whenever a task gets difficult.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 4 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 4 · strategic, or just allowing Spanish?</div>
+    <p class="q">Decide whether each activity is strategic translanguaging, or just allowing Spanish.</p>
+
+    <div class="scn" data-scn data-right="strategic">
+      <p class="text">Students brainstorm ideas for a presentation in Spanish, then give the presentation in English.</p>
+      <div class="toggle"><button data-pick="strategic">Strategic</button><button data-pick="allow">Just allowing it</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="allow">
+      <p class="text">Whenever the English gets hard, students switch to Spanish and finish the task in Spanish.</p>
+      <div class="toggle"><button data-pick="strategic">Strategic</button><button data-pick="allow">Just allowing it</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="strategic">
+      <p class="text">Before reading an English text, students predict the content in Spanish, then read and check in English.</p>
+      <div class="toggle"><button data-pick="strategic">Strategic</button><button data-pick="allow">Just allowing it</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+  </div>
+
+  <div class="finale" id="finale">
+    <h2>That's the move.</h2>
+    <p id="finaleText"></p>
+  </div>
+
+  <div class="commit">
+    <h3>One move, next class.</h3>
+    <p>Don't try all of it. Pick the one move you'll use in your very next lesson — then write it somewhere you'll see it.</p>
+    <textarea placeholder="In my next class I will…"></textarea>
+  </div>
+
+  <footer>
+    Companion to the slide deck and facilitator demo pack.<br>
+    Sources: García &amp; Wei (translanguaging) · Cummins (L1 as a resource) · Cenoz &amp; Gorter (pedagogical translanguaging) · Ortega · Brown &amp; Larson-Hall.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const total=4; let done=0;
+  const fill=document.getElementById('fill'); const scoreNum=document.getElementById('scoreNum');
+  const seen=new WeakSet();
+  function bump(el){ if(seen.has(el))return; seen.add(el); done++; scoreNum.textContent=done+' / '+total;
+    fill.style.width=(done/total*100)+'%'; if(done===total) showFinale(); }
+  function showFinale(){ const f=document.getElementById('finale');
+    document.getElementById('finaleText').textContent="Give Spanish a clear job, keep English as the product, and your quieter students suddenly have a lot more to say — using only the languages already in the room. Now scroll down and choose one move to try.";
+    f.classList.add('show'); f.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+  /* multiple choice */
+  document.querySelectorAll('.opts').forEach(group=>{
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    const correctMsg={
+      'Check 1':"Right. Spanish does a clear job (the brainstorm) and English is still the goal (the debate). That mix of two languages, each with its own job, is strategic translanguaging.",
+      'Check 3':"Exactly. With English only, students shrink their ideas to fit the words they have. Letting them think in Spanish first lifts that limit — then English carries the finished idea."
+    };
+    const wrongMsg={
+      'Check 1':"Not quite. Banning Spanish wastes a resource that's already in the room, and finishing everything in Spanish means the English never comes. Strategic use sits in between: Spanish for a job, English as the goal.",
+      'Check 3':"Not quite. It's not about avoiding English or saying English doesn't matter. It's that thinking in Spanish first removes the limit on ideas, so the English students do produce is richer."
+    };
+    const qkey=quiz.querySelector('.qlabel').textContent.split('·')[0].trim();
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        if(group.dataset.locked)return; group.dataset.locked='1';
+        const right=opt.dataset.correct==='true';
+        opt.classList.add(right?'correct':'wrong'); opt.querySelector('.mark').textContent=right?'✓':'✕';
+        if(!right){ const r=[...group.querySelectorAll('.opt')].find(o=>o.dataset.correct==='true'); r.classList.add('correct'); r.querySelector('.mark').textContent='✓'; }
+        group.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+        fb.classList.add('show', right?'ok':'no'); fbText.textContent=right?correctMsg[qkey]:wrongMsg[qkey];
+        bump(quiz);
+      });
+    });
+  });
+
+  /* chip pick (single correct) */
+  document.querySelectorAll('[data-pick]').forEach(group=>{
+    if(!group.classList.contains('chips'))return;
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    group.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        if(group.dataset.locked)return;
+        if(chip.dataset.c!==undefined){
+          group.dataset.locked='1'; chip.classList.add('hit');
+          group.querySelectorAll('.chip').forEach(c=>c.disabled=true);
+          fb.classList.add('show','ok');
+          fbText.textContent='Yes. In the other three, the thing students produce ends up in Spanish (or there is no English product at all). Only "plan in Spanish, present in English" keeps English as the final product. That\u2019s the strategic part.';
+          bump(quiz);
+        } else {
+          chip.classList.add('miss'); chip.disabled=true;
+          fb.classList.add('show','no');
+          fbText.textContent='In that one, Spanish is used but the final product is also in Spanish — so the English never comes. Look for the move where students think in Spanish but produce the result in English.';
+        }
+      });
+    });
+  });
+
+  /* scenarios */
+  document.querySelectorAll('[data-scn]').forEach(scn=>{
+    const right=scn.dataset.right; const fb=scn.querySelector('[data-fb]'); const fbText=scn.querySelector('[data-fbtext]');
+    const msgs={
+      'strategic-ok':"Strategic. Spanish has a clear job (the brainstorm or the prediction) and English is still the product. Two languages, two jobs, English as the goal.",
+      'allow-strategic':"This one is actually strategic: Spanish does a bounded job — predicting the content — and then English takes over for the reading. The L1 prepares for the L2; it doesn't replace it.",
+      'allow-ok':"Right — this is just allowing Spanish. The task starts and ends in Spanish, so there's no English product and nothing pushing students back toward the L2.",
+      'strategic-allow':"Look again: Spanish only does the thinking here, and English is still the final product, with a clear target. That bounded job is what makes it strategic, not a free-for-all."
+    };
+    const buttons=scn.querySelectorAll('.toggle button');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(scn.dataset.locked)return; scn.dataset.locked='1';
+        const pick=btn.dataset.pick; const correct=pick===right;
+        btn.classList.add(correct?'picked-right':'picked-wrong');
+        if(!correct){ const rb=[...buttons].find(b=>b.dataset.pick===right); rb.classList.add('picked-right'); }
+        buttons.forEach(b=>b.disabled=true);
+        fb.classList.add('show', correct?'ok':'no');
+        fbText.textContent = correct ? msgs[right+'-ok'] : msgs[pick+'-'+right];
+        const parentQuiz=scn.closest('[data-q]'); const all=[...parentQuiz.querySelectorAll('[data-scn]')];
+        if(all.every(s=>s.dataset.locked)) bump(parentQuiz);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
