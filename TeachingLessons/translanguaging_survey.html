@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Translanguaging — Teacher Survey · Teach for Success</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181410; --paper:#FBF7F0; --paper-2:#EFE7DB; --card:#FFFFFF;
+    --es:#0F7A4D; --en:#C12C66; --mute:#6a6256;
+    --display:"Bungee", sans-serif;
+    --serif:"Fraunces", Georgia, serif;
+    --mono:"Space Mono", monospace;
+    --shadow:6px 6px 0 var(--ink);
+    --shadow-sm:4px 4px 0 var(--ink);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--serif);background:var(--paper-2);color:var(--ink);line-height:1.5;-webkit-text-size-adjust:100%}
+  .wrap{max-width:760px;margin:0 auto;padding:26px 16px 90px}
+
+  /* progress */
+  .prog{position:sticky;top:0;z-index:30;background:var(--paper);border:3px solid var(--ink);box-shadow:var(--shadow-sm);
+    padding:10px 14px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+  .prog .lab{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+  .track{flex:1;height:14px;background:var(--paper-2);border:2px solid var(--ink);overflow:hidden}
+  #prog-fill{height:100%;width:0;background:var(--es);transition:width .35s ease}
+  #prog-count{font-family:var(--mono);font-weight:700;font-size:12px;min-width:52px;text-align:right}
+
+  /* header */
+  header.hero{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:8px 8px 0 var(--es);padding:26px 24px;margin-bottom:22px}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:11px;color:var(--en);margin-bottom:12px}
+  header.hero h1{font-family:var(--display);font-size:clamp(30px,7vw,52px);line-height:1.0;letter-spacing:.01em;color:var(--paper);word-break:break-word}
+  header.hero .sub{font-family:var(--serif);font-weight:600;font-size:clamp(16px,2.4vw,20px);color:#F1E9DB;margin-top:10px}
+  header.hero .intro{font-size:15px;color:rgba(251,247,240,.82);margin-top:14px;max-width:56ch}
+
+  /* scale legend */
+  .legend{border:3px solid var(--ink);background:var(--card);box-shadow:var(--shadow-sm);padding:14px 16px;margin-bottom:20px}
+  .legend .lh{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--mute);margin-bottom:10px}
+  .legend ol{list-style:none;display:flex;flex-wrap:wrap;gap:8px 14px}
+  .legend li{font-family:var(--mono);font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px}
+  .swatch{width:16px;height:16px;border:2px solid var(--ink);display:inline-block}
+  .sw1{background:var(--en)} .sw2{background:#E06A93} .sw3{background:#8A8170} .sw4{background:#4FA97C} .sw5{background:var(--es)}
+
+  /* section */
+  .sec-head{display:flex;align-items:center;gap:14px;margin:26px 0 14px}
+  .sec-num{font-family:var(--display);font-size:26px;color:var(--paper);background:var(--es);border:3px solid var(--ink);
+    box-shadow:var(--shadow-sm);width:52px;height:52px;display:grid;place-items:center;flex:none}
+  .sec-b .sec-num{background:var(--en)}
+  .sec-head .st{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--mute)}
+  .sec-head .stitle{font-family:var(--serif);font-weight:900;font-size:clamp(21px,3.2vw,27px);line-height:1.05}
+
+  /* question */
+  .q{border:3px solid var(--ink);background:var(--card);box-shadow:var(--shadow-sm);padding:16px 16px 14px;margin-bottom:14px}
+  .qt{font-size:17px;line-height:1.35;margin-bottom:12px}
+  .qt b{color:var(--ink);font-weight:900}
+  .qn{font-family:var(--mono);font-weight:700;font-size:12px;color:var(--es);border:2px solid var(--ink);padding:1px 6px;margin-right:8px}
+  .sec-b .qn{color:var(--en)}
+  .dots{display:flex;gap:10px;flex-wrap:wrap}
+  .dot{cursor:pointer;width:44px;height:44px;border:3px solid var(--ink);background:var(--paper);box-shadow:3px 3px 0 var(--ink);
+    font-family:var(--mono);font-weight:700;font-size:15px;color:var(--ink);display:grid;place-items:center;transition:transform .06s}
+  .dot:hover{transform:translate(-1px,-1px)}
+  .dot:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+  .dot.selected-1{background:var(--en);color:#fff} .dot.selected-2{background:#E06A93;color:#fff}
+  .dot.selected-3{background:#8A8170;color:#fff} .dot.selected-4{background:#4FA97C;color:#fff}
+  .dot.selected-5{background:var(--es);color:#fff}
+  .ends{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--mute)}
+
+  /* open + about */
+  .open{border:3px solid var(--ink);background:var(--card);box-shadow:var(--shadow-sm);padding:16px;margin-bottom:14px}
+  .ol{display:block;font-size:16px;font-weight:600;margin-bottom:10px}
+  .ol .qn{color:var(--es)}
+  textarea,input[type=text]{width:100%;border:3px solid var(--ink);background:var(--paper);padding:11px 12px;
+    font-family:var(--serif);font-size:15px;color:var(--ink);resize:vertical}
+  textarea{min-height:78px}
+  textarea:focus,input:focus{outline:none;box-shadow:var(--shadow-sm)}
+
+  .btn{width:100%;margin-top:8px;cursor:pointer;font-family:var(--display);font-size:19px;color:var(--paper);
+    background:var(--es);border:3px solid var(--ink);box-shadow:var(--shadow);padding:16px;letter-spacing:.02em}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:8px 8px 0 var(--ink)}
+  .btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+
+  /* thank you */
+  #thank-you{display:none;border:3px solid var(--ink);background:var(--es);color:var(--paper);box-shadow:8px 8px 0 var(--ink);padding:34px 26px;text-align:center;margin-top:10px}
+  #thank-you h2{font-family:var(--display);font-size:clamp(26px,6vw,40px);line-height:1.0;margin-bottom:12px}
+  #thank-you p{font-size:16px;max-width:44ch;margin:0 auto;color:#EAF5EF}
+
+  footer{margin-top:26px;font-family:var(--mono);font-size:11px;color:var(--mute);text-align:center;line-height:1.8}
+
+  :focus-visible{outline:4px solid var(--en);outline-offset:2px}
+  @media (max-width:480px){ .dot{width:40px;height:40px} }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="prog" aria-live="polite">
+    <span class="lab">Progress</span>
+    <div class="track"><div id="prog-fill"></div></div>
+    <span id="prog-count">0 / 12</span>
+  </div>
+
+  <div id="survey-form">
+    <header class="hero">
+      <div class="kicker">Teach for Success · Teacher Survey</div>
+      <h1>TRANSLANGUAGING</h1>
+      <div class="sub">Using students' Spanish to build their English.</div>
+      <p class="intro">A quick survey before we begin. Your answers will shape our discussion today. There are no right or wrong answers — just tell us what you really think. It is anonymous.</p>
+    </header>
+
+    <div class="legend">
+      <div class="lh">The scale · tap one number for each statement</div>
+      <ol>
+        <li><span class="swatch sw1"></span>1 · Strongly disagree</li>
+        <li><span class="swatch sw2"></span>2 · Disagree</li>
+        <li><span class="swatch sw3"></span>3 · Not sure</li>
+        <li><span class="swatch sw4"></span>4 · Agree</li>
+        <li><span class="swatch sw5"></span>5 · Strongly agree</li>
+      </ol>
+    </div>
+
+    <!-- SECTION A -->
+    <div class="sec-a">
+      <div class="sec-head">
+        <div class="sec-num">A</div>
+        <div><div class="st">Section A · Beliefs</div><div class="stitle">What you believe</div></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A1</span>Using some <b>Spanish</b> can help students learn <b>English</b>.</p>
+        <div class="dots" role="radiogroup" aria-label="A1">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a1')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a1')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a1')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a1')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a1')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A2</span>An <b>&ldquo;English-only&rdquo;</b> classroom is the best way to learn English.</p>
+        <div class="dots" role="radiogroup" aria-label="A2">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a2')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a2')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a2')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a2')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a2')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A3</span>When students plan in <b>Spanish</b> first, the ideas they express in <b>English</b> are richer.</p>
+        <div class="dots" role="radiogroup" aria-label="A3">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a3')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a3')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a3')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a3')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a3')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A4</span>If I allow <b>Spanish</b>, students will <b>stop trying</b> to use English.</p>
+        <div class="dots" role="radiogroup" aria-label="A4">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a4')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a4')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a4')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a4')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a4')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A5</span>Using <b>Spanish for the first few years</b> and gradually increasing to English only for advanced learners produces better English learning.</p>
+        <div class="dots" role="radiogroup" aria-label="A5">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a5')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a5')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a5')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a5')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a5')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">A6</span>Using <b>Spanish</b> in an English class is a <b>waste of time</b>.</p>
+        <div class="dots" role="radiogroup" aria-label="A6">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'a6')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'a6')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'a6')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'a6')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'a6')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+    </div>
+
+    <!-- SECTION B -->
+    <div class="sec-b">
+      <div class="sec-head">
+        <div class="sec-num">B</div>
+        <div><div class="st">Section B · Your teaching</div><div class="stitle">What you do &mdash; and would try</div></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B1</span>I already use <b>Spanish</b> in my English classes <b>on purpose</b>.</p>
+        <div class="dots" role="radiogroup" aria-label="B1">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b1')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b1')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b1')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b1')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b1')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B2</span>My students may use <b>Spanish</b> when they <b>work in groups</b>.</p>
+        <div class="dots" role="radiogroup" aria-label="B2">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b2')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b2')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b2')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b2')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b2')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B3</span>I would try letting students <b>brainstorm in Spanish</b>, then produce in <b>English</b>.</p>
+        <div class="dots" role="radiogroup" aria-label="B3">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b3')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b3')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b3')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b3')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b3')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B4</span>I know <b>how</b> to use Spanish in a <b>planned, useful</b> way.</p>
+        <div class="dots" role="radiogroup" aria-label="B4">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b4')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b4')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b4')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b4')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b4')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B5</span>I worry that other <b>teachers or parents</b> would <b>not approve of Spanish </b>language use in my English classroom..</p>
+        <div class="dots" role="radiogroup" aria-label="B5">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b5')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b5')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b5')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b5')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b5')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+
+      <div class="q">
+        <p class="qt"><span class="qn">B6</span>I would like <b>more strategies</b> for using students' first language well.</p>
+        <div class="dots" role="radiogroup" aria-label="B6">
+          <button type="button" class="dot" data-val="1" onclick="select(this,'b6')" aria-label="1 strongly disagree">1</button>
+          <button type="button" class="dot" data-val="2" onclick="select(this,'b6')" aria-label="2 disagree">2</button>
+          <button type="button" class="dot" data-val="3" onclick="select(this,'b6')" aria-label="3 not sure">3</button>
+          <button type="button" class="dot" data-val="4" onclick="select(this,'b6')" aria-label="4 agree">4</button>
+          <button type="button" class="dot" data-val="5" onclick="select(this,'b6')" aria-label="5 strongly agree">5</button>
+        </div>
+        <div class="ends"><span>Disagree</span><span>Agree</span></div>
+      </div>
+    </div>
+
+    <!-- OPEN RESPONSES -->
+    <div class="sec-head">
+      <div class="sec-num" style="background:var(--ink)">C</div>
+      <div><div class="st">Section C · In your words</div><div class="stitle">Tell us a little more</div></div>
+    </div>
+
+    <div class="open">
+      <label class="ol" for="o1"><span class="qn">C1</span>When do you already use Spanish in your English class &mdash; if at all?</label>
+      <textarea id="o1" placeholder="Write a sentence or two…"></textarea>
+    </div>
+
+    <div class="open">
+      <label class="ol" for="o2"><span class="qn">C2</span>What is one thing you'd like to try, or one worry you have about using more Spanish?</label>
+      <textarea id="o2" placeholder="Write a sentence or two…"></textarea>
+    </div>
+
+ 
+    <button class="btn" type="button" onclick="submitSurvey()">Submit my answers</button>
+  </div><!-- /survey-form -->
+
+  <div id="thank-you">
+    <h2>Thank you!</h2>
+    <p>Your answers are in. We'll use them to shape our conversation about translanguaging today.</p>
+  </div>
+
+  <footer>
+    <strong>Teach for Success</strong> &nbsp;·&nbsp; Translanguaging Survey &nbsp;·&nbsp; EFL Teachers · B1+ &nbsp;·&nbsp; Anonymous · Responses used for our discussion only
+  </footer>
+</div>
+
+<script>
+  const answers = {};
+  const TOTAL_LIKERT = 12; // 6 in Section A + 6 in Section B
+  const likertKeys = ['a1','a2','a3','a4','a5','a6','b1','b2','b3','b4','b5','b6'];
+
+  function select(dot, qId){
+    const val = dot.dataset.val;
+    const parent = dot.closest('.dots');
+    parent.querySelectorAll('.dot').forEach(d => { d.className = 'dot'; });
+    dot.classList.add('selected-' + val);
+    answers[qId] = val;
+    updateProgress();
+  }
+
+  function updateProgress(){
+    const answered = likertKeys.filter(k => answers[k]).length;
+    const pct = Math.round((answered / TOTAL_LIKERT) * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-count').textContent = answered + ' / ' + TOTAL_LIKERT;
+  }
+
+  function submitSurvey(){
+    // Optional: collect open responses too
+    answers.c1 = document.getElementById('o1').value.trim();
+    answers.c2 = document.getElementById('o2').value.trim();
+    answers.classes = document.getElementById('classes').value.trim();
+
+    // ---- OPTIONAL GOOGLE FORMS INTEGRATION ----------------------------------
+    // To save responses, create a Google Form with matching questions, then map
+    // each answer to its entry ID and POST via a hidden iframe (no page reload):
+    //
+    //   const f = document.createElement('form');
+    //   f.action = 'https://docs.google.com/forms/d/e/FORM_ID/formResponse';
+    //   f.method = 'POST'; f.target = 'gf_sink';
+    //   const add = (entry, value) => { const i=document.createElement('input');
+    //     i.type='hidden'; i.name=entry; i.value=value; f.appendChild(i); };
+    //   add('entry.1111111', answers.a1); /* …one line per question… */
+    //   document.body.appendChild(f);
+    //   let ifr=document.createElement('iframe'); ifr.name='gf_sink';
+    //   ifr.style.display='none'; document.body.appendChild(ifr); f.submit();
+    //
+    // Note: build the Form on ONE page (no section breaks) or later answers are
+    // silently dropped by Google's formResponse endpoint.
+    // -------------------------------------------------------------------------
+
+    document.getElementById('survey-form').style.display = 'none';
+    document.getElementById('thank-you').style.display = 'block';
+    document.getElementById('prog-fill').style.width = '100%';
+    document.getElementById('prog-count').textContent = TOTAL_LIKERT + ' / ' + TOTAL_LIKERT;
+    document.getElementById('thank-you').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
