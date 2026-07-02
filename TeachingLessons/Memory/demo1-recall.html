@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo 1 · Group B — Read &amp; Recall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#1A140E;--paper:#FBF7F0;--paper-2:#EFE6D6;--recall:#6D28D9;--space:#DB6A0A;--people:#0E8C84;--slate:#5B544A;
+    --display:"Fraunces",Georgia,serif;--body:"Inter",system-ui,sans-serif;--mono:"Space Mono",monospace;--accent:var(--recall);}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper-2);color:var(--ink);line-height:1.5;padding:32px 18px}
+  .wrap{max-width:760px;margin:0 auto}
+  .hero{border:3px solid var(--ink);background:var(--accent);color:#fff;box-shadow:10px 10px 0 var(--ink);padding:24px 26px;margin-bottom:22px}
+  .tag{font-family:var(--mono);font-weight:700;text-transform:uppercase;letter-spacing:.16em;font-size:12px;opacity:.95;color:#fff}
+  .pill{display:inline-block;margin-top:10px;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:.06em;background:#fff;color:var(--accent);border:2px solid var(--ink);padding:4px 10px}
+  .hero h1{font-family:var(--display);font-weight:900;font-size:clamp(28px,5vw,42px);line-height:1.03;margin-top:10px;color:#fff}
+  .hero p{margin-top:10px;font-size:16px;color:rgba(255,255,255,.92);max-width:58ch}
+  .card{border:3px solid var(--ink);background:var(--paper);box-shadow:8px 8px 0 var(--ink);padding:22px 24px;margin-bottom:20px}
+  .card h2{font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--slate);margin-bottom:14px}
+  ol.steps{counter-reset:s;list-style:none}
+  ol.steps li{position:relative;padding:8px 0 8px 40px;font-size:16px;border-bottom:1px dashed #d8cdb8}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:6px;width:26px;height:26px;border:2px solid var(--ink);display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:13px;background:var(--accent);color:#fff}
+  .material{border:3px solid var(--ink);background:#fff;box-shadow:8px 8px 0 var(--accent);padding:24px;margin-bottom:20px}
+  .material .ml{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--slate);margin-bottom:14px}
+  .words{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px}
+  .words span{font-family:var(--display);font-weight:900;font-size:22px;text-align:center;border:2px solid var(--ink);padding:14px 8px;background:var(--paper)}
+  .covered{filter:blur(11px);opacity:.3;pointer-events:none;user-select:none}
+  .timer{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:3px dashed var(--ink);padding:14px 18px;margin-bottom:20px;background:var(--paper)}
+  .timer .tlabel{font-family:var(--mono);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--slate)}
+  .timer .tval{font-family:var(--mono);font-weight:700;font-size:34px;min-width:118px}
+  .timer .tval.done{color:var(--accent)}
+  .btn{font-family:var(--mono);font-weight:700;font-size:14px;cursor:pointer;border:3px solid var(--ink);background:var(--paper);padding:12px 18px;box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:inline-block}
+  .btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+  .btn.accent{background:var(--accent);color:#fff}
+  textarea{width:100%;min-height:120px;border:3px solid var(--ink);background:var(--paper);padding:12px;font-family:var(--body);font-size:16px;resize:vertical;margin-top:6px}
+  .note{border-left:6px solid var(--accent);background:var(--paper);padding:14px 16px;font-size:15px}
+  .hidden{display:none!important}
+  footer{margin-top:30px;font-family:var(--mono);font-size:12px;color:var(--slate);text-align:center}
+  :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="tag">Demo 1 · Retrieval · Group B</div>
+    <h1>Read, then recall.</h1>
+    <span class="pill">Your approach: RECALL</span>
+    <p>Study the words, then hide them and pull them back from memory. No peeking — the effort is the point.</p>
+  </div>
+
+  <div class="card">
+    <h2>Your task</h2>
+    <ol class="steps">
+      <li>Study the ten words below carefully.</li>
+      <li>When the presenter says so, press <strong>Hide the list</strong> and write down every word you can remember.</li>
+      <li>Do not look back at the list. Just practise recalling.</li>
+      <li>When told, open the Test page and write the words <strong>from memory</strong>.</li>
+    </ol>
+  </div>
+
+  <div class="timer">
+    <span class="tlabel">Study timer</span>
+    <span class="tval" id="tval">0:40</span>
+    <button class="btn" onclick="startTimer(40)">Start 40s</button>
+    <button class="btn" onclick="resetTimer(40)">Reset</button>
+  </div>
+
+  <div class="material">
+    <div class="ml">The ten words — study, then hide</div>
+    <div class="words" id="wordbox">
+      <span>door</span><span>river</span><span>candle</span><span>apple</span><span>whistle</span>
+      <span>blanket</span><span>engine</span><span>pepper</span><span>mirror</span><span>tunnel</span>
+    </div>
+    <div style="margin-top:16px">
+      <button class="btn accent" id="hideBtn" onclick="hideList()">Hide the list &amp; practise recall</button>
+      <button class="btn hidden" id="showBtn" onclick="showList()">Peek again</button>
+    </div>
+  </div>
+
+  <div class="card" id="practiceCard">
+    <h2>Practise recalling</h2>
+    <p>With the list hidden, write every word you can remember:</p>
+    <textarea id="practice" placeholder="Type the words you remember…"></textarea>
+    <div class="note" style="margin-top:16px">Recall feels harder than re-reading — that effort is exactly what makes the memory stick.</div>
+  </div>
+
+  <div class="card">
+    <h2>When time is called</h2>
+    <p style="margin-bottom:14px">Open the shared test page and recall the words from memory.</p>
+    <a class="btn accent" href="demo1-test.html">Open the Test page &rarr;</a>
+  </div>
+
+  <footer>Demo 1 · Group B (Recall) · goes with the deck and demo pack</footer>
+</div>
+<script>
+  let tInt=null;
+  const fmt=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+  function startTimer(sec){clearInterval(tInt);let r=sec;const el=document.getElementById('tval');el.textContent=fmt(r);el.classList.remove('done');
+    tInt=setInterval(()=>{r--;if(r<=0){clearInterval(tInt);el.textContent='Time!';el.classList.add('done');}else{el.textContent=fmt(r);}},1000);}
+  function resetTimer(sec){clearInterval(tInt);const el=document.getElementById('tval');el.textContent=fmt(sec);el.classList.remove('done');}
+  function hideList(){document.getElementById('wordbox').classList.add('covered');document.getElementById('hideBtn').classList.add('hidden');document.getElementById('showBtn').classList.remove('hidden');document.getElementById('practice').focus();}
+  function showList(){document.getElementById('wordbox').classList.remove('covered');document.getElementById('showBtn').classList.add('hidden');document.getElementById('hideBtn').classList.remove('hidden');}
+</script>
+</body>
+</html>
