@@ -85,6 +85,10 @@
   }
   .print-link:hover{transform:translate(-1px,-1px);}
   .print-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  .nav-links-row{
+    display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;
+  }
+  .nav-links-row .print-link{margin-top:0;}
   .print-link .en{
     font-family:'Bungee', cursive;
     font-size:0.75rem;
@@ -514,10 +518,16 @@
     <div class="hero-badge">DAY 1 · GET TO KNOW</div>
     <h1>Let's Get to Know Each Other!</h1>
     <p class="subtitle">¡Vamos a conocernos! · Say it out loud, then tap to check and hear it. 🔊</p>
-    <a class="print-link" href="day1_printable_cards.pdf" target="_blank" rel="noopener">
-      <span class="en">🖨️ Get the Printable Cards (PDF)</span>
-      <span class="es">Descargar las tarjetas para imprimir</span>
-    </a>
+    <div class="nav-links-row">
+      <a class="print-link" href="day1_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Get the Printable Cards (PDF)</span>
+        <span class="es">Descargar las tarjetas para imprimir</span>
+      </a>
+      <a class="print-link" href="day1_quiz.html">
+        <span class="en">🎯 Take the Quiz</span>
+        <span class="es">Hacer el cuestionario</span>
+      </a>
+    </div>
   </div>
 
   <nav class="tabs">
