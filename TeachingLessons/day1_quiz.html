@@ -28,6 +28,8 @@
     --plum-deep:#5E3D87;
     --plum-light:#F1E9FC;
     --yellow:#FFC93C;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
     --card-radius:14px;
   }
   *{box-sizing:border-box;}
@@ -172,6 +174,17 @@
   .option-btn.wrong{background:var(--coral);color:#fff;}
   .option-btn:disabled{cursor:default;}
 
+  .quiz-options.image-options{
+    grid-template-columns:repeat(auto-fit, minmax(110px,1fr));
+  }
+  .option-btn.image-option{
+    display:flex;align-items:center;justify-content:center;
+    min-height:110px;font-size:2.6rem;padding:8px;position:relative;overflow:hidden;
+  }
+  .option-btn.image-option .photo-wrap{position:relative;width:100%;height:90px;}
+  .option-btn.image-option .photo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:calc(var(--card-radius) - 6px);}
+  .option-btn.image-option svg{width:70%;height:70%;}
+
   .feedback-box{
     min-height:26px;text-align:center;font-family:'Space Mono', monospace;font-weight:700;
     margin-bottom:16px;
@@ -249,7 +262,7 @@
 
     <p class="quiz-prompt" id="quiz-prompt-text"></p>
 
-    <div class="quiz-visual-wrap">
+    <div class="quiz-visual-wrap" id="quiz-visual-wrap">
       <div class="quiz-visual" id="quiz-visual"></div>
     </div>
 
@@ -422,20 +435,31 @@
      speak:[{text:"This is a", lang:"en-US"},{text:"humita.", lang:"es-ES"}]}
   ];
 
-  const ages = [
-    {emoji:"5️⃣", word:"five", es:"cinco", sentence:"I am five years old."},
-    {emoji:"6️⃣", word:"six", es:"seis", sentence:"I am six years old."},
-    {emoji:"7️⃣", word:"seven", es:"siete", sentence:"I am seven years old."},
-    {emoji:"8️⃣", word:"eight", es:"ocho", sentence:"I am eight years old."},
-    {emoji:"9️⃣", word:"nine", es:"nueve", sentence:"I am nine years old."},
-    {emoji:"🔟", word:"ten", es:"diez", sentence:"I am ten years old."},
-    {emoji:"11", word:"eleven", es:"once", sentence:"I am eleven years old."},
-    {emoji:"12", word:"twelve", es:"doce", sentence:"I am twelve years old."},
-    {emoji:"20", word:"twenty", es:"veinte", sentence:"I am twenty years old."},
-    {emoji:"30", word:"thirty", es:"treinta", sentence:"I am thirty years old."},
-    {emoji:"40", word:"forty", es:"cuarenta", sentence:"I am forty years old."},
-    {emoji:"50", word:"fifty", es:"cincuenta", sentence:"I am fifty years old."}
-  ];
+  // The "How Old..." quiz no longer draws from the fixed set of ages taught
+  // on the practice page — it generates fresh random ages each time, so
+  // students have to apply the number-naming pattern instead of memorizing
+  // a matching list. See generateRandomAgeItems() below.
+  const AGE_QUIZ_COUNT = 10;
+  const ONES_WORDS = ['zero','one','two','three','four','five','six','seven','eight','nine','ten',
+    'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
+  const TENS_WORDS = ['', '', 'twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+
+  function numberToWords(n){
+    if(n < 20) return ONES_WORDS[n];
+    const tens = Math.floor(n/10), ones = n%10;
+    return ones===0 ? TENS_WORDS[tens] : `${TENS_WORDS[tens]}-${ONES_WORDS[ones]}`;
+  }
+
+  function generateRandomAgeItems(count){
+    const nums = new Set();
+    while(nums.size < count){
+      nums.add(3 + Math.floor(Math.random()*97)); // ages 3–99
+    }
+    return [...nums].map(n=>{
+      const word = numberToWords(n);
+      return { number:String(n), word, sentence:`I am ${word} years old.` };
+    });
+  }
 
   const nameItems = [
     {name:"María", country:"Ecuador", flag:"🇪🇨"},
@@ -451,6 +475,22 @@
     {name:"Lukas", country:"Germany", flag:"🇩🇪"},
     {name:"Chloé", country:"France", flag:"🇫🇷"},
     {name:"Emma", country:"Belgium", flag:"🇧🇪"}
+  ];
+
+  // Sentences stick to the pattern already taught elsewhere — "___ from
+  // COUNTRY" — instead of introducing new vocabulary (student, friend,
+  // brother...). I and you get two entries each (different countries) since
+  // those are the pronouns students have practiced most; we/they/he/she get
+  // one each. The flag is the "appropriate graphic" for the country part.
+  const pronouns = [
+    {emoji:"🙋🇪🇨", word:"I", verb:"am", es:"yo", sentence:"I am from Ecuador.", country:"Ecuador"},
+    {emoji:"🙋🇵🇪", word:"I", verb:"am", es:"yo", sentence:"I am from Peru.", country:"Peru"},
+    {emoji:"🫵🇲🇽", word:"you", verb:"are", es:"tú", sentence:"You are from Mexico.", country:"Mexico"},
+    {emoji:"🫵🇪🇸", word:"you", verb:"are", es:"tú", sentence:"You are from Spain.", country:"Spain"},
+    {emoji:"👥🇦🇷", word:"we", verb:"are", es:"nosotros/as", sentence:"We are from Argentina.", country:"Argentina"},
+    {emoji:"👫🇯🇵", word:"they", verb:"are", es:"ellos/ellas", sentence:"They are from Japan.", country:"Japan"},
+    {emoji:"👦🇨🇴", word:"he", verb:"is", es:"él", sentence:"He is from Colombia.", country:"Colombia"},
+    {emoji:"👧🇧🇷", word:"she", verb:"is", es:"ella", sentence:"She is from Brazil.", country:"Brazil"}
   ];
 
   // ---- Audio (Web Speech API) ----
@@ -536,13 +576,14 @@
   // ---- Question builders ----
   function makeCountryQuestion(item, pool){
     const others = pool.filter(p=>p.name!==item.name);
-    const distractors = shuffle(others).slice(0,3).map(p=>p.name);
+    const distractors = shuffle(others).slice(0,3);
     return {
-      frontItem:item,
-      prompt:"Where is this flag from?",
+      frontItem:null,
+      prompt:"Listen, then tap the matching flag.",
       frame:"I am from ___.",
       correct:item.name,
-      options:shuffle([item.name, ...distractors]),
+      optionType:'image',
+      options:shuffle([item, ...distractors]),
       speak:`I am from ${item.name}.`
     };
   }
@@ -574,26 +615,27 @@
 
   function makeObjectQuestion(item, pool){
     const others = pool.filter(p=>p.word!==item.word);
-    const distractors = shuffle(others).slice(0,3).map(p=>p.word);
+    const distractors = shuffle(others).slice(0,3);
     return {
-      frontItem:item,
-      prompt:"What is this?",
+      frontItem:null,
+      prompt:"Listen, then tap the matching picture.",
       frame:"This is a/an ___.",
       correct:item.word,
-      options:shuffle([item.word, ...distractors]),
+      optionType:'image',
+      options:shuffle([item, ...distractors]),
       speak:item.speak || item.sentence
     };
   }
 
   function makeAgeQuestion(item, pool){
-    const others = pool.filter(p=>p.word!==item.word);
-    const distractors = shuffle(others).slice(0,3).map(p=>p.word);
+    const others = pool.filter(p=>p.number!==item.number);
+    const distractors = shuffle(others).slice(0,3).map(p=>p.number);
     return {
-      frontItem:item,
-      prompt:"How do you say this number?",
+      frontItem:null,
+      prompt:"Listen! Which number do you hear?",
       frame:"I am ___ years old.",
-      correct:item.word,
-      options:shuffle([item.word, ...distractors]),
+      correct:item.number,
+      options:shuffle([item.number, ...distractors]),
       speak:item.sentence
     };
   }
@@ -608,6 +650,19 @@
       correct:item.name,
       options:shuffle([item.name, ...distractors]),
       speak:`My name is ${item.name}.`
+    };
+  }
+
+  function makePronounQuestion(item, pool){
+    const otherWords = [...new Set(pool.map(p=>p.word))].filter(w=>w!==item.word);
+    const distractors = shuffle(otherWords).slice(0,3);
+    return {
+      frontItem:item,
+      prompt:"Which word matches?",
+      frame:`___ am / are / is from ${item.country}.`,
+      correct:item.word,
+      options:shuffle([item.word, ...distractors]),
+      speak:item.sentence
     };
   }
 
@@ -630,11 +685,15 @@
     },
     age:{
       label:"How Old...", icon:"🎂", accent:"var(--teal)",
-      build:()=> shuffle(ages).map(it=>makeAgeQuestion(it, ages))
+      build:()=>{ const pool = generateRandomAgeItems(AGE_QUIZ_COUNT); return shuffle(pool).map(it=>makeAgeQuestion(it, pool)); }
     },
     names:{
       label:"What's Your Name?", icon:"👋", accent:"var(--plum)",
       build:()=> shuffle(nameItems).map(it=>makeNameQuestion(it, nameItems))
+    },
+    pronouns:{
+      label:"Pronouns", icon:"🙋", accent:"var(--rose)",
+      build:()=> shuffle(pronouns).map(it=>makePronounQuestion(it, pronouns))
     }
   };
 
@@ -654,7 +713,8 @@
       key==='countries' ? countries.length :
       key==='feelings' ? feelings.length :
       key==='ecuador' ? ecuadorItems.length :
-      key==='age' ? ages.length : nameItems.length;
+      key==='age' ? AGE_QUIZ_COUNT :
+      key==='names' ? nameItems.length : pronouns.length;
     const card = document.createElement('div');
     card.className = 'topic-card';
     card.style.setProperty('--accent', cat.accent);
@@ -671,7 +731,7 @@
   allCard.innerHTML = `
     <div class="icon">🎯</div>
     <div class="label">All Areas Mixed</div>
-    <div class="count">24 questions</div>
+    <div class="count">28 questions</div>
   `;
   allCard.addEventListener('click', ()=> startQuiz('all'));
   landingGrid.appendChild(allCard);
@@ -703,18 +763,38 @@
     document.getElementById('q-correct').textContent = correctCount;
     document.getElementById('quiz-prompt-text').innerHTML =
       `${q.prompt} <span class="quiz-frame">${q.frame}</span>`;
-    document.getElementById('quiz-visual').innerHTML = buildFront(q.frontItem);
+
+    const visualWrap = document.getElementById('quiz-visual-wrap');
+    if(q.frontItem){
+      visualWrap.classList.remove('hidden');
+      document.getElementById('quiz-visual').innerHTML = buildFront(q.frontItem);
+    } else {
+      // No front visual for this question — showing it would just be the
+      // answer's picture sitting right next to the picture options below.
+      visualWrap.classList.add('hidden');
+      document.getElementById('quiz-visual').innerHTML = '';
+    }
+
     document.getElementById('quiz-feedback').textContent = '';
     document.getElementById('quiz-feedback').className = 'feedback-box';
     document.getElementById('next-question').style.display = 'none';
 
     const optionsEl = document.getElementById('quiz-options');
     optionsEl.innerHTML = '';
+    const isImageOptions = q.optionType === 'image';
+    optionsEl.classList.toggle('image-options', isImageOptions);
     q.options.forEach(opt=>{
       const btn = document.createElement('button');
-      btn.className = 'option-btn';
-      btn.textContent = opt;
-      btn.addEventListener('click', ()=> handleAnswer(opt, btn, q));
+      const optWord = isImageOptions ? (opt.name || opt.word) : opt;
+      btn.dataset.word = optWord;
+      if(isImageOptions){
+        btn.className = 'option-btn image-option';
+        btn.innerHTML = buildFront(opt);
+      } else {
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+      }
+      btn.addEventListener('click', ()=> handleAnswer(optWord, btn, q));
       optionsEl.appendChild(btn);
     });
 
@@ -726,7 +806,7 @@
     const isCorrect = chosen === q.correct;
     document.querySelectorAll('.option-btn').forEach(b=>{
       b.disabled = true;
-      if(b.textContent === q.correct) b.classList.add('correct');
+      if(b.dataset.word === q.correct) b.classList.add('correct');
     });
     if(!isCorrect) btnEl.classList.add('wrong');
     if(isCorrect) correctCount++;

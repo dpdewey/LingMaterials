@@ -28,6 +28,9 @@
     --plum-deep:#5E3D87;
     --plum-light:#F1E9FC;
     --yellow:#FFC93C;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --rose-light:#FCE8EF;
     --card-radius:14px;
   }
   *{box-sizing:border-box;}
@@ -244,6 +247,7 @@
     transform:rotateY(180deg);
   }
   .back-word{font-family:'Bungee', cursive;font-size:1rem;line-height:1.2;margin-bottom:4px;}
+  .back-word .back-verb{color:var(--rose-deep, var(--ink));}
   .back-es{font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.75;}
   .qa-turns{
     display:flex;
@@ -425,6 +429,32 @@
     cursor:pointer;
   }
 
+  /* Pronoun "Point & Say" TPR activity */
+  .tpr-stage{
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+    margin:20px 0 30px;
+  }
+  .tpr-card{
+    width:280px;min-height:220px;
+    background:var(--rose-light);
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:8px;padding:22px;text-align:center;
+    transition:transform 0.2s ease;
+  }
+  .tpr-card.pulse{animation:pulse 0.4s;}
+  .tpr-emoji{font-size:3.8rem;line-height:1;}
+  .tpr-instruction{font-family:'Bungee', cursive;font-size:1.05rem;line-height:1.3;}
+  .tpr-instruction-es{font-family:'Space Mono', monospace;font-size:0.78rem;opacity:0.75;}
+  .tpr-sentence{
+    font-family:'Fraunces', serif;font-style:italic;font-size:0.95rem;
+    margin-top:6px;
+  }
+  .tpr-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .tpr-next-btn{background:var(--rose);color:#fff;}
+
   /* Name matching game */
   .dialogue-stage{
     display:flex;flex-direction:column;gap:12px;
@@ -537,6 +567,7 @@
     <button class="tab-btn" data-tab="objects" style="--accent:var(--gold)">🍽️ This is a...</button>
     <button class="tab-btn" data-tab="age" style="--accent:var(--teal)">🎂 How Old...</button>
     <button class="tab-btn" data-tab="names" style="--accent:var(--plum)">👋 What's Your Name?</button>
+    <button class="tab-btn" data-tab="pronouns" style="--accent:var(--rose)">🙋 Pronouns</button>
   </nav>
 
   <section id="countries" class="panel active">
@@ -627,6 +658,38 @@
     <div class="name-bonus" id="name-bonus"></div>
     <button class="next-btn" id="name-next">Next ▶</button>
     <button class="reset-btn" id="name-reset" style="display:none;">🔄 Play Again</button>
+  </section>
+
+  <section id="pronouns" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Point &amp; say the sentence! <span class="frame">I am / you are / we are / they are / he is / she is from ___.</span></p>
+    </div>
+
+    <div class="card-grid" id="pronouns-grid"></div>
+
+    <div class="culture-note">
+      <h3>📌 Nota gramatical para los estudiantes</h3>
+      <p><strong>is</strong> se usa con una sola persona — <em>he is</em>, <em>she is</em>. <strong>are</strong> se usa con más de una persona, o con "you" — <em>we are</em>, <em>they are</em>, <em>you are</em>. La palabra <em>I</em> siempre usa <strong>am</strong>: <em>I am</em>.</p>
+    </div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--rose)">🙋 Point &amp; Say! <span style="font-family:'Space Mono', monospace; font-size:0.7rem; font-weight:400; opacity:0.75;">(very active — get up and move!)</span></h2>
+    <div class="culture-note">
+      <p>Read the action out loud, <strong>do it for real</strong>, then say the sentence. Tap <strong>New Action</strong> and go again — try to move fast!</p>
+    </div>
+
+    <div class="tpr-stage">
+      <div class="tpr-card" id="tpr-card">
+        <div class="tpr-emoji" id="tpr-emoji">🙋</div>
+        <div class="tpr-instruction" id="tpr-instruction">Point to yourself!</div>
+        <div class="tpr-instruction-es" id="tpr-instruction-es">Señálate a ti mismo/a.</div>
+        <div class="tpr-sentence" id="tpr-sentence">Say: "I am a student."</div>
+      </div>
+      <div class="tpr-buttons">
+        <button class="sort-btn" id="tpr-replay">🔊 Hear it</button>
+        <button class="sort-btn tpr-next-btn" id="tpr-next">🔄 New Action</button>
+      </div>
+      <div class="score">Actions done: <span id="tpr-count">0</span></div>
+    </div>
   </section>
 
   <footer>Teach for Success · Day 1 practice tool</footer>
@@ -779,6 +842,26 @@
      speak:[{text:"This is a", lang:"en-US"},{text:"humita.", lang:"es-ES"}]}
   ];
 
+  // Teens (13–19) are the numbers students mix up most with the "-ty" decades
+  // (thirteen vs. thirty, etc.), so a handful are added at random each time
+  // the page loads — extra practice with numbers under 18, alongside the
+  // core taught set below.
+  const TEEN_AGE_OPTIONS = [
+    {emoji:"13", word:"thirteen", es:"trece", sentence:"I am thirteen years old."},
+    {emoji:"14", word:"fourteen", es:"catorce", sentence:"I am fourteen years old."},
+    {emoji:"15", word:"fifteen", es:"quince", sentence:"I am fifteen years old."},
+    {emoji:"16", word:"sixteen", es:"dieciséis", sentence:"I am sixteen years old."},
+    {emoji:"17", word:"seventeen", es:"diecisiete", sentence:"I am seventeen years old."},
+    {emoji:"18", word:"eighteen", es:"dieciocho", sentence:"I am eighteen years old."},
+    {emoji:"19", word:"nineteen", es:"diecinueve", sentence:"I am nineteen years old."}
+  ];
+
+  function pickRandomTeenAges(){
+    const count = 3 + Math.floor(Math.random()*2); // 3 or 4 items
+    const shuffled = [...TEEN_AGE_OPTIONS].sort(()=>Math.random()-0.5);
+    return shuffled.slice(0, count).sort((a,b)=> Number(a.emoji) - Number(b.emoji));
+  }
+
   const ages = [
     {emoji:"5️⃣", word:"five", es:"cinco", sentence:"I am five years old."},
     {emoji:"6️⃣", word:"six", es:"seis", sentence:"I am six years old."},
@@ -788,6 +871,7 @@
     {emoji:"🔟", word:"ten", es:"diez", sentence:"I am ten years old."},
     {emoji:"11", word:"eleven", es:"once", sentence:"I am eleven years old."},
     {emoji:"12", word:"twelve", es:"doce", sentence:"I am twelve years old."},
+    ...pickRandomTeenAges(),
     {emoji:"20", word:"twenty", es:"veinte", sentence:"I am twenty years old."},
     {emoji:"30", word:"thirty", es:"treinta", sentence:"I am thirty years old."},
     {emoji:"40", word:"forty", es:"cuarenta", sentence:"I am forty years old."},
@@ -808,6 +892,33 @@
     {name:"Lukas", country:"Germany", flag:"🇩🇪"},
     {name:"Chloé", country:"France", flag:"🇫🇷"},
     {name:"Emma", country:"Belgium", flag:"🇧🇪"}
+  ];
+
+  // Sentences stick to the pattern already taught elsewhere — "___ from
+  // COUNTRY" — instead of introducing new vocabulary (student, friend,
+  // brother...). I and you get two entries each (different countries) since
+  // those are the pronouns students have practiced most; we/they/he/she get
+  // one each. The flag is the "appropriate graphic" for the country part;
+  // the action instructions (point to yourself, etc.) stay the same either
+  // way. "verb" (am/are/is) is shown on the back of the card so the
+  // singular-vs-plural pattern is visible, not just spoken.
+  const pronouns = [
+    {emoji:"🙋🇪🇨", word:"I", verb:"am", es:"yo", sentence:"I am from Ecuador.",
+     action:"Point to yourself!", actionEs:"Señálate a ti mismo/a."},
+    {emoji:"🙋🇵🇪", word:"I", verb:"am", es:"yo", sentence:"I am from Peru.",
+     action:"Point to yourself!", actionEs:"Señálate a ti mismo/a."},
+    {emoji:"🫵🇲🇽", word:"you", verb:"are", es:"tú", sentence:"You are from Mexico.",
+     action:"Point to a partner!", actionEs:"Señala a un compañero/a."},
+    {emoji:"🫵🇪🇸", word:"you", verb:"are", es:"tú", sentence:"You are from Spain.",
+     action:"Point to a partner!", actionEs:"Señala a un compañero/a."},
+    {emoji:"👥🇦🇷", word:"we", verb:"are", es:"nosotros/as", sentence:"We are from Argentina.",
+     action:"Put an arm around your group!", actionEs:"Abrácense en su grupo."},
+    {emoji:"👫🇯🇵", word:"they", verb:"are", es:"ellos/ellas", sentence:"They are from Japan.",
+     action:"Point to two classmates!", actionEs:"Señala a dos compañeros/as."},
+    {emoji:"👦🇨🇴", word:"he", verb:"is", es:"él", sentence:"He is from Colombia.",
+     action:"Point to a boy in the room!", actionEs:"Señala a un niño en el salón."},
+    {emoji:"👧🇧🇷", word:"she", verb:"is", es:"ella", sentence:"She is from Brazil.",
+     action:"Point to a girl in the room!", actionEs:"Señala a una niña en el salón."}
   ];
 
   // ---- Audio (Web Speech API) ----
@@ -903,7 +1014,7 @@
           <div class="flip-back" style="--accent:${accentVar}">
             ${buildBackTop(item)}
             <div class="qa-turns">
-              <div class="qa-ask"><span class="qa-icon">🧑</span><span>${question}</span></div>
+              ${question ? `<div class="qa-ask"><span class="qa-icon">🧑</span><span>${question}</span></div>` : ''}
               <div class="qa-answer"><span class="qa-icon">🙂</span><span>${answerText}</span></div>
             </div>
             ${extraFn ? extraFn(item) : ''}
@@ -976,6 +1087,16 @@
     `,
     (item)=> item.sentence,
     "How old are you?",
+    (item)=> item.sentence
+  );
+
+  buildFlipCards('pronouns-grid', pronouns, 'var(--rose)',
+    (item)=>`
+      <div class="back-word">${item.word} <span class="back-verb">${item.verb}</span></div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> item.sentence,
+    "",
     (item)=> item.sentence
   );
 
@@ -1175,6 +1296,42 @@
   document.getElementById('name-reset').addEventListener('click', startNameGame);
 
   startNameGame();
+
+  // ---- Pronoun "Point & Say" TPR game (very active!) ----
+  let tprCount = 0;
+  let tprLastIndex = -1;
+  let currentTpr = null;
+
+  function pickTprItem(){
+    let i;
+    do { i = Math.floor(Math.random()*pronouns.length); }
+    while(pronouns.length > 1 && i === tprLastIndex);
+    tprLastIndex = i;
+    return pronouns[i];
+  }
+
+  function renderTpr(){
+    currentTpr = pickTprItem();
+    document.getElementById('tpr-emoji').textContent = currentTpr.emoji;
+    document.getElementById('tpr-instruction').textContent = currentTpr.action;
+    document.getElementById('tpr-instruction-es').textContent = currentTpr.actionEs;
+    document.getElementById('tpr-sentence').textContent = `Say: "${currentTpr.sentence}"`;
+    document.getElementById('tpr-card').classList.add('pulse');
+    setTimeout(()=> document.getElementById('tpr-card').classList.remove('pulse'), 400);
+    speakItem(currentTpr.sentence);
+  }
+
+  document.getElementById('tpr-next').addEventListener('click', ()=>{
+    tprCount++;
+    document.getElementById('tpr-count').textContent = tprCount;
+    renderTpr();
+  });
+
+  document.getElementById('tpr-replay').addEventListener('click', ()=>{
+    if(currentTpr) speakItem(currentTpr.sentence);
+  });
+
+  renderTpr();
 </script>
 </body>
 </html>
