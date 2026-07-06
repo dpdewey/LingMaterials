@@ -422,10 +422,11 @@
   // ---- SVG art assets (simple flat icons for items without a good emoji match) ----
   const ART = {
     plantain: `<svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-      <path d="M38,12 C22,38 14,75 22,108 C30,128 52,133 64,118 C82,96 85,52 72,22 C60,6 46,2 38,12 Z" fill="#4C9A2A" stroke="#1A1A1A" stroke-width="5"/>
-      <path d="M40,55 C34,75 33,95 40,112" fill="none" stroke="#2E6318" stroke-width="3" stroke-linecap="round"/>
-      <path d="M58,45 C64,70 65,95 56,115" fill="none" stroke="#2E6318" stroke-width="3" stroke-linecap="round"/>
-      <path d="M36,13 C30,9 27,4 31,2 C36,6 39,10 41,14 Z" fill="#7A5230" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M32,128 Q22,80 30,42 Q36,16 56,8" fill="none" stroke="#1A1A1A" stroke-width="36" stroke-linecap="round"/>
+      <path d="M32,128 Q22,80 30,42 Q36,16 56,8" fill="none" stroke="#4C9A2A" stroke-width="28" stroke-linecap="round"/>
+      <path d="M28,116 Q20,78 27,44" fill="none" stroke="#2E6318" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <path d="M38,120 Q32,78 38,46" fill="none" stroke="#7EC94A" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+      <path d="M52,10 Q62,2 71,6 Q65,13 58,15 Q53,13 52,10 Z" fill="#6B4A2A" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/>
     </svg>`,
     cacaoPod: `<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
       <g transform="rotate(-8 55 60)">
@@ -455,18 +456,22 @@
     ceviche: `<svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
       <path d="M15,55 Q15,98 70,98 Q125,98 125,55 Z" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="5"/>
       <ellipse cx="70" cy="55" rx="55" ry="15" fill="#FFFFFF" stroke="#1A1A1A" stroke-width="5"/>
-      <rect x="33" y="56" width="15" height="11" rx="3" fill="#FADBD1" stroke="#1A1A1A" stroke-width="2"/>
-      <rect x="55" y="64" width="15" height="11" rx="3" fill="#FCEEE8" stroke="#1A1A1A" stroke-width="2"/>
-      <rect x="77" y="56" width="15" height="11" rx="3" fill="#FADBD1" stroke="#1A1A1A" stroke-width="2"/>
-      <rect x="45" y="74" width="15" height="11" rx="3" fill="#FCEEE8" stroke="#1A1A1A" stroke-width="2"/>
-      <rect x="67" y="76" width="15" height="11" rx="3" fill="#FADBD1" stroke="#1A1A1A" stroke-width="2"/>
-      <rect x="93" y="64" width="15" height="11" rx="3" fill="#FCEEE8" stroke="#1A1A1A" stroke-width="2"/>
-      <path d="M28,62 Q38,52 48,62" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
-      <path d="M72,60 Q82,50 92,60" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
-      <path d="M50,78 Q60,68 70,78" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="60" cy="60" r="2" fill="#3F8C3F"/>
-      <circle cx="84" cy="70" r="2" fill="#3F8C3F"/>
-      <circle cx="40" cy="68" r="2" fill="#3F8C3F"/>
+      <rect x="30" y="58" width="14" height="10" rx="3" fill="#FADBD1" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="50" y="70" width="14" height="10" rx="3" fill="#FCEEE8" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="40" y="80" width="14" height="10" rx="3" fill="#FADBD1" stroke="#1A1A1A" stroke-width="2"/>
+      <rect x="90" y="68" width="14" height="10" rx="3" fill="#FCEEE8" stroke="#1A1A1A" stroke-width="2"/>
+      <g transform="translate(78,58) rotate(-15)">
+        <path d="M0,10 C-6,-2 8,-10 20,-4 C28,0 28,10 20,14 C10,18 4,18 0,10 Z" fill="#F2A38A" stroke="#1A1A1A" stroke-width="2.2"/>
+        <path d="M2,8 Q9,4 15,6" fill="none" stroke="#1A1A1A" stroke-width="1.1"/>
+        <path d="M1,12 Q8,9 14,11" fill="none" stroke="#1A1A1A" stroke-width="1.1"/>
+        <path d="M19,3 L26,-2 M20,8 L28,6 M19,13 L26,15" stroke="#1A1A1A" stroke-width="1.3" stroke-linecap="round"/>
+      </g>
+      <path d="M25,65 Q35,55 45,65" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M60,58 Q70,48 80,58" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
+      <path d="M45,88 Q55,78 65,88" fill="none" stroke="#C2447A" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="55" cy="62" r="2" fill="#3F8C3F"/>
+      <circle cx="95" cy="82" r="2" fill="#3F8C3F"/>
+      <circle cx="35" cy="72" r="2" fill="#3F8C3F"/>
     </svg>`
   };
 
@@ -544,12 +549,15 @@
     {art:ART.ceviche, word:"ceviche", gloss:"cold seafood dish with lime", sentence:"This is ceviche."},
     {emoji:"🍌🍳", word:"tigrillo", gloss:"mashed green plantain, cheese & egg", sentence:"This is tigrillo."},
     {emoji:"🐟🧅", word:"encebollado", gloss:"fish & yuca soup with pickled onion", sentence:"This is encebollado."},
-    {emoji:"🍌🧀", word:"bolón de verde", gloss:"fried plantain ball with cheese", sentence:"This is el bolón de verde."},
-    {photo:FRITADA_PHOTO, badge:"🐷", word:"fritada", gloss:"fried pork with hominy", sentence:"This is fritada."},
+    {emoji:"🍌🧀", word:"bolón de verde", gloss:"fried plantain ball with cheese", sentence:"This is el bolón de verde.",
+     speak:[{text:"This is", lang:"en-US"},{text:"el bolón de verde.", lang:"es-ES"}]},
+    {photo:FRITADA_PHOTO, badge:"🐷", word:"fritada", gloss:"fried pork with hominy", sentence:"This is fritada.",
+     speak:[{text:"This is", lang:"en-US"},{text:"fritada.", lang:"es-ES"}]},
     {word:"locro de papa", gloss:"potato & cheese soup", sentence:"This is locro de papa.", emoji:"🥔🍲",
      speak:[{text:"This is", lang:"en-US"},{text:"locro de papa.", lang:"es-ES"}]},
     {photo:HORNADO_PHOTO, badge:"🐷", word:"hornado", gloss:"roasted whole pig", sentence:"This is hornado."},
-    {emoji:"🌽🌿", word:"humita", gloss:"steamed corn dough in husk", sentence:"This is a humita."}
+    {emoji:"🌽🌿", word:"humita", gloss:"steamed corn dough in husk", sentence:"This is a humita.",
+     speak:[{text:"This is a", lang:"en-US"},{text:"humita.", lang:"es-ES"}]}
   ];
 
   // ---- Audio (Web Speech API) ----
