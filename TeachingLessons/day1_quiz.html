@@ -152,6 +152,10 @@
     background:#fff;border:2px solid var(--ink);border-radius:12px;
     display:flex;align-items:center;justify-content:center;font-size:13px;white-space:nowrap;
   }
+  .quiz-visual.word-display{
+    font-family:'Bungee', cursive;font-size:1.5rem;text-align:center;
+    padding:12px;line-height:1.25;
+  }
   .replay-btn{
     display:block;margin:0 auto 20px;
     font-family:'Bungee', cursive;font-size:0.8rem;
@@ -191,6 +195,11 @@
   }
   .feedback-box.correct{color:var(--green-deep);}
   .feedback-box.wrong{color:var(--coral-deep);}
+  .feedback-reveal{
+    font-family:'Fraunces', serif;font-weight:600;font-size:1.4rem;
+    margin-top:6px;color:var(--ink);
+  }
+  .feedback-reveal .feedback-es{font-style:italic;}
 
   .next-btn{
     display:none;margin:0 auto;
@@ -590,14 +599,17 @@
 
   function makeFeelingQuestion(item, pool){
     const others = pool.filter(p=>p.word!==item.word);
-    const distractors = shuffle(others).slice(0,3).map(p=>p.word);
+    const distractors = shuffle(others).slice(0,3);
     return {
-      frontItem:item,
-      prompt:"How does this person feel?",
+      frontItem:null,
+      frontWord:item.word,
+      prompt:"Which face matches the word?",
       frame:"I'm ___.",
       correct:item.word,
-      options:shuffle([item.word, ...distractors]),
-      speak:item.sentence || `I'm ${item.word}.`
+      optionType:'image',
+      options:shuffle([item, ...distractors]),
+      speak:item.sentence || `I'm ${item.word}.`,
+      reveal:`${item.emoji} <span class="feedback-es">${item.es}</span>`
     };
   }
 
@@ -765,14 +777,23 @@
       `${q.prompt} <span class="quiz-frame">${q.frame}</span>`;
 
     const visualWrap = document.getElementById('quiz-visual-wrap');
+    const visualEl = document.getElementById('quiz-visual');
     if(q.frontItem){
       visualWrap.classList.remove('hidden');
-      document.getElementById('quiz-visual').innerHTML = buildFront(q.frontItem);
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = buildFront(q.frontItem);
+    } else if(q.frontWord){
+      // Show the written word instead of a picture, so the picture options
+      // below aren't just confirming what's already on screen.
+      visualWrap.classList.remove('hidden');
+      visualEl.classList.add('word-display');
+      visualEl.innerHTML = `<span>${q.frontWord}</span>`;
     } else {
       // No front visual for this question — showing it would just be the
       // answer's picture sitting right next to the picture options below.
       visualWrap.classList.add('hidden');
-      document.getElementById('quiz-visual').innerHTML = '';
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = '';
     }
 
     document.getElementById('quiz-feedback').textContent = '';
@@ -813,7 +834,11 @@
     document.getElementById('q-correct').textContent = correctCount;
 
     const feedback = document.getElementById('quiz-feedback');
-    feedback.textContent = isCorrect ? `✅ Correct! ${q.speak}` : `Actually: ${q.speak}`;
+    let feedbackHtml = isCorrect ? `✅ Correct! ${q.speak}` : `Actually: ${q.speak}`;
+    if(q.reveal){
+      feedbackHtml += `<div class="feedback-reveal">${q.reveal}</div>`;
+    }
+    feedback.innerHTML = feedbackHtml;
     feedback.className = `feedback-box ${isCorrect ? 'correct' : 'wrong'}`;
     speakItem(q.speak);
     document.getElementById('next-question').style.display = 'inline-block';

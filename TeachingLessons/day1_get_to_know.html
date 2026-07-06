@@ -46,7 +46,7 @@
   }
   .app{max-width:920px;margin:0 auto;}
 
-  .hero{text-align:center;margin-bottom:28px;}
+  .hero{text-align:center;margin-bottom:20px;}
   .hero-badge{
     display:inline-block;
     font-family:'Space Mono', monospace;
@@ -89,7 +89,7 @@
   .print-link:hover{transform:translate(-1px,-1px);}
   .print-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
   .nav-links-row{
-    display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;
   }
   .nav-links-row .print-link{margin-top:0;}
   .print-link .en{
@@ -104,27 +104,27 @@
 
   .tabs{
     display:flex;
-    gap:10px;
+    gap:8px;
     justify-content:center;
     flex-wrap:wrap;
-    margin:28px 0 22px;
+    margin:22px 0 20px;
   }
   .tab-btn{
     font-family:'Bungee', cursive;
-    font-size:0.85rem;
-    padding:12px 18px;
+    font-size:0.78rem;
+    padding:10px 14px;
     background:var(--paper);
-    border:4px solid var(--ink);
+    border:3px solid var(--ink);
     border-radius:var(--card-radius);
-    box-shadow:5px 5px 0 var(--ink);
+    box-shadow:3px 3px 0 var(--ink);
     cursor:pointer;
     transition:transform 0.1s ease;
   }
   .tab-btn:hover{transform:translate(-2px,-2px);}
   .tab-btn.active{
     background:var(--accent, var(--yellow));
-    transform:translate(3px,3px);
-    box-shadow:2px 2px 0 var(--ink);
+    transform:translate(2px,2px);
+    box-shadow:1px 1px 0 var(--ink);
   }
 
   .panel{display:none;}
@@ -142,7 +142,7 @@
     border-radius:var(--card-radius);
     box-shadow:5px 5px 0 var(--ink);
     padding:14px 18px;
-    margin-bottom:22px;
+    margin-bottom:18px;
   }
   .prompt{margin:0;font-size:1.05rem;}
   .frame{
@@ -164,7 +164,7 @@
   .section-heading{
     font-family:'Bungee', cursive;
     font-size:0.95rem;
-    margin:26px 0 14px;
+    margin:20px 0 12px;
     padding:8px 16px;
     display:inline-block;
     background:var(--heading-accent, var(--yellow));
@@ -175,7 +175,7 @@
   .section-heading:first-child{margin-top:4px;}
 
   .culture-note{
-    margin-top:26px;
+    margin-top:18px;
     background:#fff;
     border:4px solid var(--ink);
     border-radius:var(--card-radius);
@@ -223,6 +223,9 @@
   }
   .flip-front{background:#fff;font-size:3rem;}
   .flip-front svg{width:72%;height:72%;}
+  .front-word{
+    font-family:'Bungee', cursive;font-size:1.3rem;line-height:1.25;
+  }
   .flip-front .photo-wrap{
     position:relative;width:100%;height:100%;
   }
@@ -248,6 +251,7 @@
   }
   .back-word{font-family:'Bungee', cursive;font-size:1rem;line-height:1.2;margin-bottom:4px;}
   .back-word .back-verb{color:var(--rose-deep, var(--ink));}
+  .back-emoji{font-size:2.4rem;line-height:1;margin-bottom:4px;}
   .back-es{font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.75;}
   .qa-turns{
     display:flex;
@@ -430,9 +434,13 @@
   }
 
   /* Pronoun "Point & Say" TPR activity */
+  .tpr-hint{
+    text-align:center;font-size:0.88rem;color:#555;
+    margin:0 0 16px;
+  }
   .tpr-stage{
     display:flex;flex-direction:column;align-items:center;gap:16px;
-    margin:20px 0 30px;
+    margin:0 0 30px;
   }
   .tpr-card{
     width:280px;min-height:220px;
@@ -673,9 +681,7 @@
     </div>
 
     <h2 class="section-heading" style="--heading-accent:var(--rose)">🙋 Point &amp; Say! <span style="font-family:'Space Mono', monospace; font-size:0.7rem; font-weight:400; opacity:0.75;">(very active — get up and move!)</span></h2>
-    <div class="culture-note">
-      <p>Read the action out loud, <strong>do it for real</strong>, then say the sentence. Tap <strong>New Action</strong> and go again — try to move fast!</p>
-    </div>
+    <p class="tpr-hint">Read it, <strong>do it for real</strong>, then say the sentence — tap <strong>New Action</strong> and go again!</p>
 
     <div class="tpr-stage">
       <div class="tpr-card" id="tpr-card">
@@ -1001,7 +1007,7 @@
   }
 
   // ---- Flip card builder ----
-  function buildFlipCards(containerId, data, accentVar, buildBackTop, speakFn, question, answerTextFn, extraFn){
+  function buildFlipCards(containerId, data, accentVar, buildBackTop, speakFn, question, answerTextFn, extraFn, frontFn){
     const grid = document.getElementById(containerId);
     data.forEach(item=>{
       const speakContent = speakFn(item);
@@ -1010,7 +1016,7 @@
       card.className = 'flip-card';
       card.innerHTML = `
         <div class="flip-inner">
-          <div class="flip-front">${buildFront(item)}</div>
+          <div class="flip-front">${frontFn ? frontFn(item) : buildFront(item)}</div>
           <div class="flip-back" style="--accent:${accentVar}">
             ${buildBackTop(item)}
             <div class="qa-turns">
@@ -1051,13 +1057,14 @@
 
   buildFlipCards('feelings-grid', feelings, 'var(--coral)',
     (item)=>`
-      <div class="back-word">${item.word}</div>
+      <div class="back-emoji">${item.emoji}</div>
       <div class="back-es">${item.es}</div>
     `,
     (item)=> item.sentence || `I'm ${item.word}.`,
-    "How are you?",
+    "",
     (item)=> item.sentence || `I'm ${item.word}.`,
-    (item)=> item.note ? `<div class="back-note">${item.note}</div>` : ''
+    (item)=> item.note ? `<div class="back-note">${item.note}</div>` : '',
+    (item)=> `<div class="front-word">${item.word}</div>`
   );
 
   buildFlipCards('plants-grid', plants, 'var(--leaf)',
