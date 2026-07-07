@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 2: Likes &amp; Dislikes — Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --leaf:#4C9A2A;
+    --leaf-deep:#2E6318;
+    --spice:#E8823B;
+    --spice-deep:#B85A1E;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --plum-light:#F1E9FC;
+    --yellow:#FFC93C;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --rose-light:#FCE8EF;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:920px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:20px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.7rem, 5vw, 2.6rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.95rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .print-link{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    text-decoration:none;
+    color:var(--ink);
+    background:#fff;
+    border:3px solid var(--ink);
+    border-radius:18px;
+    padding:8px 18px;
+    margin-top:16px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform 0.1s ease;
+  }
+  .print-link:hover{transform:translate(-1px,-1px);}
+  .print-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  .nav-links-row{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;
+  }
+  .nav-links-row .print-link{margin-top:0;}
+  .print-link .en{
+    font-family:'Bungee', cursive;
+    font-size:0.75rem;
+  }
+  .print-link .es{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    opacity:0.7;
+  }
+
+  .tabs{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:22px 0 20px;
+  }
+  .tab-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.78rem;
+    padding:10px 14px;
+    background:var(--paper);
+    border:3px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:3px 3px 0 var(--ink);
+    cursor:pointer;
+    transition:transform 0.1s ease;
+  }
+  .tab-btn:hover{transform:translate(-2px,-2px);}
+  .tab-btn.active{
+    background:var(--accent, var(--yellow));
+    transform:translate(2px,2px);
+    box-shadow:1px 1px 0 var(--ink);
+  }
+
+  .panel{display:none;}
+  .panel.active{display:block;animation:fadein 0.25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .panel-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:14px 18px;
+    margin-bottom:18px;
+  }
+  .prompt{margin:0;font-size:1.05rem;}
+  .frame{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--yellow);
+    padding:2px 8px;
+    border-radius:6px;
+    border:2px solid var(--ink);
+    margin-left:6px;
+    white-space:nowrap;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:16px;
+  }
+  .section-heading{
+    font-family:'Bungee', cursive;
+    font-size:0.95rem;
+    margin:20px 0 12px;
+    padding:8px 16px;
+    display:inline-block;
+    background:var(--heading-accent, var(--yellow));
+    border:3px solid var(--ink);
+    border-radius:10px;
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .section-heading:first-child{margin-top:4px;}
+
+  .culture-note{
+    margin-top:18px;
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:16px 20px;
+  }
+  .culture-note h3{
+    font-family:'Bungee', cursive;
+    font-size:0.9rem;
+    margin:0 0 8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .culture-note p{
+    font-family:'Fraunces', serif;
+    font-size:0.92rem;
+    line-height:1.55;
+    margin:0 0 10px;
+  }
+  .culture-note p:last-child{margin-bottom:0;}
+
+  .flip-card{
+    perspective:1000px;
+    height:196px;
+    cursor:pointer;
+  }
+  .flip-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform 0.5s;
+    transform-style:preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front, .flip-back{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    backface-visibility:hidden;
+    padding:8px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .flip-front{background:#fff;font-size:3rem;}
+  .flip-front svg{width:72%;height:72%;}
+  .front-word{
+    font-family:'Bungee', cursive;font-size:1.3rem;line-height:1.25;
+  }
+  .flip-front .photo-wrap{
+    position:relative;width:100%;height:100%;
+  }
+  .flip-front .photo-wrap img{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    border-radius:calc(var(--card-radius) - 4px);
+  }
+  .flip-front .photo-badge{
+    position:absolute;bottom:4px;right:4px;
+    min-width:26px;height:22px;
+    padding:0 5px;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .flip-back{
+    background:var(--accent, var(--yellow));
+    transform:rotateY(180deg);
+  }
+  .back-word{font-family:'Bungee', cursive;font-size:1rem;line-height:1.2;margin-bottom:4px;}
+  .back-word .back-verb{color:var(--rose-deep, var(--ink));}
+  .back-emoji{font-size:2.4rem;line-height:1;margin-bottom:4px;}
+  .back-es{font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.75;}
+  .qa-turns{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    width:100%;
+    margin-top:8px;
+  }
+  .qa-ask, .qa-answer{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;
+    line-height:1.25;
+    padding:3px 8px;
+    border-radius:12px;
+    border:1.5px solid var(--ink);
+    background:#fff;
+    text-align:left;
+    opacity:0;
+    transform:translateY(4px);
+  }
+  .qa-icon{font-size:0.85rem;flex-shrink:0;}
+  .qa-answer{font-weight:700;}
+  .flip-card.flipped .qa-ask{
+    animation:qaPop 0.3s ease forwards;
+    animation-delay:0.1s;
+  }
+  .flip-card.flipped .qa-answer{
+    animation:qaPop 0.3s ease forwards;
+    animation-delay:0.5s;
+  }
+  @keyframes qaPop{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .back-note{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:0.66rem;
+    margin-top:6px;
+    padding:3px 6px;
+    line-height:1.25;
+  }
+  .tap-hint{
+    position:absolute;bottom:6px;right:8px;
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;opacity:0.45;
+  }
+  .replay-btn{
+    margin-top:6px;
+    font-size:0.8rem;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:20px;
+    padding:2px 10px;
+    cursor:pointer;
+    font-family:'Space Mono', monospace;
+  }
+  .replay-btn:active{transform:translate(1px,1px);}
+
+  .sort-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .sort-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.8rem;
+    padding:14px 18px;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    cursor:pointer;
+    background:#fff;
+  }
+  .sort-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+
+  .score{
+    font-family:'Space Mono', monospace;
+    font-size:0.85rem;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    border-radius:8px;
+    padding:6px 10px;
+  }
+
+  .reset-btn{
+    display:block;
+    margin:0 auto;
+    font-family:'Bungee', cursive;
+    font-size:0.85rem;
+    padding:12px 20px;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    background:var(--yellow);
+    cursor:pointer;
+  }
+
+  /* "Very active" TPR activity (Side of the Room) */
+  .tpr-hint{
+    text-align:center;font-size:0.88rem;color:#555;
+    margin:0 0 16px;
+  }
+  .tpr-stage{
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+    margin:0 0 30px;
+  }
+  .tpr-card{
+    width:280px;min-height:190px;
+    background:var(--rose-light);
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:22px;text-align:center;
+    transition:transform 0.2s ease;
+  }
+  .tpr-card.pulse{animation:pulse 0.4s;}
+  @keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.06);}
+    100%{transform:scale(1);}
+  }
+  .tpr-emoji{font-size:3.8rem;line-height:1;}
+  .tpr-instruction{font-family:'Bungee', cursive;font-size:1.15rem;line-height:1.3;}
+  .tpr-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .tpr-next-btn{background:var(--coral);color:#fff;}
+
+  footer{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    opacity:0.5;
+    margin-top:40px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">DAY 2 · GET TO KNOW</div>
+    <h1>Likes &amp; Dislikes!</h1>
+    <p class="subtitle">¿Qué te gusta? · Say it out loud, then tap to check and hear it. 🔊</p>
+    <div class="nav-links-row">
+      <a class="print-link" href="day2_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Get the Printable Cards (PDF)</span>
+        <span class="es">Descargar las tarjetas para imprimir</span>
+      </a>
+      <a class="print-link" href="day2_quiz.html">
+        <span class="en">🎯 Take the Quiz</span>
+        <span class="es">Hacer el cuestionario</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="animals" style="--accent:var(--green)">🐾 Animals</button>
+    <button class="tab-btn" data-tab="colors" style="--accent:var(--plum)">🎨 Colors</button>
+    <button class="tab-btn" data-tab="foods" style="--accent:var(--gold)">🍕 Foods</button>
+    <button class="tab-btn" data-tab="hobbies" style="--accent:var(--blue)">⚽ Hobbies</button>
+    <button class="tab-btn" data-tab="doyoulike" style="--accent:var(--coral)">🤔 Do You Like...?</button>
+    <button class="tab-btn" data-tab="reasons" style="--accent:var(--teal)">💭 Because... (Bonus)</button>
+  </nav>
+
+  <section id="animals" class="panel active">
+    <div class="panel-toolbar">
+      <p class="prompt">Do you like it? <span class="frame">I like ___. / I don't like ___.</span></p>
+    </div>
+    <div class="card-grid" id="animals-grid"></div>
+  </section>
+
+  <section id="colors" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Do you like it? <span class="frame">I like the color ___.</span></p>
+    </div>
+    <div class="card-grid" id="colors-grid"></div>
+  </section>
+
+  <section id="foods" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Do you like it? <span class="frame">I like ___. / I don't like ___.</span></p>
+    </div>
+    <div class="card-grid" id="foods-grid"></div>
+  </section>
+
+  <section id="hobbies" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Do you like it? <span class="frame">I like ___. / I don't like ___.</span></p>
+    </div>
+    <div class="card-grid" id="hobbies-grid"></div>
+  </section>
+
+  <section id="doyoulike" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Ask and answer! <span class="frame">Do you like ___? Yes, I do. / No, I don't.</span></p>
+    </div>
+
+    <div class="card-grid" id="doyoulike-grid"></div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--coral)">🏃 Side of the Room! <span style="font-family:'Space Mono', monospace; font-size:0.7rem; font-weight:400; opacity:0.75;">(very active — get up and move!)</span></h2>
+    <p class="tpr-hint">❤️ <strong>YES</strong> → go to this side of the room! 🚫 <strong>NO</strong> → go to the other side! Listen to the question, then move and say the sentence.</p>
+
+    <div class="tpr-stage">
+      <div class="tpr-card" id="tpr-card">
+        <div class="tpr-emoji" id="tpr-emoji">🐶</div>
+        <div class="tpr-instruction" id="tpr-instruction">Do you like dogs?</div>
+      </div>
+      <div class="tpr-buttons">
+        <button class="sort-btn" id="tpr-replay">🔊 Hear it</button>
+        <button class="sort-btn tpr-next-btn" id="tpr-next">🔄 New Item</button>
+      </div>
+      <div class="score">Items played: <span id="tpr-count">0</span></div>
+    </div>
+  </section>
+
+  <section id="reasons" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Why do you like it? <span class="frame">Because it is / they are ___.</span></p>
+    </div>
+
+    <div class="card-grid" id="reasons-grid"></div>
+
+    <div class="culture-note">
+      <h3>📌 Nota gramatical para los estudiantes</h3>
+      <p><strong>it is</strong> se usa con una cosa — <em>Pizza is delicious. It is delicious.</em> <strong>they are</strong> se usa con más de una cosa — <em>Rabbits are cute. They are cute.</em></p>
+    </div>
+  </section>
+
+  <footer>Teach for Success · Day 2 practice tool</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  // All vocabulary here has a clear matching emoji, so cards use the
+  // standard icon-front / word-and-Spanish-back flashcard pattern (the same
+  // one used for Countries, Ecuador, Age, and Pronouns on Day 1).
+  const animals = [
+    {emoji:"🐶", word:"dogs", es:"perro"},
+    {emoji:"🐱", word:"cats", es:"gato"},
+    {emoji:"🐦", word:"birds", es:"pájaro"},
+    {emoji:"🐟", word:"fish", es:"pez"},
+    {emoji:"🐰", word:"rabbits", es:"conejo"},
+    {emoji:"🐴", word:"horses", es:"caballo"}
+  ];
+
+  const colors = [
+    {emoji:"🔴", word:"red", es:"rojo"},
+    {emoji:"🔵", word:"blue", es:"azul"},
+    {emoji:"🟡", word:"yellow", es:"amarillo"},
+    {emoji:"🟢", word:"green", es:"verde"},
+    {emoji:"🟣", word:"purple", es:"morado"},
+    {emoji:"🟠", word:"orange", es:"anaranjado"}
+  ];
+
+  const foods = [
+    {emoji:"🍕", word:"pizza", es:"pizza"},
+    {emoji:"🍎", word:"apples", es:"manzana"},
+    {emoji:"🥦", word:"vegetables", es:"verduras"},
+    {emoji:"🍦", word:"ice cream", es:"helado"},
+    {emoji:"🍫", word:"chocolate", es:"chocolate"},
+    {emoji:"🥛", word:"milk", es:"leche"}
+  ];
+
+  const hobbies = [
+    {emoji:"📖", word:"reading", es:"leer"},
+    {emoji:"🏊", word:"swimming", es:"nadar"},
+    {emoji:"😴", word:"sleeping", es:"dormir"},
+    {emoji:"🥾", word:"hiking", es:"el senderismo"},
+    {emoji:"💃", word:"dancing", es:"bailar"},
+    {emoji:"🎨", word:"drawing", es:"dibujar"}
+  ];
+
+  // Sample question cards for the "Do you like...?" tab — these model the
+  // question + both possible answers, since (unlike vocabulary) there's no
+  // single fixed correct answer to reveal.
+  const doYouLikeCards = [
+    {emoji:"🐶", question:"Do you like dogs?", questionEs:"¿Te gustan los perros?"},
+    {emoji:"🍕", question:"Do you like pizza?", questionEs:"¿Te gusta la pizza?"},
+    {emoji:"📖", question:"Do you like reading?", questionEs:"¿Te gusta leer?"},
+    {emoji:"🔴", question:"Do you like the color red?", questionEs:"¿Te gusta el color rojo?"},
+    {emoji:"🥾", question:"Do you like hiking?", questionEs:"¿Te gusta el senderismo?"}
+  ];
+
+  // Bonus "if time" objective: adjectives for giving a reason. "form" tracks
+  // whether the modeled example sentence uses "it is" or "they are" so both
+  // patterns show up across the set.
+  const reasons = [
+    {emoji:"🎉", word:"fun", es:"divertido/a", form:"singular"},
+    {emoji:"🥱", word:"boring", es:"aburrido/a", form:"plural"},
+    {emoji:"🤤", word:"delicious", es:"delicioso/a", form:"singular"},
+    {emoji:"🥰", word:"cute", es:"lindo/a", form:"plural"},
+    {emoji:"👻", word:"scary", es:"espantoso/a", form:"singular"},
+    {emoji:"🤩", word:"exciting", es:"emocionante", form:"plural"}
+  ];
+
+  // Combined pool for the "Side of the Room" TPR game — one "Do you like
+  // ___?" question per vocab item across all four categories.
+  const sideOfRoomItems = [
+    ...animals.map(a => ({emoji:a.emoji, question:`Do you like ${a.word}?`})),
+    ...colors.map(c => ({emoji:c.emoji, question:`Do you like the color ${c.word}?`})),
+    ...foods.map(f => ({emoji:f.emoji, question:`Do you like ${f.word}?`})),
+    ...hobbies.map(h => ({emoji:h.emoji, question:`Do you like ${h.word}?`}))
+  ];
+
+  // ---- Audio (Web Speech API) ----
+  // Browsers ship several voices; the default picked automatically is often
+  // the flattest-sounding one. We look for higher-quality voices by name and
+  // prefer those, per language, once the voice list has loaded.
+  let voiceList = [];
+  function loadVoices(){
+    voiceList = window.speechSynthesis.getVoices();
+  }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+
+  function speak(text, lang, rate, pitch, volume){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = rate || 0.92;
+    utter.pitch = pitch || 1;
+    utter.volume = volume || 1;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function speakItem(sentenceOrParts){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    if(Array.isArray(sentenceOrParts)){
+      sentenceOrParts.forEach(part=> speak(part.text, part.lang, part.rate, part.pitch, part.volume));
+    } else {
+      speak(sentenceOrParts, 'en-US');
+    }
+  }
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- Front face builder (emoji, custom art, or photo) ----
+  function buildFront(item){
+    if(item.photo){
+      return `<div class="photo-wrap">
+        <img src="${item.photo}" alt="${item.word}">
+        ${item.badge ? `<div class="photo-badge">${item.badge}</div>` : ''}
+      </div>`;
+    }
+    if(item.art){ return item.art; }
+    return item.flag || item.emoji || '';
+  }
+
+  // ---- Flip card builder ----
+  function buildFlipCards(containerId, data, accentVar, buildBackTop, speakFn, question, answerTextFn, extraFn, frontFn){
+    const grid = document.getElementById(containerId);
+    data.forEach(item=>{
+      const speakContent = speakFn(item);
+      const answerText = answerTextFn(item);
+      const card = document.createElement('div');
+      card.className = 'flip-card';
+      card.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-front">${frontFn ? frontFn(item) : buildFront(item)}</div>
+          <div class="flip-back" style="--accent:${accentVar}">
+            ${buildBackTop(item)}
+            <div class="qa-turns">
+              ${question ? `<div class="qa-ask"><span class="qa-icon">🧑</span><span>${question}</span></div>` : ''}
+              <div class="qa-answer"><span class="qa-icon">🙂</span><span>${answerText}</span></div>
+            </div>
+            ${extraFn ? extraFn(item) : ''}
+            <button class="replay-btn" type="button" aria-label="Play audio">🔊</button>
+          </div>
+        </div>
+        <span class="tap-hint">🔊 tap</span>
+      `;
+      card.addEventListener('click', ()=>{
+        const nowFlipped = card.classList.toggle('flipped');
+        if(nowFlipped){
+          speakItem(speakContent);
+        } else if('speechSynthesis' in window){
+          window.speechSynthesis.cancel();
+        }
+      });
+      card.querySelector('.replay-btn').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        speakItem(speakContent);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  buildFlipCards('animals-grid', animals, 'var(--green)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `I like ${item.word}.`,
+    "",
+    (item)=> `I like ${item.word}.`
+  );
+
+  buildFlipCards('colors-grid', colors, 'var(--plum)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `I like the color ${item.word}.`,
+    "",
+    (item)=> `I like the color ${item.word}.`
+  );
+
+  buildFlipCards('foods-grid', foods, 'var(--gold)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `I like ${item.word}.`,
+    "",
+    (item)=> `I like ${item.word}.`
+  );
+
+  buildFlipCards('hobbies-grid', hobbies, 'var(--blue)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `I like ${item.word}.`,
+    "",
+    (item)=> `I like ${item.word}.`
+  );
+
+  buildFlipCards('doyoulike-grid', doYouLikeCards, 'var(--coral)',
+    (item)=>`
+      <div class="back-word" style="font-size:0.82rem;">${item.question}</div>
+      <div class="back-es">${item.questionEs}</div>
+    `,
+    (item)=> item.question,
+    "",
+    (item)=> "Yes, I do. / No, I don't."
+  );
+
+  buildFlipCards('reasons-grid', reasons, 'var(--teal)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> item.form==='singular' ? `It is ${item.word}.` : `They are ${item.word}.`,
+    "",
+    (item)=> item.form==='singular' ? `It is ${item.word}.` : `They are ${item.word}.`
+  );
+
+  // ---- "Side of the Room" TPR game (very active!) ----
+  let tprCount = 0;
+  let tprLastIndex = -1;
+  let currentTpr = null;
+
+  function pickTprItem(){
+    let i;
+    do { i = Math.floor(Math.random()*sideOfRoomItems.length); }
+    while(sideOfRoomItems.length > 1 && i === tprLastIndex);
+    tprLastIndex = i;
+    return sideOfRoomItems[i];
+  }
+
+  function renderTpr(){
+    currentTpr = pickTprItem();
+    document.getElementById('tpr-emoji').textContent = currentTpr.emoji;
+    document.getElementById('tpr-instruction').textContent = currentTpr.question;
+    document.getElementById('tpr-card').classList.add('pulse');
+    setTimeout(()=> document.getElementById('tpr-card').classList.remove('pulse'), 400);
+    speakItem(currentTpr.question);
+  }
+
+  document.getElementById('tpr-next').addEventListener('click', ()=>{
+    tprCount++;
+    document.getElementById('tpr-count').textContent = tprCount;
+    renderTpr();
+  });
+
+  document.getElementById('tpr-replay').addEventListener('click', ()=>{
+    if(currentTpr) speakItem(currentTpr.question);
+  });
+
+  renderTpr();
+</script>
+</body>
+</html>
