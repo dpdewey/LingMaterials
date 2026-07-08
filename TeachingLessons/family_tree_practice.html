@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Tree Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --sky:#2E86C1;
+    --sky-light:#E7F1FA;
+    --yellow:#FFC93C;
+    --yellow-light:#FFF6DC;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:820px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:20px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.6rem, 5vw, 2.3rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.92rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .back-link{
+    display:inline-block;
+    margin-top:14px;
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:2px solid var(--ink);
+  }
+
+  .mode-tabs{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:22px 0 18px;
+  }
+  .mode-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.78rem;
+    padding:11px 16px;
+    background:#fff;
+    border:3px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:3px 3px 0 var(--ink);
+    cursor:pointer;
+    transition:transform 0.1s ease;
+  }
+  .mode-btn:hover{transform:translate(-2px,-2px);}
+  .mode-btn.active{
+    background:var(--yellow);
+    transform:translate(2px,2px);
+    box-shadow:1px 1px 0 var(--ink);
+  }
+
+  .instructions{
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:14px 20px;
+    margin-bottom:18px;
+    font-size:0.95rem;
+    line-height:1.5;
+  }
+  .instructions strong{color:var(--rose-deep);}
+
+  .prompt-box{
+    display:none;
+    background:var(--sky-light);
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:16px 20px;
+    margin-bottom:18px;
+    text-align:center;
+  }
+  .prompt-box.visible{display:block;}
+  .prompt-label{
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    opacity:0.7;
+    margin-bottom:4px;
+  }
+  .prompt-sentence{
+    font-family:'Bungee', cursive;
+    font-size:1.15rem;
+  }
+  .prompt-buttons{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-top:12px;
+    flex-wrap:wrap;
+  }
+  .prompt-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.75rem;
+    padding:8px 16px;
+    border:3px solid var(--ink);
+    border-radius:16px;
+    background:#fff;
+    cursor:pointer;
+  }
+  .prompt-btn:active{transform:translate(2px,2px);}
+  .prompt-btn.primary{background:var(--sky);color:#fff;}
+
+  .score-row{
+    display:none;
+    justify-content:center;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .score-row.visible{display:flex;}
+  .score-chip{
+    font-family:'Space Mono', monospace;
+    font-size:0.85rem;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:8px;
+    padding:6px 12px;
+  }
+
+  .feedback-line{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    min-height:22px;
+    margin-bottom:10px;
+  }
+  .feedback-line.correct{color:var(--green-deep);}
+  .feedback-line.wrong{color:var(--coral-deep);}
+
+  .diagram-wrap{
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    padding:18px;
+    margin:0 auto 20px;
+  }
+  .diagram-wrap svg{width:100%;height:auto;display:block;}
+
+  .tree-node{cursor:pointer;}
+  .tree-node .tree-node-rect{
+    fill:#fff;
+    stroke:#1A1A1A;
+    stroke-width:3.5;
+    transition:fill 0.15s ease;
+  }
+  .tree-node:hover .tree-node-rect{fill:#FFF6DC;}
+  .tree-node.state-1 .tree-node-rect{fill:var(--yellow);}
+  .tree-node.state-2 .tree-node-rect{fill:var(--sky-light);stroke:var(--sky);}
+  .tree-node.flash-correct .tree-node-rect{fill:var(--green);stroke:var(--green-deep);}
+  .tree-node.flash-wrong .tree-node-rect{fill:var(--coral);stroke:var(--coral-deep);}
+  .tree-node.shake{animation:shake 0.35s;}
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-4px);}
+    75%{transform:translateX(4px);}
+  }
+  .tree-node-main{
+    font-family:'Bungee', cursive;
+    font-size:13px;
+    font-weight:700;
+    text-anchor:middle;
+    fill:#1A1A1A;
+    pointer-events:none;
+  }
+  .tree-node-main.icon{font-size:24px;font-family:sans-serif;}
+  .tree-node-main.es{font-style:italic;font-family:'Fraunces', serif;}
+  .tree-node-sub{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    text-anchor:middle;
+    fill:#555;
+    pointer-events:none;
+  }
+  .me-node .tree-node-rect{fill:var(--yellow);stroke-width:5;}
+
+  .controls-row{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .control-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.78rem;
+    padding:10px 18px;
+    border:3px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:4px 4px 0 var(--ink);
+    background:#fff;
+    cursor:pointer;
+  }
+  .control-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+
+  footer{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    opacity:0.5;
+    margin-top:40px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">FAMILY TREE PRACTICE</div>
+    <h1>Click the Tree!</h1>
+    <p class="subtitle">Práctica del árbol familiar · Companion activity for the Family unit</p>
+    <a class="back-link" href="day3_get_to_know.html">← Back to Day 3: Family</a>
+  </div>
+
+  <nav class="mode-tabs">
+    <button class="mode-btn active" data-mode="explore">🔍 Explore</button>
+    <button class="mode-btn" data-mode="listenWord">🎧 Listen: Find the Word</button>
+    <button class="mode-btn" data-mode="listenSentence">🧩 Listen: Find the Sentence</button>
+  </nav>
+
+  <div class="instructions" id="instructions">
+    Tap any box on the tree. <strong>First tap</strong> shows and says the word in <strong>English</strong>. <strong>Second tap</strong> shows and says it in <strong>Spanish</strong>. <strong>Third tap</strong> hides it again — practice as many times as you like.
+  </div>
+
+  <div class="prompt-box" id="prompt-box">
+    <div class="prompt-label" id="prompt-label">Listen, then tap the matching box</div>
+    <div class="prompt-sentence" id="prompt-sentence">Brother</div>
+    <div class="prompt-buttons">
+      <button class="prompt-btn primary" id="prompt-replay">🔊 Hear it again</button>
+      <button class="prompt-btn" id="prompt-skip">⏭️ Skip</button>
+    </div>
+  </div>
+
+  <div class="score-row" id="score-row">
+    <div class="score-chip">✅ Correct: <span id="score-correct">0</span></div>
+    <div class="score-chip">🎯 Attempts: <span id="score-attempts">0</span></div>
+  </div>
+
+  <div class="feedback-line" id="feedback-line"></div>
+
+  <div class="diagram-wrap" id="tree-wrap"></div>
+
+  <div class="controls-row">
+    <button class="control-btn" id="reset-tree">🔄 Reset Tree</button>
+  </div>
+
+  <footer>Family Tree Practice · Standalone companion activity</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  // Same tree layout as the Day 3 Family unit (solid lines = blood relation,
+  // dotted lines = relation by marriage), extended here with a simple
+  // sentence per relation for the "Listen: Find the Sentence" mode.
+  const NODES = [
+    {key:"grandpa", x:255, y:40, w:100, h:54, en:"Grandpa", es:"abuelo", gender:"m", sentenceEn:"This is my grandpa.", sentenceEs:"Es mi abuelo."},
+    {key:"grandma", x:355, y:40, w:100, h:54, en:"Grandma", es:"abuela", gender:"f", sentenceEn:"This is my grandma.", sentenceEs:"Es mi abuela."},
+
+    {key:"uncle", x:10, y:165, w:100, h:54, en:"Uncle", es:"tío", gender:"m", sentenceEn:"This is my uncle.", sentenceEs:"Es mi tío."},
+    {key:"father", x:305, y:165, w:100, h:54, en:"Father", es:"padre", gender:"m", sentenceEn:"This is my father.", sentenceEs:"Es mi padre."},
+    {key:"mother", x:405, y:165, w:100, h:54, en:"Mother", es:"madre", gender:"f", sentenceEn:"This is my mother.", sentenceEs:"Es mi madre."},
+    {key:"aunt", x:600, y:165, w:100, h:54, en:"Aunt", es:"tía", gender:"f", sentenceEn:"This is my aunt.", sentenceEs:"Es mi tía."},
+
+    {key:"cousin", x:10, y:290, w:100, h:54, en:"Cousin", es:"primo/a", gender:"n", sentenceEn:"This is my cousin.", sentenceEs:"Es mi primo/a."},
+    {key:"sisterinlaw", x:125, y:290, w:100, h:54, en:"Sister-in-law", es:"cuñada", gender:"f", sentenceEn:"This is my sister-in-law.", sentenceEs:"Es mi cuñada."},
+    {key:"brother", x:240, y:290, w:100, h:54, en:"Brother", es:"hermano", gender:"m", sentenceEn:"This is my brother.", sentenceEs:"Es mi hermano."},
+    {key:"me", x:355, y:290, w:100, h:60, en:"ME / YO", es:"", gender:"me", special:true},
+    {key:"sister", x:470, y:290, w:100, h:54, en:"Sister", es:"hermana", gender:"f", sentenceEn:"This is my sister.", sentenceEs:"Es mi hermana."},
+    {key:"brotherinlaw", x:585, y:290, w:100, h:54, en:"Brother-in-law", es:"cuñado", gender:"m", sentenceEn:"This is my brother-in-law.", sentenceEs:"Es mi cuñado."},
+
+    {key:"son", x:305, y:415, w:100, h:54, en:"Son", es:"hijo", gender:"m", sentenceEn:"This is my son.", sentenceEs:"Es mi hijo."},
+    {key:"daughter", x:405, y:415, w:100, h:54, en:"Daughter", es:"hija", gender:"f", sentenceEn:"This is my daughter.", sentenceEs:"Es mi hija."}
+  ];
+
+  const SOLID_LINES = [
+    [355, 94, 355, 165], [60, 165, 650, 165], [405, 219, 405, 290],
+    [290, 290, 520, 290], [60, 219, 60, 290], [405, 350, 405, 415],
+    [355, 415, 455, 415]
+  ];
+  const DOTTED_LINES = [
+    [225, 317, 240, 317], [570, 317, 585, 317]
+  ];
+
+  const ICONS = { m:"👨", f:"👩", n:"🧑" };
+
+  // ---- Audio (Web Speech API) ----
+  let voiceList = [];
+  function loadVoices(){ voiceList = window.speechSynthesis.getVoices(); }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+  function speak(text, lang){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = 0.92;
+    window.speechSynthesis.speak(utter);
+  }
+  function speakItem(text, lang){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    speak(text, lang);
+  }
+
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+  function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+  // ---- Build the SVG tree ----
+  const quizNodes = NODES.filter(n => !n.special);
+  const treeWrap = document.getElementById('tree-wrap');
+
+  function buildTreeSVG(){
+    const linesSvg = SOLID_LINES.map(([x1,y1,x2,y2]) =>
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1A1A1A" stroke-width="3"/>`
+    ).join('') + DOTTED_LINES.map(([x1,y1,x2,y2]) =>
+      `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#1A1A1A" stroke-width="3" stroke-dasharray="4,4"/>`
+    ).join('');
+
+    const nodesSvg = NODES.map(n => {
+      const cx = n.x + n.w/2, cy = n.y + n.h/2;
+      if(n.special){
+        return `<g class="tree-node me-node" data-key="${n.key}">
+          <rect class="tree-node-rect" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="10"/>
+          <text class="tree-node-main" x="${cx}" y="${cy+5}">${n.en}</text>
+        </g>`;
+      }
+      return `<g class="tree-node" data-key="${n.key}">
+        <rect class="tree-node-rect" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="10"/>
+        <text class="tree-node-main icon" x="${cx}" y="${cy+8}"></text>
+        <text class="tree-node-sub" x="${cx}" y="${cy+18}"></text>
+      </g>`;
+    }).join('');
+
+    return `<svg viewBox="0 0 720 490" xmlns="http://www.w3.org/2000/svg">${linesSvg}${nodesSvg}</svg>`;
+  }
+
+  treeWrap.innerHTML = buildTreeSVG();
+
+  // Each non-special node starts hidden (state 0 = icon only).
+  const nodeState = {};
+  quizNodes.forEach(n => { nodeState[n.key] = 0; });
+
+  function renderNode(key){
+    const n = NODES.find(x => x.key === key);
+    const g = treeWrap.querySelector(`.tree-node[data-key="${key}"]`);
+    if(!g || n.special) return;
+    const state = nodeState[key];
+    g.classList.remove('state-1','state-2');
+    const mainEl = g.querySelector('.tree-node-main');
+    const subEl = g.querySelector('.tree-node-sub');
+    if(state === 0){
+      mainEl.setAttribute('class','tree-node-main icon');
+      mainEl.textContent = ICONS[n.gender] || '🧑';
+      subEl.textContent = '';
+    } else if(state === 1){
+      g.classList.add('state-1');
+      mainEl.setAttribute('class','tree-node-main');
+      mainEl.textContent = n.en;
+      subEl.textContent = '';
+    } else {
+      g.classList.add('state-2');
+      mainEl.setAttribute('class','tree-node-main es');
+      mainEl.textContent = n.es;
+      subEl.textContent = '';
+    }
+  }
+  quizNodes.forEach(n => renderNode(n.key));
+
+  function resetAllNodes(){
+    quizNodes.forEach(n => { nodeState[n.key] = 0; renderNode(n.key); });
+  }
+
+  // ---- Mode state ----
+  let currentMode = 'explore';
+  let currentTarget = null; // key of the node the listen modes are asking about
+  let correctCount = 0, attemptCount = 0;
+
+  const instructionsEl = document.getElementById('instructions');
+  const promptBox = document.getElementById('prompt-box');
+  const promptLabel = document.getElementById('prompt-label');
+  const promptSentence = document.getElementById('prompt-sentence');
+  const scoreRow = document.getElementById('score-row');
+  const feedbackLine = document.getElementById('feedback-line');
+
+  const MODE_INSTRUCTIONS = {
+    explore: 'Tap any box on the tree. <strong>First tap</strong> shows and says the word in <strong>English</strong>. <strong>Second tap</strong> shows and says it in <strong>Spanish</strong>. <strong>Third tap</strong> hides it again — practice as many times as you like.',
+    listenWord: 'Listen to the <strong>English word</strong>, then tap the box you think matches. A correct tap reveals the <strong>Spanish</strong> word as confirmation.',
+    listenSentence: 'Listen to the <strong>full sentence</strong> ("This is my ___."), then tap the matching box. A correct tap reveals the <strong>Spanish sentence</strong>.'
+  };
+
+  function setMode(mode){
+    currentMode = mode;
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+    instructionsEl.innerHTML = MODE_INSTRUCTIONS[mode];
+    feedbackLine.textContent = '';
+    feedbackLine.className = 'feedback-line';
+    resetAllNodes();
+
+    if(mode === 'explore'){
+      promptBox.classList.remove('visible');
+      scoreRow.classList.remove('visible');
+    } else {
+      promptBox.classList.add('visible');
+      scoreRow.classList.add('visible');
+      correctCount = 0; attemptCount = 0;
+      document.getElementById('score-correct').textContent = 0;
+      document.getElementById('score-attempts').textContent = 0;
+      nextListenRound();
+    }
+  }
+
+  document.querySelectorAll('.mode-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> setMode(btn.dataset.mode));
+  });
+
+  // ---- Explore mode click handling ----
+  function handleExploreClick(key){
+    nodeState[key] = (nodeState[key] + 1) % 3;
+    renderNode(key);
+    const n = NODES.find(x => x.key === key);
+    if(nodeState[key] === 1){
+      speakItem(n.en, 'en-US');
+    } else if(nodeState[key] === 2){
+      speakItem(n.es, 'es-ES');
+    }
+  }
+
+  // ---- Listen modes ----
+  function nextListenRound(){
+    resetAllNodes();
+    feedbackLine.textContent = '';
+    feedbackLine.className = 'feedback-line';
+    currentTarget = pickRandom(quizNodes).key;
+    const n = NODES.find(x => x.key === currentTarget);
+    if(currentMode === 'listenWord'){
+      promptLabel.textContent = 'Listen, then tap the matching box';
+      promptSentence.textContent = n.en;
+      speakItem(n.en, 'en-US');
+    } else {
+      promptLabel.textContent = 'Listen, then tap the matching box';
+      promptSentence.textContent = n.sentenceEn;
+      speakItem(n.sentenceEn, 'en-US');
+    }
+  }
+
+  function handleListenClick(key){
+    attemptCount++;
+    document.getElementById('score-attempts').textContent = attemptCount;
+    const g = treeWrap.querySelector(`.tree-node[data-key="${key}"]`);
+
+    if(key === currentTarget){
+      correctCount++;
+      document.getElementById('score-correct').textContent = correctCount;
+      const n = NODES.find(x => x.key === key);
+      nodeState[key] = currentMode === 'listenSentence' ? 2 : 2;
+      renderNode(key);
+      g.classList.add('flash-correct');
+      setTimeout(()=> g.classList.remove('flash-correct'), 500);
+      feedbackLine.textContent = currentMode === 'listenSentence'
+        ? `✅ Correct! ${n.sentenceEs}`
+        : `✅ Correct! ${n.es}`;
+      feedbackLine.className = 'feedback-line correct';
+      speakItem(currentMode === 'listenSentence' ? n.sentenceEs : n.es, 'es-ES');
+      setTimeout(nextListenRound, 1800);
+    } else {
+      g.classList.add('flash-wrong','shake');
+      setTimeout(()=> g.classList.remove('flash-wrong','shake'), 450);
+      feedbackLine.textContent = '❌ Try again!';
+      feedbackLine.className = 'feedback-line wrong';
+    }
+  }
+
+  // ---- Unified click listener ----
+  treeWrap.addEventListener('click', (e)=>{
+    const g = e.target.closest('.tree-node');
+    if(!g) return;
+    const key = g.dataset.key;
+    if(key === 'me'){
+      speakItem("That's you!", 'en-US');
+      feedbackLine.textContent = "🙂 That's you! / ¡Ese eres tú!";
+      feedbackLine.className = 'feedback-line';
+      return;
+    }
+    if(currentMode === 'explore'){
+      handleExploreClick(key);
+    } else {
+      handleListenClick(key);
+    }
+  });
+
+  document.getElementById('prompt-replay').addEventListener('click', ()=>{
+    if(!currentTarget) return;
+    const n = NODES.find(x => x.key === currentTarget);
+    speakItem(currentMode === 'listenSentence' ? n.sentenceEn : n.en, 'en-US');
+  });
+
+  document.getElementById('prompt-skip').addEventListener('click', nextListenRound);
+
+  document.getElementById('reset-tree').addEventListener('click', resetAllNodes);
+</script>
+</body>
+</html>
