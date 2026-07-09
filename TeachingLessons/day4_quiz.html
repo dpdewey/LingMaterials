@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4: Directions & Locations — Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --sky:#2E86C1;
+    --sky-deep:#1B4F72;
+    --yellow:#FFC93C;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:760px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:22px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.6rem, 5vw, 2.4rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.9rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .nav-links{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;
+  }
+  .nav-link{
+    display:inline-flex;flex-direction:column;align-items:center;gap:2px;
+    text-decoration:none;color:var(--ink);
+    background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:7px 14px;box-shadow:4px 4px 0 var(--ink);
+  }
+  .nav-link .en{font-family:'Bungee', cursive;font-size:0.7rem;}
+  .nav-link .es{font-family:'Space Mono', monospace;font-size:0.62rem;opacity:0.7;}
+  .nav-link:hover{transform:translate(-1px,-1px);}
+  .nav-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+
+  .landing-intro{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:16px 20px;margin-bottom:22px;
+  }
+  .landing-intro p{margin:0;font-size:1rem;}
+  .landing-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(190px,1fr));
+    gap:14px;margin-bottom:20px;
+  }
+  .topic-card{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    background:var(--accent, #fff);
+    border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:22px 14px;cursor:pointer;text-align:center;
+    transition:transform 0.1s ease;
+  }
+  .topic-card:hover{transform:translate(-2px,-2px);}
+  .topic-card:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .topic-card .icon{font-size:2.2rem;}
+  .topic-card .label{font-family:'Bungee', cursive;font-size:0.9rem;line-height:1.3;}
+  .topic-card .count{font-family:'Space Mono', monospace;font-size:0.7rem;opacity:0.75;}
+  .topic-card.all-areas{
+    grid-column:1 / -1;
+    background:repeating-linear-gradient(135deg, var(--yellow), var(--yellow) 12px, #fff 12px, #fff 24px);
+  }
+
+  .quiz-topbar{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:12px 18px;margin-bottom:20px;
+  }
+  .quiz-progress{font-family:'Space Mono', monospace;font-size:0.85rem;}
+  .quiz-score{font-family:'Space Mono', monospace;font-size:0.85rem;
+    background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:5px 10px;}
+  .exit-btn{
+    font-family:'Space Mono', monospace;font-size:0.75rem;
+    background:#fff;border:2px solid var(--ink);border-radius:14px;
+    padding:5px 12px;cursor:pointer;
+  }
+
+  .quiz-prompt{
+    text-align:center;font-size:1.05rem;margin-bottom:16px;
+  }
+  .quiz-frame{
+    font-family:'Space Mono', monospace;font-weight:700;
+    background:var(--yellow);padding:2px 8px;border-radius:6px;
+    border:2px solid var(--ink);white-space:nowrap;
+  }
+
+  .quiz-visual-wrap{display:flex;justify-content:center;margin-bottom:20px;}
+  .quiz-visual{
+    width:190px;height:190px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:3.6rem;position:relative;overflow:hidden;padding:10px;
+  }
+  .quiz-visual.word-display{
+    font-family:'Bungee', cursive;font-size:1.3rem;text-align:center;
+    padding:12px;line-height:1.25;
+  }
+  .replay-btn{
+    display:block;margin:0 auto 20px;
+    font-family:'Bungee', cursive;font-size:0.8rem;
+    background:var(--plum);color:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:8px 18px;box-shadow:4px 4px 0 var(--ink);cursor:pointer;
+  }
+  .replay-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+
+  .quiz-options{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
+    gap:12px;margin-bottom:16px;
+  }
+  .option-btn{
+    font-family:'Bungee', cursive;font-size:0.9rem;
+    padding:16px 10px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);background:#fff;cursor:pointer;
+  }
+  .option-btn:active:not(:disabled){transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .option-btn.correct{background:var(--green);color:#fff;}
+  .option-btn.wrong{background:var(--coral);color:#fff;}
+  .option-btn:disabled{cursor:default;}
+
+  .quiz-options.image-options{
+    grid-template-columns:repeat(auto-fit, minmax(110px,1fr));
+  }
+  .option-btn.image-option{
+    display:flex;align-items:center;justify-content:center;
+    min-height:110px;font-size:2.6rem;padding:8px;position:relative;overflow:hidden;
+  }
+
+  .feedback-box{
+    min-height:26px;text-align:center;font-family:'Space Mono', monospace;font-weight:700;
+    margin-bottom:16px;
+  }
+  .feedback-box.correct{color:var(--green-deep);}
+  .feedback-box.wrong{color:var(--coral-deep);}
+  .feedback-reveal{
+    font-family:'Fraunces', serif;font-weight:600;font-size:1.3rem;
+    margin-top:6px;color:var(--ink);
+  }
+  .feedback-reveal .feedback-es{font-style:italic;}
+
+  .next-btn{
+    display:none;margin:0 auto;
+    font-family:'Bungee', cursive;font-size:0.9rem;
+    padding:12px 26px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);background:var(--yellow);cursor:pointer;
+  }
+  .next-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+
+  .results-box{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);padding:28px 24px;text-align:center;
+  }
+  .results-box .big-score{font-family:'Bungee', cursive;font-size:2.4rem;margin:10px 0;}
+  .results-box p{font-size:1rem;margin:6px 0;}
+  .results-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+  .results-buttons button{
+    font-family:'Bungee', cursive;font-size:0.85rem;
+    padding:12px 20px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);cursor:pointer;
+  }
+  .results-buttons button:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .btn-retry{background:var(--yellow);}
+  .btn-choose{background:#fff;}
+
+  .hidden{display:none !important;}
+
+  footer{
+    text-align:center;font-family:'Space Mono', monospace;font-size:0.7rem;
+    opacity:0.5;margin-top:40px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">DAY 4 · QUIZ</div>
+    <h1>Where Is It?</h1>
+    <p class="subtitle">Direcciones y lugares · Pick a topic, or try them all mixed together.</p>
+    <div class="nav-links">
+      <a class="nav-link" href="day4_get_to_know.html">
+        <span class="en">🔊 Practice Tool</span>
+        <span class="es">Herramienta de práctica</span>
+      </a>
+      <a class="nav-link" href="day4_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Printable Cards</span>
+        <span class="es">Tarjetas para imprimir</span>
+      </a>
+    </div>
+  </div>
+
+  <section id="landing-screen">
+    <div class="landing-intro">
+      <p>Choose one area to study, or try <strong>All Areas Mixed</strong> for a full review. Each quiz shows 4 answer choices — pick the one you think is right, then check your answer.</p>
+    </div>
+    <div class="landing-grid" id="landing-grid"></div>
+  </section>
+
+  <section id="quiz-screen" class="hidden">
+    <div class="quiz-topbar">
+      <span class="quiz-progress">Question <span id="q-current">1</span>/<span id="q-total">10</span></span>
+      <span class="quiz-score">✅ <span id="q-correct">0</span> correct</span>
+      <button class="exit-btn" id="exit-quiz">✕ Choose another area</button>
+    </div>
+
+    <p class="quiz-prompt" id="quiz-prompt-text"></p>
+
+    <div class="quiz-visual-wrap" id="quiz-visual-wrap">
+      <div class="quiz-visual" id="quiz-visual"></div>
+    </div>
+
+    <button class="replay-btn" id="replay-audio">🔊 Hear it again</button>
+
+    <div class="quiz-options" id="quiz-options"></div>
+    <div class="feedback-box" id="quiz-feedback"></div>
+    <button class="next-btn" id="next-question">Next ▶</button>
+  </section>
+
+  <section id="results-screen" class="hidden">
+    <div class="results-box">
+      <h2 style="font-family:'Bungee', cursive; margin:0;">🎉 All Done!</h2>
+      <div class="big-score" id="final-score">0/0</div>
+      <p id="final-message"></p>
+      <div class="results-buttons">
+        <button class="btn-retry" id="retry-btn">🔄 Try Again</button>
+        <button class="btn-choose" id="choose-btn">📋 Choose Another Area</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Teach for Success · Day 4 quiz</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  const locations = [
+    {emoji:"🚻", word:"bathroom", es:"baño"},
+    {emoji:"🏥", word:"hospital", es:"hospital"},
+    {emoji:"🍽️", word:"restaurant", es:"restaurante"},
+    {emoji:"🏠", word:"house", es:"casa"},
+    {emoji:"📚", word:"library", es:"biblioteca"},
+    {emoji:"🏪", word:"store", es:"tienda"},
+    {emoji:"🏫", word:"school", es:"escuela"},
+    {emoji:"🏞️", word:"park", es:"parque"},
+    {emoji:"🏦", word:"bank", es:"banco"},
+    {emoji:"⛪", word:"church", es:"iglesia"},
+    {emoji:"🏬", word:"market", es:"mercado"}
+  ];
+
+  const directions = [
+    {emoji:"⬅️", word:"turn left", es:"doble a la izquierda"},
+    {emoji:"➡️", word:"turn right", es:"doble a la derecha"},
+    {emoji:"⬆️", word:"go straight", es:"siga derecho"},
+    {emoji:"🛑", word:"stop", es:"alto"},
+    {emoji:"🚸", word:"cross the street", es:"cruce la calle"},
+    {emoji:"🧗", word:"go up", es:"suba"},
+    {emoji:"⬇️", word:"go down", es:"baje"}
+  ];
+
+  // In Andean towns, giving directions leans on landmarks — the main plaza,
+  // the church, a bridge, a mountain pass — far more than street names or
+  // cardinal directions, and mountain terrain means "up/down" matters as
+  // much as "left/right." These cover both the small-town and rural/trail
+  // versions of that.
+  const landmarks = [
+    {emoji:"⛲", word:"the plaza", es:"la plaza"},
+    {emoji:"🚌", word:"the bus terminal", es:"el terminal de buses"},
+    {emoji:"⚽", word:"the soccer field", es:"la cancha"},
+    {emoji:"🌉", word:"the bridge", es:"el puente"},
+    {emoji:"🏔️", word:"the mountain pass", es:"el abra"},
+    {emoji:"🔀", word:"the fork in the road", es:"la Y"},
+    {emoji:"🌀", word:"the curve", es:"la curva"},
+    {emoji:"🪦", word:"the cemetery", es:"el cementerio"},
+    {emoji:"🗿", word:"the stone marker", es:"la apacheta"},
+    {emoji:"🌊", word:"the river", es:"el río"},
+    {emoji:"⛰️", word:"the ravine", es:"la quebrada"},
+    {emoji:"📡", word:"the tower", es:"la antena"}
+  ];
+
+  // Prepositions have no unambiguous icon, so this category tests
+  // English<->Spanish word matching instead of picture matching.
+  const prepositions = [
+    {word:"next to", es:"al lado de"},
+    {word:"in front of", es:"enfrente de"},
+    {word:"behind", es:"detrás de"},
+    {word:"across from", es:"frente a"},
+    {word:"between", es:"entre"},
+    {word:"near", es:"cerca de"},
+    {word:"toward", es:"hacia"}
+  ];
+
+  const directionPhrases = [
+    {en:"Where is the library?", es:"¿Dónde está la biblioteca?"},
+    {en:"Turn left at the corner.", es:"Doble a la izquierda en la esquina."},
+    {en:"Turn right on Main Street.", es:"Doble a la derecha en la calle Main."},
+    {en:"Go straight two blocks.", es:"Siga derecho dos cuadras."},
+    {en:"It will be on your right.", es:"Estará a su derecha."},
+    {en:"It will be on your left.", es:"Estará a su izquierda."},
+    {en:"The bank is next to the store.", es:"El banco está al lado de la tienda."},
+    {en:"The school is across from the park.", es:"La escuela está frente al parque."}
+  ];
+
+  // ---- Audio (Web Speech API) ----
+  let voiceList = [];
+  function loadVoices(){ voiceList = window.speechSynthesis.getVoices(); }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+  function speak(text, lang, rate, pitch, volume){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = rate || 0.92;
+    utter.pitch = pitch || 1;
+    utter.volume = volume || 1;
+    window.speechSynthesis.speak(utter);
+  }
+  function speakItem(sentenceOrParts){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    if(Array.isArray(sentenceOrParts)){
+      sentenceOrParts.forEach(part=> speak(part.text, part.lang, part.rate, part.pitch, part.volume));
+    } else {
+      speak(sentenceOrParts, 'en-US');
+    }
+  }
+
+  function buildFront(item){
+    if(item.photo){
+      return `<div class="photo-wrap"><img src="${item.photo}" alt="${item.word}"></div>`;
+    }
+    if(item.art){ return item.art; }
+    return item.flag || item.emoji || '';
+  }
+
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  // ---- Question builders ----
+  function makeVocabQuestion(item, pool, promptText, sentenceFn, framePattern){
+    const others = pool.filter(p=>p.word!==item.word);
+    const distractors = shuffle(others).slice(0,3);
+    return {
+      frontItem:null,
+      prompt:promptText,
+      frame:framePattern,
+      correct:item.word,
+      optionType:'image',
+      options:shuffle([item, ...distractors]),
+      speak:sentenceFn(item),
+      reveal:`${item.emoji} <span class="feedback-es">${item.es}</span>`
+    };
+  }
+
+  function makeWordQuestion(item, pool){
+    const others = pool.filter(p=>p.word!==item.word);
+    const distractors = shuffle(others).slice(0,3).map(p=>p.es);
+    return {
+      frontItem:null,
+      frontWord:item.word,
+      prompt:"Which is the Spanish word?",
+      frame:"¿Cómo se dice en español?",
+      correct:item.es,
+      options:shuffle([item.es, ...distractors]),
+      speak:item.word
+    };
+  }
+
+  function makeSentenceQuestion(item, pool){
+    const others = pool.filter(p=>p.en!==item.en);
+    const distractors = shuffle(others).slice(0,3).map(p=>p.en);
+    return {
+      frontItem:null,
+      frontWord:item.es,
+      prompt:"Which is the English translation?",
+      frame:"¿Cómo se dice en inglés?",
+      correct:item.en,
+      options:shuffle([item.en, ...distractors]),
+      speak:item.en
+    };
+  }
+
+  const CATEGORIES = {
+    locations:{
+      label:"Locations", icon:"🏙️", accent:"var(--rose)",
+      build:()=> shuffle(locations).map(it=>makeVocabQuestion(it, locations,
+        "Listen, then tap the matching place.",
+        (item)=>`Where is the ${item.word}?`,
+        "Where is the ___?"))
+    },
+    directions:{
+      label:"Directions", icon:"🧭", accent:"var(--blue)",
+      build:()=> shuffle(directions).map(it=>makeVocabQuestion(it, directions,
+        "Listen, then tap the matching direction.",
+        (item)=>`${item.word.charAt(0).toUpperCase()}${item.word.slice(1)}.`,
+        "___!"))
+    },
+    prepositions:{
+      label:"Where Is It?", icon:"📍", accent:"var(--teal)",
+      build:()=> shuffle(prepositions).map(it=>makeWordQuestion(it, prepositions))
+    },
+    phrases:{
+      label:"Asking & Giving Directions", icon:"🗣️", accent:"var(--plum)",
+      build:()=> shuffle(directionPhrases).map(it=>makeSentenceQuestion(it, directionPhrases))
+    },
+    landmarks:{
+      label:"Andean Landmarks", icon:"🏔️", accent:"var(--gold)",
+      build:()=> shuffle(landmarks).map(it=>makeVocabQuestion(it, landmarks,
+        "Listen, then tap the matching landmark.",
+        (item)=>`Where is ${item.word}?`,
+        "Where is ___?"))
+    }
+  };
+
+  function buildAllAreasDeck(){
+    let deck = [];
+    Object.keys(CATEGORIES).forEach(key=>{
+      deck = deck.concat(CATEGORIES[key].build().slice(0,4));
+    });
+    return shuffle(deck);
+  }
+
+  const landingGrid = document.getElementById('landing-grid');
+  Object.keys(CATEGORIES).forEach(key=>{
+    const cat = CATEGORIES[key];
+    const poolSize = key==='locations' ? locations.length :
+      key==='directions' ? directions.length :
+      key==='prepositions' ? prepositions.length :
+      key==='phrases' ? directionPhrases.length : landmarks.length;
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.style.setProperty('--accent', cat.accent);
+    card.innerHTML = `
+      <div class="icon">${cat.icon}</div>
+      <div class="label">${cat.label}</div>
+      <div class="count">${poolSize} questions</div>
+    `;
+    card.addEventListener('click', ()=> startQuiz(key));
+    landingGrid.appendChild(card);
+  });
+  const allCard = document.createElement('div');
+  allCard.className = 'topic-card all-areas';
+  allCard.innerHTML = `
+    <div class="icon">🎯</div>
+    <div class="label">All Areas Mixed</div>
+    <div class="count">20 questions</div>
+  `;
+  allCard.addEventListener('click', ()=> startQuiz('all'));
+  landingGrid.appendChild(allCard);
+
+  let deck = [];
+  let idx = 0;
+  let correctCount = 0;
+  let lastSpeak = null;
+
+  const landingScreen = document.getElementById('landing-screen');
+  const quizScreen = document.getElementById('quiz-screen');
+  const resultsScreen = document.getElementById('results-screen');
+
+  function startQuiz(key){
+    deck = key==='all' ? buildAllAreasDeck() : CATEGORIES[key].build();
+    idx = 0;
+    correctCount = 0;
+    landingScreen.classList.add('hidden');
+    resultsScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+    document.getElementById('q-total').textContent = deck.length;
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = deck[idx];
+    document.getElementById('q-current').textContent = idx+1;
+    document.getElementById('q-correct').textContent = correctCount;
+    document.getElementById('quiz-prompt-text').innerHTML =
+      `${q.prompt} <span class="quiz-frame">${q.frame}</span>`;
+
+    const visualWrap = document.getElementById('quiz-visual-wrap');
+    const visualEl = document.getElementById('quiz-visual');
+    if(q.frontItem){
+      visualWrap.classList.remove('hidden');
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = buildFront(q.frontItem);
+    } else if(q.frontWord){
+      visualWrap.classList.remove('hidden');
+      visualEl.classList.add('word-display');
+      visualEl.innerHTML = `<span>${q.frontWord}</span>`;
+    } else {
+      visualWrap.classList.add('hidden');
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = '';
+    }
+
+    document.getElementById('quiz-feedback').textContent = '';
+    document.getElementById('quiz-feedback').className = 'feedback-box';
+    document.getElementById('next-question').style.display = 'none';
+
+    const optionsEl = document.getElementById('quiz-options');
+    optionsEl.innerHTML = '';
+    const isImageOptions = q.optionType === 'image';
+    optionsEl.classList.toggle('image-options', isImageOptions);
+    q.options.forEach(opt=>{
+      const btn = document.createElement('button');
+      const optWord = isImageOptions ? (opt.name || opt.word) : opt;
+      btn.dataset.word = optWord;
+      if(isImageOptions){
+        btn.className = 'option-btn image-option';
+        btn.innerHTML = buildFront(opt);
+      } else {
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+      }
+      btn.addEventListener('click', ()=> handleAnswer(optWord, btn, q));
+      optionsEl.appendChild(btn);
+    });
+
+    lastSpeak = q.speak;
+    speakItem(q.speak);
+  }
+
+  function handleAnswer(chosen, btnEl, q){
+    const isCorrect = chosen === q.correct;
+    document.querySelectorAll('.option-btn').forEach(b=>{
+      b.disabled = true;
+      if(b.dataset.word === q.correct) b.classList.add('correct');
+    });
+    if(!isCorrect) btnEl.classList.add('wrong');
+    if(isCorrect) correctCount++;
+    document.getElementById('q-correct').textContent = correctCount;
+
+    const feedback = document.getElementById('quiz-feedback');
+    let feedbackHtml = isCorrect ? `✅ Correct! ${q.speak}` : `Actually: ${q.speak}`;
+    if(q.reveal){
+      feedbackHtml += `<div class="feedback-reveal">${q.reveal}</div>`;
+    }
+    feedback.innerHTML = feedbackHtml;
+    feedback.className = `feedback-box ${isCorrect ? 'correct' : 'wrong'}`;
+    speakItem(q.speak);
+    document.getElementById('next-question').style.display = 'inline-block';
+  }
+
+  document.getElementById('replay-audio').addEventListener('click', ()=>{
+    if(lastSpeak) speakItem(lastSpeak);
+  });
+
+  document.getElementById('next-question').addEventListener('click', ()=>{
+    idx++;
+    if(idx >= deck.length){
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  });
+
+  document.getElementById('exit-quiz').addEventListener('click', ()=>{
+    quizScreen.classList.add('hidden');
+    landingScreen.classList.remove('hidden');
+  });
+
+  function showResults(){
+    quizScreen.classList.add('hidden');
+    resultsScreen.classList.remove('hidden');
+    document.getElementById('final-score').textContent = `${correctCount}/${deck.length}`;
+    const pct = Math.round((correctCount/deck.length)*100);
+    let msg = '';
+    if(pct === 100) msg = "¡Perfecto! You know this by heart.";
+    else if(pct >= 75) msg = "¡Muy bien! Almost there.";
+    else if(pct >= 50) msg = "Good start — keep practicing!";
+    else msg = "Let's practice this one some more.";
+    document.getElementById('final-message').textContent = msg;
+  }
+
+  document.getElementById('retry-btn').addEventListener('click', ()=>{
+    resultsScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+    idx = 0;
+    correctCount = 0;
+    renderQuestion();
+  });
+
+  document.getElementById('choose-btn').addEventListener('click', ()=>{
+    resultsScreen.classList.add('hidden');
+    landingScreen.classList.remove('hidden');
+  });
+</script>
+</body>
+</html>
