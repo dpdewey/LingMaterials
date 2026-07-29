@@ -1,0 +1,228 @@
+/* ============================================================
+   BYU Linguistics — Teaching Materials layer
+   ADDITIVE ONLY. Load AFTER styles.css.
+   Every selector is prefixed .mat- (or is an explicit modifier)
+   so nothing here can collide with the mentoring archive styles.
+   Palette + type inherited from styles.css tokens.
+   ============================================================ */
+
+/* ---- Footer: allow a fourth column when Teaching Materials is listed ---- */
+.area-footer-inner.cols-4 {
+  grid-template-columns: 1.2fr 1fr 1fr 1fr;
+}
+@media (max-width: 900px) {
+  .area-footer-inner.cols-4 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .area-footer-inner.cols-4 { grid-template-columns: 1fr; }
+}
+
+/* ---- Breadcrumb back-link above a project title ---- */
+.mat-crumb {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-medium);
+  margin-bottom: 0.75rem;
+}
+.mat-crumb a { color: var(--text-medium); }
+.mat-crumb a:hover { color: var(--byu-royal); }
+
+/* ---- Project cards on the Teaching Materials hub ---- */
+.mat-projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0 0;
+}
+.mat-project {
+  display: flex;
+  flex-direction: column;
+  background: var(--byu-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  border-top: 4px solid var(--byu-navy);
+  padding: 1.5rem;
+  transition: box-shadow .15s, border-color .15s;
+}
+.mat-project:hover { box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+.mat-project h3 {
+  font-size: 1.1875rem;
+  font-weight: 640;
+  margin: 0 0 0.35rem;
+  color: var(--text-navy);
+}
+.mat-project .mat-project-audience {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-medium);
+  margin: 0 0 0.85rem;
+}
+.mat-project p { font-size: 0.9375rem; color: var(--text-dark); }
+.mat-project-foot {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+}
+.mat-project-count {
+  font-size: 0.8125rem;
+  color: var(--text-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- In-page contents strip ---- */
+.mat-toc {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.25rem;
+  margin: 0 0 2.5rem;
+}
+.mat-toc h2 {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  margin: 0 0 0.65rem;
+}
+.mat-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+}
+.mat-toc a { font-size: 0.9375rem; font-weight: 500; }
+
+/* ---- A material set (one topic, its related files) ---- */
+.mat-set {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+  scroll-margin-top: calc(var(--topbar-h) + var(--navbar-h) + 1rem);
+}
+.mat-set-head {
+  background: var(--byu-navy);
+  color: var(--byu-white);
+  padding: 1.125rem 1.5rem;
+}
+.mat-set-head h3 {
+  color: var(--byu-white);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  margin: 0;
+}
+.mat-set-note {
+  margin: 0.4rem 0 0;
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.82);
+  max-width: 68ch;
+}
+.mat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+.mat-chip {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.14);
+  color: var(--byu-white);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+/* ---- File rows inside a set ---- */
+.mat-list { margin: 0; padding: 0; list-style: none; }
+.mat-item {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid var(--border);
+  background: var(--byu-white);
+  transition: background .12s;
+}
+.mat-list > .mat-item:first-child { border-top: none; }
+.mat-item:hover { background: var(--bg-tint); }
+.mat-item-role {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-medium);
+}
+.mat-item-name { font-size: 1rem; font-weight: 500; }
+.mat-item-name a { color: var(--byu-navy); }
+.mat-item-name a:hover { color: var(--byu-royal); }
+.mat-item-desc {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--text-medium);
+  margin-top: 2px;
+}
+.mat-item-type {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-medium);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+.mat-item-type[data-type="PDF"]  { color: var(--warning); border-color: var(--warning); }
+.mat-item-type[data-type="PPTX"] { color: var(--info);    border-color: var(--info); }
+
+@media (max-width: 700px) {
+  .mat-item {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "role type" "name name";
+    row-gap: 0.35rem;
+  }
+  .mat-item-role { grid-area: role; }
+  .mat-item-type { grid-area: type; justify-self: end; }
+  .mat-item-name { grid-area: name; }
+}
+
+/* ---- Callout note ---- */
+.mat-note {
+  border-left: 4px solid var(--byu-royal);
+  background: var(--bg-soft);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 0 0 2rem;
+  font-size: 0.9375rem;
+  color: var(--text-dark);
+  max-width: 78ch;
+}
+.mat-note p:last-child { margin-bottom: 0; }
+.mat-note strong { color: var(--text-navy); }
+
+/* ---- Accessibility floor ---- */
+a:focus-visible,
+.mat-item a:focus-visible {
+  outline: 3px solid var(--byu-royal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
