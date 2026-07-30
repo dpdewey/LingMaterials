@@ -3,23 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit Faculty Mentoring Entry</title>
-<link rel="stylesheet" href="../styles.css">
+<title>Submit Faculty Mentoring Entry | BYU Linguistics</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+<div class="byu-topbar">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
+
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Faculty Mentoring</small>
+      Submit Entry
+    </h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Mentoring</a>
+      <a href="view.html">Faculty Mentoring</a>
+      <a href="../MentoredStudent/student-view.html">Student Experiences</a>
+    </nav>
+  </div>
+</header>
+
 <section class="hero">
-  <div class="hero-inner" style="padding: 0 0.5rem;">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Faculty Mentoring</div>
     <h1>Submit a Mentoring Entry</h1>
     <p class="hero-statement">
       Document a mentoring activity, project, or outcome.
-      Use the toggle on any field to keep specific information
+      Use the toggle on the form or any field to keep specific information
       private (visible only in the admin view).
     </p>
   </div>
 </section>
 
-<main class="main-narrow" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+<main class="main-narrow">
 
   <form id="mentoring-form" novalidate>
 
@@ -148,7 +176,7 @@
       </div>
     </div>
 
-    <!-- 4. Experience Description -->
+    <!-- 4. Experpience Description -->
     <div class="form-card">
       <h2>4. Experience Description</h2>
       <p class="form-help">Describe the experience. Tell what was produced or achieved through this mentoring?</p>
@@ -162,7 +190,7 @@
       </div>
     </div>
 
-    <!-- 5. Notes -->
+    <!-- 5. ExperienceNotes -->
     <div class="form-card">
       <h2>5. Mentor Formal Notes</h2>
       <p class="form-help">Provide any notes or details for departmental reference (e.g., sources of funding, co-contributor roles, area of stewardship--teaching, scholarship, citizenship).</p>
@@ -177,30 +205,29 @@
     </div>
 
     <!-- 6. Impact -->
-    <div class="form-card">
-      <h2>6. Impact Statement: Faculty and Student</h2>
+<div class="form-card">
+  <h2>6. Impact Statement: Faculty and Student</h2>
+  
+  <div class="form-row">
+    <label for="impact-faculty">
+      Faculty Impact
+      <label class="privacy-toggle"><input type="checkbox" data-private="impact-faculty"> private</label>
+    </label>
+    <p class="form-help">How did this mentoring affect you—your motivation, research trajectory, teaching methods, or future approach to mentoring?</p>
+    <textarea id="impact-faculty" placeholder="e.g., This collaboration allowed me to pilot a new data collection method that I will now integrate into my Ling 301 course."></textarea>
+  </div>
 
-      <div class="form-row">
-        <label for="impact-faculty">
-          Faculty Impact
-          <label class="privacy-toggle"><input type="checkbox" data-private="impact-faculty"> private</label>
-        </label>
-        <p class="form-help">How did this mentoring affect you—your motivation, research trajectory, teaching methods, or future approach to mentoring?</p>
-        <textarea id="impact-faculty" placeholder="e.g., This collaboration allowed me to pilot a new data collection method that I will now integrate into my Ling 301 course."></textarea>
-      </div>
+  <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
 
-      <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-
-      <div class="form-row">
-        <label for="impact-student">
-          Student Impact
-          <label class="privacy-toggle"><input type="checkbox" data-private="impact-student"> private</label>
-        </label>
-        <p class="form-help">How did this experience influence the student's professional development, analytical skills, career trajectory, or personal growth.</p>
-        <textarea id="impact-student" placeholder="e.g., Mastering these documentation techniques gave the student the technical confidence to apply for a competitive internship in the field."></textarea>
-      </div>
-    </div>
-
+  <div class="form-row">
+    <label for="impact-student">
+      Student Impact
+      <label class="privacy-toggle"><input type="checkbox" data-private="impact-student"> private</label>
+    </label>
+    <p class="form-help">How did this experience influence the student’s professional development, analytical skills, career trajectory, or personal growth.</p>
+    <textarea id="impact-student" placeholder="e.g., Mastering these documentation techniques gave the student the technical confidence to apply for a competitive internship in the field."></textarea>
+  </div>
+</div>
     <!-- 7. Image -->
     <div class="form-card">
       <h2>7. Image (optional)</h2>
@@ -220,8 +247,42 @@
 
 </main>
 
-<script src="../../storage.js"></script>
-<script src="../../Mentoring/FacultyMentoring/seed-data.js"></script>
-<script src="../../Mentoring/FacultyMentoring/entry.js"></script>
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo"><img src="../../assets/logos/ling_horiz_white.png" alt="BYU Linguistics"></div>
+      <p>4064 JFSB<br>Brigham Young University<br>Provo, UT 84602</p>
+      <p>Office: 801-422-2937<br>Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a></p>
+    </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/faculty-staff-directory">Faculty &amp; Staff</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="../index.html">Archive Home</a></li>
+        <li><a href="view.html">Faculty Mentoring</a></li>
+        <li><a href="../MentoredStudent/student-view.html">Student Experiences</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA · 801-422-4636</span>
+    <span>© 2026 Brigham Young University</span>
+  </div>
+</div>
+
+<script src="storage.js"></script>
+<script src="seed-data.js"></script>
+<script src="entry.js"></script>
 </body>
 </html>

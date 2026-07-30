@@ -677,7 +677,7 @@
     const topAimName = topAim ? AIM_LABELS[topAim[0]] : '';
     return `Across ${entries.length} student accounts, ${stats.students} students describe the mentoring they received from ${stats.mentors} faculty members in ${stats.programs} programs. ` +
       (topAimName ? `The most frequently reflected aim is ${topAimName}. ` : '') +
-      `Each entry below records a transformative moment, a specific conversation, and what students carry forward.`;
+      `Each entry below records a transformative moment, a specific conversation, and descriptions of how faculty mentors have affected their lives.`;
   }
 
   /* =========================================================

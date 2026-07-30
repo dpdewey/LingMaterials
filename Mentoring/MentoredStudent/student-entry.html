@@ -3,23 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Submit Student Experience</title>
-<link rel="stylesheet" href="../styles.css">
+<title>Submit Student Experience | BYU Linguistics</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+<div class="byu-topbar">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
+
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Student Experiences</small>
+      Submit Entry
+    </h1>
+    <nav>
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Mentoring</a>
+      <a href="../FacultyMentoring/view.html">Faculty Mentoring</a>
+      <a href="student-view.html">Student Experiences</a>
+    </nav>
+  </div>
+</header>
+
 <section class="hero">
-  <div class="hero-inner" style="padding: 0 0.5rem;">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Student Experiences</div>
     <h1>Share Your Mentored Experience</h1>
     <p class="hero-statement">
-      Reflect on a transformative mentoring experience &mdash;
-      research, internship, study abroad, conference, project &mdash;
+      Reflect on a transformative mentoring experience —
+      research, internship, study abroad, conference, project —
       and how it shaped your development across the four BYU Aims.
     </p>
   </div>
 </section>
 
-<main class="main-narrow" style="padding-left: 0.5rem; padding-right: 0.5rem;">
+<main class="main-narrow">
 
   <form id="student-form" novalidate>
 
@@ -46,7 +74,7 @@
           <input type="text" id="student-name" required>
           <div class="form-help" style="margin-top: 0.4rem;">
             If you check "share anonymously," your name will appear as
-            "Anonymous student" in the public archive &mdash; but the
+            "Anonymous student" in the public archive — but the
             department admin will still see your real name for records.
           </div>
         </div>
@@ -119,11 +147,12 @@
       <p class="form-help">
         How did this mentored experience contribute to your development
         in each of the four BYU Aims? Respond to whichever aims are
-        relevant &mdash; you don't need to fill in all four.
+        relevant — you don't need to fill in all four.
       </p>
 
       <div class="aims-accordion">
 
+        <!-- Spiritual -->
         <div class="aim-card">
           <div class="aim-card-header" data-aim="spiritual">
             <span>Spiritually Strengthening</span>
@@ -133,7 +162,7 @@
             <div class="aim-prompts">
               <div class="aim-prompt-tile">How did this experience deepen your faith or testimony?</div>
               <div class="aim-prompt-tile">Did your mentor model integration of faith and learning?</div>
-              <div class="aim-prompt-tile">Did the work draw you closer to Christ or teach you something about discipleship?</div>
+              <div class="aim-prompt-tile">Did the work draw you closer to Christ or teacher you something about discipleship?</div>
             </div>
             <div class="form-row">
               <label>
@@ -145,6 +174,7 @@
           </div>
         </div>
 
+        <!-- Intellectual -->
         <div class="aim-card">
           <div class="aim-card-header" data-aim="intellectual">
             <span>Intellectually Enlarging</span>
@@ -166,6 +196,7 @@
           </div>
         </div>
 
+        <!-- Character -->
         <div class="aim-card">
           <div class="aim-card-header" data-aim="character">
             <span>Character-Building</span>
@@ -187,6 +218,7 @@
           </div>
         </div>
 
+        <!-- Service -->
         <div class="aim-card">
           <div class="aim-card-header" data-aim="service">
             <span>Lifelong Learning &amp; Service</span>
@@ -195,7 +227,7 @@
           <div class="aim-card-body">
             <div class="aim-prompts">
               <div class="aim-prompt-tile">How did you serve others through this experience?</div>
-              <div class="aim-prompt-tile">How will you continue learning and serving going forward?</div>
+              <div class="aim-prompt-tile">How will you continue learning and serving going forward now you've had this experience?</div>
               <div class="aim-prompt-tile">How does this prepare you to bless your community or family?</div>
             </div>
             <div class="form-row">
@@ -214,7 +246,7 @@
     <!-- 4. Image -->
     <div class="form-card">
       <h2>4. Image (optional)</h2>
-      <p class="form-help">Upload a photo from the experience.</p>
+      <p class="form-help">Upload a photo from the experience — research site, conference, project, photo of mentor and you, etc.</p>
       <div class="form-row">
         <label for="image">Upload image</label>
         <input type="file" id="image" accept="image/*">
@@ -229,6 +261,39 @@
   </form>
 
 </main>
+
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo"><img src="../../assets/logos/ling_horiz_white.png" alt="BYU Linguistics"></div>
+      <p>4064 JFSB<br>Brigham Young University<br>Provo, UT 84602</p>
+      <p>Office: 801-422-2937<br>Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a></p>
+    </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="../index.html">Archive Home</a></li>
+        <li><a href="../FacultyMentoring/view.html">Faculty Mentoring</a></li>
+        <li><a href="student-view.html">Student Experiences</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA · 801-422-4636</span>
+    <span>© 2026 Brigham Young University</span>
+  </div>
+</div>
 
 <script>
 // Aim accordion toggle (lightweight inline)
@@ -251,8 +316,8 @@ document.querySelectorAll('.aim-card-header').forEach(h => {
   if (body) body.style.display = 'none';
 });
 </script>
-<script src="../../storage.js"></script>
-<script src="../../Mentoring/MentoredStudent/student-seed.js"></script>
-<script src="../../Mentoring/MentoredStudent/student-entry.js"></script>
+<script src="storage.js"></script>
+<script src="student-seed.js"></script>
+<script src="student-entry.js"></script>
 </body>
 </html>
