@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TFS L07 Practice</title><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+  :root{--ink:#141414;--paper:#faf4e8;--acc:#c92a2a;--yellow:#f5c518;--cyan:#2ab3b1;--purple:#7c3aed;--teal:#0d7377;--green:#2f9e44;--red:#d63b2f;--border:3px solid var(--ink);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Fraunces',serif;font-size:15px;line-height:1.55;padding:22px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  header{border:var(--border);box-shadow:8px 8px 0 var(--ink);background:#fff;margin-bottom:24px;}
+  .brand{background:var(--ink);color:var(--yellow);font-family:'Bungee',sans-serif;font-size:.7rem;padding:8px 16px;letter-spacing:.12em;}
+  .titleband{padding:16px 20px;background:var(--acc);color:#fff;}
+  .titleband h1{font-family:'Bungee',sans-serif;font-size:1.4rem;line-height:1.15;}
+  .titleband p{font-family:'Space Mono',monospace;font-size:.74rem;margin-top:5px;}
+  section{border:var(--border);box-shadow:6px 6px 0 var(--ink);background:#fff;margin-bottom:22px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;padding:9px 15px;border-bottom:var(--border);}
+  .sec-num{font-family:'Bungee',sans-serif;font-size:1.1rem;color:var(--cyan);}
+  .sec-title{font-family:'Bungee',sans-serif;font-size:.76rem;flex:1;letter-spacing:.02em;}
+  .sec-time{font-family:'Space Mono',monospace;font-size:.62rem;background:var(--red);padding:3px 8px;border:2px solid #fff;}
+  .sec-body{padding:15px 19px;}
+  .rule{background:#fdf8ec;border:2px dashed var(--ink);padding:12px 15px;margin:10px 0;}
+  .rule h4{font-family:'Bungee',sans-serif;font-size:.7rem;color:var(--red);margin-bottom:6px;}
+  .ex{font-family:'Space Mono',monospace;font-size:.8rem;padding:4px 0 4px 13px;border-left:4px solid var(--cyan);margin:6px 0;}
+  .ex b{color:var(--red);}
+  .task{background:var(--yellow);border:2px solid var(--ink);padding:8px 12px;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;margin:10px 0;}
+  .frames{display:grid;gap:7px;margin:8px 0;}
+  .frame{border:2px solid var(--ink);background:#fff;padding:8px 12px;font-family:'Space Mono',monospace;font-size:.8rem;box-shadow:3px 3px 0 var(--acc);}
+  .line{border-bottom:2px solid var(--ink);min-height:25px;margin:12px 0 4px;}
+  .check{font-size:.86rem;margin:5px 0;} .check::before{content:"\2610  ";}
+  .steps{list-style:none;margin:6px 0;}
+  .steps li{padding:6px 0 6px 24px;position:relative;border-bottom:1px dotted #cbb;}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:"\25B8";position:absolute;left:4px;color:var(--red);font-weight:bold;}
+  .why{background:#eef8f8;border-left:6px solid var(--cyan);padding:9px 13px;margin:9px 0;font-size:.83rem;font-style:italic;}
+  .item{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  input[type=text]{font-family:'Space Mono',monospace;font-size:.88rem;border:none;border-bottom:3px solid var(--ink);background:#fdf8ec;padding:4px 8px;width:180px;max-width:100%;}
+  textarea{width:100%;font-family:'Space Mono',monospace;font-size:.84rem;border:var(--border);background:#fdf8ec;padding:10px;min-height:105px;}
+  button.go{font-family:'Bungee',sans-serif;font-size:.66rem;border:var(--border);background:var(--cyan);padding:9px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin:8px 6px 8px 0;}
+  button.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  button.go.alt{background:#fff;}
+  .fb{font-family:'Space Mono',monospace;font-size:.76rem;padding:9px 11px;margin:8px 0;border:2px solid var(--ink);display:none;}
+  .fb.ok{display:block;background:#b7e4c7;} .fb.no{display:block;background:#ffc9c9;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0;}
+  .opt{border:2px solid var(--ink);background:#fff;padding:7px 11px;font-family:'Space Mono',monospace;font-size:.76rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink);}
+  .opt.good{background:#b7e4c7;} .opt.bad{background:#ffc9c9;}
+  .story{font-size:1rem;line-height:2;background:#fdf8ec;border:2px dashed var(--ink);padding:15px 17px;margin:10px 0;}
+  .w{cursor:pointer;padding:1px 2px;}
+  .w.pick{background:var(--yellow);outline:2px solid var(--ink);}
+  .w.good{background:#b7e4c7;outline:2px solid var(--green);}
+  .w.bad{background:#ffc9c9;outline:2px solid var(--red);text-decoration:line-through;}
+  .score{font-family:'Bungee',sans-serif;font-size:.8rem;background:var(--ink);color:var(--yellow);display:inline-block;padding:6px 13px;margin:8px 0;}
+  .big{font-family:'Bungee',sans-serif;font-size:2.3rem;text-align:center;margin:8px 0;}
+  .model{display:none;background:#eef8f8;border:2px solid var(--cyan);padding:11px 13px;margin:10px 0;font-size:.88rem;}
+  .model.on{display:block;}
+  .lock{background:#fdf8ec;border:2px dashed var(--ink);padding:13px;text-align:center;font-family:'Space Mono',monospace;font-size:.76rem;margin:10px 0;}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tab{font-family:'Bungee',sans-serif;font-size:.58rem;letter-spacing:.05em;padding:8px 11px;border:var(--border);background:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer;}
+  .tab.on{background:var(--yellow);}
+  .tab small{display:block;font-family:'Space Mono',monospace;font-size:.54rem;margin-top:2px;}
+  section.pane{display:none;} section.pane.on{display:block;}
+  .mission{border:var(--border);box-shadow:6px 6px 0 var(--acc);background:#fff;margin-bottom:22px;padding:13px 17px;}
+  .mission b{color:var(--acc);}
+  .pbox{border:3px solid var(--acc);box-shadow:5px 5px 0 var(--acc);margin:13px 0;overflow:hidden;}
+  .pb-head{background:var(--acc);color:#fff;font-family:'Bungee',sans-serif;font-size:.66rem;padding:7px 13px;letter-spacing:.06em;}
+  .pb-body{padding:11px 15px;background:#faf8ff;}
+  .pb-body p{font-size:.87rem;margin-bottom:5px;}
+  .sortrow{border:2px solid var(--ink);padding:7px 11px;margin:7px 0;font-family:'Space Mono',monospace;font-size:.8rem;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  .sortbox{display:inline-block;border:2px solid var(--ink);font-family:'Bungee',sans-serif;font-size:.58rem;padding:3px 10px;margin-left:8px;background:var(--paper);}
+  .navrow{display:flex;justify-content:space-between;gap:10px;margin:4px 0 18px;font-family:'Space Mono',monospace;font-size:.72rem;}
+  .navrow a{color:var(--ink);background:#fff;border:2px solid var(--ink);padding:5px 10px;text-decoration:none;box-shadow:3px 3px 0 var(--ink);}
+  footer{border-top:var(--border);margin-top:6px;padding-top:12px;font-family:'Space Mono',monospace;font-size:.62rem;text-align:center;color:#665;}
+  @media print{body{padding:0;}header,section,.mission{box-shadow:none;}}
+</style></head>
+<body><div class="wrap"><header><div class="brand">TEACH FOR SUCCESS! · L07 · PRACTICE MODULE (~2 HOURS, IN PARTS)</div>
+<div class="titleband"><h1>WHAT ARE YOU DOING THIS WEEKEND?</h1><p>Future forms — will / going to / present progressive · Do the parts in order · Save COME BACK for 2 days later!</p></div></header><div class="navrow"><a href="L06_practice.html">&larr; L6</a><a href="index.html">INDEX</a><a href="L08_practice.html">L8 &rarr;</a></div><nav class="tabs">
+<div class="tab on" data-s="s1">A · NOTICE<small>~20 min</small></div>
+<div class="tab" data-s="s2">B · PRACTICE<small>~25 min</small></div>
+<div class="tab" data-s="s3">C · RECALL<small>~20 min</small></div>
+<div class="tab" data-s="s4">D · CHUNKS<small>~15 min</small></div>
+<div class="tab" data-s="s5">E · GAME<small>~10 min</small></div>
+<div class="tab" data-s="s6">F · SHARE<small>~25 min</small></div>
+<div class="tab" data-s="s7">&#10227; COME BACK<small>2 days later</small></div></nav>
+<section id="s1" class="pane on"><div class="sec-head"><span class="sec-num">A</span><span class="sec-title" id="stTitle">NOTICE</span><span class="sec-time">~20 MIN</span></div>
+<div class="sec-body"><div class="task">STEP 1 · Press LISTEN and just listen once. STEP 2 · Read and TAP every phrase that uses today's target grammar. Then press CHECK.</div>
+<button class="go" onclick="speak()">&#9654; LISTEN</button><button class="go alt" onclick="stopSpeak()">&#9632; STOP</button>
+<div class="story" id="story"></div><button class="go" onclick="checkNotice()">CHECK MY TAPS</button><div class="fb" id="fbNotice"></div>
+<div class="task">STEP 3 · Discovery questions — tap one answer each.</div><div id="discWrap"></div></div></section>
+<section id="s2" class="pane"><div class="sec-head"><span class="sec-num">B</span><span class="sec-title">PRACTICE — type the correct form</span><span class="sec-time">~25 MIN</span></div>
+<div class="sec-body"><div class="task">Type your answer, press CHECK — instant feedback with an explanation. Some items accept more than one correct answer!</div>
+<div id="fillItems"></div><div class="score" id="fillScore"></div></div></section>
+<section id="s3" class="pane"><div class="sec-head"><span class="sec-num">C</span><span class="sec-title">RECALL — the story from memory</span><span class="sec-time">~20 MIN</span></div>
+<div class="sec-body"><div class="task">No peeking at Part A! Rebuild the story from memory. Struggling to remember is GOOD — that's the muscle growing.</div>
+<div id="recallItems"></div><div class="score" id="recallScore"></div></div></section>
+<section id="s4" class="pane"><div class="sec-head"><span class="sec-num">D</span><span class="sec-title">CHUNKS — build full sentences</span><span class="sec-time">~15 MIN</span></div>
+<div class="sec-body"><div class="task">Type the WHOLE sentence, then CHECK — the checker looks for the pattern. Then compare with the model.</div>
+<div id="chunkWrap"></div></div></section>
+<section id="s5" class="pane"><div class="sec-head"><span class="sec-num">E</span><span class="sec-title">GAME — 60-second lightning round</span><span class="sec-time">~10 MIN</span></div>
+<div class="sec-body"><div class="task">Answer as many as you can in 60 seconds. Play at least twice — beat your own score! Screenshot your best for class bragging rights. &#127942;</div>
+<div class="big" id="clock">60</div><button class="go" onclick="startGame()">START / RESTART</button>
+<div class="item" id="gameBox" style="display:none;"><p id="gQ" style="font-size:1.02rem;"></p><div class="opts" id="gOpts"></div></div>
+<div class="score" id="gScore">BEST: 0</div></div></section>
+<section id="s6" class="pane"><div class="sec-head"><span class="sec-num">F</span><span class="sec-title">SHARE — a real information gap</span><span class="sec-time">~25 MIN</span></div>
+<div class="sec-body"><div class="task" id="shS1"></div><div class="task" style="background:#fff;" id="shS2"></div>
+<textarea id="report"></textarea><br><button class="go" onclick="checkReport()">SELF-CHECK MY REPORT</button><div class="fb" id="fbReport"></div>
+<button class="go alt" onclick="document.getElementById('mrep').classList.add('on')">SHOW A MODEL</button><div class="model" id="mrep"></div>
+<div class="task">STEP 3 · Send your report to your teacher (or paste it in the class form). You will read it to a partner at the start of the next lesson — know your details!</div></div></section>
+<section id="s7" class="pane"><div class="sec-head"><span class="sec-num">&#10227;</span><span class="sec-title">COME BACK — do this TWO DAYS later</span><span class="sec-time">~15 MIN</span></div>
+<div class="sec-body"><div class="lock">&#8987; Wait two days after the lesson, then return. Spaced practice beats cramming — science says so; your teacher says so too.</div>
+<div class="task">Quick retrieval — no notes, no peeking.</div><div id="cbWrap"></div>
+<div class="item"><p>Finally: say all three frames of this lesson OUT LOUD from memory, then reveal to self-check.</p>
+<button class="go alt" onclick="document.getElementById('mfr').classList.add('on')">REVEAL FRAMES</button><div class="model" id="mfr"></div></div>
+<div class="lock">Done? &#127881; See you next lesson — bring your SHARE report and your lightning-round best score.</div></div></section><script>
+const DATA={"frames": ["<b>I\u2019m going to ___<\/b> after class.", "<b>I\u2019ll probably ___ / I don\u2019t think I\u2019ll ___.<\/b>", "<b>What are you doing<\/b> this weekend?"], "story": [["On Sunday, Leila gathered her family in the kitchen. \u201cEveryone \u2014 ", 0], ["I'm going to open", 1], [" my own bakery!\u201d Silence. Then her little brother grinned: \u201c", 0], ["I'll be", 1], [" your first customer!\u201d Her mother checked the calendar. \u201cWe ", 0], ["are meeting", 1], [" the bank on Tuesday at nine,\u201d she said \u2014 she had already made the appointment. Her father looked out the window at the grey sky. \u201cTake an umbrella tomorrow. ", 0], ["It's going to rain", 1], [".\u201d Leila laughed. \u201cWhen the shop ", 0], ["opens", 1], [", the first bread is free.\u201d", 0]], "storyTitle": "The Big Announcement", "disc": [{"q": "\u201cI\u2019ll be your first customer!\u201d \u2014 planned before, or decided at that moment?", "o": [["Decided right at that moment", 1, "Exactly \u2014 will for on-the-spot decisions, offers, promises."], ["Planned for weeks", 0, "He decided as he spoke \u2014 that\u2019s will, not going to."]]}, {"q": "\u201cWe ARE MEETING the bank on Tuesday at nine\u201d \u2014 why present progressive?", "o": [["It\u2019s a fixed arrangement with others", 1, "Right \u2014 time and place already agreed = arrangement."], ["It\u2019s happening right now", 0, "Not now \u2014 it\u2019s Tuesday\u2019s ARRANGEMENT, already set up."]]}], "fills": [["Look at the score \u2014 they ______ (win) easily.", "are going to win/'re going to win", "Visible evidence now \u2192 going to."], ["I\u2019m thirsty. I ______ (get) some water.", "'ll get/will get", "Decision at the moment of speaking \u2192 will."], ["We ______ (see) the dentist tomorrow at 4:30 \u2014 it\u2019s booked.", "are seeing/'re seeing", "Fixed arrangement \u2192 present progressive.", {"a": "are going to see|", "m": "Also acceptable \u2014 going to for a plan. But with a booked time, native speakers prefer the progressive: We\u2019re seeing the dentist at 4:30."}], ["I think you ______ (love) this book.", "'ll love/will love", "Opinion prediction \u2192 will (often with I think)."], ["She ______ (study) engineering \u2014 she chose it months ago.", "is going to study/'s going to study", "Decision made before speaking \u2192 going to."], ["Call me as soon as you ______ (land).", "land", "Time clause: as soon as + PRESENT, not will."], ["Don\u2019t worry \u2014 I ______ (not/forget) your birthday. Promise!", "won't forget", "Promise \u2192 will not / won\u2019t."], ["What ______ you ______ (do) on Saturday night? Anything fun?", "are|doing", "Asking about arrangements \u2192 present progressive."]], "recalls": [["\u201cEveryone \u2014 ______ my own bakery!\u201d Silence. (open)", "I'm going to open"], ["Then her little brother grinned: \u201c______ your first customer!\u201d Her mother checked the calendar. (be)", "I'll be"], ["\u201cWe ______ the bank on Tuesday at nine,\u201d she said \u2014 she had already made the appointment. (meet)", "are meeting"], ["______.\u201d Leila laughed. (rain)", "It's going to rain"], ["\u201cWhen the shop ______, the first bread is free.\u201d (open)", "opens"]], "chunks": [{"p": "\ud83d\udcc5 A real plan you decided before today (frame 1):", "ph": "After class, I'm going to...", "links": [], "must": ["going to"], "model": "After class, I\u2019m going to buy groceries for the week."}, {"p": "\ud83d\udd2e A prediction about your city in ten years (frame 2, with probably / I think):", "ph": "I think...", "links": [], "must": ["will /'ll "], "model": "I think my city will probably have a metro line in ten years."}, {"p": "\u23f3 A promise with a time clause (<b>when/as soon as + present<\/b>):", "ph": "I'll ... when ...", "links": ["when", "as soon as"], "must": ["'ll /will "], "model": "I\u2019ll text you as soon as I get home."}], "game": [["The phone's ringing \u2014 I ___ answer!", ["'ll", "'m going to"], 0], ["Look at that sky! It ___ rain.", ["'s going to", "will probably"], 0], ["We ___ dinner with Ana on Friday. (arranged)", ["'re having", "will have"], 0], ["I'll call you when I ___.", ["arrive", "will arrive"], 0], ["I think Peru ___ win tonight.", ["will", "is winning"], 0], ["He decided already: he ___ quit.", ["'s going to", "'ll"], 0], ["Heavy bag? I ___ carry it for you!", ["'ll", "'m going to"], 0], ["As soon as it ___, we'll leave.", ["stops", "will stop"], 0]], "share": {"s1": "Ask two real people about their plans: <b>\u201cWhat are you doing this weekend?\u201d<\/b> and one prediction question: <b>\u201cWhat do you think you\u2019ll be doing in five years?\u201d<\/b>", "s2": "Write a report (4\u20136 sentences): their arrangements with present progressive, their plans with going to, their predictions with will.", "ph": "This weekend, my cousin is...", "model": "This weekend, my cousin is playing in a volleyball tournament \u2014 the games are already scheduled. Afterwards she\u2019s going to look for a summer job. In five years, she thinks she\u2019ll be living near the coast. I told her I\u2019ll visit, and I meant it.", "must": [["going to", "going to"], ["('ll|will) \\w+", "will"]]}, "sub": "Future forms \u2014 will / going to / present progressive"};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+document.querySelectorAll('section.pane').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+document.getElementById(t.dataset.s).classList.add('on');window.scrollTo({top:0,behavior:'smooth'});});
+document.getElementById('stTitle').textContent='NOTICE — '+DATA.storyTitle;
+const storyEl=document.getElementById('story');
+DATA.story.forEach(w=>{const s=document.createElement('span');s.className='w';s.textContent=w[0];
+if(w[1])s.dataset.t='1';s.onclick=()=>s.classList.toggle('pick');storyEl.appendChild(s);});
+function speak(){const txt=DATA.story.map(w=>w[0]).join('');const u=new SpeechSynthesisUtterance(txt);
+u.lang='en-US';u.rate=0.92;speechSynthesis.cancel();speechSynthesis.speak(u);}
+function stopSpeak(){speechSynthesis.cancel();}
+function checkNotice(){let hit=0,miss=0,wrong=0,total=0;
+document.querySelectorAll('#story .w').forEach(s=>{s.classList.remove('good','bad');
+const isT=s.dataset.t==='1';if(isT)total++;
+if(s.classList.contains('pick')&&isT){s.classList.add('good');hit++;}
+else if(s.classList.contains('pick')&&!isT){s.classList.add('bad');wrong++;}
+else if(!s.classList.contains('pick')&&isT){s.classList.add('good');miss++;}});
+const fb=document.getElementById('fbNotice');fb.className='fb '+(hit===total&&wrong===0?'ok':'no');
+fb.textContent=hit===total&&wrong===0?`Perfect — all ${total} target phrases found!`
+:`Found ${hit} of ${total} targets · ${wrong} tapped by mistake · ${miss} missed (now shown in green).`;}
+function mc(el,ok,msg){const box=el.closest('.item');box.querySelectorAll('.opt').forEach(o=>o.classList.remove('good','bad'));
+el.classList.add(ok?'good':'bad');const fb=box.querySelector('.fb');fb.className='fb '+(ok?'ok':'no');fb.textContent=msg;}
+const dW=document.getElementById('discWrap');
+DATA.disc.forEach((d,i)=>{const el=document.createElement('div');el.className='item';
+let h=`<p>${i+1}. ${d.q}</p><div class="opts">`;
+d.o.forEach((o,j)=>{h+=`<div class="opt" data-i="${i}" data-j="${j}">${o[0]}</div>`;});
+h+='</div><div class="fb"></div>';el.innerHTML=h;dW.appendChild(el);});
+dW.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{const d=DATA.disc[+o.dataset.i].o[+o.dataset.j];mc(o,d[1],d[2]);});
+function norm(s){return (s||'').toLowerCase().replace(/[\u2018\u2019]/g,"'").replace(/[.!?,;:]/g,'').replace(/\s+/g,' ').trim();}
+function variants(target){const t=norm(target);const set=new Set([t]);
+const pairs=[["didn't","did not"],["wasn't","was not"],["weren't","were not"],["don't","do not"],["doesn't","does not"],
+["haven't","have not"],["hasn't","has not"],["hadn't","had not"],["won't","will not"],["can't","cannot"],
+["couldn't","could not"],["shouldn't","should not"],["mustn't","must not"],["isn't","is not"],["aren't","are not"],["i'm","i am"],["i'll","i will"],["i'd","i would"],["it's","it is"],["there's","there is"]];
+pairs.forEach(([c,f])=>{if(t.includes(c))set.add(t.replace(c,f));if(t.includes(f))set.add(t.replace(f,c));});return set;}
+let fillScore=0;const fW=document.getElementById('fillItems');
+DATA.fills.forEach((f,i)=>{const parts=f[0].split('______');const d=document.createElement('div');d.className='item';
+let h='<p>'+(i+1)+'. ';parts.forEach((p,j)=>{h+=p;if(j<parts.length-1)h+=`<input type="text" id="f${i}_${j}">`;});
+h+=`</p><button class="go" data-i="${i}" data-n="${parts.length-1}">CHECK</button><div class="fb" id="fbf${i}"></div>`;
+d.innerHTML=h;fW.appendChild(d);});
+fW.querySelectorAll('button').forEach(b=>b.onclick=()=>checkFill(+b.dataset.i,+b.dataset.n));
+function matchSet(i,n,ansStr){const ans=ansStr.split('|');
+for(let j=0;j<n;j++){const v=norm(document.getElementById(`f${i}_${j}`).value);
+let okOne=false;ans[j].split('/').forEach(a=>{if(variants(a).has(v))okOne=true;});
+if(!okOne)return false;}return true;}
+function checkFill(i,n){const fb=document.getElementById('fbf'+i);const f=DATA.fills[i];const alt=f[3];let msg=null;
+if(matchSet(i,n,f[1]))msg='\u2714 Correct! '+f[2];
+else if(alt&&matchSet(i,n,alt.a))msg='\u2714 '+alt.m;
+if(msg){if(!fb.dataset.done){fillScore++;fb.dataset.done=1;}fb.className='fb ok';fb.textContent=msg;}
+else{let exp=f[1].split('|').join(' \u2026 ');if(alt)exp+='  (also possible: '+alt.a.split('|').join(' \u2026 ')+')';
+fb.className='fb no';fb.textContent='\u2718 Not yet. Expected: '+exp+' — '+f[2];}
+document.getElementById('fillScore').textContent=`SCORE: ${fillScore} / ${DATA.fills.length}`;}
+document.getElementById('fillScore').textContent=`SCORE: 0 / ${DATA.fills.length}`;
+let recScore=0;const rW=document.getElementById('recallItems');
+DATA.recalls.forEach((r,i)=>{const d=document.createElement('div');d.className='item';
+d.innerHTML=`<p>${i+1}. ${r[0].replace('______','<input type="text" id="r'+i+'">')}</p>
+<button class="go" data-i="${i}">CHECK</button><div class="fb" id="fbr${i}"></div>`;rW.appendChild(d);});
+rW.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;
+const v=norm(document.getElementById('r'+i).value);const fb=document.getElementById('fbr'+i);
+if(variants(DATA.recalls[i][1]).has(v)){if(!fb.dataset.done){recScore++;fb.dataset.done=1;}
+fb.className='fb ok';fb.textContent='\u2714 Yes — '+DATA.recalls[i][1];}
+else{fb.className='fb no';fb.textContent='\u2718 It was: '+DATA.recalls[i][1]+'. Say the full sentence aloud, then move on.';}
+document.getElementById('recallScore').textContent=`SCORE: ${recScore} / ${DATA.recalls.length}`;});
+document.getElementById('recallScore').textContent=`SCORE: 0 / ${DATA.recalls.length}`;
+const cW=document.getElementById('chunkWrap');
+DATA.chunks.forEach((c,i)=>{const d=document.createElement('div');d.className='item';
+d.innerHTML=`<p>${c.p}</p><input type="text" id="ch${i}" style="width:100%;" placeholder="${c.ph}">
+<br><button class="go" data-i="${i}">CHECK</button><div class="fb" id="fbch${i}"></div>
+<div class="model" id="mch${i}"><b>Model:</b> ${c.model}</div>`;cW.appendChild(d);});
+cW.querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;const c=DATA.chunks[i];
+const v=' '+norm(document.getElementById('ch'+i).value)+' ';
+const fb=document.getElementById('fbch'+i);const m=document.getElementById('mch'+i);
+const hasLink=c.links.length===0||c.links.some(l=>v.includes(' '+l+' ')||v.trim().startsWith(l+' '));
+const missing=c.must.filter(mu=>!mu.split('/').some(alt=>v.includes(alt)));
+if(hasLink&&missing.length===0){fb.className='fb ok';fb.textContent='\u2714 Pattern complete! Compare with the model.';}
+else{let msg='\u2718 Check: ';if(!hasLink)msg+='where is your '+c.links.join('/')+'? ';
+missing.forEach(mu=>{msg+='include \u201c'+mu.split('/')[0]+'\u201d\u2026 ';});fb.className='fb no';fb.textContent=msg;}
+m.classList.add('on');});
+let gameOn=false,gScoreNow=0,gBest=0,gTimer=null,gTime=60;
+function startGame(){gameOn=true;gScoreNow=0;gTime=60;document.getElementById('gameBox').style.display='block';
+clearInterval(gTimer);gTimer=setInterval(()=>{gTime--;document.getElementById('clock').textContent=gTime;
+if(gTime<=0)endGame();},1000);nextQ();}
+function nextQ(){const q=DATA.game[Math.floor(Math.random()*DATA.game.length)];
+document.getElementById('gQ').textContent=q[0];const o=document.getElementById('gOpts');o.innerHTML='';
+const order=Math.random()<0.5?[0,1]:[1,0];
+order.forEach(ix=>{const d=document.createElement('div');d.className='opt';d.textContent=q[1][ix];
+d.onclick=()=>{d.classList.add(ix===q[2]?'good':'bad');if(ix===q[2])gScoreNow++;setTimeout(nextQ,320);};
+o.appendChild(d);});}
+function endGame(){clearInterval(gTimer);gameOn=false;document.getElementById('gameBox').style.display='none';
+document.getElementById('clock').textContent='\u23F0';if(gScoreNow>gBest)gBest=gScoreNow;
+document.getElementById('gScore').textContent=`THIS ROUND: ${gScoreNow} \u00B7 BEST: ${gBest}`;}
+document.getElementById('shS1').innerHTML='STEP 1 \u00B7 '+DATA.share.s1;
+document.getElementById('shS2').innerHTML='STEP 2 \u00B7 '+DATA.share.s2;
+document.getElementById('report').placeholder=DATA.share.ph||'Write your report here\u2026';
+document.getElementById('mrep').innerHTML='<b>Model:</b> '+DATA.share.model;
+function checkReport(){const v=norm(document.getElementById('report').value);
+const fb=document.getElementById('fbReport');
+const sents=v.split(/[.!?]+/).filter(s=>s.trim().length>2).length;
+let msg=`Sentences: ${sents} ${sents>=4?'\u2714':'\u2718 (need 4+)'}`;let good=sents>=4;
+DATA.share.must.forEach(m=>{const re=new RegExp(m[0]);const hit=re.test(v);
+msg+=` \u00B7 ${m[1]}: ${hit?'\u2714':'\u2718'}`;if(!hit)good=false;});
+fb.className='fb '+(good?'ok':'no');
+fb.textContent=good?'\u2714 Report complete! '+msg+' — now send it and be ready to read it aloud.':'Almost — '+msg;}
+const cbW=document.getElementById('cbWrap');
+[[0,'g'],[3,'g'],[5,'g']].forEach(([gi],k)=>{const q=DATA.game[gi%DATA.game.length];
+const d=document.createElement('div');d.className='item';
+let h=`<p>${k+1}. ${q[0]}</p><div class="opts">`;
+q[1].forEach((o,j)=>{h+=`<div class="opt" data-g="${gi%DATA.game.length}" data-j="${j}">${o}</div>`;});
+h+='</div><div class="fb"></div>';d.innerHTML=h;cbW.appendChild(d);});
+cbW.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{const q=DATA.game[+o.dataset.g];
+mc(o,+o.dataset.j===q[2],+o.dataset.j===q[2]?'\u2714 Still in your memory!':'\u2718 The answer was: '+q[1][q[2]]);});
+[[2],[5]].forEach(([fi],k)=>{const f=DATA.fills[fi%DATA.fills.length];const parts=f[0].split('______');
+const d=document.createElement('div');d.className='item';let h='<p>'+(k+4)+'. ';
+parts.forEach((p,j)=>{h+=p;if(j<parts.length-1)h+=`<input type="text" id="cbf${k}_${j}">`;});
+h+=`</p><button class="go" data-k="${k}" data-f="${fi%DATA.fills.length}" data-n="${parts.length-1}">CHECK</button><div class="fb" id="fbcbf${k}"></div>`;
+d.innerHTML=h;cbW.appendChild(d);});
+cbW.querySelectorAll('button.go').forEach(b=>b.onclick=()=>{const k=+b.dataset.k,fi=+b.dataset.f,n=+b.dataset.n;
+const f=DATA.fills[fi];const ans=f[1].split('|');let ok=true;
+for(let j=0;j<n;j++){const v=norm(document.getElementById(`cbf${k}_${j}`).value);
+let okOne=false;ans[j].split('/').forEach(a=>{if(variants(a).has(v))okOne=true;});if(!okOne)ok=false;}
+const fb=document.getElementById('fbcbf'+k);fb.className='fb '+(ok?'ok':'no');
+fb.textContent=ok?'\u2714 Correct — spaced practice pays off!':'\u2718 Target: '+f[1].split('|').join(' \u2026 ')+'. Say the full sentence aloud twice.';});
+document.getElementById('mfr').innerHTML=DATA.frames.map((f,i)=>(i+1)+'. '+f).join('<br>');
+</script><footer>Teach for Success! · L7 · Practice Module · Future forms — will / going to / present progressive · Mistakes are data, not disasters</footer></div></body></html>

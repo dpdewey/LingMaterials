@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TFS Course Index</title><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+  :root{--ink:#141414;--paper:#faf4e8;--acc:#d63b2f;--yellow:#f5c518;--cyan:#2ab3b1;--purple:#7c3aed;--teal:#0d7377;--green:#2f9e44;--red:#d63b2f;--border:3px solid var(--ink);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Fraunces',serif;font-size:15px;line-height:1.55;padding:22px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  header{border:var(--border);box-shadow:8px 8px 0 var(--ink);background:#fff;margin-bottom:24px;}
+  .brand{background:var(--ink);color:var(--yellow);font-family:'Bungee',sans-serif;font-size:.7rem;padding:8px 16px;letter-spacing:.12em;}
+  .titleband{padding:16px 20px;background:var(--acc);color:#fff;}
+  .titleband h1{font-family:'Bungee',sans-serif;font-size:1.4rem;line-height:1.15;}
+  .titleband p{font-family:'Space Mono',monospace;font-size:.74rem;margin-top:5px;}
+  section{border:var(--border);box-shadow:6px 6px 0 var(--ink);background:#fff;margin-bottom:22px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;padding:9px 15px;border-bottom:var(--border);}
+  .sec-num{font-family:'Bungee',sans-serif;font-size:1.1rem;color:var(--cyan);}
+  .sec-title{font-family:'Bungee',sans-serif;font-size:.76rem;flex:1;letter-spacing:.02em;}
+  .sec-time{font-family:'Space Mono',monospace;font-size:.62rem;background:var(--red);padding:3px 8px;border:2px solid #fff;}
+  .sec-body{padding:15px 19px;}
+  .rule{background:#fdf8ec;border:2px dashed var(--ink);padding:12px 15px;margin:10px 0;}
+  .rule h4{font-family:'Bungee',sans-serif;font-size:.7rem;color:var(--red);margin-bottom:6px;}
+  .ex{font-family:'Space Mono',monospace;font-size:.8rem;padding:4px 0 4px 13px;border-left:4px solid var(--cyan);margin:6px 0;}
+  .ex b{color:var(--red);}
+  .task{background:var(--yellow);border:2px solid var(--ink);padding:8px 12px;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;margin:10px 0;}
+  .frames{display:grid;gap:7px;margin:8px 0;}
+  .frame{border:2px solid var(--ink);background:#fff;padding:8px 12px;font-family:'Space Mono',monospace;font-size:.8rem;box-shadow:3px 3px 0 var(--acc);}
+  .line{border-bottom:2px solid var(--ink);min-height:25px;margin:12px 0 4px;}
+  .check{font-size:.86rem;margin:5px 0;} .check::before{content:"\2610  ";}
+  .steps{list-style:none;margin:6px 0;}
+  .steps li{padding:6px 0 6px 24px;position:relative;border-bottom:1px dotted #cbb;}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:"\25B8";position:absolute;left:4px;color:var(--red);font-weight:bold;}
+  .why{background:#eef8f8;border-left:6px solid var(--cyan);padding:9px 13px;margin:9px 0;font-size:.83rem;font-style:italic;}
+  .item{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  input[type=text]{font-family:'Space Mono',monospace;font-size:.88rem;border:none;border-bottom:3px solid var(--ink);background:#fdf8ec;padding:4px 8px;width:180px;max-width:100%;}
+  textarea{width:100%;font-family:'Space Mono',monospace;font-size:.84rem;border:var(--border);background:#fdf8ec;padding:10px;min-height:105px;}
+  button.go{font-family:'Bungee',sans-serif;font-size:.66rem;border:var(--border);background:var(--cyan);padding:9px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin:8px 6px 8px 0;}
+  button.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  button.go.alt{background:#fff;}
+  .fb{font-family:'Space Mono',monospace;font-size:.76rem;padding:9px 11px;margin:8px 0;border:2px solid var(--ink);display:none;}
+  .fb.ok{display:block;background:#b7e4c7;} .fb.no{display:block;background:#ffc9c9;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0;}
+  .opt{border:2px solid var(--ink);background:#fff;padding:7px 11px;font-family:'Space Mono',monospace;font-size:.76rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink);}
+  .opt.good{background:#b7e4c7;} .opt.bad{background:#ffc9c9;}
+  .story{font-size:1rem;line-height:2;background:#fdf8ec;border:2px dashed var(--ink);padding:15px 17px;margin:10px 0;}
+  .w{cursor:pointer;padding:1px 2px;}
+  .w.pick{background:var(--yellow);outline:2px solid var(--ink);}
+  .w.good{background:#b7e4c7;outline:2px solid var(--green);}
+  .w.bad{background:#ffc9c9;outline:2px solid var(--red);text-decoration:line-through;}
+  .score{font-family:'Bungee',sans-serif;font-size:.8rem;background:var(--ink);color:var(--yellow);display:inline-block;padding:6px 13px;margin:8px 0;}
+  .big{font-family:'Bungee',sans-serif;font-size:2.3rem;text-align:center;margin:8px 0;}
+  .model{display:none;background:#eef8f8;border:2px solid var(--cyan);padding:11px 13px;margin:10px 0;font-size:.88rem;}
+  .model.on{display:block;}
+  .lock{background:#fdf8ec;border:2px dashed var(--ink);padding:13px;text-align:center;font-family:'Space Mono',monospace;font-size:.76rem;margin:10px 0;}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tab{font-family:'Bungee',sans-serif;font-size:.58rem;letter-spacing:.05em;padding:8px 11px;border:var(--border);background:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer;}
+  .tab.on{background:var(--yellow);}
+  .tab small{display:block;font-family:'Space Mono',monospace;font-size:.54rem;margin-top:2px;}
+  section.pane{display:none;} section.pane.on{display:block;}
+  .mission{border:var(--border);box-shadow:6px 6px 0 var(--acc);background:#fff;margin-bottom:22px;padding:13px 17px;}
+  .mission b{color:var(--acc);}
+  .pbox{border:3px solid var(--acc);box-shadow:5px 5px 0 var(--acc);margin:13px 0;overflow:hidden;}
+  .pb-head{background:var(--acc);color:#fff;font-family:'Bungee',sans-serif;font-size:.66rem;padding:7px 13px;letter-spacing:.06em;}
+  .pb-body{padding:11px 15px;background:#faf8ff;}
+  .pb-body p{font-size:.87rem;margin-bottom:5px;}
+  .sortrow{border:2px solid var(--ink);padding:7px 11px;margin:7px 0;font-family:'Space Mono',monospace;font-size:.8rem;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  .sortbox{display:inline-block;border:2px solid var(--ink);font-family:'Bungee',sans-serif;font-size:.58rem;padding:3px 10px;margin-left:8px;background:var(--paper);}
+  .navrow{display:flex;justify-content:space-between;gap:10px;margin:4px 0 18px;font-family:'Space Mono',monospace;font-size:.72rem;}
+  .navrow a{color:var(--ink);background:#fff;border:2px solid var(--ink);padding:5px 10px;text-decoration:none;box-shadow:3px 3px 0 var(--ink);}
+  footer{border-top:var(--border);margin-top:6px;padding-top:12px;font-family:'Space Mono',monospace;font-size:.62rem;text-align:center;color:#665;}
+  @media print{body{padding:0;}header,section,.mission{box-shadow:none;}}
+</style></head>
+<body><div class="wrap"><header><div class="brand">TEACH FOR SUCCESS! · INTERMEDIATE GRAMMAR · 24 LESSONS / 12 WEEKS</div>
+<div class="titleband"><h1>COURSE INDEX</h1><p>B1 intermediate · mixed L1s · packet-delivered content · A/B peer-teaching design</p></div></header><div class="mission"><b>HOW TO USE THIS COURSE:</b> Each lesson = 4 files. The <b>CLASS GUIDE</b> runs the 120-minute
+session with minimal teacher instruction: content is delivered by the study packets, which the TEACH group
+(<b style="color:#7c3aed;">PACKET A</b> — study to teach a peer) and the INDIVIDUAL STUDY group
+(<b style="color:#0d7377;">PACKET B</b> — parallel independent study) complete <b>separately</b>. The
+<b>PRACTICE</b> module is ~2 hours of interactive homework with instant feedback (parts A–F now, COME BACK two days later).
+Lessons 12 and 24 are interleaved review tournaments. Print packets and class guides; the practice module runs in any browser.</div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 1 — Past narrative</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#d63b2f;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L01 · WHAT WERE YOU DOING WHEN…?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Simple past vs. past progressive<br><br>
+<a href="L01_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L01_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L01_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L01_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#e07b00;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L02 · I USED TO BE DIFFERENT</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Used to / would — past habits & life changes<br><br>
+<a href="L02_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L02_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L02_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L02_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 2 — Present perfect</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#7048b6;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L03 · HOW LONG HAVE YOU…?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Present perfect I — unfinished time, for/since<br><br>
+<a href="L03_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L03_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L03_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L03_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#8e44ad;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L04 · HAVE YOU EVER…?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Present perfect II — experience & recent news<br><br>
+<a href="L04_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L04_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L04_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L04_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 3 — Questions</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#0b7285;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L05 · THE QUESTION MACHINE</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Question formation I — do-support & wh- questions<br><br>
+<a href="L05_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L05_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L05_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L05_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#1864ab;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L06 · THE POLITE QUESTION</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Question formation II — embedded questions & tags<br><br>
+<a href="L06_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L06_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L06_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L06_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 4 — Future & Modals I</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#c92a2a;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L07 · WHAT ARE YOU DOING THIS WEEKEND?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Future forms — will / going to / present progressive<br><br>
+<a href="L07_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L07_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L07_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L07_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#2b8a3e;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L08 · YOU MUST TRY THIS</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Modals I — ability, possibility, necessity<br><br>
+<a href="L08_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L08_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L08_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L08_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 5 — Modals II & Nouns</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#e8590c;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L09 · IF I WERE YOU…</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Modals II — advice, suggestion, preference, prohibition<br><br>
+<a href="L09_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L09_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L09_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L09_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#0ca678;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L10 · HOW MUCH IS ENOUGH?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Count/noncount nouns & quantifiers<br><br>
+<a href="L10_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L10_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L10_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L10_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 6 — Articles & Review</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#5f3dc4;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L11 · A, THE, OR NOTHING?</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Articles — a/an, the, and zero article<br><br>
+<a href="L11_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L11_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L11_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L11_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#141414;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L12 · TOURNAMENT OF CHAMPIONS I</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Interleaved review of Lessons 1–11<br><br>
+<a href="L12_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L12_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L12_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L12_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 7 — Gerunds & Infinitives</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#c2255c;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L13 · I ENJOY LEARNING, I WANT TO LEARN</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Gerunds & infinitives I — core verb patterns<br><br>
+<a href="L13_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L13_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L13_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L13_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#a61e4d;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L14 · STOP TO THINK, STOP THINKING</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Gerunds & infinitives II — meaning changes & prepositions<br><br>
+<a href="L14_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L14_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L14_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L14_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 8 — Adjective clauses</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#1971c2;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L15 · THE PERSON WHO…</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Adjective clauses I — subject relatives (who/that/which)<br><br>
+<a href="L15_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L15_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L15_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L15_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#1c7ed6;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L16 · THE MOVIE I WATCHED TWICE</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Adjective clauses II — object relatives, whose, where<br><br>
+<a href="L16_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L16_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L16_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L16_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 9 — Adverb clauses & Sentences</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#087f5b;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L17 · BEFORE, AFTER, ALTHOUGH</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Adverb clauses — time, reason & contrast<br><br>
+<a href="L17_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L17_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L17_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L17_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#5c940d;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L18 · SENTENCE SURGERY</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Sentence combining — compound, complex, fragments & run-ons<br><br>
+<a href="L18_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L18_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L18_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L18_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 10 — Conditionals</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#0b7285;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L19 · IF IT RAINS, WE DANCE INSIDE</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Real conditionals — zero & first<br><br>
+<a href="L19_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L19_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L19_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L19_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#9c36b5;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L20 · IF I WON THE LOTTERY</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Unreal conditionals — the second conditional<br><br>
+<a href="L20_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L20_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L20_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L20_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 11 — Passive & Connectors</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#364fc7;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L21 · THIS BRIDGE WAS BUILT BY HAND</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Passive voice — present & past<br><br>
+<a href="L21_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L21_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L21_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L21_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#e8590c;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L22 · HOWEVER, THEREFORE, ALTHOUGH</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Connectors & transitions<br><br>
+<a href="L22_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L22_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L22_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L22_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><div style="margin-bottom:22px;"><div style="font-family:'Bungee',sans-serif;font-size:.8rem;background:#141414;color:#f5c518;display:inline-block;padding:6px 14px;margin-bottom:10px;">WEEK 12 — Prepositions & Grand Review</div>
+<div style="display:flex;gap:14px;flex-wrap:wrap;"><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#2b8a3e;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L23 · AT SEVEN, ON MONDAY, IN JULY</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Prepositions — time, place & collocations<br><br>
+<a href="L23_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L23_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L23_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L23_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div><div style="border:3px solid #141414;background:#fff;box-shadow:5px 5px 0 #141414;flex:1 1 300px;overflow:hidden;">
+<div style="background:#141414;color:#fff;padding:8px 12px;font-family:'Bungee',sans-serif;font-size:.72rem;">L24 · TOURNAMENT OF CHAMPIONS II</div>
+<div style="padding:10px 12px;font-family:'Space Mono',monospace;font-size:.7rem;">Grand interleaved review — the whole course<br><br>
+<a href="L24_class.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#f5c518;color:#141414;text-decoration:none;">CLASS GUIDE</a>
+<a href="L24_packetA.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#7c3aed;color:#fff;text-decoration:none;">PACKET A</a>
+<a href="L24_packetB.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#0d7377;color:#fff;text-decoration:none;">PACKET B</a>
+<a href="L24_practice.html" style="display:inline-block;margin:2px;padding:4px 8px;border:2px solid #141414;background:#2ab3b1;color:#141414;text-decoration:none;">PRACTICE</a>
+</div></div></div></div><footer>Teach for Success! · Course Index · 24 Lessons · 12 Weeks</footer></div></body></html>

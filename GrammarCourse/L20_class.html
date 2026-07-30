@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TFS L20 Class Guide</title><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+  :root{--ink:#141414;--paper:#faf4e8;--acc:#9c36b5;--yellow:#f5c518;--cyan:#2ab3b1;--purple:#7c3aed;--teal:#0d7377;--green:#2f9e44;--red:#d63b2f;--border:3px solid var(--ink);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Fraunces',serif;font-size:15px;line-height:1.55;padding:22px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  header{border:var(--border);box-shadow:8px 8px 0 var(--ink);background:#fff;margin-bottom:24px;}
+  .brand{background:var(--ink);color:var(--yellow);font-family:'Bungee',sans-serif;font-size:.7rem;padding:8px 16px;letter-spacing:.12em;}
+  .titleband{padding:16px 20px;background:var(--acc);color:#fff;}
+  .titleband h1{font-family:'Bungee',sans-serif;font-size:1.4rem;line-height:1.15;}
+  .titleband p{font-family:'Space Mono',monospace;font-size:.74rem;margin-top:5px;}
+  section{border:var(--border);box-shadow:6px 6px 0 var(--ink);background:#fff;margin-bottom:22px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;padding:9px 15px;border-bottom:var(--border);}
+  .sec-num{font-family:'Bungee',sans-serif;font-size:1.1rem;color:var(--cyan);}
+  .sec-title{font-family:'Bungee',sans-serif;font-size:.76rem;flex:1;letter-spacing:.02em;}
+  .sec-time{font-family:'Space Mono',monospace;font-size:.62rem;background:var(--red);padding:3px 8px;border:2px solid #fff;}
+  .sec-body{padding:15px 19px;}
+  .rule{background:#fdf8ec;border:2px dashed var(--ink);padding:12px 15px;margin:10px 0;}
+  .rule h4{font-family:'Bungee',sans-serif;font-size:.7rem;color:var(--red);margin-bottom:6px;}
+  .ex{font-family:'Space Mono',monospace;font-size:.8rem;padding:4px 0 4px 13px;border-left:4px solid var(--cyan);margin:6px 0;}
+  .ex b{color:var(--red);}
+  .task{background:var(--yellow);border:2px solid var(--ink);padding:8px 12px;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;margin:10px 0;}
+  .frames{display:grid;gap:7px;margin:8px 0;}
+  .frame{border:2px solid var(--ink);background:#fff;padding:8px 12px;font-family:'Space Mono',monospace;font-size:.8rem;box-shadow:3px 3px 0 var(--acc);}
+  .line{border-bottom:2px solid var(--ink);min-height:25px;margin:12px 0 4px;}
+  .check{font-size:.86rem;margin:5px 0;} .check::before{content:"\2610  ";}
+  .steps{list-style:none;margin:6px 0;}
+  .steps li{padding:6px 0 6px 24px;position:relative;border-bottom:1px dotted #cbb;}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:"\25B8";position:absolute;left:4px;color:var(--red);font-weight:bold;}
+  .why{background:#eef8f8;border-left:6px solid var(--cyan);padding:9px 13px;margin:9px 0;font-size:.83rem;font-style:italic;}
+  .item{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  input[type=text]{font-family:'Space Mono',monospace;font-size:.88rem;border:none;border-bottom:3px solid var(--ink);background:#fdf8ec;padding:4px 8px;width:180px;max-width:100%;}
+  textarea{width:100%;font-family:'Space Mono',monospace;font-size:.84rem;border:var(--border);background:#fdf8ec;padding:10px;min-height:105px;}
+  button.go{font-family:'Bungee',sans-serif;font-size:.66rem;border:var(--border);background:var(--cyan);padding:9px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin:8px 6px 8px 0;}
+  button.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  button.go.alt{background:#fff;}
+  .fb{font-family:'Space Mono',monospace;font-size:.76rem;padding:9px 11px;margin:8px 0;border:2px solid var(--ink);display:none;}
+  .fb.ok{display:block;background:#b7e4c7;} .fb.no{display:block;background:#ffc9c9;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0;}
+  .opt{border:2px solid var(--ink);background:#fff;padding:7px 11px;font-family:'Space Mono',monospace;font-size:.76rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink);}
+  .opt.good{background:#b7e4c7;} .opt.bad{background:#ffc9c9;}
+  .story{font-size:1rem;line-height:2;background:#fdf8ec;border:2px dashed var(--ink);padding:15px 17px;margin:10px 0;}
+  .w{cursor:pointer;padding:1px 2px;}
+  .w.pick{background:var(--yellow);outline:2px solid var(--ink);}
+  .w.good{background:#b7e4c7;outline:2px solid var(--green);}
+  .w.bad{background:#ffc9c9;outline:2px solid var(--red);text-decoration:line-through;}
+  .score{font-family:'Bungee',sans-serif;font-size:.8rem;background:var(--ink);color:var(--yellow);display:inline-block;padding:6px 13px;margin:8px 0;}
+  .big{font-family:'Bungee',sans-serif;font-size:2.3rem;text-align:center;margin:8px 0;}
+  .model{display:none;background:#eef8f8;border:2px solid var(--cyan);padding:11px 13px;margin:10px 0;font-size:.88rem;}
+  .model.on{display:block;}
+  .lock{background:#fdf8ec;border:2px dashed var(--ink);padding:13px;text-align:center;font-family:'Space Mono',monospace;font-size:.76rem;margin:10px 0;}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tab{font-family:'Bungee',sans-serif;font-size:.58rem;letter-spacing:.05em;padding:8px 11px;border:var(--border);background:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer;}
+  .tab.on{background:var(--yellow);}
+  .tab small{display:block;font-family:'Space Mono',monospace;font-size:.54rem;margin-top:2px;}
+  section.pane{display:none;} section.pane.on{display:block;}
+  .mission{border:var(--border);box-shadow:6px 6px 0 var(--acc);background:#fff;margin-bottom:22px;padding:13px 17px;}
+  .mission b{color:var(--acc);}
+  .pbox{border:3px solid var(--acc);box-shadow:5px 5px 0 var(--acc);margin:13px 0;overflow:hidden;}
+  .pb-head{background:var(--acc);color:#fff;font-family:'Bungee',sans-serif;font-size:.66rem;padding:7px 13px;letter-spacing:.06em;}
+  .pb-body{padding:11px 15px;background:#faf8ff;}
+  .pb-body p{font-size:.87rem;margin-bottom:5px;}
+  .sortrow{border:2px solid var(--ink);padding:7px 11px;margin:7px 0;font-family:'Space Mono',monospace;font-size:.8rem;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  .sortbox{display:inline-block;border:2px solid var(--ink);font-family:'Bungee',sans-serif;font-size:.58rem;padding:3px 10px;margin-left:8px;background:var(--paper);}
+  .navrow{display:flex;justify-content:space-between;gap:10px;margin:4px 0 18px;font-family:'Space Mono',monospace;font-size:.72rem;}
+  .navrow a{color:var(--ink);background:#fff;border:2px solid var(--ink);padding:5px 10px;text-decoration:none;box-shadow:3px 3px 0 var(--ink);}
+  footer{border-top:var(--border);margin-top:6px;padding-top:12px;font-family:'Space Mono',monospace;font-size:.62rem;text-align:center;color:#665;}
+  @media print{body{padding:0;}header,section,.mission{box-shadow:none;}}
+</style></head>
+<body><div class="wrap"><header><div class="brand">TEACH FOR SUCCESS! · LESSON 20 OF 24 · CLASS SESSION GUIDE</div>
+<div class="titleband"><h1>IF I WON THE LOTTERY</h1><p>Unreal conditionals — the second conditional · 120 min · minimal teacher instruction — content is delivered by the study packets</p></div></header><div class="navrow"><a href="L19_class.html">&larr; L19</a><a href="index.html">INDEX</a><a href="L21_class.html">L21 &rarr;</a></div><div class="mission"><b>HOW THIS SESSION WORKS:</b> The teacher facilitates but does not lecture. Grammar content is delivered by the study packets (Phase 2), which the TEACH group (Packet A) and the INDIVIDUAL STUDY group (Packet B) complete <b>separately</b> — different rooms or opposite sides of the room, no cross-talk. If any Phase 1–2 instruction is given, give it to each group separately and identically. All later phases are mixed and student-run from this guide.</div><section><div class="sec-head"><span class="sec-num">1</span><span class="sec-title">REVIEW RETRIEVAL — student-run</span><span class="sec-time">10 MIN</span></div>
+<div class="sec-body"><ul class="steps"><li>Pairs quiz each other on the 4 items below (from earlier lessons — spaced practice!). Say the FULL sentence aloud, not just the letter.</li><li>Then: each student asks the partner one exit-ticket question they wrote last lesson.</li></ul><div class="sortrow">1. (L19) If it ___, we'll stay home.<br>&nbsp;&nbsp;a) rains &nbsp;&nbsp;b) will rain</div><div class="sortrow">2. (L19) ___ you hurry, you'll miss it.<br>&nbsp;&nbsp;a) Unless &nbsp;&nbsp;b) If</div><div class="sortrow">3. (L18) cheap; ___, it broke in a week.<br>&nbsp;&nbsp;a) however &nbsp;&nbsp;b) but</div><div class="sortrow">4. (L17) Before you go___ close the window.<br>&nbsp;&nbsp;a) , (comma) &nbsp;&nbsp;b) ; (semicolon)</div><p style="font-family:'Space Mono',monospace;font-size:.62rem;transform:rotate(180deg);display:inline-block;">answers: 1a 2a 3a 4a</p><div class="why">Spacing + interleaving: items reach back several lessons, not just the last one. Teacher talk: ~1 min.</div></div></section><section><div class="sec-head"><span class="sec-num">2</span><span class="sec-title">PACKET STUDY — groups A and B, SEPARATELY</span><span class="sec-time">25 MIN</span></div>
+<div class="sec-body"><ul class="steps">
+<li><b>TEACH group:</b> Packet A (L20_packetA). Study to teach — complete every purple PLAN IT box.</li>
+<li><b>INDIVIDUAL STUDY group:</b> Packet B (L20_packetB). Study for yourself — complete every green MY NOTES box.</li>
+<li>Groups work in separate spaces. The teacher circulates to keep time and answer procedural (not content) questions.</li>
+</ul><div class="why">This phase replaces teacher presentation. Packets are content-identical; only the orientation differs.</div></div></section><section><div class="sec-head"><span class="sec-num">3</span><span class="sec-title">TEACH / CONSOLIDATE</span><span class="sec-time">12 MIN</span></div>
+<div class="sec-body"><ul class="steps">
+<li><b>TEACH group:</b> pair up <i>within the group</i>. Partner 1 teaches the full mini-lesson (explain → examples → discovery question → mini-quiz) for 5 minutes; then swap roles for 5 minutes.</li>
+<li><b>INDIVIDUAL STUDY group:</b> close the packet. From memory: rewrite the three frames, your two examples, and the answer to the mini-quiz. Then reopen and self-check.</li>
+</ul></div></section><section><div class="sec-head"><span class="sec-num">4</span><span class="sec-title">SORT RACE — mixed pairs (one A + one B)</span><span class="sec-time">8 MIN</span></div>
+<div class="sec-body"><div class="task">Mark each item: <b>REAL (FIRST) = A</b> &nbsp;or&nbsp; <b>UNREAL (SECOND) = B</b>. First pair with all 6 correct wins. Then explain ONE trap item to another pair.</div><div class="sortrow">1. If I see him tomorrow, I’ll return the book. <span class="sortbox">&nbsp;&nbsp;</span></div><div class="sortrow">2. If I saw a ghost, I would faint immediately. <span class="sortbox">&nbsp;&nbsp;</span></div><div class="sortrow">3. If it’s sunny on Sunday, we’ll hike. <span class="sortbox">&nbsp;&nbsp;</span></div><div class="sortrow">4. If dogs could talk, mine would never stop. <span class="sortbox">&nbsp;&nbsp;</span></div><div class="sortrow">5. If I were you, I’d take the offer. <span class="sortbox">&nbsp;&nbsp;</span></div><div class="sortrow">6. If the bus comes late again, I’ll complain. <span class="sortbox">&nbsp;&nbsp;</span></div>
+<p style="font-family:'Space Mono',monospace;font-size:.62rem;transform:rotate(180deg);display:inline-block;">answers: 1A 2B 3A 4B 5B 6A</p></div></section><section><div class="sec-head"><span class="sec-num">5</span><span class="sec-title">HYPOTHETICAL HOT SEAT</span><span class="sec-time">22 MIN</span></div>
+<div class="sec-body"><ul class="steps"><li>Groups of 4–5 build a Question Jar: each student contributes two <i>What would you do if…?</i> slips (imaginative but answerable: …if you woke up speaking perfect English? …if you found a door in your house you’d never seen?).</li><li>One member takes the hot seat for three questions drawn from the jar; answers must be full second conditionals PLUS one follow-up chain from the group (<i>And if that happened, what would you do next?</i>).</li><li>Hesitation over five seconds or a broken structure passes the question — the group supplies the correction chorally before moving on.</li><li>Rotate until everyone has sat. Each group sends its single best question to the class jar for Lesson 21’s warm-up.</li></ul></div></section><section><div class="sec-head"><span class="sec-num">6</span><span class="sec-title">DESERT ISLAND COUNCIL — the ranking gap</span><span class="sec-time">22 MIN</span></div>
+<div class="sec-body"><ul class="steps"><li>The ship is sinking (calmly, hypothetically). Pairs receive different halves of a ten-item salvage list (A: rope, mirror, chocolate, radio, tarp; B: knife, matches, novel, pot, first-aid kit).</li><li>Dictate lists to each other, then negotiate the TOP FIVE — every argument in unreal grammar: <i>If we took the mirror, we could signal planes. If we didn’t have the pot, we wouldn’t boil water.</i></li><li>Merge into fours; the two pairs must defend their rankings and settle one final list. Disagreements are resolved by what-would-happen-if chains, not volume.</li><li>Councils present their five with one justification each; the class votes on which island team survives longest.</li></ul></div></section><section><div class="sec-head"><span class="sec-num">7</span><span class="sec-title">ERROR AUCTION — student-run feedback</span><span class="sec-time">10 MIN</span></div>
+<div class="sec-body"><ul class="steps">
+<li>During Phases 5–6, each pair writes down two sentences they heard or said (one they think is correct, one they suspect has an error) on slips.</li>
+<li>Slips go to the front. A volunteer host reads each aloud; teams bet points on CORRECT or FIX IT — a FIX IT bet must include the repair to win.</li>
+<li>The teacher only referees disputed calls (~2 min of talk).</li></ul></div></section>
+<section><div class="sec-head"><span class="sec-num">8</span><span class="sec-title">EXIT TICKET &amp; HOMEWORK LAUNCH</span><span class="sec-time">10 MIN</span></div>
+<div class="sec-body"><div class="task">From memory — no notes:</div><p class="qlabel" style="font-size:.88rem;font-style:italic;margin-top:8px;">1. Your lottery sentence (be honest):</p><div class="line"></div><p class="qlabel" style="font-size:.88rem;font-style:italic;margin-top:8px;">2. One <b>If I were…</b> about a job you’ll never have:</p><div class="line"></div><p class="qlabel" style="font-size:.88rem;font-style:italic;margin-top:8px;">3. One Question-Jar question you’d love to be asked:</p><div class="line"></div>
+<ul class="steps"><li>Open the L20 Practice Module (~2 hours, in parts). Do parts A–F before next class; save COME BACK for two days later.</li>
+<li>Don’t skip the SHARE task — you will read your report to a partner at the start of the next lesson.</li></ul></div></section><div class="rule" style="background:#fff;"><b>TIME TOTAL:</b> ~120 min · Teacher talk: under 15 min · Everything else is pair/group interaction.</div><footer>Teach for Success! · L20 · Class Session Guide · Unreal conditionals — the second conditional</footer></div></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TFS L10 Packet B</title><link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+  :root{--ink:#141414;--paper:#faf4e8;--acc:#0d7377;--yellow:#f5c518;--cyan:#2ab3b1;--purple:#7c3aed;--teal:#0d7377;--green:#2f9e44;--red:#d63b2f;--border:3px solid var(--ink);}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--paper);color:var(--ink);font-family:'Fraunces',serif;font-size:15px;line-height:1.55;padding:22px;}
+  .wrap{max-width:880px;margin:0 auto;}
+  header{border:var(--border);box-shadow:8px 8px 0 var(--ink);background:#fff;margin-bottom:24px;}
+  .brand{background:var(--ink);color:var(--yellow);font-family:'Bungee',sans-serif;font-size:.7rem;padding:8px 16px;letter-spacing:.12em;}
+  .titleband{padding:16px 20px;background:var(--acc);color:#fff;}
+  .titleband h1{font-family:'Bungee',sans-serif;font-size:1.4rem;line-height:1.15;}
+  .titleband p{font-family:'Space Mono',monospace;font-size:.74rem;margin-top:5px;}
+  section{border:var(--border);box-shadow:6px 6px 0 var(--ink);background:#fff;margin-bottom:22px;overflow:hidden;}
+  .sec-head{display:flex;align-items:center;gap:12px;background:var(--ink);color:#fff;padding:9px 15px;border-bottom:var(--border);}
+  .sec-num{font-family:'Bungee',sans-serif;font-size:1.1rem;color:var(--cyan);}
+  .sec-title{font-family:'Bungee',sans-serif;font-size:.76rem;flex:1;letter-spacing:.02em;}
+  .sec-time{font-family:'Space Mono',monospace;font-size:.62rem;background:var(--red);padding:3px 8px;border:2px solid #fff;}
+  .sec-body{padding:15px 19px;}
+  .rule{background:#fdf8ec;border:2px dashed var(--ink);padding:12px 15px;margin:10px 0;}
+  .rule h4{font-family:'Bungee',sans-serif;font-size:.7rem;color:var(--red);margin-bottom:6px;}
+  .ex{font-family:'Space Mono',monospace;font-size:.8rem;padding:4px 0 4px 13px;border-left:4px solid var(--cyan);margin:6px 0;}
+  .ex b{color:var(--red);}
+  .task{background:var(--yellow);border:2px solid var(--ink);padding:8px 12px;font-family:'Space Mono',monospace;font-size:.7rem;font-weight:700;margin:10px 0;}
+  .frames{display:grid;gap:7px;margin:8px 0;}
+  .frame{border:2px solid var(--ink);background:#fff;padding:8px 12px;font-family:'Space Mono',monospace;font-size:.8rem;box-shadow:3px 3px 0 var(--acc);}
+  .line{border-bottom:2px solid var(--ink);min-height:25px;margin:12px 0 4px;}
+  .check{font-size:.86rem;margin:5px 0;} .check::before{content:"\2610  ";}
+  .steps{list-style:none;margin:6px 0;}
+  .steps li{padding:6px 0 6px 24px;position:relative;border-bottom:1px dotted #cbb;}
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{content:"\25B8";position:absolute;left:4px;color:var(--red);font-weight:bold;}
+  .why{background:#eef8f8;border-left:6px solid var(--cyan);padding:9px 13px;margin:9px 0;font-size:.83rem;font-style:italic;}
+  .item{border:2px solid var(--ink);padding:11px 13px;margin:11px 0;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  input[type=text]{font-family:'Space Mono',monospace;font-size:.88rem;border:none;border-bottom:3px solid var(--ink);background:#fdf8ec;padding:4px 8px;width:180px;max-width:100%;}
+  textarea{width:100%;font-family:'Space Mono',monospace;font-size:.84rem;border:var(--border);background:#fdf8ec;padding:10px;min-height:105px;}
+  button.go{font-family:'Bungee',sans-serif;font-size:.66rem;border:var(--border);background:var(--cyan);padding:9px 14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);margin:8px 6px 8px 0;}
+  button.go:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  button.go.alt{background:#fff;}
+  .fb{font-family:'Space Mono',monospace;font-size:.76rem;padding:9px 11px;margin:8px 0;border:2px solid var(--ink);display:none;}
+  .fb.ok{display:block;background:#b7e4c7;} .fb.no{display:block;background:#ffc9c9;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0;}
+  .opt{border:2px solid var(--ink);background:#fff;padding:7px 11px;font-family:'Space Mono',monospace;font-size:.76rem;cursor:pointer;box-shadow:3px 3px 0 var(--ink);}
+  .opt.good{background:#b7e4c7;} .opt.bad{background:#ffc9c9;}
+  .story{font-size:1rem;line-height:2;background:#fdf8ec;border:2px dashed var(--ink);padding:15px 17px;margin:10px 0;}
+  .w{cursor:pointer;padding:1px 2px;}
+  .w.pick{background:var(--yellow);outline:2px solid var(--ink);}
+  .w.good{background:#b7e4c7;outline:2px solid var(--green);}
+  .w.bad{background:#ffc9c9;outline:2px solid var(--red);text-decoration:line-through;}
+  .score{font-family:'Bungee',sans-serif;font-size:.8rem;background:var(--ink);color:var(--yellow);display:inline-block;padding:6px 13px;margin:8px 0;}
+  .big{font-family:'Bungee',sans-serif;font-size:2.3rem;text-align:center;margin:8px 0;}
+  .model{display:none;background:#eef8f8;border:2px solid var(--cyan);padding:11px 13px;margin:10px 0;font-size:.88rem;}
+  .model.on{display:block;}
+  .lock{background:#fdf8ec;border:2px dashed var(--ink);padding:13px;text-align:center;font-family:'Space Mono',monospace;font-size:.76rem;margin:10px 0;}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+  .tab{font-family:'Bungee',sans-serif;font-size:.58rem;letter-spacing:.05em;padding:8px 11px;border:var(--border);background:#fff;box-shadow:4px 4px 0 var(--ink);cursor:pointer;}
+  .tab.on{background:var(--yellow);}
+  .tab small{display:block;font-family:'Space Mono',monospace;font-size:.54rem;margin-top:2px;}
+  section.pane{display:none;} section.pane.on{display:block;}
+  .mission{border:var(--border);box-shadow:6px 6px 0 var(--acc);background:#fff;margin-bottom:22px;padding:13px 17px;}
+  .mission b{color:var(--acc);}
+  .pbox{border:3px solid var(--acc);box-shadow:5px 5px 0 var(--acc);margin:13px 0;overflow:hidden;}
+  .pb-head{background:var(--acc);color:#fff;font-family:'Bungee',sans-serif;font-size:.66rem;padding:7px 13px;letter-spacing:.06em;}
+  .pb-body{padding:11px 15px;background:#faf8ff;}
+  .pb-body p{font-size:.87rem;margin-bottom:5px;}
+  .sortrow{border:2px solid var(--ink);padding:7px 11px;margin:7px 0;font-family:'Space Mono',monospace;font-size:.8rem;background:#fff;box-shadow:3px 3px 0 var(--ink);}
+  .sortbox{display:inline-block;border:2px solid var(--ink);font-family:'Bungee',sans-serif;font-size:.58rem;padding:3px 10px;margin-left:8px;background:var(--paper);}
+  .navrow{display:flex;justify-content:space-between;gap:10px;margin:4px 0 18px;font-family:'Space Mono',monospace;font-size:.72rem;}
+  .navrow a{color:var(--ink);background:#fff;border:2px solid var(--ink);padding:5px 10px;text-decoration:none;box-shadow:3px 3px 0 var(--ink);}
+  footer{border-top:var(--border);margin-top:6px;padding-top:12px;font-family:'Space Mono',monospace;font-size:.62rem;text-align:center;color:#665;}
+  @media print{body{padding:0;}header,section,.mission{box-shadow:none;}}
+</style></head>
+<body><div class="wrap"><header><div class="brand">TEACH FOR SUCCESS! · L10 · STUDY PACKET B</div>
+<div class="titleband"><h1>STUDY IT — MAKE IT YOURS!</h1><p>Count/noncount nouns & quantifiers · ~25 minutes · Study at your own pace</p></div></header><div class="navrow"><a href="L09_packetB.html">&larr; L9</a><a href="index.html">INDEX</a><a href="L11_packetB.html">L11 &rarr;</a></div><div class="mission" style="box-shadow:6px 6px 0 var(--teal);"><b>YOUR MISSION:</b> Work through each part carefully on your own. Read, think, and write — the green boxes are your study notes. Check yourself with the final checklist.</div><section><div class="sec-head"><span class="sec-num">1</span><span class="sec-title">COUNT vs NONCOUNT — CAN YOU COUNT IT?</span><span class="sec-time">~6 MIN</span></div>
+<div class="sec-body"><div class="rule">Count nouns have a plural and take numbers: <i>two eggs, three ideas</i>. Noncount nouns have NO plural and NO a/an: substances, liquids, abstracts — <i>water, rice, money, advice, information, furniture, homework, bread</i>.<div class="ex">✔ some advice, some information ✘ <s>advices, informations</s></div><div class="ex">✔ money IS ✘ <s>money are</s> — noncount = singular verb</div></div>
+<div class="pbox" style="border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);"><div class="pb-head" style="background:var(--teal);">&#128221; MY NOTES · Put it in your own words</div>
+<div class="pb-body"><p>Explain this rule in your own words. Tip: copy an example into your notes — writing helps memory!</p><div class="line"></div><div class="line"></div></div></div></div></section><section><div class="sec-head"><span class="sec-num">2</span><span class="sec-title">THE QUANTIFIER TEAMS</span><span class="sec-time">~6 MIN</span></div>
+<div class="sec-body"><div class="rule">Pair the quantifier with the noun type. COUNT: <i>many, a few, few, several</i>. NONCOUNT: <i>much, a little, little</i>. BOTH: <i>some, any, a lot of, plenty of, enough, no</i>. <i>Much</i> lives mostly in questions & negatives; <i>a lot of</i> covers statements.<div class="ex"><b>How many</b> chairs? · <b>How much</b> sugar?</div><div class="ex"><b>a few</b> friends (count) · <b>a little</b> time (noncount) · <b>a lot of</b> both</div></div>
+<div class="pbox" style="border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);"><div class="pb-head" style="background:var(--teal);">&#128221; MY NOTES · Your own examples</div>
+<div class="pb-body"><p>Create TWO true sentences about your own life, then answer for yourself: which part of each sentence shows the pattern?</p><div class="line"></div><div class="line"></div></div></div></div></section><section><div class="sec-head"><span class="sec-num">3</span><span class="sec-title">MAKING NONCOUNT COUNTABLE — PIECES & CONTAINERS</span><span class="sec-time">~5 MIN</span></div>
+<div class="sec-body"><div class="rule">To count the uncountable, add a unit: <i>a piece of advice, a cup of coffee, a bottle of water, a slice of bread, a bar of chocolate, three kilos of rice</i>. And <i>too much/many</i> = more than good; <i>enough</i> = the right amount.<div class="ex"><b>a piece of</b> news · <b>two cups of</b> coffee</div><div class="ex"><b>too many</b> people, <b>too much</b> noise, not <b>enough</b> chairs</div></div>
+<div class="pbox" style="border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);"><div class="pb-head" style="background:var(--teal);">&#128221; MY NOTES · Catch your own mistake</div>
+<div class="pb-body"><p>Many learners say things like <i>“I need some informations and advices”</i> — write a note to your future self on how to avoid this:</p><div class="line"></div><div class="line"></div></div></div></div></section><section><div class="sec-head"><span class="sec-num">4</span><span class="sec-title">MINI-QUIZ — test yourself!</span><span class="sec-time">~4 MIN</span></div>
+<div class="sec-body"><p>Check your own learning — solve and write your answers:</p><div class="ex">Q1 · How ______ (much/many) eggs and how ______ (much/many) milk do we need? &nbsp;<span style="font-size:.68rem;">my answer: ______________________</span></div><div class="ex">Q2 · Correct or not? “The furnitures in my house are old.” Fix it. &nbsp;<span style="font-size:.68rem;">my answer: ______________________</span></div>
+<div class="pbox" style="border-color:var(--teal);box-shadow:5px 5px 0 var(--teal);"><div class="pb-head" style="background:var(--teal);">&#128221; MY NOTES · Write ONE more quiz item for yourself</div>
+<div class="pb-body"><div class="line"></div></div></div></div></section><section><div class="sec-head"><span class="sec-num">5</span><span class="sec-title">KEY FRAMES — say them out loud</span><span class="sec-time">~4 MIN</span></div>
+<div class="sec-body"><p>The frames of this lesson — say each one aloud twice:</p><div class="frames"><div class="frame">1&nbsp; <b>How much ___ / How many ___ do we need?</b></div><div class="frame">2&nbsp; <b>There’s too much ___ / There aren’t enough ___.</b></div><div class="frame">3&nbsp; <b>a little ___ / a few ___ / a piece of ___</b></div></div>
+<div class="task">FINAL CHECK:</div><p class="check">I explained each rule in my own words</p><p class="check">I wrote 2 true examples from my own life</p><p class="check">I answered the quiz items and wrote one of my own</p><p class="check">I know why “I need some informations and advices” is wrong</p>
+<p style="margin-top:10px;font-style:italic;font-size:.88rem;">Well done — close the packet and try to say your two examples and all three frames from memory. &#128218;</p></div></section><footer>Teach for Success! · L10 · Packet B (Independent Study) · Count/noncount nouns & quantifiers</footer></div></body></html>
