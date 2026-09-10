@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verbo · A studio for Spanish verbs</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#b8472d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Español">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="icon" href="./favicon.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Lora:ital,wght@0,400..700;1,400..700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============== TOKENS ============== */
+:root {
+  --paper: #f3ebdd;
+  --paper-light: #faf4e8;
+  --paper-dark: #ebe1cc;
+  --ink: #1d1f2e;
+  --ink-soft: #3a3b4c;
+  --ink-mute: #6b6373;
+  --terracotta: #b8472d;
+  --terracotta-soft: #d97152;
+  --ochre: #c4943c;
+  --ochre-light: #e8c878;
+  --sage: #6b8b5d;
+  --sage-soft: #92ad84;
+  --rose: #b85d6f;
+  --border: #d4c8b1;
+  --border-soft: #e1d6c0;
+  --shadow-sm: 0 1px 2px rgba(29,31,46,0.04), 0 1px 1px rgba(29,31,46,0.03);
+  --shadow-md: 0 4px 16px rgba(29,31,46,0.06), 0 1px 3px rgba(29,31,46,0.05);
+
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-ui: "DM Sans", -apple-system, system-ui, sans-serif;
+}
+
+/* ============== BASE ============== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font-ui);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top left, rgba(196,148,60,0.08), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(184,71,45,0.06), transparent 50%),
+    var(--paper);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0.06 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: multiply;
+}
+
+main, header { position: relative; z-index: 1; }
+
+button { font-family: var(--font-ui); cursor: pointer; border: none; background: none; color: inherit; }
+input { font-family: var(--font-ui); color: inherit; }
+
+/* ============== MASTHEAD ============== */
+.masthead {
+  border-bottom: 1px solid var(--border);
+  background: var(--paper-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+  background: rgba(250,244,232,0.85);
+}
+
+.masthead-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--terracotta);
+  line-height: 1;
+  transform: translateY(4px);
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.brand-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-left: 4px;
+}
+
+.views-nav {
+  display: flex;
+  gap: 2px;
+  background: var(--paper-dark);
+  padding: 4px;
+  border-radius: 100px;
+  border: 1px solid var(--border-soft);
+}
+
+.views-nav button {
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 100px;
+  color: var(--ink-soft);
+  transition: all 0.2s ease;
+}
+
+.views-nav button:hover {
+  color: var(--ink);
+}
+
+.views-nav button.active {
+  background: var(--ink);
+  color: var(--paper-light);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ============== VIEWS ============== */
+.view {
+  display: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 28px 96px;
+  animation: fadeIn 0.35s ease;
+}
+.view.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============== TYPOGRAPHY HELPERS ============== */
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.view-title {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7vw, 72px);
+  line-height: 0.98;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.view-title em {
+  font-style: italic;
+  color: var(--terracotta);
+}
+
+.view-lede {
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin-bottom: 40px;
+  font-style: italic;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 36px 0 28px;
+}
+.divider::before, .divider::after {
+  content: ""; flex: 1; height: 1px; background: var(--border);
+}
+.divider span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-mute);
+}
+
+/* ============== BUTTONS ============== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  font-family: var(--font-ui);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper-light);
+}
+.btn-primary:hover { background: var(--terracotta); }
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--ink-soft);
+}
+.btn-ghost:hover { background: var(--paper-light); border-color: var(--ink-soft); }
+
+.btn-accent {
+  background: var(--terracotta);
+  color: var(--paper-light);
+}
+.btn-accent:hover { background: var(--ink); }
+
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ============== SELECT VIEW ============== */
+.select-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.select-count {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-mute);
+  margin-left: auto;
+}
+.select-count strong {
+  font-style: normal;
+  color: var(--terracotta);
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+
+.verb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.verb-card {
+  position: relative;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.verb-card:hover {
+  border-color: var(--ink-soft);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.verb-card.selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-light);
+}
+
+.verb-card .check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+.verb-card.selected .check {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: var(--paper-light);
+}
+
+.verb-card .infinitive {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.verb-card.selected .infinitive { color: var(--ochre-light); }
+
+.verb-card .gloss {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink-mute);
+  font-style: italic;
+}
+.verb-card.selected .gloss { color: rgba(250,244,232,0.7); }
+
+/* ============== LEARN VIEW ============== */
+.learn-empty, .practice-empty, .quiz-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--paper-light);
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+}
+.learn-empty p, .practice-empty p, .quiz-empty p {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-mute);
+  margin-bottom: 16px;
+}
+
+.verb-selector-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.verb-pill {
+  padding: 7px 16px;
+  border-radius: 100px;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--ink-soft);
+}
+.verb-pill:hover { border-color: var(--ink-soft); }
+.verb-pill.active {
+  background: var(--ink);
+  color: var(--ochre-light);
+  border-color: var(--ink);
+}
+
+.verb-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+
+.verb-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.verb-header .big-verb {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 96px;
+  line-height: 0.9;
+  font-weight: 400;
+  color: var(--terracotta);
+  letter-spacing: -0.02em;
+}
+
+.verb-header .meta {
+  flex: 1;
+  min-width: 200px;
+}
+
+.verb-header .english {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.verb-header .note {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  max-width: 60ch;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--ink);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::before {
+  content: "§";
+  color: var(--terracotta);
+  font-size: 24px;
+}
+
+.conj-tables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+.conj-table {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.conj-table h4 {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.conj-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--border-soft);
+  font-family: var(--font-body);
+  font-size: 15px;
+}
+.conj-row:last-child { border: none; }
+.conj-row .person {
+  color: var(--ink-mute);
+  font-style: italic;
+}
+.conj-row .form {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.sentences-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sentence-card {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 0;
+  padding: 22px 26px;
+  position: relative;
+  margin-bottom: -1px;
+}
+.sentence-card:first-child { border-radius: 14px 14px 0 0; }
+.sentence-card:last-child { border-radius: 0 0 14px 14px; margin-bottom: 0; }
+.sentence-card:only-child { border-radius: 14px; }
+
+.sentence-card .context-cue {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ochre);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sentence-card .context-cue::before {
+  content: "▸";
+  color: var(--ochre);
+}
+
+.sentence-card .es {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.sentence-card .es .verb-highlight {
+  background: linear-gradient(transparent 70%, var(--ochre-light) 70%);
+  font-weight: 600;
+  font-style: italic;
+}
+
+.sentence-card .en {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-mute);
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  padding: 2px 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.sentence-card .en.blurred {
+  color: transparent;
+  background: var(--paper-dark);
+  border-radius: 4px;
+  padding: 2px 10px;
+}
+.sentence-card .en.blurred::after {
+  content: "tap to reveal";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+.sentence-card .controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.sentence-card:hover .controls { opacity: 1; }
+
+.icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink-soft);
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+.icon-btn:hover { background: var(--ink); color: var(--paper-light); border-color: var(--ink); }
+
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--paper-dark);
+  color: var(--ink-soft);
+}
+
+.learn-toggles {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  align-items: center;
+}
+.toggle-btn {
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--paper-light);
+  font-size: 12px;
+  color: var(--ink-soft);
+  transition: all 0.2s;
+}
+.toggle-btn:hover { border-color: var(--ink-soft); }
+.toggle-btn.on { background: var(--ink); color: var(--paper-light); border-color: var(--ink); }
+
+/* ============== PRACTICE & QUIZ ============== */
+.session-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 22px;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: var(--paper-dark);
+  border-radius: 100px;
+  overflow: hidden;
+  min-width: 100px;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--terracotta), var(--ochre));
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+.session-stat {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-mute);
+}
+.session-stat strong {
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.activity-card {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+}
+
+.activity-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--terracotta), var(--ochre), var(--sage));
+}
+
+.activity-type {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.scenario {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink-mute);
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background: var(--paper);
+  border-radius: 10px;
+  border-left: 3px solid var(--ochre);
+  line-height: 1.45;
+}
+
+.activity-prompt {
+  font-family: var(--font-body);
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.activity-prompt .blank {
+  display: inline-block;
+  min-width: 90px;
+  border-bottom: 2px solid var(--terracotta);
+  margin: 0 4px;
+  padding: 0 8px;
+  color: var(--terracotta);
+  font-style: italic;
+  font-weight: 600;
+}
+.activity-prompt .hint-paren {
+  font-family: var(--font-ui);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-mute);
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .choices { grid-template-columns: 1fr; }
+}
+
+.choice {
+  padding: 14px 18px;
+  background: var(--paper);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 17px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.choice:hover:not(:disabled) {
+  border-color: var(--ink-soft);
+  background: var(--paper-light);
+}
+.choice .letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--terracotta);
+  font-size: 18px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.choice.correct {
+  background: rgba(107,139,93,0.12);
+  border-color: var(--sage);
+  color: var(--ink);
+}
+.choice.wrong {
+  background: rgba(184,71,45,0.08);
+  border-color: var(--terracotta);
+  opacity: 0.7;
+}
+.choice:disabled { cursor: default; }
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.text-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 20px;
+  color: var(--ink);
+  font-style: italic;
+  transition: all 0.2s ease;
+}
+.text-input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+  background: var(--paper-light);
+}
+.text-input.correct {
+  border-color: var(--sage);
+  background: rgba(107,139,93,0.08);
+}
+.text-input.wrong {
+  border-color: var(--terracotta);
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.accent-row {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.accent-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--ink-soft);
+  transition: all 0.15s;
+}
+.accent-btn:hover { background: var(--ink); color: var(--paper-light); border-color: var(--ink); }
+
+.feedback {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  display: none;
+  border-left: 3px solid;
+}
+.feedback.show { display: block; animation: slideDown 0.3s ease; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.feedback.hint {
+  background: rgba(196,148,60,0.1);
+  border-color: var(--ochre);
+  color: var(--ink);
+}
+.feedback.hint::before {
+  content: "Try again — ";
+  font-style: italic;
+  color: var(--ochre);
+  font-weight: 600;
+}
+
+.feedback.success {
+  background: rgba(107,139,93,0.12);
+  border-color: var(--sage);
+  color: var(--ink);
+}
+.feedback.success::before {
+  content: "Sí — ";
+  font-style: italic;
+  color: var(--sage);
+  font-weight: 700;
+}
+
+.feedback.reveal {
+  background: rgba(184,71,45,0.08);
+  border-color: var(--terracotta);
+  color: var(--ink);
+}
+.feedback.reveal::before {
+  content: "The answer was ";
+  font-style: italic;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+.feedback.reveal .answer {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--terracotta);
+}
+
+.activity-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  gap: 12px;
+}
+.attempts-dots {
+  display: flex;
+  gap: 6px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+.dot.used { background: var(--terracotta); }
+
+/* ============== SUMMARY ============== */
+.summary-card {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 48px 36px;
+  text-align: center;
+}
+
+.summary-card .big-score {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 96px;
+  line-height: 1;
+  color: var(--terracotta);
+  margin: 12px 0;
+}
+.summary-card .big-score .denom {
+  font-size: 48px;
+  color: var(--ink-mute);
+}
+
+.summary-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 28px 0;
+  flex-wrap: wrap;
+}
+.summary-stat {
+  text-align: center;
+}
+.summary-stat .label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.summary-stat .value {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 32px;
+  color: var(--ink);
+}
+
+.missed-list {
+  margin-top: 28px;
+  text-align: left;
+}
+.missed-item {
+  padding: 14px 18px;
+  background: var(--paper);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  border-left: 3px solid var(--terracotta);
+}
+.missed-item .es { font-size: 16px; color: var(--ink); }
+.missed-item .answer {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+.missed-item .your-answer {
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* ============== PROGRESS ============== */
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+.stat-card {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+}
+.stat-card .label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.stat-card .value {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--ink);
+}
+.stat-card .value .small {
+  font-size: 22px;
+  color: var(--ink-mute);
+}
+.stat-card .sub {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-top: 6px;
+}
+
+.verb-progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.verb-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.verb-progress-item .infinitive {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  width: 120px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+.verb-progress-item .bar {
+  flex: 1;
+  height: 8px;
+  background: var(--paper-dark);
+  border-radius: 100px;
+  overflow: hidden;
+  min-width: 80px;
+}
+.verb-progress-item .bar-fill {
+  height: 100%;
+  background: var(--sage);
+  border-radius: 100px;
+}
+.verb-progress-item .stats {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--ink-mute);
+  width: 100px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.reset-zone {
+  margin-top: 48px;
+  padding: 20px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+.reset-zone p {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-mute);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 700px) {
+  .masthead-inner { padding: 14px 18px; }
+  .brand-sub { display: none; }
+  .views-nav button { padding: 6px 12px; font-size: 12px; }
+  .view { padding: 32px 18px 80px; }
+  .activity-card { padding: 24px 20px; }
+  .activity-prompt { font-size: 21px; }
+  .verb-header .big-verb { font-size: 64px; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">
+      <span class="brand-mark">◐</span>
+      <span class="brand-name">Verbo</span>
+      <span class="brand-sub">— a studio for Spanish verbs</span>
+    </div>
+    <nav class="views-nav" id="viewsNav">
+      <button data-view="select" class="active">Select</button>
+      <button data-view="learn">Learn</button>
+      <button data-view="practice">Practice</button>
+      <button data-view="quiz">Quiz</button>
+      <button data-view="progress">Progress</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============== SELECT VIEW ============== -->
+<section id="view-select" class="view active">
+  <div class="eyebrow">§ Vol. I — The Verb Bench</div>
+  <h1 class="view-title">Pick the verbs <em>that matter</em>.</h1>
+  <p class="view-lede">These twelve verbs cover most of what Spanish speakers actually say. Choose any number to study. Your selection saves automatically.</p>
+
+  <div class="select-actions">
+    <button class="btn btn-ghost" id="selectAllBtn">Select all</button>
+    <button class="btn btn-ghost" id="clearAllBtn">Clear</button>
+    <div class="select-count"><strong id="selCount">0</strong> selected</div>
+  </div>
+
+  <div class="verb-grid" id="verbGrid"></div>
+</section>
+
+<!-- ============== LEARN VIEW ============== -->
+<section id="view-learn" class="view">
+  <div class="eyebrow">§ Vol. II — Field Notes</div>
+  <h1 class="view-title">Read them in <em>real talk</em>.</h1>
+  <p class="view-lede">Conjugations are useful; sentences are necessary. Each verb is shown in context — with the social setting that makes the form make sense.</p>
+
+  <div id="learnContent"></div>
+</section>
+
+<!-- ============== PRACTICE VIEW ============== -->
+<section id="view-practice" class="view">
+  <div class="eyebrow">§ Vol. III — The Workroom</div>
+  <h1 class="view-title">Bring them <em>to your fingers</em>.</h1>
+  <p class="view-lede">Active recall, with hints — not corrections. The goal is for the form to surface when you need it, not for you to be told you were wrong.</p>
+
+  <div id="practiceContent"></div>
+</section>
+
+<!-- ============== QUIZ VIEW ============== -->
+<section id="view-quiz" class="view">
+  <div class="eyebrow">§ Vol. IV — The Test</div>
+  <h1 class="view-title">A round of <em>ten questions</em>.</h1>
+  <p class="view-lede">Mixed types, mounting difficulty, tracked accuracy. You'll see what you missed, and have a chance to retry just those.</p>
+
+  <div id="quizContent"></div>
+</section>
+
+<!-- ============== PROGRESS VIEW ============== -->
+<section id="view-progress" class="view">
+  <div class="eyebrow">§ Vol. V — The Ledger</div>
+  <h1 class="view-title">Your <em>standing</em>.</h1>
+  <p class="view-lede">A record of what's stuck, what hasn't yet, and where to spend the next ten minutes.</p>
+
+  <div id="progressContent"></div>
+</section>
+
+</main>
+
+<script>
+/* =========================================================================
+   DATA
+   ========================================================================= */
+const PERSONS = ["yo", "tú", "él / ella / Ud.", "nosotros", "vosotros", "ellos / ellas / Uds."];
+const PERSONS_SHORT = ["yo", "tú", "él", "nos.", "vos.", "ellos"];
+const TENSE_LABELS = { pres: "Present", pret: "Preterite", imp: "Imperfect" };
+
+const VERBS = {
+  ser: {
+    en: "to be (identity, essence)",
+    note: "Used for identity, profession, nationality, time, possession, and lasting traits.",
+    conj: {
+      pres: ["soy","eres","es","somos","sois","son"],
+      pret: ["fui","fuiste","fue","fuimos","fuisteis","fueron"],
+      imp:  ["era","eras","era","éramos","erais","eran"]
+    },
+    sents: [
+      { es:"Soy maestra de primaria.", en:"I'm a primary-school teacher.", p:0, t:"pres", ctx:"Introducing yourself at a parent-teacher night" },
+      { es:"¿De dónde eres?", en:"Where are you from?", p:1, t:"pres", ctx:"Striking up conversation at a café" },
+      { es:"Mi abuela era muy generosa.", en:"My grandmother was very generous.", p:2, t:"imp", ctx:"Telling a friend about family" },
+      { es:"Fuimos los primeros en llegar.", en:"We were the first to arrive.", p:3, t:"pret", ctx:"Recounting last night's party" },
+      { es:"Eran las tres de la tarde.", en:"It was three in the afternoon.", p:5, t:"imp", ctx:"Setting the scene in a story" },
+      { es:"No fue mi culpa, te lo juro.", en:"It wasn't my fault, I swear.", p:2, t:"pret", ctx:"Defending yourself to a friend" },
+      { es:"Cuando era niña, vivía en Madrid.", en:"When I was a kid, I lived in Madrid.", p:0, t:"imp", ctx:"Sharing your background" },
+      { es:"Estos zapatos son de cuero.", en:"These shoes are leather.", p:5, t:"pres", ctx:"Showing off a new purchase" }
+    ]
+  },
+  estar: {
+    en: "to be (state, location)",
+    note: "Used for location, temporary states, ongoing actions, and how something is right now.",
+    conj: {
+      pres: ["estoy","estás","está","estamos","estáis","están"],
+      pret: ["estuve","estuviste","estuvo","estuvimos","estuvisteis","estuvieron"],
+      imp:  ["estaba","estabas","estaba","estábamos","estabais","estaban"]
+    },
+    sents: [
+      { es:"¿Cómo estás hoy?", en:"How are you today?", p:1, t:"pres", ctx:"Greeting a friend you haven't seen in a while" },
+      { es:"Estoy un poco cansada, la verdad.", en:"I'm a bit tired, honestly.", p:0, t:"pres", ctx:"Replying to 'cómo estás'" },
+      { es:"Mis padres están en Barcelona ahora mismo.", en:"My parents are in Barcelona right now.", p:5, t:"pres", ctx:"Telling a coworker about family travel" },
+      { es:"Estuvimos esperando dos horas.", en:"We were waiting for two hours.", p:3, t:"pret", ctx:"Complaining about a restaurant" },
+      { es:"La puerta estaba abierta cuando llegué.", en:"The door was open when I arrived.", p:2, t:"imp", ctx:"Telling a story about coming home" },
+      { es:"Estaba pensando en ti.", en:"I was thinking about you.", p:0, t:"imp", ctx:"A warm moment in a phone call" },
+      { es:"¿Dónde estuviste anoche?", en:"Where were you last night?", p:1, t:"pret", ctx:"A friend gently nosing into your plans" }
+    ]
+  },
+  tener: {
+    en: "to have (possess, hold)",
+    note: "Possession, age ('tengo veinte años'), sensations (hambre, frío), and obligation with 'que'.",
+    conj: {
+      pres: ["tengo","tienes","tiene","tenemos","tenéis","tienen"],
+      pret: ["tuve","tuviste","tuvo","tuvimos","tuvisteis","tuvieron"],
+      imp:  ["tenía","tenías","tenía","teníamos","teníais","tenían"]
+    },
+    sents: [
+      { es:"Tengo veinticinco años.", en:"I'm twenty-five years old.", p:0, t:"pres", ctx:"Answering a personal question" },
+      { es:"¿Tienes hambre? Hay sopa.", en:"Are you hungry? There's soup.", p:1, t:"pres", ctx:"At home, offering food to a guest" },
+      { es:"Mi hermana tiene tres hijos.", en:"My sister has three kids.", p:2, t:"pres", ctx:"Catching up with an old friend" },
+      { es:"No teníamos dinero entonces.", en:"We didn't have money back then.", p:3, t:"imp", ctx:"Reminiscing with a sibling" },
+      { es:"Tuve un accidente el año pasado.", en:"I had an accident last year.", p:0, t:"pret", ctx:"Explaining a scar" },
+      { es:"¡Tengo una idea genial!", en:"I have a brilliant idea!", p:0, t:"pres", ctx:"Mid-brainstorm with a friend" },
+      { es:"De niño tenía mucho miedo de los perros.", en:"As a kid I was very afraid of dogs.", p:0, t:"imp", ctx:"Confessing an old fear" }
+    ]
+  },
+  hacer: {
+    en: "to do, to make",
+    note: "Doing, making, weather expressions ('hace frío'), and 'ago' constructions ('hace dos años').",
+    conj: {
+      pres: ["hago","haces","hace","hacemos","hacéis","hacen"],
+      pret: ["hice","hiciste","hizo","hicimos","hicisteis","hicieron"],
+      imp:  ["hacía","hacías","hacía","hacíamos","hacíais","hacían"]
+    },
+    sents: [
+      { es:"¿Qué haces este fin de semana?", en:"What are you doing this weekend?", p:1, t:"pres", ctx:"Texting a friend on a Friday" },
+      { es:"Hago ejercicio por las mañanas.", en:"I exercise in the mornings.", p:0, t:"pres", ctx:"Talking about your routine" },
+      { es:"Mi madre hacía un café delicioso.", en:"My mom used to make delicious coffee.", p:2, t:"imp", ctx:"A fond family memory" },
+      { es:"Hicimos un viaje a Perú en agosto.", en:"We took a trip to Peru in August.", p:3, t:"pret", ctx:"Sharing vacation news at work" },
+      { es:"Hace mucho frío hoy, abrígate.", en:"It's very cold today, bundle up.", p:2, t:"pres", ctx:"Heading out the door, motherly tone" },
+      { es:"¿Qué hicieron ustedes ayer?", en:"What did you (all) do yesterday?", p:5, t:"pret", ctx:"Catching up with a group of friends" },
+      { es:"No hagas eso, por favor.", en:"Don't do that, please.", p:1, t:"pres", ctx:"Mildly scolding a roommate" }
+    ]
+  },
+  ir: {
+    en: "to go",
+    note: "Movement toward, future plans ('ir a + infinitive'), 'come on' as 'vamos'.",
+    conj: {
+      pres: ["voy","vas","va","vamos","vais","van"],
+      pret: ["fui","fuiste","fue","fuimos","fuisteis","fueron"],
+      imp:  ["iba","ibas","iba","íbamos","ibais","iban"]
+    },
+    sents: [
+      { es:"Voy al supermercado, ¿necesitas algo?", en:"I'm going to the supermarket — need anything?", p:0, t:"pres", ctx:"Heading out, asking your partner" },
+      { es:"¿Adónde vas con tanta prisa?", en:"Where are you going in such a rush?", p:1, t:"pres", ctx:"Catching someone speed-walking" },
+      { es:"Mis amigos fueron a la playa el sábado.", en:"My friends went to the beach on Saturday.", p:5, t:"pret", ctx:"Recapping a weekend you missed" },
+      { es:"Íbamos a la escuela juntos.", en:"We used to go to school together.", p:3, t:"imp", ctx:"Running into an old classmate" },
+      { es:"Va a llover, lleva paraguas.", en:"It's going to rain, take an umbrella.", p:2, t:"pres", ctx:"Parent at the door" },
+      { es:"Vamos, que se hace tarde.", en:"Let's go, it's getting late.", p:3, t:"pres", ctx:"Trying to leave the house with kids" },
+      { es:"Cuando era pequeño, iba al parque cada día.", en:"When I was little, I'd go to the park every day.", p:0, t:"imp", ctx:"Wistful childhood story" }
+    ]
+  },
+  decir: {
+    en: "to say, to tell",
+    note: "Saying, telling, reporting speech. Irregular in many forms; note the e→i stem change.",
+    conj: {
+      pres: ["digo","dices","dice","decimos","decís","dicen"],
+      pret: ["dije","dijiste","dijo","dijimos","dijisteis","dijeron"],
+      imp:  ["decía","decías","decía","decíamos","decíais","decían"]
+    },
+    sents: [
+      { es:"¿Qué dijiste? No te escuché bien.", en:"What did you say? I didn't hear you well.", p:1, t:"pret", ctx:"A noisy bar conversation" },
+      { es:"Mi padre siempre decía eso.", en:"My dad always used to say that.", p:2, t:"imp", ctx:"Quoting family wisdom" },
+      { es:"Dicen que va a nevar mañana.", en:"They say it's going to snow tomorrow.", p:5, t:"pres", ctx:"Repeating a rumor or forecast" },
+      { es:"No le dije nada a nadie, lo prometo.", en:"I didn't tell anyone, I promise.", p:0, t:"pret", ctx:"Defending a kept secret" },
+      { es:"Dime la verdad, por favor.", en:"Tell me the truth, please.", p:1, t:"pres", ctx:"A serious conversation with a partner" },
+      { es:"¿Cómo se dice 'umbrella' en español?", en:"How do you say 'umbrella' in Spanish?", p:2, t:"pres", ctx:"Classroom question" }
+    ]
+  },
+  poder: {
+    en: "to be able to, can",
+    note: "Ability and possibility. Stem-changing (o→ue) in present; in preterite it means 'managed to' or 'couldn't'.",
+    conj: {
+      pres: ["puedo","puedes","puede","podemos","podéis","pueden"],
+      pret: ["pude","pudiste","pudo","pudimos","pudisteis","pudieron"],
+      imp:  ["podía","podías","podía","podíamos","podíais","podían"]
+    },
+    sents: [
+      { es:"¿Puedes ayudarme con esto un momento?", en:"Can you help me with this for a moment?", p:1, t:"pres", ctx:"Asking a coworker for a hand" },
+      { es:"No pude dormir anoche.", en:"I couldn't sleep last night.", p:0, t:"pret", ctx:"Explaining why you're tired" },
+      { es:"Podemos hablar más tarde si quieres.", en:"We can talk later if you want.", p:3, t:"pres", ctx:"Postponing a hard conversation" },
+      { es:"Antes podía correr diez kilómetros sin parar.", en:"I used to be able to run ten km without stopping.", p:0, t:"imp", ctx:"Lamenting lost fitness" },
+      { es:"Mis abuelos no pudieron venir a la boda.", en:"My grandparents couldn't come to the wedding.", p:5, t:"pret", ctx:"Explaining family absence" },
+      { es:"¿Puede repetir, por favor?", en:"Could you repeat that, please?", p:2, t:"pres", ctx:"Formally asking a stranger to say something again" }
+    ]
+  },
+  ver: {
+    en: "to see, to watch",
+    note: "Seeing, watching, meeting up. Irregular 'yo' form (veo) and imperfect (veía).",
+    conj: {
+      pres: ["veo","ves","ve","vemos","veis","ven"],
+      pret: ["vi","viste","vio","vimos","visteis","vieron"],
+      imp:  ["veía","veías","veía","veíamos","veíais","veían"]
+    },
+    sents: [
+      { es:"¿Viste la nueva película de Almodóvar?", en:"Did you see the new Almodóvar film?", p:1, t:"pret", ctx:"At a dinner party with cinephiles" },
+      { es:"No veo bien sin las gafas.", en:"I don't see well without my glasses.", p:0, t:"pres", ctx:"Squinting at a menu" },
+      { es:"Vemos a nuestros primos cada verano.", en:"We see our cousins every summer.", p:3, t:"pres", ctx:"Talking about family traditions" },
+      { es:"La vi en el mercado ayer.", en:"I saw her at the market yesterday.", p:0, t:"pret", ctx:"Gossiping about a mutual friend" },
+      { es:"Veía la tele cuando me llamaste.", en:"I was watching TV when you called.", p:0, t:"imp", ctx:"Explaining why you sounded sleepy" },
+      { es:"Ya verás, todo va a salir bien.", en:"You'll see — it's all going to work out.", p:1, t:"pres", ctx:"Comforting a stressed friend" }
+    ]
+  },
+  saber: {
+    en: "to know (facts, how to)",
+    note: "Knowing facts, information, and skills ('saber nadar'). In preterite means 'found out'.",
+    conj: {
+      pres: ["sé","sabes","sabe","sabemos","sabéis","saben"],
+      pret: ["supe","supiste","supo","supimos","supisteis","supieron"],
+      imp:  ["sabía","sabías","sabía","sabíamos","sabíais","sabían"]
+    },
+    sents: [
+      { es:"No sé dónde están mis llaves.", en:"I don't know where my keys are.", p:0, t:"pres", ctx:"Panicking before leaving the house" },
+      { es:"¿Sabes nadar?", en:"Do you know how to swim?", p:1, t:"pres", ctx:"Before a beach trip" },
+      { es:"Supe la verdad ayer.", en:"I found out the truth yesterday.", p:0, t:"pret", ctx:"A revelation moment" },
+      { es:"No sabíamos que estabas enferma.", en:"We didn't know you were sick.", p:3, t:"imp", ctx:"Apologizing for not visiting" },
+      { es:"Mi abuelo sabe muchas historias.", en:"My grandfather knows lots of stories.", p:2, t:"pres", ctx:"Introducing your family" },
+      { es:"Sabe a limón.", en:"It tastes like lemon.", p:2, t:"pres", ctx:"Trying a new drink" }
+    ]
+  },
+  querer: {
+    en: "to want, to love",
+    note: "Wanting; with people, expresses love. Preterite 'no quise' = 'I refused'.",
+    conj: {
+      pres: ["quiero","quieres","quiere","queremos","queréis","quieren"],
+      pret: ["quise","quisiste","quiso","quisimos","quisisteis","quisieron"],
+      imp:  ["quería","querías","quería","queríamos","queríais","querían"]
+    },
+    sents: [
+      { es:"Te quiero mucho.", en:"I love you a lot.", p:0, t:"pres", ctx:"A warm moment with family or partner" },
+      { es:"¿Qué quieres para tu cumpleaños?", en:"What do you want for your birthday?", p:1, t:"pres", ctx:"Planning a gift for someone close" },
+      { es:"No quise hacerte daño.", en:"I didn't mean to hurt you.", p:0, t:"pret", ctx:"After an argument" },
+      { es:"Queríamos ir, pero llovió.", en:"We wanted to go, but it rained.", p:3, t:"imp", ctx:"Explaining cancelled plans" },
+      { es:"Mi gato quiere comer otra vez.", en:"My cat wants to eat again.", p:2, t:"pres", ctx:"Sighing about a demanding pet" },
+      { es:"Quería preguntarte algo.", en:"I wanted to ask you something.", p:0, t:"imp", ctx:"Politely opening a sensitive topic" }
+    ]
+  },
+  dar: {
+    en: "to give",
+    note: "Giving — also idioms like 'da igual' (doesn't matter), 'darse cuenta' (to realize).",
+    conj: {
+      pres: ["doy","das","da","damos","dais","dan"],
+      pret: ["di","diste","dio","dimos","disteis","dieron"],
+      imp:  ["daba","dabas","daba","dábamos","dabais","daban"]
+    },
+    sents: [
+      { es:"Dame un momento, por favor.", en:"Give me a moment, please.", p:1, t:"pres", ctx:"Asking for patience on a call" },
+      { es:"Le di mi número de teléfono.", en:"I gave him my phone number.", p:0, t:"pret", ctx:"Confiding to a friend about a date" },
+      { es:"Mis padres me daban dinero los domingos.", en:"My parents used to give me money on Sundays.", p:5, t:"imp", ctx:"Childhood memory" },
+      { es:"Da igual, no importa.", en:"It doesn't matter, never mind.", p:2, t:"pres", ctx:"Brushing off a small issue" },
+      { es:"¿Me das un vaso de agua?", en:"Can you give me a glass of water?", p:1, t:"pres", ctx:"Polite request at someone's home" },
+      { es:"Damos clases de yoga aquí los martes.", en:"We give yoga classes here on Tuesdays.", p:3, t:"pres", ctx:"At a community center, welcoming someone" }
+    ]
+  },
+  venir: {
+    en: "to come",
+    note: "Coming toward the speaker. Irregular 'yo' (vengo); preterite is fully irregular (vine).",
+    conj: {
+      pres: ["vengo","vienes","viene","venimos","venís","vienen"],
+      pret: ["vine","viniste","vino","vinimos","vinisteis","vinieron"],
+      imp:  ["venía","venías","venía","veníamos","veníais","venían"]
+    },
+    sents: [
+      { es:"¿Vienes conmigo al cine esta noche?", en:"Are you coming to the movies with me tonight?", p:1, t:"pres", ctx:"Inviting a friend out" },
+      { es:"Vengo de la tienda, no del trabajo.", en:"I'm coming from the store, not from work.", p:0, t:"pres", ctx:"Correcting an assumption" },
+      { es:"Mis tíos vinieron desde México para la boda.", en:"My aunt and uncle came from Mexico for the wedding.", p:5, t:"pret", ctx:"Sharing family news" },
+      { es:"Veníamos todos los veranos a este pueblo.", en:"We used to come to this town every summer.", p:3, t:"imp", ctx:"Revisiting a childhood place" },
+      { es:"¡Ven aquí ahora mismo!", en:"Come here right now!", p:1, t:"pres", ctx:"Calling a child or a dog" },
+      { es:"Viene mucha gente los sábados.", en:"A lot of people come on Saturdays.", p:2, t:"pres", ctx:"A waiter explaining a busy night" }
+    ]
+  },
+  llegar: {
+    en: "to arrive, to reach",
+    note: "Movement toward a destination. Used with 'a' (llegar a casa). Idioms: 'llegar tarde' (be late), 'llegar a ser' (become).",
+    conj: {
+      pres: ["llego","llegas","llega","llegamos","llegáis","llegan"],
+      pret: ["llegué","llegaste","llegó","llegamos","llegasteis","llegaron"],
+      imp:  ["llegaba","llegabas","llegaba","llegábamos","llegabais","llegaban"]
+    },
+    sents: [
+      { es:"Llego en cinco minutos.", en:"I'll be there in five minutes.", p:0, t:"pres", ctx:"Texting a friend you're almost at the door" },
+      { es:"¿A qué hora llegaste anoche?", en:"What time did you get home last night?", p:1, t:"pret", ctx:"A curious roommate the next morning" },
+      { es:"Mi vuelo llega a las ocho.", en:"My flight gets in at eight.", p:2, t:"pres", ctx:"Coordinating airport pickup over text" },
+      { es:"Llegamos justo a tiempo.", en:"We arrived just in time.", p:3, t:"pret", ctx:"Recapping a close call at the train station" },
+      { es:"Siempre llegaba tarde a clase.", en:"I always used to be late for class.", p:0, t:"imp", ctx:"Confessing a school-days habit" },
+      { es:"Mis padres llegaron de vacaciones ayer.", en:"My parents got back from vacation yesterday.", p:5, t:"pret", ctx:"Catching up with a friend over coffee" },
+      { es:"Llegan los invitados, ¡abre la puerta!", en:"The guests are arriving — open the door!", p:5, t:"pres", ctx:"A hurried moment before the party starts" }
+    ]
+  },
+  pasar: {
+    en: "to pass, to happen, to spend (time)",
+    note: "Many meanings — passing by, time passing, things happening ('¿qué pasa?'), spending time ('pasar el día').",
+    conj: {
+      pres: ["paso","pasas","pasa","pasamos","pasáis","pasan"],
+      pret: ["pasé","pasaste","pasó","pasamos","pasasteis","pasaron"],
+      imp:  ["pasaba","pasabas","pasaba","pasábamos","pasabais","pasaban"]
+    },
+    sents: [
+      { es:"¿Qué pasa? ¿Estás bien?", en:"What's going on? Are you okay?", p:2, t:"pres", ctx:"Walking in on a tense moment" },
+      { es:"Pasé el verano en la costa.", en:"I spent the summer on the coast.", p:0, t:"pret", ctx:"Telling a coworker about your break" },
+      { es:"El tiempo pasa demasiado rápido.", en:"Time passes too quickly.", p:2, t:"pres", ctx:"A philosophical sigh at a birthday" },
+      { es:"¿Me pasas la sal, por favor?", en:"Can you pass me the salt, please?", p:1, t:"pres", ctx:"At a family dinner table" },
+      { es:"Pasábamos las tardes en el parque.", en:"We used to spend afternoons in the park.", p:3, t:"imp", ctx:"Reminiscing with a childhood friend" },
+      { es:"No pasó nada, tranquilo.", en:"Nothing happened, don't worry.", p:2, t:"pret", ctx:"Reassuring an anxious friend" },
+      { es:"¿Qué te pasó en la mano?", en:"What happened to your hand?", p:2, t:"pret", ctx:"Noticing a friend's bandage" }
+    ]
+  },
+  deber: {
+    en: "must, should, to owe",
+    note: "Obligation ('debo estudiar') or owing money ('me debes diez euros'). The imperfect 'debía' often means 'was supposed to'.",
+    conj: {
+      pres: ["debo","debes","debe","debemos","debéis","deben"],
+      pret: ["debí","debiste","debió","debimos","debisteis","debieron"],
+      imp:  ["debía","debías","debía","debíamos","debíais","debían"]
+    },
+    sents: [
+      { es:"Debo estudiar para el examen.", en:"I have to study for the exam.", p:0, t:"pres", ctx:"Begging off plans with a friend" },
+      { es:"Me debes diez euros del café.", en:"You owe me ten euros from the coffee.", p:1, t:"pres", ctx:"A casual reminder among friends" },
+      { es:"Debes descansar más.", en:"You should rest more.", p:1, t:"pres", ctx:"A doctor's gentle advice" },
+      { es:"Debía haber llamado antes.", en:"I should have called earlier.", p:0, t:"imp", ctx:"A regretful realization mid-conversation" },
+      { es:"Debimos salir más temprano.", en:"We should have left earlier.", p:3, t:"pret", ctx:"Stuck in traffic, frustrated" },
+      { es:"Mis padres deben llegar pronto.", en:"My parents should be arriving soon.", p:5, t:"pres", ctx:"Anticipating a family visit" },
+      { es:"Antes debía trabajar los fines de semana.", en:"I used to have to work weekends.", p:0, t:"imp", ctx:"Telling a friend about an old job" }
+    ]
+  },
+  poner: {
+    en: "to put, to place, to set",
+    note: "Irregular yo form (pongo). Used for placing things ('poner la mesa'); reflexive 'ponerse' for clothes or feelings.",
+    conj: {
+      pres: ["pongo","pones","pone","ponemos","ponéis","ponen"],
+      pret: ["puse","pusiste","puso","pusimos","pusisteis","pusieron"],
+      imp:  ["ponía","ponías","ponía","poníamos","poníais","ponían"]
+    },
+    sents: [
+      { es:"¿Dónde pongo las llaves?", en:"Where should I put the keys?", p:0, t:"pres", ctx:"Arriving as a guest at someone's house" },
+      { es:"Puse el pollo en el horno.", en:"I put the chicken in the oven.", p:0, t:"pret", ctx:"Updating your partner on dinner prep" },
+      { es:"Pon la mesa, por favor.", en:"Set the table, please.", p:1, t:"pres", ctx:"Asking a kid to help before dinner" },
+      { es:"Ponemos música los sábados.", en:"We play music on Saturdays.", p:3, t:"pres", ctx:"Describing a household tradition" },
+      { es:"Mi madre siempre ponía flores en la mesa.", en:"My mother always put flowers on the table.", p:2, t:"imp", ctx:"A cherished family detail" },
+      { es:"¿Quién puso esto aquí?", en:"Who put this here?", p:2, t:"pret", ctx:"Investigating a mysterious object" },
+      { es:"Pongo la calefacción cuando hace frío.", en:"I turn the heating on when it's cold.", p:0, t:"pres", ctx:"Explaining a winter routine" }
+    ]
+  },
+  parecer: {
+    en: "to seem, to appear, to look like",
+    note: "Often used like 'gustar' with an indirect object ('me parece bien'). Reflexive 'parecerse a' = 'to look like'.",
+    conj: {
+      pres: ["parezco","pareces","parece","parecemos","parecéis","parecen"],
+      pret: ["parecí","pareciste","pareció","parecimos","parecisteis","parecieron"],
+      imp:  ["parecía","parecías","parecía","parecíamos","parecíais","parecían"]
+    },
+    sents: [
+      { es:"Me parece una buena idea.", en:"That seems like a good idea to me.", p:2, t:"pres", ctx:"Reacting positively to a suggestion" },
+      { es:"Pareces cansada, ¿estás bien?", en:"You look tired — are you okay?", p:1, t:"pres", ctx:"A concerned check-in with a close friend" },
+      { es:"Parecía más joven entonces.", en:"He looked younger back then.", p:2, t:"imp", ctx:"Looking through old photo albums together" },
+      { es:"¿Qué te pareció la película?", en:"What did you think of the movie?", p:2, t:"pret", ctx:"Walking out of the cinema" },
+      { es:"Te pareces mucho a tu madre.", en:"You really look like your mom.", p:1, t:"pres", ctx:"A relative noting a resemblance" },
+      { es:"Nos pareció raro que no llamara.", en:"It seemed strange to us that he didn't call.", p:2, t:"pret", ctx:"Recounting a worry to a third friend" }
+    ]
+  },
+  quedar: {
+    en: "to remain, to meet up, to fit",
+    note: "Many uses: 'quedar bien' (fit well), 'quedamos a las cinco' (let's meet at 5), 'queda poco' (little is left). Reflexive 'quedarse' = stay.",
+    conj: {
+      pres: ["quedo","quedas","queda","quedamos","quedáis","quedan"],
+      pret: ["quedé","quedaste","quedó","quedamos","quedasteis","quedaron"],
+      imp:  ["quedaba","quedabas","quedaba","quedábamos","quedabais","quedaban"]
+    },
+    sents: [
+      { es:"¿Quedamos el sábado?", en:"Should we meet up Saturday?", p:3, t:"pres", ctx:"Making weekend plans by text" },
+      { es:"Quedan dos cervezas en la nevera.", en:"There are two beers left in the fridge.", p:5, t:"pres", ctx:"Inventory check after a party" },
+      { es:"Me quedé en casa todo el día.", en:"I stayed home all day.", p:0, t:"pret", ctx:"Describing a quiet Sunday" },
+      { es:"El vestido te queda perfecto.", en:"The dress fits you perfectly.", p:2, t:"pres", ctx:"A compliment in a fitting room" },
+      { es:"Quedamos en vernos a las ocho.", en:"We agreed to meet at eight.", p:3, t:"pret", ctx:"Confirming an arrangement over text" },
+      { es:"Quedaba muy poca gente cuando llegamos.", en:"There were very few people left when we arrived.", p:2, t:"imp", ctx:"Setting the scene at a late-night bar" }
+    ]
+  },
+  creer: {
+    en: "to believe, to think (opinion)",
+    note: "For opinions and belief ('creo que sí'). Stronger than 'pensar'. Note the 'y' in 3rd-person preterite (creyó, creyeron).",
+    conj: {
+      pres: ["creo","crees","cree","creemos","creéis","creen"],
+      pret: ["creí","creíste","creyó","creímos","creísteis","creyeron"],
+      imp:  ["creía","creías","creía","creíamos","creíais","creían"]
+    },
+    sents: [
+      { es:"Creo que sí.", en:"I think so.", p:0, t:"pres", ctx:"A tentative yes to a question" },
+      { es:"¿Crees en el destino?", en:"Do you believe in fate?", p:1, t:"pres", ctx:"A deep late-night conversation" },
+      { es:"No te creí al principio.", en:"I didn't believe you at first.", p:0, t:"pret", ctx:"Confessing past doubt to a friend" },
+      { es:"Creíamos que estabas de viaje.", en:"We thought you were traveling.", p:3, t:"imp", ctx:"Explaining why no one visited" },
+      { es:"Mi abuela creía en los fantasmas.", en:"My grandmother believed in ghosts.", p:2, t:"imp", ctx:"Sharing a family quirk at dinner" },
+      { es:"Nadie le creyó la historia.", en:"Nobody believed his story.", p:2, t:"pret", ctx:"Gossiping about a tall tale" }
+    ]
+  },
+  hablar: {
+    en: "to speak, to talk",
+    note: "Fully regular -ar verb. Use 'hablar con' for 'talk to'; languages take no article ('hablo español').",
+    conj: {
+      pres: ["hablo","hablas","habla","hablamos","habláis","hablan"],
+      pret: ["hablé","hablaste","habló","hablamos","hablasteis","hablaron"],
+      imp:  ["hablaba","hablabas","hablaba","hablábamos","hablabais","hablaban"]
+    },
+    sents: [
+      { es:"Hablo un poco de español.", en:"I speak a little Spanish.", p:0, t:"pres", ctx:"Apologetic introduction abroad" },
+      { es:"¿Hablaste con ella anoche?", en:"Did you talk to her last night?", p:1, t:"pret", ctx:"Following up on a difficult conversation" },
+      { es:"Mis padres hablan portugués en casa.", en:"My parents speak Portuguese at home.", p:5, t:"pres", ctx:"Explaining your family background" },
+      { es:"Hablábamos por horas cuando éramos jóvenes.", en:"We used to talk for hours when we were young.", p:3, t:"imp", ctx:"Nostalgic moment with an old friend" },
+      { es:"No habló con nadie en la fiesta.", en:"He didn't talk to anyone at the party.", p:2, t:"pret", ctx:"Worried gossip about a quiet guest" },
+      { es:"Habla más despacio, por favor.", en:"Speak more slowly, please.", p:2, t:"pres", ctx:"Asking a fast speaker to slow down" }
+    ]
+  },
+  llevar: {
+    en: "to carry, to take, to wear",
+    note: "Many uses: carrying objects, taking people somewhere, wearing clothes, and duration ('llevo dos años aquí' = I've been here two years).",
+    conj: {
+      pres: ["llevo","llevas","lleva","llevamos","lleváis","llevan"],
+      pret: ["llevé","llevaste","llevó","llevamos","llevasteis","llevaron"],
+      imp:  ["llevaba","llevabas","llevaba","llevábamos","llevabais","llevaban"]
+    },
+    sents: [
+      { es:"Llevo dos años viviendo aquí.", en:"I've been living here for two years.", p:0, t:"pres", ctx:"Answering 'how long have you been here?'" },
+      { es:"¿Llevas paraguas? Va a llover.", en:"Do you have an umbrella? It's going to rain.", p:1, t:"pres", ctx:"A practical check before leaving the house" },
+      { es:"Mi hermano me llevó al aeropuerto.", en:"My brother drove me to the airport.", p:2, t:"pret", ctx:"Recounting the morning of a trip" },
+      { es:"Llevaba un vestido azul precioso.", en:"She was wearing a beautiful blue dress.", p:2, t:"imp", ctx:"Describing someone at a wedding" },
+      { es:"Llevamos comida para el viaje.", en:"We're bringing food for the trip.", p:3, t:"pres", ctx:"Coordinating a road trip with friends" },
+      { es:"¿Quién lleva a los niños a la escuela hoy?", en:"Who's taking the kids to school today?", p:2, t:"pres", ctx:"Morning logistics between parents" }
+    ]
+  },
+  dejar: {
+    en: "to leave (behind), to let, to quit",
+    note: "Leaving things behind ('dejé las llaves'), letting/allowing ('déjame ayudar'), and 'dejar de + infinitive' = to stop doing.",
+    conj: {
+      pres: ["dejo","dejas","deja","dejamos","dejáis","dejan"],
+      pret: ["dejé","dejaste","dejó","dejamos","dejasteis","dejaron"],
+      imp:  ["dejaba","dejabas","dejaba","dejábamos","dejabais","dejaban"]
+    },
+    sents: [
+      { es:"Déjame ayudarte con eso.", en:"Let me help you with that.", p:0, t:"pres", ctx:"Offering help to someone juggling bags" },
+      { es:"Dejé las llaves dentro del coche.", en:"I left the keys inside the car.", p:0, t:"pret", ctx:"A frustrated confession in the parking lot" },
+      { es:"Mi padre dejó de fumar el año pasado.", en:"My father quit smoking last year.", p:2, t:"pret", ctx:"Sharing a proud family milestone" },
+      { es:"Dejaba la luz encendida cuando era niña.", en:"I used to leave the light on as a kid.", p:0, t:"imp", ctx:"Confessing an old childhood fear" },
+      { es:"No me dejaron entrar sin identificación.", en:"They wouldn't let me in without ID.", p:5, t:"pret", ctx:"Complaining about a strict bouncer" },
+      { es:"Deja las maletas aquí, ya las llevo yo.", en:"Leave the bags here — I'll take them.", p:1, t:"pres", ctx:"Hosting an arriving guest" }
+    ]
+  },
+  seguir: {
+    en: "to follow, to continue",
+    note: "Stem-changing e→i. Used for following someone, continuing an action ('sigo estudiando'), or still doing something.",
+    conj: {
+      pres: ["sigo","sigues","sigue","seguimos","seguís","siguen"],
+      pret: ["seguí","seguiste","siguió","seguimos","seguisteis","siguieron"],
+      imp:  ["seguía","seguías","seguía","seguíamos","seguíais","seguían"]
+    },
+    sents: [
+      { es:"Sigo estudiando español.", en:"I'm still studying Spanish.", p:0, t:"pres", ctx:"Updating an old teacher on your progress" },
+      { es:"¿Sigues trabajando en el mismo sitio?", en:"Are you still working at the same place?", p:1, t:"pres", ctx:"Reconnecting with an old friend" },
+      { es:"Seguimos caminando hasta el final del sendero.", en:"We kept walking to the end of the trail.", p:3, t:"pres", ctx:"Recounting a long hike" },
+      { es:"El perro me siguió hasta casa.", en:"The dog followed me home.", p:2, t:"pret", ctx:"Telling a strange walking-home story" },
+      { es:"Mis abuelos seguían bailando a los ochenta.", en:"My grandparents were still dancing in their eighties.", p:5, t:"imp", ctx:"Marveling at family resilience" },
+      { es:"Sigue las instrucciones del médico.", en:"Follow the doctor's instructions.", p:2, t:"pres", ctx:"Advising a sick relative" }
+    ]
+  },
+  pensar: {
+    en: "to think, to plan to",
+    note: "Stem-changing e→ie. 'Pensar en' = think about (a thing); 'pensar + infinitive' = plan to do.",
+    conj: {
+      pres: ["pienso","piensas","piensa","pensamos","pensáis","piensan"],
+      pret: ["pensé","pensaste","pensó","pensamos","pensasteis","pensaron"],
+      imp:  ["pensaba","pensabas","pensaba","pensábamos","pensabais","pensaban"]
+    },
+    sents: [
+      { es:"Pienso en ti todos los días.", en:"I think about you every day.", p:0, t:"pres", ctx:"A tender line in a long-distance call" },
+      { es:"¿Piensas ir a la fiesta?", en:"Are you planning to go to the party?", p:1, t:"pres", ctx:"Coordinating weekend plans" },
+      { es:"Pensé que era una broma.", en:"I thought it was a joke.", p:0, t:"pret", ctx:"Explaining a misunderstanding" },
+      { es:"Mis padres pensaban quedarse más tiempo.", en:"My parents were thinking about staying longer.", p:5, t:"imp", ctx:"Updating a sibling on the visit" },
+      { es:"Pensamos mucho antes de decidir.", en:"We thought about it a lot before deciding.", p:3, t:"pret", ctx:"Justifying a big life choice" },
+      { es:"No pienses tanto, disfruta el momento.", en:"Don't think so much — enjoy the moment.", p:1, t:"pres", ctx:"Gently teasing an overthinking friend" }
+    ]
+  },
+  encontrar: {
+    en: "to find, to meet",
+    note: "Stem-changing o→ue. Finding things or people. Reflexive 'encontrarse' = to feel ('¿cómo te encuentras?') or to meet up.",
+    conj: {
+      pres: ["encuentro","encuentras","encuentra","encontramos","encontráis","encuentran"],
+      pret: ["encontré","encontraste","encontró","encontramos","encontrasteis","encontraron"],
+      imp:  ["encontraba","encontrabas","encontraba","encontrábamos","encontrabais","encontraban"]
+    },
+    sents: [
+      { es:"No encuentro mis gafas.", en:"I can't find my glasses.", p:0, t:"pres", ctx:"A frustrated kitchen search" },
+      { es:"¿Cómo te encuentras hoy?", en:"How are you feeling today?", p:1, t:"pres", ctx:"Checking on a sick friend" },
+      { es:"Encontré veinte euros en la calle.", en:"I found twenty euros on the street.", p:0, t:"pret", ctx:"Excited text to a friend" },
+      { es:"Nos encontramos en el café de siempre.", en:"We're meeting at the usual café.", p:3, t:"pres", ctx:"Confirming a meeting spot" },
+      { es:"Mis padres se encontraron en la universidad.", en:"My parents met at university.", p:5, t:"pret", ctx:"Telling the family love story" },
+      { es:"Encontrábamos conchas en la playa de niños.", en:"We used to find shells on the beach as kids.", p:3, t:"imp", ctx:"A wistful summer memory" }
+    ]
+  }
+};
+
+/* =========================================================================
+   STATE & STORAGE
+   ========================================================================= */
+const STORAGE_KEY = "verbo:v1";
+
+const defaultState = () => ({
+  selected: [],
+  itemStats: {},  // key "verb.tense.person" => {right, wrong}
+  sessions: [],   // {date, type, score, total}
+  learnState: { currentVerb: null, hideTranslations: false, hideVerbs: false }
+});
+
+let State = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultState();
+    return { ...defaultState(), ...JSON.parse(raw) };
+  } catch (e) {
+    return defaultState();
+  }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(State));
+  } catch (e) {}
+}
+
+function statKey(verb, tense, person) {
+  return `${verb}.${tense}.${person}`;
+}
+
+function recordAttempt(verb, tense, person, correct) {
+  const k = statKey(verb, tense, person);
+  if (!State.itemStats[k]) State.itemStats[k] = { right: 0, wrong: 0 };
+  if (correct) State.itemStats[k].right++;
+  else State.itemStats[k].wrong++;
+  saveState();
+}
+
+function recordSession(type, score, total) {
+  State.sessions.push({
+    date: new Date().toISOString(),
+    type, score, total
+  });
+  if (State.sessions.length > 50) State.sessions = State.sessions.slice(-50);
+  saveState();
+}
+
+/* =========================================================================
+   UTILITIES
+   ========================================================================= */
+function normalize(s) {
+  return s.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[¿?¡!.,]/g, "");
+}
+
+function matchAnswer(input, correct) {
+  if (!input) return "none";
+  const a = input.trim().toLowerCase().replace(/[¿?¡!.,]/g, "");
+  const b = correct.toLowerCase().replace(/[¿?¡!.,]/g, "");
+  if (a === b) return "exact";
+  if (normalize(a) === normalize(b)) return "noaccent";
+  return "wrong";
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function pickN(arr, n) { return shuffle(arr).slice(0, n); }
+
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "es-ES";
+  u.rate = 0.92;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+
+/* =========================================================================
+   NAVIGATION
+   ========================================================================= */
+const nav = document.getElementById("viewsNav");
+nav.addEventListener("click", e => {
+  const btn = e.target.closest("button[data-view]");
+  if (!btn) return;
+  showView(btn.dataset.view);
+});
+
+function showView(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === `view-${name}`));
+  document.querySelectorAll("#viewsNav button").forEach(b => b.classList.toggle("active", b.dataset.view === name));
+  if (name === "select") renderSelect();
+  if (name === "learn") renderLearn();
+  if (name === "practice") renderPracticeIntro();
+  if (name === "quiz") renderQuizIntro();
+  if (name === "progress") renderProgress();
+}
+
+/* =========================================================================
+   SELECT VIEW
+   ========================================================================= */
+function renderSelect() {
+  const grid = document.getElementById("verbGrid");
+  grid.innerHTML = "";
+  Object.entries(VERBS).forEach(([key, v]) => {
+    const sel = State.selected.includes(key);
+    const card = document.createElement("button");
+    card.className = "verb-card" + (sel ? " selected" : "");
+    card.innerHTML = `
+      <div class="check">${sel ? "✓" : ""}</div>
+      <div class="infinitive">${key}</div>
+      <div class="gloss">${v.en}</div>
+    `;
+    card.addEventListener("click", () => toggleVerb(key));
+    grid.appendChild(card);
+  });
+  document.getElementById("selCount").textContent = State.selected.length;
+}
+
+function toggleVerb(key) {
+  const i = State.selected.indexOf(key);
+  if (i >= 0) State.selected.splice(i, 1);
+  else State.selected.push(key);
+  saveState();
+  renderSelect();
+}
+
+document.getElementById("selectAllBtn").addEventListener("click", () => {
+  State.selected = Object.keys(VERBS);
+  saveState();
+  renderSelect();
+});
+document.getElementById("clearAllBtn").addEventListener("click", () => {
+  State.selected = [];
+  saveState();
+  renderSelect();
+});
+
+/* =========================================================================
+   LEARN VIEW
+   ========================================================================= */
+function renderLearn() {
+  const root = document.getElementById("learnContent");
+  if (State.selected.length === 0) {
+    root.innerHTML = `<div class="learn-empty">
+      <p>You haven't selected any verbs yet.</p>
+      <button class="btn btn-primary" onclick="showView('select')">Go to the verb bench →</button>
+    </div>`;
+    return;
+  }
+
+  // Default active verb
+  if (!State.learnState.currentVerb || !State.selected.includes(State.learnState.currentVerb)) {
+    State.learnState.currentVerb = State.selected[0];
+  }
+  const current = State.learnState.currentVerb;
+
+  // Pills + toggles
+  let html = `<div class="verb-selector-pills">
+    ${State.selected.map(k => `<button class="verb-pill ${k===current?'active':''}" data-verb="${k}">${k}</button>`).join("")}
+    <div class="learn-toggles">
+      <button class="toggle-btn ${State.learnState.hideTranslations?'on':''}" data-toggle="hideTrans">Hide translations</button>
+      <button class="toggle-btn ${State.learnState.hideVerbs?'on':''}" data-toggle="hideVerbs">Hide verb forms</button>
+    </div>
+  </div>`;
+
+  const v = VERBS[current];
+  html += `
+    <div class="verb-header">
+      <div class="big-verb">${current}</div>
+      <div class="meta">
+        <div class="english">${v.en}</div>
+        <div class="note">${v.note}</div>
+      </div>
+      <button class="icon-btn" title="Listen" data-speak="${current}">♪</button>
+    </div>
+
+    <h3 class="section-title">Conjugations</h3>
+    <div class="conj-tables">
+      ${Object.keys(TENSE_LABELS).map(t => `
+        <div class="conj-table">
+          <h4>${TENSE_LABELS[t]}</h4>
+          ${v.conj[t].map((form, i) => `
+            <div class="conj-row">
+              <span class="person">${PERSONS_SHORT[i]}</span>
+              <span class="form">${State.learnState.hideVerbs ? '· · ·' : form}</span>
+            </div>
+          `).join("")}
+        </div>
+      `).join("")}
+    </div>
+
+    <h3 class="section-title">In context</h3>
+    <div class="sentences-list">
+      ${v.sents.map((s, i) => renderSentenceCard(current, s, i)).join("")}
+    </div>
+  `;
+  root.innerHTML = html;
+
+  // Wire pills
+  root.querySelectorAll(".verb-pill").forEach(p => {
+    p.addEventListener("click", () => {
+      State.learnState.currentVerb = p.dataset.verb;
+      saveState();
+      renderLearn();
+    });
+  });
+  // Wire toggles
+  root.querySelectorAll(".toggle-btn").forEach(b => {
+    b.addEventListener("click", () => {
+      if (b.dataset.toggle === "hideTrans") State.learnState.hideTranslations = !State.learnState.hideTranslations;
+      if (b.dataset.toggle === "hideVerbs") State.learnState.hideVerbs = !State.learnState.hideVerbs;
+      saveState();
+      renderLearn();
+    });
+  });
+  // Wire speak
+  root.querySelectorAll("[data-speak]").forEach(b => {
+    b.addEventListener("click", () => speak(b.dataset.speak));
+  });
+  // Wire sentence speak + reveal
+  root.querySelectorAll(".sentence-card .icon-btn[data-speak-text]").forEach(b => {
+    b.addEventListener("click", () => speak(b.dataset.speakText));
+  });
+  root.querySelectorAll(".sentence-card .en").forEach(el => {
+    el.addEventListener("click", () => el.classList.toggle("blurred"));
+  });
+}
+
+function renderSentenceCard(verb, s, idx) {
+  // Highlight verb form
+  const form = VERBS[verb].conj[s.t][s.p];
+  const re = new RegExp(`\\b(${form})\\b`, "i");
+  const highlightedEs = s.es.replace(re, '<span class="verb-highlight">$1</span>');
+  const enClass = State.learnState.hideTranslations ? "en blurred" : "en";
+  return `
+    <div class="sentence-card">
+      <div class="context-cue">${escapeHtml(s.ctx)}</div>
+      <div class="es">${highlightedEs}</div>
+      <div class="${enClass}">${escapeHtml(s.en)}</div>
+      <div class="tags">
+        <span class="tag">${PERSONS_SHORT[s.p]}</span>
+        <span class="tag">${TENSE_LABELS[s.t]}</span>
+      </div>
+      <div class="controls">
+        <button class="icon-btn" title="Listen" data-speak-text="${escapeHtml(s.es)}">♪</button>
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================================
+   PRACTICE & QUIZ — shared activity engine
+   ========================================================================= */
+const ACTIVITY_TYPES = ["translate", "chooseForm", "fillBlank", "conjugate"];
+const ACTIVITY_LABELS = {
+  translate: "Meaning · multiple choice",
+  chooseForm: "Form · multiple choice",
+  fillBlank: "Fill the blank · type",
+  conjugate: "Conjugate · type"
+};
+
+function buildItemPool() {
+  const pool = [];
+  State.selected.forEach(verb => {
+    VERBS[verb].sents.forEach((s, i) => pool.push({ verb, sentenceIdx: i }));
+  });
+  return pool;
+}
+
+function makeActivity(item, type) {
+  const v = VERBS[item.verb];
+  const s = v.sents[item.sentenceIdx];
+  const correctForm = v.conj[s.t][s.p];
+  return { item, type, sentence: s, correctForm, verb: item.verb };
+}
+
+function blankSentence(es, form) {
+  const re = new RegExp(`\\b(${form})\\b`, "i");
+  return es.replace(re, '<span class="blank">____</span>');
+}
+
+function getHintForActivity(act, attempt) {
+  const { sentence, verb, correctForm } = act;
+  if (attempt === 1) {
+    return `Look at the tense — this is the <em>${TENSE_LABELS[sentence.t].toLowerCase()}</em>. ${tenseHint(sentence.t)}`;
+  }
+  if (attempt === 2) {
+    return `The subject is <em>${PERSONS[sentence.p]}</em>. Match the ending to that person.`;
+  }
+  if (attempt === 3) {
+    return `It starts with "<em>${correctForm[0]}${correctForm[1]||''}</em>"…`;
+  }
+  return null; // will reveal
+}
+
+function tenseHint(t) {
+  if (t === "pres") return "Happening now or habitual.";
+  if (t === "pret") return "A specific event completed in the past.";
+  if (t === "imp")  return "An ongoing or repeated action in the past — 'used to' / 'was -ing'.";
+  return "";
+}
+
+function distractorForms(verb, correctForm, sentence) {
+  // Pick 3 wrong conjugations from the same verb
+  const v = VERBS[verb];
+  const all = [];
+  Object.keys(v.conj).forEach(t => {
+    v.conj[t].forEach((f, p) => {
+      if (f !== correctForm) all.push(f);
+    });
+  });
+  // Deduplicate (some verb forms repeat — e.g. era/era)
+  const uniq = [...new Set(all)];
+  return pickN(uniq, 3);
+}
+
+function distractorTranslations(currentItem, pool, count = 3) {
+  const others = pool.filter(p => !(p.verb === currentItem.verb && p.sentenceIdx === currentItem.sentenceIdx));
+  return pickN(others, count).map(p => VERBS[p.verb].sents[p.sentenceIdx].en);
+}
+
+/* =========================================================================
+   PRACTICE
+   ========================================================================= */
+let PracticeSession = null;
+
+function renderPracticeIntro() {
+  const root = document.getElementById("practiceContent");
+  if (State.selected.length === 0) {
+    root.innerHTML = `<div class="practice-empty">
+      <p>Select some verbs first, and we'll build a session around them.</p>
+      <button class="btn btn-primary" onclick="showView('select')">Go to the verb bench →</button>
+    </div>`;
+    return;
+  }
+  if (PracticeSession) {
+    renderPracticeCurrent();
+    return;
+  }
+  root.innerHTML = `
+    <div class="activity-card">
+      <div class="activity-type">A new session</div>
+      <h3 class="section-title" style="margin-top:8px">Ten quick rounds, mixed activities</h3>
+      <p style="font-family:var(--font-body); font-size:17px; color:var(--ink-soft); margin-bottom:24px; line-height:1.55;">
+        We'll mix translations, form-choice, fill-the-blanks, and conjugation drills — all drawn from the verbs you selected (<em>${State.selected.join(", ")}</em>). Hints are given before answers; you can retry any item.
+      </p>
+      <button class="btn btn-accent" id="startPracticeBtn">Begin the session →</button>
+    </div>
+  `;
+  document.getElementById("startPracticeBtn").addEventListener("click", startPractice);
+}
+
+function startPractice() {
+  const pool = buildItemPool();
+  const items = shuffle(pool).slice(0, Math.min(10, pool.length)).map(item => {
+    const type = pick(ACTIVITY_TYPES);
+    return makeActivity(item, type);
+  });
+  PracticeSession = {
+    items, idx: 0, attempts: 0, results: [],
+    mode: "practice"
+  };
+  renderPracticeCurrent();
+}
+
+function renderPracticeCurrent() {
+  const root = document.getElementById("practiceContent");
+  if (!PracticeSession) return renderPracticeIntro();
+  const sess = PracticeSession;
+
+  if (sess.idx >= sess.items.length) {
+    renderSessionSummary(sess, "practice");
+    return;
+  }
+
+  const act = sess.items[sess.idx];
+  const correctCount = sess.results.filter(r => r.correct).length;
+
+  root.innerHTML = `
+    <div class="session-bar">
+      <div class="session-stat"><strong>${sess.idx + 1}</strong> of ${sess.items.length}</div>
+      <div class="progress-track"><div class="progress-fill" style="width: ${(sess.idx / sess.items.length) * 100}%"></div></div>
+      <div class="session-stat"><strong>${correctCount}</strong> right</div>
+    </div>
+    <div class="activity-card" id="actCard">
+      ${renderActivity(act, sess.attempts)}
+    </div>
+  `;
+  wireActivity(act);
+}
+
+function renderActivity(act, attempts) {
+  const s = act.sentence;
+  const verb = act.verb;
+  const correctForm = act.correctForm;
+  const pool = buildItemPool();
+
+  const scenario = `<div class="scenario">"${escapeHtml(s.ctx)}"</div>`;
+  const attemptsDots = `<div class="attempts-dots">${[0,1,2].map(i => `<div class="dot ${i<attempts?'used':''}"></div>`).join("")}</div>`;
+
+  if (act.type === "translate") {
+    if (!act.choices) {
+      const distractors = distractorTranslations({verb, sentenceIdx: VERBS[verb].sents.indexOf(s)}, pool, 3);
+      act.choices = shuffle([s.en, ...distractors]);
+    }
+    return `
+      <div class="activity-type">${ACTIVITY_LABELS[act.type]}</div>
+      ${scenario}
+      <div class="activity-prompt">${escapeHtml(s.es)} <button class="icon-btn" data-speak-text="${escapeHtml(s.es)}" title="Listen">♪</button></div>
+      <div style="font-family:var(--font-body); font-style:italic; color:var(--ink-mute); margin-bottom:14px;">What does this mean?</div>
+      <div class="choices">
+        ${act.choices.map((c, i) => `<button class="choice" data-choice="${escapeHtml(c)}"><span class="letter">${String.fromCharCode(97+i)}.</span> ${escapeHtml(c)}</button>`).join("")}
+      </div>
+      <div class="feedback" id="fb"></div>
+      <div class="activity-footer">
+        ${attemptsDots}
+        <button class="btn btn-ghost" id="skipBtn">Reveal & skip</button>
+      </div>
+    `;
+  }
+
+  if (act.type === "chooseForm") {
+    if (!act.choices) {
+      const distractors = distractorForms(verb, correctForm, s);
+      act.choices = shuffle([correctForm, ...distractors]);
+    }
+    return `
+      <div class="activity-type">${ACTIVITY_LABELS[act.type]}</div>
+      ${scenario}
+      <div class="activity-prompt">${blankSentence(s.es, correctForm)} <span class="hint-paren">(${verb})</span></div>
+      <div style="font-family:var(--font-body); font-style:italic; color:var(--ink-mute); margin-bottom:14px;">Which form fits — for <em>${PERSONS[s.p]}</em>?</div>
+      <div class="choices">
+        ${act.choices.map((c, i) => `<button class="choice" data-choice="${escapeHtml(c)}"><span class="letter">${String.fromCharCode(97+i)}.</span> ${escapeHtml(c)}</button>`).join("")}
+      </div>
+      <div class="feedback" id="fb"></div>
+      <div class="activity-footer">
+        ${attemptsDots}
+        <button class="btn btn-ghost" id="skipBtn">Reveal & skip</button>
+      </div>
+    `;
+  }
+
+  if (act.type === "fillBlank") {
+    return `
+      <div class="activity-type">${ACTIVITY_LABELS[act.type]}</div>
+      ${scenario}
+      <div class="activity-prompt">${blankSentence(s.es, correctForm)} <span class="hint-paren">(${verb}, ${PERSONS_SHORT[s.p]}, ${TENSE_LABELS[s.t].toLowerCase()})</span></div>
+      <div class="input-row">
+        <input type="text" class="text-input" id="answerInput" autocomplete="off" spellcheck="false" placeholder="Type the verb form…" />
+        <button class="btn btn-primary" id="submitBtn">Check</button>
+      </div>
+      <div class="accent-row">
+        ${["á","é","í","ó","ú","ñ"].map(c => `<button class="accent-btn" data-accent="${c}">${c}</button>`).join("")}
+      </div>
+      <div class="feedback" id="fb"></div>
+      <div class="activity-footer">
+        ${attemptsDots}
+        <button class="btn btn-ghost" id="skipBtn">Reveal & skip</button>
+      </div>
+    `;
+  }
+
+  if (act.type === "conjugate") {
+    return `
+      <div class="activity-type">${ACTIVITY_LABELS[act.type]}</div>
+      ${scenario}
+      <div class="activity-prompt">
+        Give the <em>${TENSE_LABELS[s.t].toLowerCase()}</em> form of <strong style="font-family:var(--font-display); font-style:italic; color:var(--terracotta); font-size:1.2em;">${verb}</strong>
+        for <em>${PERSONS[s.p]}</em>.
+      </div>
+      <div style="font-family:var(--font-body); font-style:italic; color:var(--ink-mute); margin-bottom:14px;">
+        It should fit a sentence like: "${escapeHtml(s.es.replace(correctForm, '___'))}"
+      </div>
+      <div class="input-row">
+        <input type="text" class="text-input" id="answerInput" autocomplete="off" spellcheck="false" placeholder="Type the form…" />
+        <button class="btn btn-primary" id="submitBtn">Check</button>
+      </div>
+      <div class="accent-row">
+        ${["á","é","í","ó","ú","ñ"].map(c => `<button class="accent-btn" data-accent="${c}">${c}</button>`).join("")}
+      </div>
+      <div class="feedback" id="fb"></div>
+      <div class="activity-footer">
+        ${attemptsDots}
+        <button class="btn btn-ghost" id="skipBtn">Reveal & skip</button>
+      </div>
+    `;
+  }
+}
+
+function wireActivity(act) {
+  // Speak
+  document.querySelectorAll("[data-speak-text]").forEach(b => {
+    b.addEventListener("click", () => speak(b.dataset.speakText));
+  });
+  // Skip / reveal
+  const skipBtn = document.getElementById("skipBtn");
+  if (skipBtn) skipBtn.addEventListener("click", () => revealAndNext(act, false));
+
+  // MC
+  if (act.type === "translate" || act.type === "chooseForm") {
+    document.querySelectorAll(".choice").forEach(btn => {
+      btn.addEventListener("click", () => handleChoiceClick(btn, act));
+    });
+    return;
+  }
+  // Typing
+  const input = document.getElementById("answerInput");
+  const submitBtn = document.getElementById("submitBtn");
+  input.focus();
+  input.addEventListener("keydown", e => { if (e.key === "Enter") handleTypedAnswer(act); });
+  submitBtn.addEventListener("click", () => handleTypedAnswer(act));
+  document.querySelectorAll(".accent-btn").forEach(b => {
+    b.addEventListener("click", () => {
+      const start = input.selectionStart, end = input.selectionEnd;
+      input.value = input.value.slice(0,start) + b.dataset.accent + input.value.slice(end);
+      input.focus();
+      input.setSelectionRange(start+1, start+1);
+    });
+  });
+}
+
+function handleChoiceClick(btn, act) {
+  const sess = PracticeSession || QuizSession;
+  const choice = btn.dataset.choice;
+  const correctVal = (act.type === "translate") ? act.sentence.en : act.correctForm;
+  const correct = choice === correctVal;
+  const fb = document.getElementById("fb");
+
+  if (correct) {
+    document.querySelectorAll(".choice").forEach(c => c.disabled = true);
+    btn.classList.add("correct");
+    fb.className = "feedback success show";
+    fb.innerHTML = `${tenseHint(act.sentence.t)} <button class="btn btn-primary" id="nextBtn" style="margin-left:12px;">Next →</button>`;
+    recordResult(sess, act, true);
+    document.getElementById("nextBtn").addEventListener("click", advanceSession);
+  } else {
+    btn.classList.add("wrong");
+    btn.disabled = true;
+    sess.attempts = (sess.attempts || 0) + 1;
+    updateDots(sess.attempts);
+    if (sess.attempts >= 3 || sess.mode === "quiz") {
+      // Reveal in practice after 3; in quiz, after 1
+      revealAndNext(act, false);
+    } else {
+      const hint = getHintForActivity(act, sess.attempts);
+      fb.className = "feedback hint show";
+      fb.innerHTML = hint;
+    }
+  }
+}
+
+function handleTypedAnswer(act) {
+  const sess = PracticeSession || QuizSession;
+  const input = document.getElementById("answerInput");
+  const fb = document.getElementById("fb");
+  const result = matchAnswer(input.value, act.correctForm);
+
+  if (result === "exact" || result === "noaccent") {
+    input.classList.add("correct");
+    input.disabled = true;
+    document.getElementById("submitBtn").disabled = true;
+    fb.className = "feedback success show";
+    if (result === "noaccent") {
+      fb.innerHTML = `Just check the accent: <strong>${act.correctForm}</strong>. <button class="btn btn-primary" id="nextBtn" style="margin-left:12px;">Next →</button>`;
+    } else {
+      fb.innerHTML = `${tenseHint(act.sentence.t)} <button class="btn btn-primary" id="nextBtn" style="margin-left:12px;">Next →</button>`;
+    }
+    recordResult(sess, act, true);
+    document.getElementById("nextBtn").addEventListener("click", advanceSession);
+    return;
+  }
+
+  input.classList.add("wrong");
+  setTimeout(() => input.classList.remove("wrong"), 500);
+  sess.attempts = (sess.attempts || 0) + 1;
+  updateDots(sess.attempts);
+
+  if (sess.attempts >= 3 || sess.mode === "quiz") {
+    revealAndNext(act, false);
+  } else {
+    const hint = getHintForActivity(act, sess.attempts);
+    fb.className = "feedback hint show";
+    fb.innerHTML = hint;
+    input.focus();
+    input.select();
+  }
+}
+
+function updateDots(attempts) {
+  document.querySelectorAll(".attempts-dots .dot").forEach((d, i) => {
+    d.classList.toggle("used", i < attempts);
+  });
+}
+
+function revealAndNext(act, isCorrect) {
+  const sess = PracticeSession || QuizSession;
+  const fb = document.getElementById("fb");
+  const input = document.getElementById("answerInput");
+  const userVal = input ? input.value : null;
+
+  // Disable choices/input
+  document.querySelectorAll(".choice").forEach(c => {
+    c.disabled = true;
+    if (c.dataset.choice === act.correctForm || c.dataset.choice === act.sentence.en) c.classList.add("correct");
+  });
+  if (input) { input.disabled = true; }
+  const submitBtn = document.getElementById("submitBtn");
+  if (submitBtn) submitBtn.disabled = true;
+
+  fb.className = "feedback reveal show";
+  fb.innerHTML = `<span class="answer">${escapeHtml(act.correctForm)}</span>. ${tenseHint(act.sentence.t)} <button class="btn btn-primary" id="nextBtn" style="margin-left:12px;">Next →</button>`;
+  recordResult(sess, act, false, userVal);
+  document.getElementById("nextBtn").addEventListener("click", advanceSession);
+}
+
+function recordResult(sess, act, correct, userVal = null) {
+  // Prevent double-recording on same item
+  if (sess.results[sess.idx]) return;
+  sess.results[sess.idx] = {
+    verb: act.verb,
+    tense: act.sentence.t,
+    person: act.sentence.p,
+    type: act.type,
+    correct,
+    correctForm: act.correctForm,
+    es: act.sentence.es,
+    en: act.sentence.en,
+    userAnswer: userVal
+  };
+  recordAttempt(act.verb, act.sentence.t, act.sentence.p, correct);
+}
+
+function advanceSession() {
+  const sess = PracticeSession || QuizSession;
+  sess.idx++;
+  sess.attempts = 0;
+  if (sess.mode === "practice") renderPracticeCurrent();
+  else renderQuizCurrent();
+}
+
+/* =========================================================================
+   QUIZ
+   ========================================================================= */
+let QuizSession = null;
+
+function renderQuizIntro() {
+  const root = document.getElementById("quizContent");
+  if (State.selected.length === 0) {
+    root.innerHTML = `<div class="quiz-empty">
+      <p>Select some verbs first — the quiz is built from your choices.</p>
+      <button class="btn btn-primary" onclick="showView('select')">Go to the verb bench →</button>
+    </div>`;
+    return;
+  }
+  if (QuizSession) {
+    renderQuizCurrent();
+    return;
+  }
+  root.innerHTML = `
+    <div class="activity-card">
+      <div class="activity-type">10 questions · mixed · tracked</div>
+      <h3 class="section-title" style="margin-top:8px">Quiz mode</h3>
+      <p style="font-family:var(--font-body); font-size:17px; color:var(--ink-soft); margin-bottom:24px; line-height:1.55;">
+        One attempt per question, then we reveal and move on. You'll see your accuracy and a review of anything you missed.
+      </p>
+      <button class="btn btn-accent" id="startQuizBtn">Begin →</button>
+    </div>
+  `;
+  document.getElementById("startQuizBtn").addEventListener("click", () => startQuiz(false));
+}
+
+function startQuiz(retryMissed) {
+  const pool = buildItemPool();
+  let chosen;
+  if (retryMissed && QuizSession) {
+    chosen = QuizSession.results.filter(r => !r.correct).map(r => ({
+      verb: r.verb,
+      sentenceIdx: VERBS[r.verb].sents.findIndex(s => s.es === r.es)
+    }));
+  } else {
+    chosen = shuffle(pool).slice(0, Math.min(10, pool.length));
+  }
+  const items = chosen.map((item, i) => {
+    // Mounting difficulty: first few are MC, later are typing
+    let type;
+    if (i < 2) type = "translate";
+    else if (i < 4) type = "chooseForm";
+    else if (i < 7) type = "fillBlank";
+    else type = "conjugate";
+    return makeActivity(item, type);
+  });
+  QuizSession = {
+    items, idx: 0, attempts: 0, results: [],
+    mode: "quiz"
+  };
+  renderQuizCurrent();
+}
+
+function renderQuizCurrent() {
+  const root = document.getElementById("quizContent");
+  if (!QuizSession) return renderQuizIntro();
+  const sess = QuizSession;
+
+  if (sess.idx >= sess.items.length) {
+    renderSessionSummary(sess, "quiz");
+    return;
+  }
+
+  const act = sess.items[sess.idx];
+  const correctCount = sess.results.filter(r => r.correct).length;
+
+  root.innerHTML = `
+    <div class="session-bar">
+      <div class="session-stat"><strong>Q${sess.idx + 1}</strong> of ${sess.items.length}</div>
+      <div class="progress-track"><div class="progress-fill" style="width: ${(sess.idx / sess.items.length) * 100}%"></div></div>
+      <div class="session-stat"><strong>${correctCount}</strong> right</div>
+    </div>
+    <div class="activity-card" id="actCard">
+      ${renderActivity(act, sess.attempts)}
+    </div>
+  `;
+  wireActivity(act);
+}
+
+/* =========================================================================
+   SESSION SUMMARY
+   ========================================================================= */
+function renderSessionSummary(sess, mode) {
+  const root = document.getElementById(mode === "quiz" ? "quizContent" : "practiceContent");
+  const total = sess.items.length;
+  const correct = sess.results.filter(r => r.correct).length;
+  const pct = Math.round((correct / total) * 100);
+  const missed = sess.results.filter(r => !r.correct);
+
+  recordSession(mode, correct, total);
+
+  root.innerHTML = `
+    <div class="summary-card">
+      <div class="eyebrow">${mode === "quiz" ? "Quiz complete" : "Session complete"}</div>
+      <div class="big-score">${correct}<span class="denom">/${total}</span></div>
+      <div style="font-family: var(--font-display); font-style: italic; font-size: 22px; color: var(--ink-mute);">
+        ${pct >= 80 ? "Strong showing — that's stuck." : pct >= 50 ? "Solid middle. Worth another round." : "Early days. Mistakes are the lesson."}
+      </div>
+
+      <div class="summary-stats">
+        <div class="summary-stat"><div class="label">Accuracy</div><div class="value">${pct}%</div></div>
+        <div class="summary-stat"><div class="label">Correct</div><div class="value">${correct}</div></div>
+        <div class="summary-stat"><div class="label">Missed</div><div class="value">${missed.length}</div></div>
+      </div>
+
+      ${missed.length > 0 ? `
+        <h3 class="section-title" style="text-align:left; margin-top:32px;">What to revisit</h3>
+        <div class="missed-list">
+          ${missed.map(m => `
+            <div class="missed-item">
+              <div class="es">${escapeHtml(m.es)}</div>
+              <div style="font-family:var(--font-body); font-style:italic; color:var(--ink-mute); font-size:14px; margin-top:4px;">
+                Expected: <span class="answer">${escapeHtml(m.correctForm)}</span> · ${PERSONS_SHORT[m.person]} · ${TENSE_LABELS[m.tense]}
+                ${m.userAnswer ? `<div class="your-answer">Your answer: ${escapeHtml(m.userAnswer)}</div>` : ""}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+
+      <div style="margin-top:32px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        ${missed.length > 0 && mode === "quiz" ? `<button class="btn btn-accent" id="retryMissedBtn">Retry missed only</button>` : ""}
+        <button class="btn btn-primary" id="newSessionBtn">${mode === "quiz" ? "New quiz" : "Another session"}</button>
+        <button class="btn btn-ghost" onclick="showView('progress')">See progress</button>
+      </div>
+    </div>
+  `;
+
+  const newBtn = document.getElementById("newSessionBtn");
+  if (newBtn) newBtn.addEventListener("click", () => {
+    if (mode === "quiz") { QuizSession = null; renderQuizIntro(); }
+    else { PracticeSession = null; renderPracticeIntro(); }
+  });
+  const retryBtn = document.getElementById("retryMissedBtn");
+  if (retryBtn) retryBtn.addEventListener("click", () => startQuiz(true));
+}
+
+/* =========================================================================
+   PROGRESS
+   ========================================================================= */
+function renderProgress() {
+  const root = document.getElementById("progressContent");
+
+  // Aggregate
+  const stats = State.itemStats;
+  let totalRight = 0, totalWrong = 0;
+  const verbStats = {};
+  Object.entries(stats).forEach(([key, v]) => {
+    const verb = key.split(".")[0];
+    if (!verbStats[verb]) verbStats[verb] = { right: 0, wrong: 0 };
+    verbStats[verb].right += v.right;
+    verbStats[verb].wrong += v.wrong;
+    totalRight += v.right;
+    totalWrong += v.wrong;
+  });
+
+  const totalAttempts = totalRight + totalWrong;
+  const overallAcc = totalAttempts > 0 ? Math.round((totalRight / totalAttempts) * 100) : 0;
+  const sessions = State.sessions.length;
+
+  // Toughest items
+  const sortedItems = Object.entries(stats)
+    .filter(([k, v]) => v.wrong > 0)
+    .sort((a, b) => b[1].wrong - a[1].wrong)
+    .slice(0, 5);
+
+  let html = `
+    <div class="progress-grid">
+      <div class="stat-card">
+        <div class="label">Overall accuracy</div>
+        <div class="value">${overallAcc}<span class="small">%</span></div>
+        <div class="sub">${totalAttempts} total attempt${totalAttempts===1?'':'s'}</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Sessions</div>
+        <div class="value">${sessions}</div>
+        <div class="sub">${sessions===0 ? "Run a practice or quiz" : "Recorded so far"}</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Verbs selected</div>
+        <div class="value">${State.selected.length}<span class="small">/${Object.keys(VERBS).length}</span></div>
+        <div class="sub">${State.selected.length === 0 ? "None yet — pick some" : "In your current set"}</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Strongest tense</div>
+        <div class="value" style="font-size:32px;">${strongestTense()}</div>
+        <div class="sub">Where you score highest</div>
+      </div>
+    </div>
+  `;
+
+  if (Object.keys(verbStats).length > 0) {
+    html += `<h3 class="section-title">By verb</h3><div class="verb-progress-list">`;
+    Object.entries(verbStats).sort((a,b) => (b[1].right+b[1].wrong) - (a[1].right+a[1].wrong)).forEach(([verb, s]) => {
+      const t = s.right + s.wrong;
+      const pct = t === 0 ? 0 : Math.round(s.right / t * 100);
+      html += `
+        <div class="verb-progress-item">
+          <div class="infinitive">${verb}</div>
+          <div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div>
+          <div class="stats">${s.right}/${t} · ${pct}%</div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  if (sortedItems.length > 0) {
+    html += `<h3 class="section-title" style="margin-top:32px;">Sticky spots</h3><div class="missed-list">`;
+    sortedItems.forEach(([key, s]) => {
+      const [verb, tense, person] = key.split(".");
+      const form = VERBS[verb].conj[tense][person];
+      const t = s.right + s.wrong;
+      html += `
+        <div class="missed-item">
+          <div class="es"><strong style="font-family:var(--font-display); font-style:italic; color:var(--terracotta);">${form}</strong>
+            <span style="font-family:var(--font-body); font-style:italic; color:var(--ink-mute);">— ${verb}, ${PERSONS_SHORT[person]}, ${TENSE_LABELS[tense].toLowerCase()}</span></div>
+          <div style="font-family:var(--font-ui); font-size:13px; color:var(--ink-mute); margin-top:4px;">
+            ${s.wrong} miss${s.wrong===1?'':'es'} · ${s.right} correct (${Math.round(s.right/t*100)}%)
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+  }
+
+  html += `
+    <div class="reset-zone">
+      <p>Want to start over? This clears selections, stats, and session history.</p>
+      <button class="btn btn-ghost" id="resetBtn">Reset everything</button>
+    </div>
+  `;
+
+  root.innerHTML = html;
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (confirm("Erase all progress and selections?")) {
+      State = defaultState();
+      saveState();
+      showView("select");
+    }
+  });
+}
+
+function strongestTense() {
+  const tally = { pres: {r:0, w:0}, pret: {r:0, w:0}, imp: {r:0, w:0} };
+  Object.entries(State.itemStats).forEach(([k, v]) => {
+    const t = k.split(".")[1];
+    if (tally[t]) { tally[t].r += v.right; tally[t].w += v.wrong; }
+  });
+  let best = null, bestPct = -1;
+  Object.entries(tally).forEach(([t, s]) => {
+    const total = s.r + s.w;
+    if (total < 3) return;
+    const pct = s.r / total;
+    if (pct > bestPct) { bestPct = pct; best = t; }
+  });
+  return best ? TENSE_LABELS[best] : "—";
+}
+
+/* =========================================================================
+   INIT
+   ========================================================================= */
+renderSelect();
+</script>
+<script>
+/* Register the offline service worker (works on https:// and localhost). */
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (e) {
+      console.log('SW registration skipped:', e);
+    });
+  });
+}
+</script>
+</body>
+</html>

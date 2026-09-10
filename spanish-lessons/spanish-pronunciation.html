@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Rules · Spanish Pronunciation</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#b8472d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Español">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<link rel="icon" href="./favicon.png" type="image/png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Lora:ital,wght@0,400..700;1,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --paper:#f3ebdd; --paper-light:#faf4e8; --paper-dark:#ebe1cc;
+    --ink:#1d1f2e; --ink-soft:#3a3b4c; --ink-mute:#6b6373;
+    --stress:#b8472d;  /* terracotta */
+    --cons:#6b8b5d;    /* sage */
+    --vowel:#c4943c;   /* ochre */
+    --home:#b85d6f;    /* rose */
+    --ochre-light:#e8c878;
+    --border:#d4c8b1; --border-soft:#e1d6c0;
+    --shadow-sm:0 1px 2px rgba(29,31,46,.05),0 1px 1px rgba(29,31,46,.03);
+    --shadow-md:0 4px 16px rgba(29,31,46,.07),0 1px 3px rgba(29,31,46,.05);
+    --font-display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+    --font-body:"Lora",Georgia,serif;
+    --font-ui:"DM Sans",-apple-system,system-ui,sans-serif;
+    --font-mono:"Space Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(ellipse at top left,rgba(196,148,60,.08),transparent 50%),radial-gradient(ellipse at bottom right,rgba(184,71,45,.06),transparent 50%),var(--paper);min-height:100vh;position:relative}
+  body::before{content:"";position:fixed;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 0 0.15  0 0 0 0.06 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");opacity:.5;pointer-events:none;z-index:0;mix-blend-mode:multiply}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 20px 96px;position:relative;z-index:1}
+
+  .mono{font-family:var(--font-mono);font-size:.92em}
+  .display{font-family:var(--font-display)}
+  .word{font-family:var(--font-body);font-style:italic;font-weight:600}
+  .stressed{border-bottom:2px solid currentColor;padding-bottom:1px}
+  button{font-family:var(--font-ui);cursor:pointer;border:none;background:none;color:inherit}
+  a{color:inherit}
+  .eyebrow{font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:600;color:var(--stress)}
+
+  .card{background:var(--paper-light);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-md);padding:24px;margin:18px 0}
+
+  .speak{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-ui);font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--paper);color:var(--ink-soft);padding:3px 10px;border-radius:100px;margin-left:6px;vertical-align:middle;transition:all .18s}
+  .speak:hover{background:var(--ink);color:var(--paper-light);border-color:var(--ink)}
+  .ipa{font-family:var(--font-mono);background:var(--paper-dark);color:var(--ink);border:1px solid var(--border);border-radius:6px;padding:1px 6px;font-size:.85em}
+
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--border)}
+  .brand{font-family:var(--font-display);font-size:26px;font-style:italic;letter-spacing:-.01em}
+  .brand small{display:block;font-family:var(--font-ui);font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--ink-mute);font-style:normal;margin-top:2px}
+  .home-btn{font-family:var(--font-ui);font-weight:500;font-size:13px;border:1px solid var(--border);background:var(--paper-light);color:var(--ink-soft);padding:9px 18px;border-radius:100px;transition:all .2s}
+  .home-btn:hover{background:var(--ink);color:var(--paper-light);border-color:var(--ink)}
+
+  .view{display:none}
+  .view.active{display:block;animation:fadeIn .35s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .hero{margin:30px 0 10px}
+  .hero h1{font-family:var(--font-display);font-size:clamp(44px,10vw,88px);line-height:.95;font-weight:400;letter-spacing:-.02em}
+  .hero p{max-width:640px;margin-top:18px;font-size:19px;font-family:var(--font-body);color:var(--ink-soft)}
+
+  .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:34px}
+  .tile{border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-md);background:var(--paper-light);padding:24px;display:flex;flex-direction:column;min-height:210px;transition:all .2s;border-top:4px solid var(--border)}
+  .tile:hover{transform:translateY(-3px);box-shadow:0 16px 34px -14px rgba(80,60,30,.4)}
+  .tile .num{font-family:var(--font-ui);font-weight:700;font-size:11px;letter-spacing:.14em;color:#fff;align-self:flex-start;padding:4px 12px;border-radius:100px}
+  .tile h3{font-family:var(--font-display);font-style:italic;font-size:30px;font-weight:400;line-height:1;margin:14px 0 6px}
+  .tile p{font-size:15px;flex:1;font-family:var(--font-body);color:var(--ink-soft)}
+  .tile .go{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .tile .go button{font-family:var(--font-ui);font-weight:500;font-size:13px;border:1px solid var(--border);padding:9px 16px;background:var(--paper);border-radius:100px;color:var(--ink-soft);transition:all .2s}
+  .tile .go button:hover{border-color:var(--ink-soft)}
+  .tile .go button.solid{color:#fff;border-color:transparent}
+  .t-stress .num,.t-stress .go .solid{background:var(--stress)}
+  .t-cons .num,.t-cons .go .solid{background:var(--cons)}
+  .t-vowel .num,.t-vowel .go .solid{background:var(--vowel)}
+  .t-stress{border-top-color:var(--stress)}
+  .t-cons{border-top-color:var(--cons)}
+  .t-vowel{border-top-color:var(--vowel)}
+
+  .page-head{padding:18px 0 6px;margin-top:14px;border-bottom:1px solid var(--border)}
+  .page-head .eyebrow{color:var(--ink-mute)}
+  .page-head h2{font-family:var(--font-display);font-size:clamp(36px,8vw,64px);line-height:.98;font-weight:400;letter-spacing:-.02em;margin-top:6px}
+  .accent-stress h2,.accent-stress .rule-n{color:var(--stress)}
+  .accent-cons h2,.accent-cons .rule-n{color:var(--cons)}
+  .accent-vowel h2,.accent-vowel .rule-n{color:var(--vowel)}
+
+  .rule{margin:30px 0}
+  .rule-tag{display:inline-block;font-family:var(--font-ui);font-weight:600;font-size:11px;color:#fff;padding:4px 12px;border-radius:100px;letter-spacing:.1em;text-transform:uppercase}
+  .a-stress{background:var(--stress)}.a-cons{background:var(--cons)}.a-vowel{background:var(--vowel)}
+  .rule h4{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:26px;margin:12px 0 8px;line-height:1.18}
+  .rule .rule-n{font-family:var(--font-display);font-style:italic;font-size:22px;margin-right:8px}
+  .ex{display:flex;flex-wrap:wrap;gap:10px 14px;margin:14px 0}
+  .ex .item{background:var(--paper-light);border:1px solid var(--border);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:6px;font-family:var(--font-body);box-shadow:var(--shadow-sm)}
+  .ex .item b{font-weight:600}
+  .note{background:rgba(196,148,60,.1);border-left:3px solid var(--vowel);border-radius:10px;padding:14px 18px;margin:16px 0;font-size:15px;font-family:var(--font-body)}
+  .note b{font-family:var(--font-ui);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:600;color:var(--vowel);display:block;margin-bottom:5px}
+
+  table.cmp{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;font-size:15px;font-family:var(--font-body);border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--paper-light)}
+  table.cmp th,table.cmp td{padding:9px 12px;text-align:left;border-bottom:1px dotted var(--border-soft)}
+  table.cmp th{background:var(--paper-dark);font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:600;color:var(--ink-soft)}
+  table.cmp tr:last-child td{border-bottom:none}
+  table.cmp td:first-child{font-family:var(--font-mono);font-weight:700;font-size:.9em}
+
+  .to-quiz{display:inline-block;margin-top:24px;font-family:var(--font-ui);font-weight:500;font-size:14px;color:#fff;border:none;border-radius:100px;padding:13px 26px;box-shadow:var(--shadow-md);transition:all .2s}
+  .to-quiz:hover{transform:translateY(-2px)}
+  .b-stress{background:var(--stress)}.b-cons{background:var(--cons)}.b-vowel{background:var(--vowel)}
+
+  .scorebar{position:sticky;top:0;z-index:5;background:rgba(250,244,232,.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid var(--border);border-radius:100px;box-shadow:var(--shadow-sm);padding:12px 22px;margin:16px 0 8px}
+  .scorebar .s{font-family:var(--font-display);font-style:italic;font-size:17px;color:var(--ink-mute)}
+  .scorebar .s b{font-family:var(--font-ui);font-style:normal;font-size:18px;font-weight:700;color:var(--ink)}
+  .reset{font-family:var(--font-ui);font-weight:500;font-size:12px;border:1px solid var(--border);background:var(--paper-light);padding:7px 14px;border-radius:100px;color:var(--ink-soft);transition:all .2s}
+  .reset:hover{background:var(--ink);color:var(--paper-light);border-color:var(--ink)}
+
+  .q{border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-md);background:var(--paper-light);padding:24px 22px 22px;margin:16px 0;position:relative;overflow:hidden}
+  .q::before{content:"";position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,var(--stress),var(--vowel),var(--cons))}
+  .q .rulepill{font-family:var(--font-ui);font-size:11px;font-weight:600;color:#fff;padding:3px 12px;border-radius:100px;letter-spacing:.08em;text-transform:uppercase}
+  .q .prompt{font-size:19px;margin:14px 0 4px;font-family:var(--font-body)}
+  .q .prompt .big{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:30px;color:var(--ink)}
+  .opts{display:grid;gap:10px;margin-top:16px}
+  .opt{text-align:left;font-family:var(--font-body);font-size:17px;border:1.5px solid var(--border);background:var(--paper);padding:12px 16px;border-radius:10px;transition:all .18s;color:var(--ink)}
+  .opt:hover:not(:disabled){border-color:var(--ink-soft);background:var(--paper-light)}
+  .opt.correct{background:rgba(107,139,93,.14);border-color:var(--cons)}
+  .opt.wrong{background:rgba(184,71,45,.08);border-color:var(--stress);opacity:.75}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:16px;padding:14px 18px;border-radius:10px;border-left:3px solid;font-size:15px;font-family:var(--font-body);display:none}
+  .fb.show{display:block;animation:slideDown .3s ease}
+  @keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+  .fb.good{background:rgba(107,139,93,.14);border-color:var(--cons)}
+  .fb.bad{background:rgba(196,148,60,.12);border-color:var(--vowel)}
+  .fb .lbl{font-family:var(--font-ui);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:5px}
+  .fb.good .lbl{color:var(--cons)}
+  .fb.bad .lbl{color:var(--vowel)}
+  .fb .again{margin-top:12px;font-family:var(--font-ui);font-weight:500;font-size:12px;border:1px solid var(--border);background:var(--paper-light);padding:7px 14px;border-radius:100px;color:var(--ink-soft)}
+  .fb .again:hover{background:var(--ink);color:var(--paper-light);border-color:var(--ink)}
+  .done{border:1px dashed var(--border);border-radius:16px;padding:24px;margin:18px 0;text-align:center;background:var(--paper-light);display:none}
+  .done.show{display:block}
+  .done h3{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:30px;color:var(--stress)}
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--border);font-family:var(--font-ui);font-size:12px;color:var(--ink-mute);line-height:1.7}
+
+  .tr{font-family:var(--font-mono);font-weight:700;font-size:.9em}
+  .ipakey{font-family:var(--font-mono);font-size:13.5px;background:var(--paper);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-sm);padding:9px 13px;margin:10px 0 2px;display:block;line-height:1.95}
+  .ipakey .lbl{font-family:var(--font-ui);font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--ink-mute);display:block;margin-bottom:3px}
+  .ling{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:14px 0;font-size:14.5px;line-height:1.7;font-family:var(--font-body)}
+  .ling .h{font-family:var(--font-ui);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:600;color:var(--ink-mute);display:block;margin-bottom:6px}
+  .ling code{font-family:var(--font-mono);font-weight:700;background:var(--paper-dark);border:1px solid var(--border);border-radius:4px;padding:0 4px}
+  .phon-wrap{overflow-x:auto;margin:14px 0}
+  table.phon{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;min-width:560px;font-family:var(--font-body);border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--paper-light)}
+  table.phon th,table.phon td{padding:7px 9px;text-align:left;vertical-align:top;border-bottom:1px dotted var(--border-soft)}
+  table.phon th{background:var(--paper-dark);font-family:var(--font-ui);font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--ink-soft)}
+  table.phon tr:last-child td{border-bottom:none}
+  table.phon td.sym{font-family:var(--font-mono);font-weight:700;font-size:16px;text-align:center;white-space:nowrap;color:var(--stress)}
+  table.phon td.ex{font-family:var(--font-mono);font-size:.92em}
+
+  @media (max-width:520px){
+    body{font-size:17px}
+    .wrap{padding:16px 14px 80px}
+    .q .prompt .big{font-size:24px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">SOUND RULES<small>Spanish pronunciation · beginner–intermediate</small></div>
+    <button class="home-btn" onclick="go('home')">☰ All lessons</button>
+  </header>
+
+  <!-- ================= HOME ================= -->
+  <section id="home" class="view active">
+    <div class="hero">
+      <h1>Three<br>sound<br>systems.</h1>
+      <p>Spanish spelling tells you almost everything about how a word sounds — once you know the rules. Work through the three lessons, then practice each rule until it's automatic. Every example has a <b>🔊 speaker</b> button, so you can hear it as you read.</p>
+    </div>
+
+    <div class="menu">
+      <div class="tile t-stress">
+        <span class="num">01</span>
+        <h3>Stress<br>& Accent</h3>
+        <p>Where does the emphasis fall? Four rules — plus what that little accent mark (tilde) is really for.</p>
+        <div class="go">
+          <button class="solid" onclick="go('stress-lesson')">Lesson</button>
+          <button onclick="go('stress-quiz')">Practice →</button>
+        </div>
+      </div>
+      <div class="tile t-cons">
+        <span class="num">02</span>
+        <h3>Conso-<br>nants</h3>
+        <p>The same letter, different sounds — depending on the letters around it. C, G, R, B, V, D, H and friends.</p>
+        <div class="go">
+          <button class="solid" onclick="go('cons-lesson')">Lesson</button>
+          <button onclick="go('cons-quiz')">Practice →</button>
+        </div>
+      </div>
+      <div class="tile t-vowel">
+        <span class="num">03</span>
+        <h3>Vowels</h3>
+        <p>Five pure sounds that never change — and what happens when two vowels meet. Diphthongs vs. hiatus.</p>
+        <div class="go">
+          <button class="solid" onclick="go('vowel-lesson')">Lesson</button>
+          <button onclick="go('vowel-quiz')">Practice →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile" style="border-top:4px solid var(--home);margin-top:22px">
+      <span class="num" style="background:var(--home)">★</span>
+      <h3>Master Quiz</h3>
+      <p style="max-width:640px">50 mixed questions across all three lessons — stress, consonants, and vowels. Options shuffle and the rule stays hidden until you answer, so it is a real test. Tap 🔊 to hear each word.</p>
+      <div class="go"><button class="solid" style="background:var(--home)" onclick="go('final-quiz')">Start the 50 →</button></div>
+    </div>
+
+    <div class="note" style="margin-top:34px">
+      <b>A note on dialect</b>
+      This guide uses <b>Latin American</b> pronunciation as its reference (the norm across Peru, Ecuador, Mexico and most of the Americas): <span class="mono">c/z</span> before <span class="mono">e, i</span> sound like <span class="mono">s</span> (<i>seseo</i>), and <span class="mono">ll</span> sounds like <span class="mono">y</span> (<i>yeísmo</i>). Where mainland Spain differs, it's flagged.
+    </div>
+
+    <div class="ling" style="margin-top:14px">
+      <span class="h">Reading the IPA transcriptions</span>
+      Slashes <code>/ /</code> show the phoneme (the abstract sound); brackets <code>[ ]</code> show a specific realization. A raised tick <code>ˈ</code> sits <i>before</i> the stressed syllable, and a dot <code>.</code> marks a syllable break — so <span class="tr">/kanˈsjon/</span> is stressed on the second syllable. The softened symbols <code>[β] [ð] [ɣ]</code> are the relaxed, between-vowels versions of <b>b/v, d, g</b>. Terms like <i>voiceless</i>, <i>bilabial</i>, and <i>plosive</i> name the <b>voicing</b>, <b>place</b>, and <b>manner</b> of each sound; they're defined inline as they come up.
+    </div>
+  </section>
+
+  <!-- ================= STRESS LESSON ================= -->
+  <section id="stress-lesson" class="view accent-stress">
+    <div class="page-head">
+      <div class="eyebrow">Lesson 01 · Acentuación</div>
+      <h2>Stress &amp; Accent</h2>
+    </div>
+
+    <div class="card">
+      <p><b>Every Spanish word has one syllable that gets the emphasis.</b> Say <span class="word">gato</span> and you naturally punch the first syllable: <span class="word stressed">GA</span>-to. Spanish is unusual in that its spelling tells you <i>exactly</i> where that punch goes. There are only two default patterns and one override — that's the whole system.</p>
+    </div>
+
+    <div class="ling">
+      <span class="h">Stress in IPA</span>
+      In the International Phonetic Alphabet, primary stress is marked with a raised tick <code>ˈ</code> placed immediately <i>before</i> the stressed syllable, and dots <code>.</code> separate syllables. So <span class="word">gato</span> is <span class="tr">/ˈɡa.to/</span> — the tick tells you the first syllable carries the beat. Watch for that <code>ˈ</code> in the transcriptions below; it does the same job as the CAPS in the examples.
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-stress">Rule 1 · llanas</span>
+      <h4><span class="rule-n">1</span>Ends in a vowel, <span class="mono">-n</span>, or <span class="mono">-s</span> → stress the second-to-last syllable</h4>
+      <p>This is the most common Spanish word. The emphasis lands on the <b>penultimate</b> syllable (the one before the last).</p>
+      <div class="ex">
+        <span class="item"><b><span class="stressed">ca</span>-sa</span> <button class="speak" onclick="say('casa')">🔊</button></span>
+        <span class="item"><b>ha-<span class="stressed">bla</span>-mos</b> <button class="speak" onclick="say('hablamos')">🔊</button></span>
+        <span class="item"><b><span class="stressed">lu</span>-nes</b> <button class="speak" onclick="say('lunes')">🔊</button></span>
+        <span class="item"><b><span class="stressed">jo</span>-ven</b> <button class="speak" onclick="say('joven')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈka.sa/ · /aˈβla.mos/ · /ˈlu.nes/ · /ˈxo.βen/ — the <code style="all:unset;font-family:inherit;font-weight:700">ˈ</code> sits before the penultimate syllable in every case.</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-stress">Rule 2 · agudas</span>
+      <h4><span class="rule-n">2</span>Ends in any other consonant → stress the last syllable</h4>
+      <p>If a word ends in a consonant that is <b>not</b> <span class="mono">-n</span> or <span class="mono">-s</span>, the emphasis jumps to the final syllable. Notice this covers most infinitives (<span class="mono">-ar, -er, -ir</span>).</p>
+      <div class="ex">
+        <span class="item"><b>ha-<span class="stressed">blar</span></b> <button class="speak" onclick="say('hablar')">🔊</button></span>
+        <span class="item"><b>ciu-<span class="stressed">dad</span></b> <button class="speak" onclick="say('ciudad')">🔊</button></span>
+        <span class="item"><b>es-pa-<span class="stressed">ñol</span></b> <button class="speak" onclick="say('español')">🔊</button></span>
+        <span class="item"><b>re-<span class="stressed">loj</span></b> <button class="speak" onclick="say('reloj')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/aˈβlaɾ/ · /sjuˈðað/ · /es.paˈɲol/ · /reˈlox/ — the tick lands on the final syllable.</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-stress">Rule 3 · the tilde</span>
+      <h4><span class="rule-n">3</span>An accent mark (´) overrides everything — stress goes exactly there</h4>
+      <p>This is the rule that makes reading Spanish easy: <b>if you see a written accent, that is the stressed syllable</b>, no exceptions. The accent appears precisely when a word <i>breaks</i> Rules 1 and 2, so the writing has to warn you.</p>
+      <div class="ex">
+        <span class="item"><b>can-<span class="stressed">ción</span></b> <button class="speak" onclick="say('canción')">🔊</button></span>
+        <span class="item"><b><span class="stressed">ár</span>-bol</b> <button class="speak" onclick="say('árbol')">🔊</button></span>
+        <span class="item"><b>ca-<span class="stressed">fé</span></b> <button class="speak" onclick="say('café')">🔊</button></span>
+        <span class="item"><b><span class="stressed">lá</span>-piz</b> <button class="speak" onclick="say('lápiz')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/kanˈsjon/ · /ˈaɾ.βol/ · /kaˈfe/ · /ˈla.pis/ — the written accent and the IPA tick point to the same syllable.</span>
+      <div class="note">
+        <b>Why it's there</b>
+        <span class="word">canción</span> ends in <span class="mono">-n</span>, so Rule 1 would predict <span class="word">CAN-cion</span>. But we say <span class="word">can-CIÓN</span> — it breaks the rule, so it needs a tilde. Same logic for <span class="word">árbol</span>: it ends in a consonant (Rule 2 predicts the last syllable), but we stress the first, so the tilde flags it.
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-stress">Rule 4 · esdrújulas</span>
+      <h4><span class="rule-n">4</span>Stress on the third-to-last syllable → ALWAYS written with an accent</h4>
+      <p>When emphasis falls further back than the penultimate syllable, Spanish <b>always</b> marks it. So any word you see stressed on the antepenultimate syllable will carry a tilde — and any word with a tilde that far back is stressed there.</p>
+      <div class="ex">
+        <span class="item"><b><span class="stressed">mú</span>-si-ca</b> <button class="speak" onclick="say('música')">🔊</button></span>
+        <span class="item"><b>te-<span class="stressed">lé</span>-fo-no</b> <button class="speak" onclick="say('teléfono')">🔊</button></span>
+        <span class="item"><b><span class="stressed">rá</span>-pi-do</b> <button class="speak" onclick="say('rápido')">🔊</button></span>
+        <span class="item"><b><span class="stressed">pá</span>-ja-ro</b> <button class="speak" onclick="say('pájaro')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈmu.si.ka/ · /teˈle.fo.no/ · /ˈra.pi.ðo/ · /ˈpa.xa.ɾo/ — the tick sits on the antepenultimate (third-from-last) syllable.</span>
+    </div>
+
+    <div class="note">
+      <b>Bonus · the diacritic accent</b>
+      Some tiny words wear an accent only to tell twins apart — the stress and sound are identical: <span class="word">tú</span> (you) vs <span class="word">tu</span> (your), <span class="word">él</span> (he) vs <span class="word">el</span> (the), <span class="word">sí</span> (yes) vs <span class="word">si</span> (if), <span class="word">más</span> (more) vs <span class="word">mas</span> (but). You'll meet these constantly; just notice the mark carries meaning, not extra emphasis.
+    </div>
+
+    <a class="to-quiz b-stress" onclick="go('stress-quiz')">Practice these 4 rules →</a>
+  </section>
+
+  <!-- ================= STRESS QUIZ ================= -->
+  <section id="stress-quiz" class="view accent-stress">
+    <div class="page-head">
+      <div class="eyebrow">Practice 01 · Acentuación</div>
+      <h2>Find the Stress</h2>
+    </div>
+    <p style="margin-top:14px">Pick the syllable that carries the emphasis. Wrong answers explain the rule and let you try again — each rule comes up several times, so you'll get plenty of reps.</p>
+    <div class="scorebar">
+      <span class="s">Solved <b><span id="stress-solved">0</span></b> / <span id="stress-total">0</span></span>
+      <span class="s">First-try <b><span id="stress-first">0</span></b></span>
+      <button class="reset" onclick="buildQuiz('stress')">↻ Reset</button>
+    </div>
+    <div id="stress-questions"></div>
+    <div class="done" id="stress-done"><h3>¡Perfecto!</h3><p>Every item solved. Reset to shuffle a fresh round, or move on.</p></div>
+    <a class="to-quiz b-stress" onclick="go('cons-lesson')">Next: Consonants →</a>
+  </section>
+
+  <!-- ================= CONSONANT LESSON ================= -->
+  <section id="cons-lesson" class="view accent-cons">
+    <div class="page-head">
+      <div class="eyebrow">Lesson 02 · Consonantes</div>
+      <h2>Consonants</h2>
+    </div>
+    <div class="card">
+      <p><b>Spanish consonants are consistent — but several change sound depending on the letters around them.</b> The trick isn't memorizing each word; it's learning the small set of triggers: which vowel follows, whether a letter starts the word, and what sits next door.</p>
+    </div>
+
+    <h4 style="font-family:var(--font-display);font-style:italic;font-weight:400;font-size:28px;margin:20px 0 4px">The full inventory, by articulation</h4>
+    <p style="font-size:15px">Every consonant sound is defined by three things: <b>voicing</b> (are the vocal folds vibrating?), <b>place</b> (where in the mouth the airflow is obstructed), and <b>manner</b> (how it's obstructed). Here is the Latin American consonant system.</p>
+    <div class="phon-wrap">
+    <table class="phon">
+      <tr><th>IPA</th><th>Voicing</th><th>Place</th><th>Manner</th><th>Spelled</th><th>Example</th></tr>
+      <tr><td class="sym">p</td><td>voiceless</td><td>bilabial</td><td>plosive</td><td>p</td><td class="ex">pan</td></tr>
+      <tr><td class="sym">b · β</td><td>voiced</td><td>bilabial</td><td>plosive · approximant</td><td>b, v</td><td class="ex">vino · uva</td></tr>
+      <tr><td class="sym">t</td><td>voiceless</td><td>dental</td><td>plosive</td><td>t</td><td class="ex">tú</td></tr>
+      <tr><td class="sym">d · ð</td><td>voiced</td><td>dental</td><td>plosive · approximant</td><td>d</td><td class="ex">dar · nada</td></tr>
+      <tr><td class="sym">k</td><td>voiceless</td><td>velar</td><td>plosive</td><td>c(a/o/u), qu, k</td><td class="ex">casa</td></tr>
+      <tr><td class="sym">ɡ · ɣ</td><td>voiced</td><td>velar</td><td>plosive · approximant</td><td>g(a/o/u), gu</td><td class="ex">gato · lago</td></tr>
+      <tr><td class="sym">t͡ʃ</td><td>voiceless</td><td>post-alveolar</td><td>affricate</td><td>ch</td><td class="ex">chico</td></tr>
+      <tr><td class="sym">f</td><td>voiceless</td><td>labiodental</td><td>fricative</td><td>f</td><td class="ex">foto</td></tr>
+      <tr><td class="sym">s</td><td>voiceless</td><td>alveolar</td><td>fricative</td><td>s, c(e/i), z</td><td class="ex">sí, cena, luz</td></tr>
+      <tr><td class="sym">x</td><td>voiceless</td><td>velar</td><td>fricative</td><td>j, g(e/i)</td><td class="ex">jamón, gente</td></tr>
+      <tr><td class="sym">ʝ</td><td>voiced</td><td>palatal</td><td>approximant</td><td>y, ll</td><td class="ex">yo, calle</td></tr>
+      <tr><td class="sym">m</td><td>voiced</td><td>bilabial</td><td>nasal</td><td>m</td><td class="ex">mesa</td></tr>
+      <tr><td class="sym">n</td><td>voiced</td><td>alveolar</td><td>nasal</td><td>n</td><td class="ex">no</td></tr>
+      <tr><td class="sym">ɲ</td><td>voiced</td><td>palatal</td><td>nasal</td><td>ñ</td><td class="ex">niño</td></tr>
+      <tr><td class="sym">l</td><td>voiced</td><td>alveolar</td><td>lateral approx.</td><td>l</td><td class="ex">luna</td></tr>
+      <tr><td class="sym">ɾ</td><td>voiced</td><td>alveolar</td><td>tap</td><td>r (single)</td><td class="ex">pero</td></tr>
+      <tr><td class="sym">r</td><td>voiced</td><td>alveolar</td><td>trill</td><td>rr, word-initial r</td><td class="ex">perro, rojo</td></tr>
+    </table>
+    </div>
+    <div class="note"><b>Peninsular Spain</b>Adds one phoneme: <span class="tr">/θ/</span>, a <b>voiceless dental fricative</b> (the "th" in <i>think</i>), used for <span class="mono">z</span> and <span class="mono">c</span> before <span class="mono">e/i</span> — where Latin America uses <span class="tr">/s/</span>.</div>
+
+    <div class="rule">
+      <span class="rule-tag a-cons">Rule 1 · soft vs hard</span>
+      <h4><span class="rule-n">1</span><span class="mono">C</span> and <span class="mono">G</span> soften before <span class="mono">E</span> and <span class="mono">I</span></h4>
+      <p>The following vowel decides everything.</p>
+      <table class="cmp">
+        <tr><th>Letter</th><th>before A, O, U</th><th>before E, I</th></tr>
+        <tr><td>c</td><td>hard /k/ — <span class="word">casa, como</span></td><td>soft /s/ — <span class="word">cena, cine</span></td></tr>
+        <tr><td>g</td><td>hard /g/ — <span class="word">gato, gota</span></td><td>throaty /x/ — <span class="word">gente, gigante</span></td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>casa</b><button class="speak" onclick="say('casa')">🔊</button></span>
+        <span class="item"><b>cena</b><button class="speak" onclick="say('cena')">🔊</button></span>
+        <span class="item"><b>gato</b><button class="speak" onclick="say('gato')">🔊</button></span>
+        <span class="item"><b>gente</b><button class="speak" onclick="say('gente')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈka.sa/ · /ˈse.na/ · /ˈɡa.to/ · /ˈxen.te/</span>
+      <div class="ling">
+        <span class="h">Articulation</span>
+        Hard <code>c</code> = <span class="tr">[k]</span> <b>voiceless velar plosive</b>; soft <code>c</code> = <span class="tr">[s]</span> <b>voiceless alveolar fricative</b> (Spain: <span class="tr">[θ]</span> dental). Hard <code>g</code> = <span class="tr">[ɡ]</span> <b>voiced velar plosive</b>; soft <code>g</code> = <span class="tr">[x]</span> <b>voiceless velar fricative</b>. Notice the softening changes the manner from a full stop to a fricative — and, for <code>g</code>, drops the voicing too.
+      </div>
+      <div class="note">
+        <b>Keeping a sound hard</b>
+        To keep the hard sound before <span class="mono">e/i</span>, Spanish inserts a <b>silent u</b>: <span class="word">guerra, guitarra</span> (hard g) and uses <span class="mono">qu</span> for hard c: <span class="word">queso, quién</span>. If that u must actually be pronounced, it gets two dots — <span class="word">pingüino, vergüenza</span>.
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-cons">Rule 2 · silent letters</span>
+      <h4><span class="rule-n">2</span><span class="mono">H</span> is always silent · <span class="mono">U</span> is silent in <span class="mono">que/qui/gue/gui</span></h4>
+      <p>The letter <span class="mono">h</span> is never pronounced. And the <span class="mono">u</span> in those four combinations is just a spelling device — you don't say it.</p>
+      <div class="ex">
+        <span class="item"><b>hola</b><button class="speak" onclick="say('hola')">🔊</button></span>
+        <span class="item"><b>ahora</b><button class="speak" onclick="say('ahora')">🔊</button></span>
+        <span class="item"><b>queso</b><button class="speak" onclick="say('queso')">🔊</button></span>
+        <span class="item"><b>guitarra</b><button class="speak" onclick="say('guitarra')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈo.la/ · /aˈo.ɾa/ · /ˈke.so/ · /ɡiˈta.ra/ — no segment for <code>h</code>, and no <span class="tr">/w/</span> for the silent <code>u</code>.</span>
+      <div class="ling">
+        <span class="h">Articulation</span>
+        <code>h</code> maps to <b>no phoneme at all</b> (∅) — Spanish simply has no <span class="tr">/h/</span> in these words. The digraphs <code>qu</code> and <code>gu</code>(before e/i) are pure spelling: they encode a single <span class="tr">[k]</span> or <span class="tr">[ɡ]</span> with no glide.
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-cons">Rule 3 · tap vs trill</span>
+      <h4><span class="rule-n">3</span>Single <span class="mono">r</span> taps · <span class="mono">rr</span> (and initial <span class="mono">r</span>) trills</h4>
+      <p>A single <span class="mono">r</span> between vowels is a quick <b>tap</b> — the same flap as the <span class="mono">tt</span> in the American English "butter." A double <span class="mono">rr</span>, or an <span class="mono">r</span> at the start of a word or after <span class="mono">n, l, s</span>, is a rolled <b>trill</b>.</p>
+      <div class="ex">
+        <span class="item"><b>pero</b> (tap)<button class="speak" onclick="say('pero')">🔊</button></span>
+        <span class="item"><b>perro</b> (trill)<button class="speak" onclick="say('perro')">🔊</button></span>
+        <span class="item"><b>rojo</b> (trill)<button class="speak" onclick="say('rojo')">🔊</button></span>
+        <span class="item"><b>Enrique</b> (trill)<button class="speak" onclick="say('Enrique')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈpe.ɾo/ (tap) · /ˈpe.ro/ (trill) · /ˈro.xo/ · /enˈri.ke/</span>
+      <div class="ling">
+        <span class="h">Articulation</span>
+        Both are <b>voiced alveolar</b> sounds; only the <b>manner</b> differs. <span class="tr">[ɾ]</span> is a <b>tap</b> — one quick strike of the tongue. <span class="tr">[r]</span> is a <b>trill</b> — the tongue vibrates in several rapid strikes. This is the single feature that separates <span class="word">pero</span> from <span class="word">perro</span>.
+      </div>
+      <div class="note"><b>This one is a minimal pair</b>The tap/trill difference changes meaning: <span class="word">pero</span> = "but," <span class="word">perro</span> = "dog." Worth drilling.</div>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-cons">Rule 4 · position softening</span>
+      <h4><span class="rule-n">4</span><span class="mono">B/V</span> and <span class="mono">D</span> soften between vowels</h4>
+      <p>Two things surprise English speakers here. First, <b><span class="mono">b</span> and <span class="mono">v</span> sound identical</b> — there is no English "v" sound in Spanish. Second, these stops relax when surrounded by vowels:</p>
+      <table class="cmp">
+        <tr><th>Letter</th><th>at a start / after n, m, l</th><th>between vowels</th></tr>
+        <tr><td>b, v</td><td>full stop /b/ — <span class="word">vino, hombre</span></td><td>soft /β/ lips barely touch — <span class="word">uva, haber</span></td></tr>
+        <tr><td>d</td><td>full stop /d/ — <span class="word">dónde, falda</span></td><td>soft /ð/ like "th" in <i>this</i> — <span class="word">nada, usted</span></td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>vino</b><button class="speak" onclick="say('vino')">🔊</button></span>
+        <span class="item"><b>uva</b><button class="speak" onclick="say('uva')">🔊</button></span>
+        <span class="item"><b>dónde</b><button class="speak" onclick="say('dónde')">🔊</button></span>
+        <span class="item"><b>nada</b><button class="speak" onclick="say('nada')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈbi.no/ · /ˈu.βa/ · /ˈdon.de/ · /ˈna.ða/ — same phoneme, two realizations each.</span>
+      <div class="ling">
+        <span class="h">Articulation — allophones in complementary distribution</span>
+        The phonemes <span class="tr">/b/</span> (<b>voiced bilabial</b>) and <span class="tr">/d/</span> (<b>voiced dental</b>) each surface two ways depending on position. After a pause or a nasal (and, for <span class="tr">/d/</span>, after <code>l</code>) they are full <b>plosives</b> <span class="tr">[b]</span>, <span class="tr">[d̪]</span>. Everywhere else — crucially between vowels — they weaken to <b>approximants</b> <span class="tr">[β]</span>, <span class="tr">[ð]</span>: the articulators come close but never fully close, so the airflow is never stopped. The place and voicing stay constant; only the manner relaxes. (The same pattern gives <span class="tr">/ɡ/ → [ɣ]</span>.)
+      </div>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-cons">Rule 5 · fixed sounds</span>
+      <h4><span class="rule-n">5</span>Letters that always sound the same: <span class="mono">J · Ñ · LL · Z</span></h4>
+      <table class="cmp">
+        <tr><th>Letter</th><th>Sound</th><th>Example</th></tr>
+        <tr><td>j</td><td>throaty /x/ (same as soft g)</td><td><span class="word">jamón, jirafa</span></td></tr>
+        <tr><td>ñ</td><td>/ɲ/ — "ny" in canyon</td><td><span class="word">niño, año</span></td></tr>
+        <tr><td>ll</td><td>/y/ in Latin America (yeísmo)</td><td><span class="word">llamar, calle</span></td></tr>
+        <tr><td>z</td><td>/s/ in Latin America</td><td><span class="word">zapato, luz</span></td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>jamón</b><button class="speak" onclick="say('jamón')">🔊</button></span>
+        <span class="item"><b>niño</b><button class="speak" onclick="say('niño')">🔊</button></span>
+        <span class="item"><b>calle</b><button class="speak" onclick="say('calle')">🔊</button></span>
+        <span class="item"><b>zapato</b><button class="speak" onclick="say('zapato')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/xaˈmon/ · /ˈni.ɲo/ · /ˈka.ʝe/ · /saˈpa.to/</span>
+      <div class="ling">
+        <span class="h">Articulation</span>
+        <code>j</code> = <span class="tr">[x]</span> <b>voiceless velar fricative</b>. <code>ñ</code> = <span class="tr">[ɲ]</span> <b>voiced palatal nasal</b>. <code>ll</code> (yeísmo) = <span class="tr">[ʝ]</span> <b>voiced palatal approximant</b>. <code>z</code> = <span class="tr">[s]</span> <b>voiceless alveolar fricative</b> in Latin America. Each of these maps to one stable sound regardless of surroundings.
+      </div>
+      <div class="note"><b>In Spain</b><span class="mono">z</span> and soft <span class="mono">c</span> are pronounced /θ/ (the "th" in <i>think</i>): <span class="word">zapato</span> → "thapato." Both are correct — just different regions.</div>
+    </div>
+
+    <a class="to-quiz b-cons" onclick="go('cons-quiz')">Practice these rules →</a>
+  </section>
+
+  <!-- ================= CONSONANT QUIZ ================= -->
+  <section id="cons-quiz" class="view accent-cons">
+    <div class="page-head">
+      <div class="eyebrow">Practice 02 · Consonantes</div>
+      <h2>Which Sound?</h2>
+    </div>
+    <p style="margin-top:14px">Decide how each highlighted letter is pronounced. Feedback names the rule that governs it; retry as many times as you like.</p>
+    <div class="scorebar">
+      <span class="s">Solved <b><span id="cons-solved">0</span></b> / <span id="cons-total">0</span></span>
+      <span class="s">First-try <b><span id="cons-first">0</span></b></span>
+      <button class="reset" onclick="buildQuiz('cons')">↻ Reset</button>
+    </div>
+    <div id="cons-questions"></div>
+    <div class="done" id="cons-done"><h3>¡Excelente!</h3><p>All consonant items solved. Reset for a new order or continue.</p></div>
+    <a class="to-quiz b-cons" onclick="go('vowel-lesson')">Next: Vowels →</a>
+  </section>
+
+  <!-- ================= VOWEL LESSON ================= -->
+  <section id="vowel-lesson" class="view accent-vowel">
+    <div class="page-head">
+      <div class="eyebrow">Lesson 03 · Vocales</div>
+      <h2>Vowels</h2>
+    </div>
+    <div class="card">
+      <p><b>Spanish has five vowels and five sounds — and they never change.</b> This is genuinely good news: unlike English, where "a" is different in <i>cat, cake, car,</i> and <i>about,</i> the Spanish <span class="mono">a</span> is always the same clean sound, wherever it sits. The main job for English speakers is to <i>stop</i> doing three things English does automatically.</p>
+      <div class="ex" style="margin-top:6px">
+        <span class="item"><b>a</b> = "ah"<button class="speak" onclick="say('a')">🔊</button></span>
+        <span class="item"><b>e</b> = "eh"<button class="speak" onclick="say('e')">🔊</button></span>
+        <span class="item"><b>i</b> = "ee"<button class="speak" onclick="say('i')">🔊</button></span>
+        <span class="item"><b>o</b> = "oh"<button class="speak" onclick="say('o')">🔊</button></span>
+        <span class="item"><b>u</b> = "oo"<button class="speak" onclick="say('u')">🔊</button></span>
+      </div>
+    </div>
+
+    <h4 style="font-family:var(--font-display);font-style:italic;font-weight:400;font-size:28px;margin:20px 0 4px">The five vowels, by articulation</h4>
+    <p style="font-size:15px">Vowels don't obstruct airflow, so instead of place and manner they're described by tongue <b>height</b> (how open the mouth is), <b>backness</b> (front vs back of the mouth), and lip <b>rounding</b>. All five Spanish vowels are voiced and tense.</p>
+    <div class="phon-wrap">
+    <table class="phon">
+      <tr><th>IPA</th><th>Height</th><th>Backness</th><th>Rounding</th><th>Example</th></tr>
+      <tr><td class="sym">i</td><td>close (high)</td><td>front</td><td>unrounded</td><td class="ex">sí</td></tr>
+      <tr><td class="sym">e</td><td>mid</td><td>front</td><td>unrounded</td><td class="ex">mesa</td></tr>
+      <tr><td class="sym">a</td><td>open (low)</td><td>central</td><td>unrounded</td><td class="ex">casa</td></tr>
+      <tr><td class="sym">o</td><td>mid</td><td>back</td><td>rounded</td><td class="ex">no</td></tr>
+      <tr><td class="sym">u</td><td>close (high)</td><td>back</td><td>rounded</td><td class="ex">tú</td></tr>
+    </table>
+    </div>
+    <div class="ling">
+      <span class="h">The two glides</span>
+      In diphthongs, the weak vowels <code>i</code> and <code>u</code> become <b>glides</b> (non-syllabic approximants): <code>i</code> → <span class="tr">[j]</span> (palatal, as in <span class="word">tierra</span> <span class="tr">/ˈtje.ra/</span>) and <code>u</code> → <span class="tr">[w]</span> (labial-velar, as in <span class="word">cuento</span> <span class="tr">/ˈkwen.to/</span>). A glide is the same tongue position as the vowel, but passed through quickly rather than held.
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-vowel">Rule 1 · pure vowels</span>
+      <h4><span class="rule-n">1</span>Keep each vowel pure — no gliding</h4>
+      <p>English vowels slide: "no" is really "no-oo" (o→w) and "day" is "day-ee" (e→y). Spanish vowels are <b>single, steady sounds</b> that don't move. Lock your mouth in place and hold it.</p>
+      <table class="cmp">
+        <tr><th>Word</th><th>English habit (avoid)</th><th>Spanish target</th></tr>
+        <tr><td>no</td><td>"noh-oo"</td><td>clean "no"</td></tr>
+        <tr><td>mesa</td><td>"may-sa"</td><td>"meh-sa"</td></tr>
+        <tr><td>su</td><td>"soo-oo"</td><td>clean "su"</td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>no</b><button class="speak" onclick="say('no')">🔊</button></span>
+        <span class="item"><b>mesa</b><button class="speak" onclick="say('mesa')">🔊</button></span>
+        <span class="item"><b>café</b><button class="speak" onclick="say('café')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/no/ · /ˈme.sa/ · /kaˈfe/ — each vowel is a single steady target: <span class="tr">[e]</span>, not the English gliding <span class="tr">[eɪ]</span>.</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-vowel">Rule 2 · no reduction</span>
+      <h4><span class="rule-n">2</span>Unstressed vowels stay full — no "uh"</h4>
+      <p>In English, unstressed vowels collapse into a lazy "uh" (schwa): <i>banana</i> → "buh-NAN-uh." Spanish never does this. Every vowel keeps its full, clear quality whether it's stressed or not.</p>
+      <table class="cmp">
+        <tr><th>Word</th><th>English reduction (avoid)</th><th>Spanish target</th></tr>
+        <tr><td>banana</td><td>"buh-NAN-uh"</td><td>"ba-NA-na" (three clear a's)</td></tr>
+        <tr><td>problema</td><td>"pruh-BLEM-uh"</td><td>"pro-BLE-ma"</td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>banana</b><button class="speak" onclick="say('banana')">🔊</button></span>
+        <span class="item"><b>problema</b><button class="speak" onclick="say('problema')">🔊</button></span>
+        <span class="item"><b>señorita</b><button class="speak" onclick="say('señorita')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/baˈna.na/ · /proˈβle.ma/ · /se.ɲoˈɾi.ta/ — full <span class="tr">[a e i o]</span> in every syllable, never the reduced <span class="tr">[ə]</span> (schwa).</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-vowel">Rule 3 · diphthongs</span>
+      <h4><span class="rule-n">3</span>Weak + strong vowel = one syllable (a diphthong)</h4>
+      <p>Now the "surrounding sounds" part. The vowels split into two groups:</p>
+      <div class="note" style="background:var(--vowel);color:var(--ink)">
+        <b>The key distinction</b>
+        <b>Strong (open):</b> A, E, O &nbsp;·&nbsp; <b>Weak (closed):</b> I, U
+      </div>
+      <p>When a <b>weak</b> vowel (i, u) touches a <b>strong</b> one, they glide together into a single syllable. The weak vowel becomes a quick /y/ or /w/ slide.</p>
+      <div class="ex">
+        <span class="item"><b>baile</b> = bai-le<button class="speak" onclick="say('baile')">🔊</button></span>
+        <span class="item"><b>tierra</b> = tie-rra<button class="speak" onclick="say('tierra')">🔊</button></span>
+        <span class="item"><b>cuento</b> = cuen-to<button class="speak" onclick="say('cuento')">🔊</button></span>
+        <span class="item"><b>ciudad</b> = ciu-dad<button class="speak" onclick="say('ciudad')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/ˈbaj.le/ · /ˈtje.ra/ · /ˈkwen.to/ · /sjuˈðað/ — the weak vowel surfaces as a glide <span class="tr">[j]</span> or <span class="tr">[w]</span>, sharing one syllable with its neighbor.</span>
+    </div>
+
+    <div class="rule">
+      <span class="rule-tag a-vowel">Rule 4 · hiatus</span>
+      <h4><span class="rule-n">4</span>Two strong vowels split apart (hiatus) — and an accent can force a split</h4>
+      <p>When two <b>strong</b> vowels meet, they belong to <b>separate syllables</b> — you pronounce each fully. And a written accent on a weak vowel breaks up what would have been a diphthong, pulling the two vowels into separate syllables.</p>
+      <table class="cmp">
+        <tr><th>Word</th><th>Split</th><th>Why</th></tr>
+        <tr><td>leer</td><td>le-er</td><td>two strong vowels (e + e)</td></tr>
+        <tr><td>poeta</td><td>po-e-ta</td><td>two strong vowels (o + e)</td></tr>
+        <tr><td>día</td><td>dí-a</td><td>accent on weak i splits the diphthong</td></tr>
+        <tr><td>país</td><td>pa-ís</td><td>accent on weak i splits it</td></tr>
+      </table>
+      <div class="ex">
+        <span class="item"><b>leer</b><button class="speak" onclick="say('leer')">🔊</button></span>
+        <span class="item"><b>poeta</b><button class="speak" onclick="say('poeta')">🔊</button></span>
+        <span class="item"><b>día</b><button class="speak" onclick="say('día')">🔊</button></span>
+        <span class="item"><b>país</b><button class="speak" onclick="say('país')">🔊</button></span>
+      </div>
+      <span class="ipakey"><span class="lbl">IPA</span>/leˈeɾ/ · /poˈe.ta/ · /ˈdi.a/ · /paˈis/ — two full syllabic vowels, no glide; the dot marks the break.</span>
+      <div class="note"><b>Tie-in with Lesson 1</b>Diphthongs vs. hiatus decide how many syllables a word has — which decides which syllable the stress rules point at. The three systems connect.</div>
+    </div>
+
+    <a class="to-quiz b-vowel" onclick="go('vowel-quiz')">Practice these rules →</a>
+  </section>
+
+  <!-- ================= VOWEL QUIZ ================= -->
+  <section id="vowel-quiz" class="view accent-vowel">
+    <div class="page-head">
+      <div class="eyebrow">Practice 03 · Vocales</div>
+      <h2>Vowel Check</h2>
+    </div>
+    <p style="margin-top:14px">Answer, read the rule-based feedback, and retry until it clicks. Each of the four vowel rules appears several times.</p>
+    <div class="scorebar">
+      <span class="s">Solved <b><span id="vowel-solved">0</span></b> / <span id="vowel-total">0</span></span>
+      <span class="s">First-try <b><span id="vowel-first">0</span></b></span>
+      <button class="reset" onclick="buildQuiz('vowel')">↻ Reset</button>
+    </div>
+    <div id="vowel-questions"></div>
+    <div class="done" id="vowel-done"><h3>¡Muy bien!</h3><p>All vowel items solved. Reset to practice again, or head back to the menu.</p></div>
+    <a class="to-quiz b-vowel" onclick="go('home')">Back to all lessons →</a>
+  </section>
+
+  <!-- ================= FINAL / MASTER QUIZ ================= -->
+  <section id="final-quiz" class="view">
+    <div class="page-head">
+      <div class="eyebrow">Master Quiz · all three lessons</div>
+      <h2 style="color:var(--home)">The 50</h2>
+    </div>
+    <p style="margin-top:14px">Fifty mixed questions on stress, consonants, and vowels. The rule for each item stays hidden until you answer — then it appears with the feedback and IPA. Wrong answers let you try again; each load reshuffles the order and the options.</p>
+    <div class="scorebar">
+      <span class="s">Solved <b><span id="final-solved">0</span></b> / <span id="final-total">0</span></span>
+      <span class="s">First-try <b><span id="final-first">0</span></b></span>
+      <button class="reset" onclick="buildQuiz('final')">↻ Reset</button>
+    </div>
+    <div id="final-questions"></div>
+    <div class="done" id="final-done"><h3>¡Lo lograste!</h3><p>All 50 solved. Reset to shuffle a fresh round, or head back to the lessons.</p></div>
+    <a class="to-quiz" style="background:var(--home)" onclick="go('home')">Back to all lessons →</a>
+  </section>
+
+  <footer>
+    SOUND RULES · Spanish pronunciation practice<br>
+    Reference: Latin American norm (seseo · yeísmo), peninsular variants flagged. Audio uses your device's built-in Spanish voice.
+  </footer>
+</div>
+
+<script>
+/* ---------- navigation ---------- */
+function go(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el){el.classList.add('active');}
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ---------- speech ---------- */
+let esVoice=null;
+function pickVoice(){
+  const vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  esVoice = vs.find(v=>/es-MX|es_419|es-US/i.test(v.lang))
+         || vs.find(v=>/es-419/i.test(v.lang))
+         || vs.find(v=>/^es/i.test(v.lang))
+         || null;
+}
+if('speechSynthesis' in window){
+  pickVoice();
+  window.speechSynthesis.onvoiceschanged=pickVoice;
+}
+function say(word){
+  if(!('speechSynthesis' in window)){return;}
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(word);
+  u.lang = esVoice?esVoice.lang:'es-MX';
+  if(esVoice)u.voice=esVoice;
+  u.rate=0.85;
+  window.speechSynthesis.speak(u);
+}
+
+/* ================= QUIZ DATA =================
+   Each item: syllable/letter question with options, correct index,
+   a rule label, and rule-based feedback. */
+const QUIZZES = {
+  stress:{
+    label:'Stress',color:'var(--stress)',
+    intro:'Which syllable is stressed?',
+    items:[
+      // Rule 1 — llanas (vowel/n/s -> penultimate)
+      {rule:'Rule 1 · ends in vowel/n/s',prompt:'zapato',opts:['za','pa','to'],correct:1,
+        fb:'Ends in a vowel, so the stress falls on the second-to-last syllable: za-<b>PA</b>-to. <span class="tr">/saˈpa.to/</span>'},
+      {rule:'Rule 1 · ends in vowel/n/s',prompt:'hablan',opts:['ha','blan'],correct:0,
+        fb:'Ends in <b>-n</b>, so Rule 1 applies — stress the penultimate: <b>HA</b>-blan. <span class="tr">/ˈa.βlan/</span>'},
+      {rule:'Rule 1 · ends in vowel/n/s',prompt:'martes',opts:['mar','tes'],correct:0,
+        fb:'Ends in <b>-s</b> → penultimate syllable gets the stress: <b>MAR</b>-tes. <span class="tr">/ˈmaɾ.tes/</span>'},
+      // Rule 2 — agudas (other consonant -> last)
+      {rule:'Rule 2 · ends in other consonant',prompt:'comer',opts:['co','mer'],correct:1,
+        fb:'Ends in a consonant that is not n or s, so stress the last syllable: co-<b>MER</b>. <span class="tr">/koˈmeɾ/</span>'},
+      {rule:'Rule 2 · ends in other consonant',prompt:'ciudad',opts:['ciu','dad'],correct:1,
+        fb:'Ends in <b>-d</b> → the final syllable is stressed: ciu-<b>DAD</b>. <span class="tr">/sjuˈðað/</span>'},
+      {rule:'Rule 2 · ends in other consonant',prompt:'feliz',opts:['fe','liz'],correct:1,
+        fb:'Ends in <b>-z</b> (not n/s), so the stress lands on the last syllable: fe-<b>LIZ</b>. <span class="tr">/feˈlis/</span>'},
+      // Rule 3 — tilde overrides
+      {rule:'Rule 3 · the tilde wins',prompt:'canción',opts:['can','ción'],correct:1,
+        fb:'The written accent always marks the stress: can-<b>CIÓN</b>. (Without it, Rule 1 would wrongly say CAN-cion.) <span class="tr">/kanˈsjon/</span>'},
+      {rule:'Rule 3 · the tilde wins',prompt:'árbol',opts:['ár','bol'],correct:0,
+        fb:'Follow the tilde: <b>ÁR</b>-bol. It is written precisely because it breaks the default consonant rule. <span class="tr">/ˈaɾ.βol/</span>'},
+      {rule:'Rule 3 · the tilde wins',prompt:'café',opts:['ca','fé'],correct:1,
+        fb:'The accent points to the stress: ca-<b>FÉ</b>. If you see a tilde, stress that syllable — always. <span class="tr">/kaˈfe/</span>'},
+      // Rule 4 — esdrújulas (antepenult, always accented)
+      {rule:'Rule 4 · esdrújula',prompt:'música',opts:['mú','si','ca'],correct:0,
+        fb:'Stress on the third-to-last syllable — always accented: <b>MÚ</b>-si-ca. <span class="tr">/ˈmu.si.ka/</span>'},
+      {rule:'Rule 4 · esdrújula',prompt:'teléfono',opts:['te','lé','fo','no'],correct:1,
+        fb:'An esdrújula: the tilde marks the antepenultimate syllable — te-<b>LÉ</b>-fo-no. <span class="tr">/teˈle.fo.no/</span>'},
+      {rule:'Rule 4 · esdrújula',prompt:'rápido',opts:['rá','pi','do'],correct:0,
+        fb:'Third-to-last syllable, always written with an accent: <b>RÁ</b>-pi-do. <span class="tr">/ˈra.pi.ðo/</span>'}
+    ]
+  },
+  cons:{
+    label:'Consonants',color:'var(--cons)',
+    items:[
+      // C/G soft vs hard
+      {rule:'C/G before e,i',prompt:'How does the <b>c</b> sound in <span class="big">cine</span>?',
+        opts:['like k','like s','silent'],correct:1,
+        fb:'Before <b>e</b> or <b>i</b>, c softens to /s/ (Latin America): "SEE-neh." Before a/o/u it would be hard /k/. <span class="tr">[s]</span> — voiceless alveolar fricative.'},
+      {rule:'C/G before e,i',prompt:'How does the <b>g</b> sound in <span class="big">gente</span>?',
+        opts:['hard g (go)','throaty h /x/','like j in jump'],correct:1,
+        fb:'Before e/i, g becomes the throaty /x/ — the same sound as j. So gente = "HEN-teh." <span class="tr">[x]</span> — voiceless velar fricative.'},
+      {rule:'C/G before e,i',prompt:'How does the <b>c</b> sound in <span class="big">casa</span>?',
+        opts:['hard k','soft s'],correct:0,
+        fb:'Before <b>a</b> (also o, u), c is a hard /k/: "KA-sa." Only e/i trigger the soft sound. <span class="tr">[k]</span> — voiceless velar plosive.'},
+      // H silent + qu/gu
+      {rule:'Silent h · silent u',prompt:'How is the <b>h</b> in <span class="big">hola</span> pronounced?',
+        opts:['like English h','completely silent'],correct:1,
+        fb:'Spanish h is always silent. hola = "OH-la," ahora = "a-OH-ra." <span class="tr">[∅]</span> — no phoneme; h is mute.'},
+      {rule:'Silent h · silent u',prompt:'How does <span class="big">queso</span> begin?',
+        opts:['"kweh" — u is spoken','"keh" — u is silent'],correct:1,
+        fb:'The u in que/qui is a silent spelling device: queso = "KEH-so." The qu just spells a hard /k/. <span class="tr">/ˈke.so/</span>'},
+      {rule:'Silent h · silent u',prompt:'The <b>u</b> in <span class="big">guitarra</span> is…',
+        opts:['pronounced','silent'],correct:1,
+        fb:'In gue/gui the u is silent and just keeps the g hard: guitarra = "gee-TA-rra." (Two dots — güe/güi — would make it spoken.) <span class="tr">/ɡiˈta.ra/</span>'},
+      // R vs RR
+      {rule:'Tap vs trill',prompt:'The <b>r</b> in <span class="big">pero</span> is a…',
+        opts:['single tap','rolled trill'],correct:0,
+        fb:'A single r between vowels is a quick tap — like the tt in "butter." pero = "but." <span class="tr">[ɾ]</span> — voiced alveolar tap.'},
+      {rule:'Tap vs trill',prompt:'The <b>rr</b> in <span class="big">perro</span> is a…',
+        opts:['single tap','rolled trill'],correct:1,
+        fb:'Double rr is a rolled trill. It even changes meaning: perro = "dog," pero = "but." <span class="tr">[r]</span> — voiced alveolar trill.'},
+      {rule:'Tap vs trill',prompt:'The <b>r</b> in <span class="big">rojo</span> is a…',
+        opts:['single tap','rolled trill'],correct:1,
+        fb:'An r at the start of a word is trilled, just like rr. rojo = rolled "RRO-ho." <span class="tr">[r]</span> — voiced alveolar trill.'},
+      // B/V and D softening
+      {rule:'Softening between vowels',prompt:'The <b>v</b> in <span class="big">vino</span> sounds…',
+        opts:['like English v','identical to b'],correct:1,
+        fb:'b and v are the same sound in Spanish — there is no English "v." At the start, both are a full /b/: "BEE-no." <span class="tr">[b]</span> — voiced bilabial plosive.'},
+      {rule:'Softening between vowels',prompt:'The <b>d</b> in <span class="big">nada</span> sounds most like…',
+        opts:['hard d in dog','soft "th" in this'],correct:1,
+        fb:'Between vowels, d relaxes to a soft /ð/ — the "th" in "this." nada ≈ "NA-tha." <span class="tr">[ð]</span> — voiced dental approximant.'},
+      {rule:'Softening between vowels',prompt:'The <b>b</b> in <span class="big">uva</span> is…',
+        opts:['a full hard b','a soft b, lips barely touch'],correct:1,
+        fb:'Between vowels b/v soften to /β/ — lips barely meet. uva is gentle, not a hard "B." <span class="tr">[β]</span> — voiced bilabial approximant.'},
+      // Fixed: J / Ñ / LL
+      {rule:'Fixed sounds',prompt:'The <b>j</b> in <span class="big">jamón</span> sounds like…',
+        opts:['English j (jam)','throaty h /x/'],correct:1,
+        fb:'j is always the throaty /x/ — same as g before e/i. jamón = "ha-MON." <span class="tr">[x]</span> — voiceless velar fricative.'},
+      {rule:'Fixed sounds',prompt:'The <b>ñ</b> in <span class="big">niño</span> sounds like…',
+        opts:['plain n','"ny" as in canyon'],correct:1,
+        fb:'ñ is /ɲ/ — the "ny" in canyon. niño = "NEE-nyo." <span class="tr">[ɲ]</span> — voiced palatal nasal.'},
+      {rule:'Fixed sounds',prompt:'The <b>ll</b> in <span class="big">calle</span> sounds like…',
+        opts:['English y (yes)','English l'],correct:0,
+        fb:'With yeísmo, ll = /y/: calle = "KA-yeh." (A few regions use other variants, but /y/ is the widespread norm.) <span class="tr">[ʝ]</span> — voiced palatal approximant.'}
+    ]
+  },
+  vowel:{
+    label:'Vowels',color:'var(--vowel)',
+    items:[
+      // Rule 1 — pure, no glide
+      {rule:'Pure vowel, no glide',prompt:'The <b>o</b> in <span class="big">no</span> should be…',
+        opts:['a steady "oh"','"oh-oo" with a glide'],correct:0,
+        fb:'Spanish vowels are pure and steady — no gliding. Hold a clean "oh," don\'t let it drift to "oo." <span class="tr">[o]</span> — mid back rounded, held steady.'},
+      {rule:'Pure vowel, no glide',prompt:'The <b>e</b> in <span class="big">mesa</span> should be…',
+        opts:['"may" (glides to ee)','a steady "eh"'],correct:1,
+        fb:'Keep it pure: "MEH-sa," not "MAY-sa." The English "ay" glide is the habit to drop. <span class="tr">[e]</span>, not <span class="tr">[eɪ]</span>.'},
+      {rule:'Pure vowel, no glide',prompt:'The <b>u</b> in <span class="big">tú</span> should be…',
+        opts:['a clean "oo"','"oo-w" with a glide'],correct:0,
+        fb:'A single pure "oo," held steady with no off-glide. Spanish vowels never slide. <span class="tr">[u]</span> — close back rounded.'},
+      // Rule 2 — no reduction
+      {rule:'No reduction (no schwa)',prompt:'In <span class="big">banana</span>, the unstressed vowels are…',
+        opts:['reduced to "uh"','all full, clear "a"'],correct:1,
+        fb:'No schwa in Spanish: "ba-NA-na," three clear a\'s — not the English "buh-NAN-uh." <span class="tr">/baˈna.na/</span>'},
+      {rule:'No reduction (no schwa)',prompt:'The first <b>o</b> in <span class="big">problema</span> is…',
+        opts:['a clear "oh"','a lazy "uh"'],correct:0,
+        fb:'Unstressed vowels stay full: "pro-BLE-ma," a clear "oh" — never reduced to "uh." <span class="tr">/proˈβle.ma/</span>'},
+      {rule:'No reduction (no schwa)',prompt:'Every vowel in <span class="big">señorita</span> should be…',
+        opts:['fully pronounced','partly swallowed'],correct:0,
+        fb:'Each vowel keeps its full value, stressed or not: se-ño-RI-ta. No swallowing. <span class="tr">/se.ɲoˈɾi.ta/</span>'},
+      // Rule 3 — diphthong (weak+strong = 1 syllable)
+      {rule:'Diphthong (weak+strong)',prompt:'How many syllables in <span class="big">baile</span>?',
+        opts:['2 (bai-le)','3 (ba-i-le)'],correct:0,
+        fb:'a + i = weak+strong, so they glide into one syllable: bai-le (2). A diphthong. <span class="tr">/ˈbaj.le/</span> — [j] glide.'},
+      {rule:'Diphthong (weak+strong)',prompt:'How many syllables in <span class="big">cuento</span>?',
+        opts:['2 (cuen-to)','3 (cu-en-to)'],correct:0,
+        fb:'u + e = weak+strong → one syllable: cuen-to (2). The u becomes a quick /w/ glide. <span class="tr">/ˈkwen.to/</span>'},
+      {rule:'Diphthong (weak+strong)',prompt:'How many syllables in <span class="big">ciudad</span>?',
+        opts:['2 (ciu-dad)','3 (ci-u-dad)'],correct:0,
+        fb:'i + u are both weak — they still form a single diphthong: ciu-dad (2). <span class="tr">/sjuˈðað/</span>'},
+      // Rule 4 — hiatus (two strong split; accent splits)
+      {rule:'Hiatus (split vowels)',prompt:'How many syllables in <span class="big">leer</span>?',
+        opts:['1 (leer)','2 (le-er)'],correct:1,
+        fb:'e + e are both strong, so they split into separate syllables: le-er (2). That is a hiatus. <span class="tr">/leˈeɾ/</span>'},
+      {rule:'Hiatus (split vowels)',prompt:'How many syllables in <span class="big">poeta</span>?',
+        opts:['2 (poe-ta)','3 (po-e-ta)'],correct:1,
+        fb:'o + e are both strong → they don\'t glide: po-e-ta (3). <span class="tr">/poˈe.ta/</span>'},
+      {rule:'Hiatus (split vowels)',prompt:'The accent in <span class="big">día</span> means the vowels…',
+        opts:['glide together (1 syllable)','split apart: dí-a (2)'],correct:1,
+        fb:'A written accent on a weak vowel breaks the diphthong: dí-a, two syllables. Same in pa-ís. <span class="tr">/ˈdi.a/</span>, <span class="tr">/paˈis/</span>.'}
+    ]
+  },
+  final:{
+    label:'Master',color:'var(--home)',
+    items:[
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">profesor</span>? <button class="speak" data-say="profesor">🔊</button>',opts:['pro','fe','sor'],correct:2,fb:'Ends in the consonant r (not n or s), so stress the last syllable: pro-fe-<b>SOR</b>. <span class="tr">/pɾo.feˈsoɾ/</span>'},
+      {rule:'Stress · esdrújula',prompt:'Which syllable is stressed in <span class="big">México</span>? <button class="speak" data-say="México">🔊</button>',opts:['mé','xi','co'],correct:0,fb:'A written accent marks the stress, and esdrújulas (third-from-last) always carry one: <b>MÉ</b>-xi-co. <span class="tr">/ˈme.xi.ko/</span> (x here = [x]).'},
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">animal</span>? <button class="speak" data-say="animal">🔊</button>',opts:['a','ni','mal'],correct:2,fb:'Ends in a consonant other than n/s, so the final syllable is stressed: a-ni-<b>MAL</b>. <span class="tr">/a.niˈmal/</span>'},
+      {rule:'Stress · tilde',prompt:'Which syllable is stressed in <span class="big">corazón</span>? <button class="speak" data-say="corazón">🔊</button>',opts:['co','ra','zón'],correct:2,fb:'The tilde points to the stress: co-ra-<b>ZÓN</b>. The -n ending would otherwise wrongly predict co-ra-ZON. <span class="tr">/ko.ɾaˈson/</span>'},
+      {rule:'Stress · tilde',prompt:'Which syllable is stressed in <span class="big">fácil</span>? <button class="speak" data-say="fácil">🔊</button>',opts:['fá','cil'],correct:0,fb:'Follow the accent: <b>FÁ</b>-cil. It is written because the word ends in a consonant, which would otherwise predict the last syllable. <span class="tr">/ˈfa.sil/</span>'},
+      {rule:'Stress · llana',prompt:'Which syllable is stressed in <span class="big">ventana</span>? <button class="speak" data-say="ventana">🔊</button>',opts:['ven','ta','na'],correct:1,fb:'Ends in a vowel, so the penultimate syllable takes the stress: ven-<b>TA</b>-na. <span class="tr">/benˈta.na/</span>'},
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">universidad</span>? <button class="speak" data-say="universidad">🔊</button>',opts:['u','ni','ver','si','dad'],correct:4,fb:'Ends in d, so the last syllable is stressed: u-ni-ver-si-<b>DAD</b>. <span class="tr">/u.ni.βeɾ.siˈðað/</span>'},
+      {rule:'Stress · tilde',prompt:'Which syllable is stressed in <span class="big">azúcar</span>? <button class="speak" data-say="azúcar">🔊</button>',opts:['a','zú','car'],correct:1,fb:'The accent marks the stress: a-<b>ZÚ</b>-car. The -r ending would otherwise predict the last syllable. <span class="tr">/aˈsu.kaɾ/</span>'},
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">cantar</span>? <button class="speak" data-say="cantar">🔊</button>',opts:['can','tar'],correct:1,fb:'Ends in r, so the final syllable is stressed: can-<b>TAR</b>. <span class="tr">/kanˈtaɾ/</span>'},
+      {rule:'Stress · tilde',prompt:'Which syllable is stressed in <span class="big">difícil</span>? <button class="speak" data-say="difícil">🔊</button>',opts:['di','fí','cil'],correct:1,fb:'The tilde wins: di-<b>FÍ</b>-cil. <span class="tr">/diˈfi.sil/</span>'},
+      {rule:'Stress · tilde',prompt:'Which syllable is stressed in <span class="big">camión</span>? <button class="speak" data-say="camión">🔊</button>',opts:['ca','mión'],correct:1,fb:'The accent marks the stress: ca-<b>MIÓN</b>. (ió is one syllable, a diphthong.) <span class="tr">/kaˈmjon/</span>'},
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">hospital</span>? <button class="speak" data-say="hospital">🔊</button>',opts:['hos','pi','tal'],correct:2,fb:'Ends in l, so the last syllable is stressed: hos-pi-<b>TAL</b>. <span class="tr">/os.piˈtal/</span> (the h is silent).'},
+      {rule:'Stress · esdrújula',prompt:'Which syllable is stressed in <span class="big">número</span>? <button class="speak" data-say="número">🔊</button>',opts:['nú','me','ro'],correct:0,fb:'Esdrújula — third-from-last, always accented: <b>NÚ</b>-me-ro. <span class="tr">/ˈnu.me.ɾo/</span>'},
+      {rule:'Stress · aguda',prompt:'Which syllable is stressed in <span class="big">mujer</span>? <button class="speak" data-say="mujer">🔊</button>',opts:['mu','jer'],correct:1,fb:'Ends in r, so the last syllable is stressed: mu-<b>JER</b>. <span class="tr">/muˈxeɾ/</span> (j = [x]).'},
+      {rule:'Stress · llana',prompt:'Which syllable is stressed in <span class="big">origen</span>? <button class="speak" data-say="origen">🔊</button>',opts:['o','ri','gen'],correct:1,fb:'Ends in n, so the penultimate syllable is stressed: o-<b>RI</b>-gen. <span class="tr">/oˈɾi.xen/</span> (g before e = [x]).'},
+      {rule:'Consonants · c',prompt:'How is the <b>c</b> pronounced in <span class="big">cielo</span>? <button class="speak" data-say="cielo">🔊</button>',opts:['like k','like s'],correct:1,fb:'Before e/i, c softens to [s]: <span class="tr">/ˈsje.lo/</span> — voiceless alveolar fricative.'},
+      {rule:'Consonants · g',prompt:'How is the <b>g</b> pronounced in <span class="big">gitano</span>? <button class="speak" data-say="gitano">🔊</button>',opts:['hard g (go)','throaty /x/'],correct:1,fb:'Before i, g becomes [x]: <span class="tr">/xiˈta.no/</span> — voiceless velar fricative.'},
+      {rule:'Consonants · g',prompt:'How is the <b>g</b> pronounced in <span class="big">gordo</span>? <button class="speak" data-say="gordo">🔊</button>',opts:['hard g (go)','throaty /x/'],correct:0,fb:'Before o, g is a hard [ɡ]: <span class="tr">/ˈɡoɾ.ðo/</span> — voiced velar plosive.'},
+      {rule:'Consonants · c',prompt:'How is the <b>c</b> pronounced in <span class="big">cuchara</span>? <button class="speak" data-say="cuchara">🔊</button>',opts:['like k','like s'],correct:0,fb:'Before u, c is hard [k]: <span class="tr">/kuˈt͡ʃa.ɾa/</span> — voiceless velar plosive. Only e/i soften it.'},
+      {rule:'Consonants · j',prompt:'How is the <b>j</b> pronounced in <span class="big">jugo</span>? <button class="speak" data-say="jugo">🔊</button>',opts:['English j (jam)','throaty /x/'],correct:1,fb:'j is always [x]: <span class="tr">/ˈxu.ɣo/</span> — voiceless velar fricative.'},
+      {rule:'Consonants · h',prompt:'How is the <b>h</b> pronounced in <span class="big">hospital</span>? <button class="speak" data-say="hospital">🔊</button>',opts:['silent','like English h'],correct:0,fb:'Spanish h is always silent: <span class="tr">/os.piˈtal/</span> — there is no [h] at all.'},
+      {rule:'Consonants · r',prompt:'How is the <b>r</b> pronounced in <span class="big">caro</span>? <button class="speak" data-say="caro">🔊</button>',opts:['a single tap','a rolled trill'],correct:0,fb:'A single r between vowels is a tap: <span class="tr">/ˈka.ɾo/</span> — [ɾ] voiced alveolar tap. Contrast carro.'},
+      {rule:'Consonants · rr',prompt:'How is the <b>rr</b> pronounced in <span class="big">carro</span>? <button class="speak" data-say="carro">🔊</button>',opts:['a single tap','a rolled trill'],correct:1,fb:'rr is a trill: <span class="tr">/ˈka.ro/</span> — [r] voiced alveolar trill. caro vs carro is a minimal pair.'},
+      {rule:'Consonants · r-',prompt:'How is the initial <b>r</b> pronounced in <span class="big">Roberto</span>? <button class="speak" data-say="Roberto">🔊</button>',opts:['a single tap','a rolled trill'],correct:1,fb:'Word-initial r is trilled like rr: <span class="tr">/roˈβeɾ.to/</span> — [r] voiced alveolar trill.'},
+      {rule:'Consonants · r',prompt:'How is the <b>r</b> after l pronounced in <span class="big">alrededor</span>? <button class="speak" data-say="alrededor">🔊</button>',opts:['a single tap','a rolled trill'],correct:1,fb:'After l (also n, s), r is trilled: <span class="tr">/al.re.ðeˈðoɾ/</span> — [r] voiced alveolar trill.'},
+      {rule:'Consonants · d',prompt:'How is the final <b>d</b> pronounced in <span class="big">verdad</span>? <button class="speak" data-say="verdad">🔊</button>',opts:['hard d (dog)','soft th /ð/'],correct:1,fb:'Final d relaxes to [ð], the th in this, often very soft: <span class="tr">/beɾˈðað/</span>.'},
+      {rule:'Consonants · b',prompt:'How is the <b>b</b> pronounced in <span class="big">lobo</span>? <button class="speak" data-say="lobo">🔊</button>',opts:['a full hard b','a soft b /β/'],correct:1,fb:'Between vowels, b softens to the approximant [β], lips barely meeting: <span class="tr">/ˈlo.βo/</span>.'},
+      {rule:'Consonants · v',prompt:'How is the <b>v</b> pronounced in <span class="big">vaca</span>? <button class="speak" data-say="vaca">🔊</button>',opts:['English v','a b-sound /b/'],correct:1,fb:'v and b are identical; at the start it is a full [b]: <span class="tr">/ˈba.ka/</span> — there is no English v in Spanish.'},
+      {rule:'Consonants · ñ',prompt:'How is the <b>ñ</b> pronounced in <span class="big">España</span>? <button class="speak" data-say="España">🔊</button>',opts:['plain n','ny /ɲ/ (canyon)'],correct:1,fb:'ñ is [ɲ] — voiced palatal nasal: <span class="tr">/esˈpa.ɲa/</span>.'},
+      {rule:'Consonants · ll',prompt:'How is the <b>ll</b> pronounced in <span class="big">pollo</span>? <button class="speak" data-say="pollo">🔊</button>',opts:['like English y','like English l'],correct:0,fb:'With yeísmo, ll = [ʝ] (like y): <span class="tr">/ˈpo.ʝo/</span> — voiced palatal approximant.'},
+      {rule:'Consonants · z',prompt:'How is the <b>z</b> pronounced in <span class="big">zorro</span>? <button class="speak" data-say="zorro">🔊</button>',opts:['like s in sun','like z in zoo'],correct:0,fb:'In Latin America z = [s], voiceless: <span class="tr">/ˈso.ro/</span>. (Spain: [θ].) Note the rr trill too.'},
+      {rule:'Consonants · qu',prompt:'How is the <b>qu</b> pronounced in <span class="big">aquí</span>? <button class="speak" data-say="aquí">🔊</button>',opts:['a kw sound','k, u silent'],correct:1,fb:'The u in que/qui is silent; qu spells a plain [k]: <span class="tr">/aˈki/</span>.'},
+      {rule:'Consonants · gu',prompt:'How is the <b>gu</b> pronounced in <span class="big">guerra</span>? <button class="speak" data-say="guerra">🔊</button>',opts:['a gw sound','hard g, u silent'],correct:1,fb:'In gue/gui the u is silent and keeps g hard: <span class="tr">/ˈɡe.ra/</span> — [ɡ]. Note the rr trill.'},
+      {rule:'Consonants · ü',prompt:'How is the <b>ü</b> pronounced in <span class="big">pingüino</span>? <button class="speak" data-say="pingüino">🔊</button>',opts:['u is silent','u is pronounced'],correct:1,fb:'The two dots (diéresis) restore the u as a [w] glide: <span class="tr">/pinˈɡwi.no/</span>.'},
+      {rule:'Consonants · ch',prompt:'How is the <b>ch</b> pronounced in <span class="big">muchacho</span>? <button class="speak" data-say="muchacho">🔊</button>',opts:['ch as in church','sh as in ship'],correct:0,fb:'ch is the affricate [t͡ʃ], as in church: <span class="tr">/muˈt͡ʃa.t͡ʃo/</span> — voiceless post-alveolar affricate.'},
+      {rule:'Vowels · diphthong',prompt:'How many syllables in <span class="big">aire</span>? <button class="speak" data-say="aire">🔊</button>',opts:['2 (ai-re)','3 (a-i-re)'],correct:0,fb:'a + i (strong + weak) glide into one syllable: ai-re (2). <span class="tr">/ˈaj.ɾe/</span> — a diphthong.'},
+      {rule:'Vowels · diphthong',prompt:'How many syllables in <span class="big">peine</span>? <button class="speak" data-say="peine">🔊</button>',opts:['2 (pei-ne)','3 (pe-i-ne)'],correct:0,fb:'e + i form a diphthong, one syllable: pei-ne (2). <span class="tr">/ˈpej.ne/</span>.'},
+      {rule:'Vowels · hiatus',prompt:'How many syllables in <span class="big">maestro</span>? <button class="speak" data-say="maestro">🔊</button>',opts:['2 (maes-tro)','3 (ma-es-tro)'],correct:1,fb:'a + e are both strong, so they split: ma-es-tro (3). <span class="tr">/maˈes.tɾo/</span> — a hiatus.'},
+      {rule:'Vowels · hiatus',prompt:'How many syllables in <span class="big">reír</span>? <button class="speak" data-say="reír">🔊</button>',opts:['1 (reir)','2 (re-ír)'],correct:1,fb:'The accent on the weak i breaks the diphthong: re-<b>ÍR</b> (2). <span class="tr">/reˈiɾ/</span>.'},
+      {rule:'Vowels · diphthong',prompt:'How many syllables in <span class="big">Europa</span>? <button class="speak" data-say="Europa">🔊</button>',opts:['3 (Eu-ro-pa)','4 (E-u-ro-pa)'],correct:0,fb:'e + u glide together: Eu-ro-pa (3). <span class="tr">/euˈɾo.pa/</span>.'},
+      {rule:'Vowels · diphthong',prompt:'How many syllables in <span class="big">cuidado</span>? <button class="speak" data-say="cuidado">🔊</button>',opts:['3 (cui-da-do)','4 (cu-i-da-do)'],correct:0,fb:'Two weak vowels still form a diphthong: cui-da-do (3). <span class="tr">/kwiˈða.ðo/</span>.'},
+      {rule:'Vowels · hiatus',prompt:'How many syllables in <span class="big">poema</span>? <button class="speak" data-say="poema">🔊</button>',opts:['2 (poe-ma)','3 (po-e-ma)'],correct:1,fb:'o + e are both strong: po-e-ma (3) — a hiatus. <span class="tr">/poˈe.ma/</span>.'},
+      {rule:'Vowels · hiatus',prompt:'How many syllables in <span class="big">baúl</span>? <button class="speak" data-say="baúl">🔊</button>',opts:['1 (baul)','2 (ba-úl)'],correct:1,fb:'The accent on the weak u splits the vowels: ba-<b>ÚL</b> (2). <span class="tr">/baˈul/</span>.'},
+      {rule:'Vowels · diphthong',prompt:'How many syllables in <span class="big">auto</span>? <button class="speak" data-say="auto">🔊</button>',opts:['2 (au-to)','3 (a-u-to)'],correct:0,fb:'a + u glide together: au-to (2). <span class="tr">/ˈaw.to/</span>.'},
+      {rule:'Vowels · hiatus',prompt:'How many syllables in <span class="big">creer</span>? <button class="speak" data-say="creer">🔊</button>',opts:['1 (creer)','2 (cre-er)'],correct:1,fb:'Two strong e vowels do not glide: cre-er (2) — a hiatus. <span class="tr">/kɾeˈeɾ/</span>.'},
+      {rule:'Vowels · pure vowel',prompt:'The <b>o</b> should be, in <span class="big">loco</span>? <button class="speak" data-say="loco">🔊</button>',opts:['a steady oh','oh that glides to oo'],correct:0,fb:'Spanish o is pure and steady: <span class="tr">/ˈlo.ko/</span> — [o], never the English gliding [oʊ].'},
+      {rule:'Vowels · pure vowel',prompt:'The <b>e</b> should be, in <span class="big">noche</span>? <button class="speak" data-say="noche">🔊</button>',opts:['a steady eh','eh that glides to ay'],correct:0,fb:'Keep e pure: <span class="tr">/ˈno.t͡ʃe/</span> — [e], not the English [eɪ] glide.'},
+      {rule:'Vowels · no reduction',prompt:'The unstressed vowels in <span class="big">tomate</span>? <button class="speak" data-say="tomate">🔊</button>',opts:['all full and clear','some reduce to uh'],correct:0,fb:'No reduction in Spanish: to-MA-te keeps every vowel full — <span class="tr">/toˈma.te/</span>, never a schwa [ə].'},
+      {rule:'Vowels · no reduction',prompt:'The unstressed a in <span class="big">mañana</span>? <button class="speak" data-say="mañana">🔊</button>',opts:['a clear ah','a weak uh'],correct:0,fb:'Unstressed vowels stay full: ma-<b>ÑA</b>-na, every a clear — <span class="tr">/maˈɲa.na/</span>.'},
+      {rule:'Vowels · hiatus',prompt:'Diphthong or hiatus: <span class="big">oído</span>? <button class="speak" data-say="oído">🔊</button>',opts:['diphthong (o-i glide)','hiatus (o-í split)'],correct:1,fb:'The accent on í creates a hiatus: o-í-do, the o and i in separate syllables (3). <span class="tr">/oˈi.ðo/</span>.'}
+    ]
+  }
+};
+
+/* ---------- quiz rendering / logic ---------- */
+const state={};
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function buildQuiz(key){
+  const data=QUIZZES[key];
+  const items=shuffle(data.items.slice());
+  state[key]={solved:0,first:0,total:items.length,done:new Set()};
+  const host=document.getElementById(key+'-questions');
+  host.innerHTML='';
+  document.getElementById(key+'-total').textContent=items.length;
+  document.getElementById(key+'-solved').textContent=0;
+  document.getElementById(key+'-first').textContent=0;
+  document.getElementById(key+'-done').classList.remove('show');
+
+  items.forEach((it,qi)=>{
+    const card=document.createElement('div');card.className='q';
+    const pill=document.createElement('span');pill.className='rulepill';
+    const hideRule=(key==='cons'||key==='vowel'||key==='final');
+    pill.dataset.rule=it.rule;
+    if(hideRule){pill.style.background='#a89c84';pill.textContent='Rule hidden · answer to reveal';}
+    else{pill.style.background=data.color;pill.textContent=it.rule;}
+    const prompt=document.createElement('div');prompt.className='prompt';
+    // if prompt has no HTML tags treat as a word to display big + speak
+    if(/[<]/.test(it.prompt)){prompt.innerHTML=it.prompt;}
+    else{
+      prompt.innerHTML=(key==='stress'?'Where is the stress in ':'')+
+        '<span class="big">'+it.prompt+'</span>'+
+        ' <button class="speak" data-say="'+it.prompt.replace(/<[^>]+>/g,'')+'">🔊</button>'+
+        (key==='stress'?'?':'');
+    }
+    const opts=document.createElement('div');opts.className='opts';
+    const fb=document.createElement('div');fb.className='fb';
+
+    // shuffle the options so the correct answer's position varies each render
+    const shuffledOpts=shuffle(it.opts.map((o,oi)=>({text:o,isCorrect:oi===it.correct})));
+    shuffledOpts.forEach(o=>{
+      const b=document.createElement('button');b.className='opt';b.innerHTML=o.text;
+      b.onclick=()=>answer(key,qi,o.isCorrect,it,{card,opts,fb,b});
+      opts.appendChild(b);
+    });
+
+    card.appendChild(pill);card.appendChild(prompt);card.appendChild(opts);card.appendChild(fb);
+    card.dataset.attempted='0';
+    host.appendChild(card);
+  });
+  // wire speaker buttons inside prompts
+  host.querySelectorAll('.speak[data-say]').forEach(btn=>{
+    btn.onclick=()=>say(btn.getAttribute('data-say'));
+  });
+}
+
+function answer(key,qi,isCorrect,it,ui){
+  const st=state[key];
+  if(st.done.has(qi))return; // already solved, ignore
+  const correct = isCorrect;
+  const card=ui.card;
+  const attempts=parseInt(card.dataset.attempted||'0',10);
+
+  // reveal the rule now that they've answered (cons/vowel quizzes hide it first)
+  const pill=card.querySelector('.rulepill');
+  if(pill && pill.dataset.rule){pill.textContent=pill.dataset.rule;pill.style.background=QUIZZES[key].color;}
+
+  // clear previous option states
+  ui.opts.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+
+  if(correct){
+    ui.b.classList.add('correct');
+    ui.opts.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+    st.done.add(qi);
+    st.solved++;
+    if(attempts===0)st.first++;
+    ui.fb.className='fb good show';
+    ui.fb.innerHTML='<span class="lbl">Correct ✓</span>'+it.fb;
+    document.getElementById(key+'-solved').textContent=st.solved;
+    document.getElementById(key+'-first').textContent=st.first;
+    if(st.solved===st.total){document.getElementById(key+'-done').classList.add('show');}
+  }else{
+    card.dataset.attempted=String(attempts+1);
+    ui.b.classList.add('wrong');
+    ui.b.disabled=true; // remove just this wrong choice, keep others live
+    ui.fb.className='fb bad show';
+    ui.fb.innerHTML='<span class="lbl">Not quite — try again</span>'+it.fb+
+      '<div><button class="again">↻ Try another answer</button></div>';
+    ui.fb.querySelector('.again').onclick=()=>{
+      ui.fb.classList.remove('show');
+    };
+  }
+}
+
+/* build all quizzes on load */
+buildQuiz('stress');buildQuiz('cons');buildQuiz('vowel');buildQuiz('final');
+</script>
+<script>
+/* Register the offline service worker (works on https:// and localhost). */
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./sw.js').catch(function (e) {
+      console.log('SW registration skipped:', e);
+    });
+  });
+}
+</script>
+</body>
+</html>
