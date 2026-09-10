@@ -1,0 +1,19 @@
+# Netlify configuration for the BYU Linguistics Mentoring Archive
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Map /api/summary -> the function endpoint so frontend code stays clean
+[[redirects]]
+  from = "/api/summary"
+  to = "/.netlify/functions/summary"
+  status = 200
+  force = true
+
+# Don't index the entry page even if someone links to it
+[[headers]]
+  for = "/entry.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
+    Referrer-Policy = "no-referrer"

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bird Guide English — Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --leaf:#4C9A2A;
+    --leaf-deep:#2E6318;
+    --spice:#E8823B;
+    --spice-deep:#B85A1E;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --plum-light:#F1E9FC;
+    --yellow:#FFC93C;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --sky:#2E86C1;
+    --sky-deep:#1B4F72;
+    --sky-light:#E7F1FA;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:920px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:20px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.5rem, 5vw, 2.3rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.92rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .print-link{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    text-decoration:none;
+    color:var(--ink);
+    background:#fff;
+    border:3px solid var(--ink);
+    border-radius:18px;
+    padding:8px 18px;
+    margin-top:16px;
+    box-shadow:4px 4px 0 var(--ink);
+    transition:transform 0.1s ease;
+  }
+  .print-link:hover{transform:translate(-1px,-1px);}
+  .print-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  .nav-links-row{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;
+  }
+  .nav-links-row .print-link{margin-top:0;}
+  .print-link .en{
+    font-family:'Bungee', cursive;
+    font-size:0.75rem;
+  }
+  .print-link .es{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    opacity:0.7;
+  }
+
+  .tabs{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:22px 0 20px;
+  }
+  .tab-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.75rem;
+    padding:10px 13px;
+    background:var(--paper);
+    border:3px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:3px 3px 0 var(--ink);
+    cursor:pointer;
+    transition:transform 0.1s ease;
+  }
+  .tab-btn:hover{transform:translate(-2px,-2px);}
+  .tab-btn.active{
+    background:var(--accent, var(--yellow));
+    transform:translate(2px,2px);
+    box-shadow:1px 1px 0 var(--ink);
+  }
+
+  .panel{display:none;}
+  .panel.active{display:block;animation:fadein 0.25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .panel-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:14px 18px;
+    margin-bottom:18px;
+  }
+  .prompt{margin:0;font-size:1.05rem;}
+  .frame{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--yellow);
+    padding:2px 8px;
+    border-radius:6px;
+    border:2px solid var(--ink);
+    margin-left:6px;
+    white-space:nowrap;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:16px;
+  }
+  .section-heading{
+    font-family:'Bungee', cursive;
+    font-size:0.95rem;
+    margin:20px 0 12px;
+    padding:8px 16px;
+    display:inline-block;
+    background:var(--heading-accent, var(--yellow));
+    border:3px solid var(--ink);
+    border-radius:10px;
+    box-shadow:4px 4px 0 var(--ink);
+  }
+  .section-heading:first-child{margin-top:4px;}
+
+  .culture-note{
+    margin-top:18px;
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:16px 20px;
+  }
+  .culture-note h3{
+    font-family:'Bungee', cursive;
+    font-size:0.9rem;
+    margin:0 0 8px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .culture-note p{
+    font-family:'Fraunces', serif;
+    font-size:0.92rem;
+    line-height:1.55;
+    margin:0 0 10px;
+  }
+  .culture-note p:last-child{margin-bottom:0;}
+
+  .flip-card{
+    perspective:1000px;
+    height:196px;
+    cursor:pointer;
+  }
+  .flip-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform 0.5s;
+    transform-style:preserve-3d;
+  }
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front, .flip-back{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    backface-visibility:hidden;
+    padding:8px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .flip-front{background:#fff;font-size:3rem;}
+  .flip-front svg{width:72%;height:72%;}
+  .front-word{
+    font-family:'Bungee', cursive;font-size:1.15rem;line-height:1.25;
+  }
+  .front-num{
+    font-family:'Space Mono', monospace;font-size:0.7rem;
+    background:var(--paper);border:2px solid var(--ink);border-radius:10px;
+    padding:1px 8px;margin-top:6px;
+  }
+  .flip-front .photo-wrap{
+    position:relative;width:100%;height:100%;
+  }
+  .flip-front .photo-wrap img{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    border-radius:calc(var(--card-radius) - 4px);
+  }
+  .flip-front .photo-badge{
+    position:absolute;bottom:4px;right:4px;
+    min-width:26px;height:22px;
+    padding:0 5px;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;
+    line-height:1;
+    white-space:nowrap;
+  }
+  .flip-back{
+    background:var(--accent, var(--yellow));
+    transform:rotateY(180deg);
+  }
+  .back-word{font-family:'Bungee', cursive;font-size:1rem;line-height:1.2;margin-bottom:4px;}
+  .back-word .back-verb{color:var(--rose-deep, var(--ink));}
+  .back-emoji{font-size:2.4rem;line-height:1;margin-bottom:4px;}
+  .back-es{font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.75;}
+  .qa-turns{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    width:100%;
+    margin-top:8px;
+  }
+  .qa-ask, .qa-answer{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;
+    line-height:1.25;
+    padding:3px 8px;
+    border-radius:12px;
+    border:1.5px solid var(--ink);
+    background:#fff;
+    text-align:left;
+    opacity:0;
+    transform:translateY(4px);
+  }
+  .qa-icon{font-size:0.85rem;flex-shrink:0;}
+  .qa-answer{font-weight:700;}
+  .flip-card.flipped .qa-ask{
+    animation:qaPop 0.3s ease forwards;
+    animation-delay:0.1s;
+  }
+  .flip-card.flipped .qa-answer{
+    animation:qaPop 0.3s ease forwards;
+    animation-delay:0.5s;
+  }
+  @keyframes qaPop{
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .back-note{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:0.66rem;
+    margin-top:6px;
+    padding:3px 6px;
+    line-height:1.25;
+  }
+  .tap-hint{
+    position:absolute;bottom:6px;right:8px;
+    font-family:'Space Mono', monospace;
+    font-size:0.62rem;opacity:0.45;
+  }
+  .replay-btn{
+    margin-top:6px;
+    font-size:0.8rem;
+    background:#fff;
+    border:2px solid var(--ink);
+    border-radius:20px;
+    padding:2px 10px;
+    cursor:pointer;
+    font-family:'Space Mono', monospace;
+  }
+  .replay-btn:active{transform:translate(1px,1px);}
+
+  .sort-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .sort-btn{
+    font-family:'Bungee', cursive;
+    font-size:0.8rem;
+    padding:14px 18px;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    cursor:pointer;
+    background:#fff;
+  }
+  .sort-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+
+  .score{
+    font-family:'Space Mono', monospace;
+    font-size:0.85rem;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    border-radius:8px;
+    padding:6px 10px;
+  }
+
+  /* Bird anatomy diagram */
+  .diagram-wrap{
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    padding:18px;
+    max-width:560px;
+    margin:0 auto 20px;
+  }
+  .diagram-wrap svg{width:100%;height:auto;display:block;}
+  .legend-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+    gap:6px 14px;
+    max-width:560px;
+    margin:0 auto 26px;
+    background:#fff;
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:14px 18px;
+  }
+  .legend-item{
+    display:flex;align-items:center;gap:8px;
+    font-family:'Space Mono', monospace;font-size:0.78rem;
+  }
+  .legend-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;
+    background:var(--sky-light);border:2px solid var(--ink);
+    font-weight:700;font-size:0.7rem;flex-shrink:0;
+  }
+  .legend-es{opacity:0.65;}
+
+  /* "Describe the Bird" generator */
+  .gen-stage{
+    display:flex;flex-direction:column;align-items:center;gap:16px;
+    margin:0 0 30px;
+  }
+  .gen-card{
+    width:100%;max-width:460px;min-height:170px;
+    background:var(--sky-light);
+    border:4px solid var(--ink);
+    border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:26px 22px;text-align:center;
+    transition:transform 0.2s ease;
+  }
+  .gen-card.pulse{animation:pulse 0.4s;}
+  @keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.04);}
+    100%{transform:scale(1);}
+  }
+  .gen-sentence{font-family:'Bungee', cursive;font-size:1.05rem;line-height:1.6;}
+  .gen-hint{
+    font-family:'Fraunces', serif;font-style:italic;font-size:0.82rem;opacity:0.75;
+  }
+  .gen-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .gen-next-btn{background:var(--sky);color:#fff;}
+
+  footer{
+    text-align:center;
+    font-family:'Space Mono', monospace;
+    font-size:0.7rem;
+    opacity:0.5;
+    margin-top:40px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">BIRD GUIDE ENGLISH · PRACTICE</div>
+    <h1>Talk About Birds!</h1>
+    <p class="subtitle">Para guías de reservas de aves · Say it out loud, then tap to check and hear it. 🔊</p>
+    <div class="nav-links-row">
+      <a class="print-link" href="birdguide_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Get the Printable Cards (PDF)</span>
+        <span class="es">Descargar las tarjetas para imprimir</span>
+      </a>
+      <a class="print-link" href="birdguide_quiz.html">
+        <span class="en">🎯 Take the Quiz</span>
+        <span class="es">Hacer el cuestionario</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="colors" style="--accent:var(--rose)">🎨 Colors</button>
+    <button class="tab-btn" data-tab="bodyParts" style="--accent:var(--teal)">🦴 Body Parts</button>
+    <button class="tab-btn" data-tab="locations" style="--accent:var(--green)">📍 Location</button>
+    <button class="tab-btn" data-tab="actions" style="--accent:var(--blue)">🏃 Action</button>
+    <button class="tab-btn" data-tab="habitats" style="--accent:var(--sky)">🌳 Habitat</button>
+    <button class="tab-btn" data-tab="patterns" style="--accent:var(--gold)">💬 Describe It</button>
+    <button class="tab-btn" data-tab="phrases" style="--accent:var(--plum)">🗣️ Guide Phrases</button>
+    <button class="tab-btn" data-tab="generator" style="--accent:var(--coral)">🦜 Describe the Bird!</button>
+  </nav>
+
+  <section id="colors" class="panel active">
+    <div class="panel-toolbar">
+      <p class="prompt">What color is it? <span class="frame">Its ___ is ___. / It is ___.</span></p>
+    </div>
+    <div class="card-grid" id="colors-grid"></div>
+  </section>
+
+  <section id="bodyParts" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Point and name the part! <span class="frame">Its ___ is ___.</span></p>
+    </div>
+
+    <div class="diagram-wrap" id="bird-diagram"></div>
+    <div class="legend-grid" id="legend-grid"></div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--teal)">🦴 All Body Parts</h2>
+    <div class="card-grid" id="bodyParts-grid"></div>
+  </section>
+
+  <section id="locations" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Where is the bird? <span class="frame">The bird is ___.</span></p>
+    </div>
+    <div class="card-grid" id="locations-grid"></div>
+  </section>
+
+  <section id="actions" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">What is it doing? <span class="frame">It is ___.</span></p>
+    </div>
+    <div class="card-grid" id="actions-grid"></div>
+  </section>
+
+  <section id="habitats" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Where do birds live? <span class="frame">This is a ___.</span></p>
+    </div>
+    <div class="card-grid" id="habitats-grid"></div>
+  </section>
+
+  <section id="patterns" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Describe the bird! <span class="frame">It has ___. / It is ___ and ___.</span></p>
+    </div>
+    <div class="card-grid" id="patterns-grid"></div>
+  </section>
+
+  <section id="phrases" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Talking with visitors <span class="frame">Guide phrases</span></p>
+    </div>
+    <div class="card-grid" id="phrases-grid"></div>
+  </section>
+
+  <section id="generator" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Put it all together! <span class="frame">Location → Action → Description</span><br><span style="font-family:'Space Mono', monospace; font-size:0.78rem; font-weight:400; opacity:0.7;">¡Pongamos todo junto! Ubicación → Acción → Descripción</span></p>
+    </div>
+
+    <div class="culture-note">
+      <p>This is the order the field guide teaches: say <strong>where</strong> the bird is, then <strong>what</strong> it's doing, then <strong>describe</strong> it. Tap <strong>New Bird</strong> for a random practice sentence, and try saying it out loud before you listen.</p>
+      <p>Este es el orden que enseña la guía de campo: diga primero <strong>dónde</strong> está el ave, luego <strong>qué</strong> está haciendo, y por último <strong>descríbala</strong>. Toque el botón <strong>New Bird</strong> (Nueva ave) para obtener una oración de práctica al azar, e intente decirla en voz alta antes de escucharla.</p>
+    </div>
+
+    <div class="gen-stage">
+      <div class="gen-card" id="gen-card">
+        <div class="gen-sentence" id="gen-sentence">Look! The bird is in the tree. It is singing. Its throat is white.</div>
+      </div>
+      <div class="gen-buttons">
+        <button class="sort-btn" id="gen-replay">🔊 Hear it</button>
+        <button class="sort-btn gen-next-btn" id="gen-next">🔄 New Bird</button>
+      </div>
+      <div class="score">Birds described: <span id="gen-count">0</span></div>
+      <p class="gen-hint">Recuerda: en español, el adjetivo cambia según el género del sustantivo.</p>
+    </div>
+  </section>
+
+  <footer>Bird Guide English · Reserve staff training</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  // Colors, body parts, and description patterns come from the field guide
+  // handout. Location, Action, Habitat, and Guide Phrases were added so
+  // trainees can build a full description in the order the handout itself
+  // teaches: location, then action, then description.
+  const colors = [
+    {emoji:"⚫", word:"black", es:"negro"},
+    {emoji:"⚪", word:"white", es:"blanco"},
+    {emoji:"🔘", word:"gray", es:"gris"},
+    {emoji:"🟤", word:"brown", es:"café / marrón"},
+    {emoji:"🟢", word:"green", es:"verde"},
+    {emoji:"🔵", word:"blue", es:"azul"},
+    {emoji:"🟡", word:"yellow", es:"amarillo"},
+    {emoji:"🟠", word:"orange", es:"anaranjado"},
+    {emoji:"🔴", word:"red", es:"rojo"},
+    {emoji:"🟣", word:"purple", es:"morado"},
+    {emoji:"💗", word:"pink", es:"rosado"},
+    {emoji:"🌾", word:"buff", es:"beige"},
+    {emoji:"🫒", word:"olive", es:"verde olivo"},
+    {emoji:"🦊", word:"rufous", es:"rufo / rojizo"},
+    {emoji:"🥇", word:"golden", es:"dorado"}
+  ];
+
+  // "num" ties a part to its numbered marker on the bird diagram (see
+  // BIRD_DIAGRAM_SVG below); parts without a number aren't pinpointed on the
+  // simplified diagram but are still fully covered in the flip cards.
+  // "plural" marks parts that need "are" instead of "is".
+  const bodyParts = [
+    {word:"head", es:"cabeza"},
+    {word:"crown", es:"corona", num:1},
+    {word:"forehead", es:"frente", num:2},
+    {word:"eye", es:"ojo", num:3},
+    {word:"eye ring", es:"anillo ocular"},
+    {word:"beak", es:"pico", num:4},
+    {word:"nostril", es:"narina"},
+    {word:"throat", es:"garganta", num:5},
+    {word:"neck", es:"cuello", num:6},
+    {word:"back", es:"espalda", num:7},
+    {word:"shoulder", es:"hombro"},
+    {word:"wing", es:"ala", num:8},
+    {word:"wing feathers", es:"plumas del ala", plural:true},
+    {word:"tail", es:"cola", num:11},
+    {word:"tail feathers", es:"plumas de la cola", plural:true},
+    {word:"breast", es:"pecho", num:9},
+    {word:"belly", es:"vientre", num:10},
+    {word:"flank", es:"flanco"},
+    {word:"leg", es:"pata", num:12},
+    {word:"foot", es:"pie", num:13},
+    {word:"claw", es:"garra"},
+    {word:"crest", es:"cresta", num:14},
+    {word:"feathers", es:"plumas", plural:true}
+  ];
+
+  const LEGEND = [
+    [1,"crown","corona"], [2,"forehead","frente"], [3,"eye","ojo"], [4,"beak","pico"],
+    [5,"throat","garganta"], [6,"neck","cuello"], [7,"back","espalda"], [8,"wing","ala"],
+    [9,"breast","pecho"], [10,"belly","vientre"], [11,"tail","cola"], [12,"leg","pata"],
+    [13,"foot","pie"], [14,"crest","cresta"]
+  ];
+
+  const locations = [
+    {emoji:"🌳", word:"in the tree", es:"en el árbol"},
+    {emoji:"🪵", word:"on the branch", es:"en la rama"},
+    {emoji:"🟫", word:"on the ground", es:"en el suelo"},
+    {emoji:"🌊", word:"near the water", es:"cerca del agua"},
+    {emoji:"🍃", word:"in the bush", es:"en el arbusto"},
+    {emoji:"☁️", word:"in the sky", es:"en el cielo"},
+    {emoji:"🪨", word:"on the rock", es:"en la roca"},
+    {emoji:"🪺", word:"in the nest", es:"en el nido"}
+  ];
+
+  const actions = [
+    {emoji:"🕊️", word:"flying", es:"volando"},
+    {emoji:"🐦", word:"perching", es:"posado/a"},
+    {emoji:"🎵", word:"singing", es:"cantando"},
+    {emoji:"📢", word:"calling", es:"llamando"},
+    {emoji:"🍽️", word:"eating", es:"comiendo"},
+    {emoji:"💧", word:"drinking", es:"bebiendo"},
+    {emoji:"💦", word:"bathing", es:"bañándose"},
+    {emoji:"🎯", word:"hunting", es:"cazando"},
+    {emoji:"🐣", word:"feeding its chicks", es:"alimentando a sus polluelos"}
+  ];
+
+  const habitats = [
+    {emoji:"🌲🌫️", word:"cloud forest", es:"bosque nuboso"},
+    {emoji:"🌴🌧️", word:"rainforest", es:"selva tropical"},
+    {emoji:"🌊", word:"river", es:"río"},
+    {emoji:"🏞️", word:"lake", es:"lago"},
+    {emoji:"🐸", word:"wetland", es:"humedal"},
+    {emoji:"⛰️", word:"mountain", es:"montaña"},
+    {emoji:"🌻", word:"garden", es:"jardín"},
+    {emoji:"⛲", word:"waterfall", es:"cascada"}
+  ];
+
+  const patterns = [
+    {en:"It has a crest.", es:"Tiene una cresta."},
+    {en:"It has a white eye ring.", es:"Tiene un anillo ocular blanco."},
+    {en:"It has white spots.", es:"Tiene manchas blancas."},
+    {en:"It has black stripes.", es:"Tiene rayas negras."},
+    {en:"It is black and white.", es:"Es blanco y negro."},
+    {en:"It is small and black.", es:"Es pequeño y negro."},
+    {en:"It is large and colorful.", es:"Es grande y colorido."},
+    {en:"Its beak is curved.", es:"Su pico es curvo."},
+    {en:"Its tail is long.", es:"Su cola es larga."}
+  ];
+
+  const guidePhrases = [
+    {en:"Look!", es:"¡Mire!"},
+    {en:"Do you see it?", es:"¿Lo ve?"},
+    {en:"It's over there.", es:"Está allí."},
+    {en:"Please be quiet.", es:"Por favor, silencio."},
+    {en:"Follow me.", es:"Sígame."},
+    {en:"Welcome to the reserve.", es:"Bienvenido a la reserva."},
+    {en:"Do you have binoculars?", es:"¿Tiene binoculares?"},
+    {en:"Listen!", es:"¡Escuche!"}
+  ];
+
+  const BIRD_DIAGRAM_SVG = `<svg viewBox="0 0 620 430" xmlns="http://www.w3.org/2000/svg">
+  <rect x="240" y="390" width="240" height="16" rx="8" fill="#8B5E3C" stroke="#1A1A1A" stroke-width="3"/>
+  <line x1="330" y1="330" x2="330" y2="392" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="372" y1="330" x2="372" y2="392" stroke="#1A1A1A" stroke-width="4" stroke-linecap="round"/>
+  <g stroke="#1A1A1A" stroke-width="3.5" stroke-linecap="round">
+    <line x1="330" y1="392" x2="312" y2="404"/>
+    <line x1="330" y1="392" x2="330" y2="408"/>
+    <line x1="330" y1="392" x2="348" y2="404"/>
+    <line x1="372" y1="392" x2="354" y2="404"/>
+    <line x1="372" y1="392" x2="372" y2="408"/>
+    <line x1="372" y1="392" x2="390" y2="404"/>
+  </g>
+  <path d="M 470,215 L 590,175 L 585,220 L 590,275 L 470,250 Z" fill="#6B8E7A" stroke="#1A1A1A" stroke-width="4" stroke-linejoin="round"/>
+  <ellipse cx="360" cy="255" rx="150" ry="95" fill="#84AF95" stroke="#1A1A1A" stroke-width="4"/>
+  <path d="M 290,190 Q 380,200 420,260 Q 380,290 300,280 Q 275,235 290,190 Z" fill="#5F8A72" stroke="#1A1A1A" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M 195,150 Q 250,175 260,215 L 210,230 Q 185,190 195,150 Z" fill="#84AF95" stroke="#1A1A1A" stroke-width="3.5" stroke-linejoin="round"/>
+  <circle cx="160" cy="168" r="60" fill="#9CC2A9" stroke="#1A1A1A" stroke-width="4"/>
+  <path d="M 150,110 Q 145,75 130,55 Q 155,72 162,100 Q 172,72 190,60 Q 182,85 172,112 Q 160,102 150,110 Z" fill="#5F8A72" stroke="#1A1A1A" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M 108,155 L 55,178 L 108,201 Z" fill="#E8A23B" stroke="#1A1A1A" stroke-width="3.5" stroke-linejoin="round"/>
+  <circle cx="145" cy="150" r="9" fill="#1A1A1A"/>
+  <circle cx="148" cy="147" r="2.5" fill="#fff"/>
+  ${[[1,160,108],[2,112,142],[3,176,145],[4,78,180],[5,145,215],[6,235,198],[7,350,168],[8,372,235],[9,278,285],[10,365,315],[11,545,215],[12,335,362],[13,335,400],[14,172,82]].map(([n,x,y])=>`
+  <g>
+    <circle cx="${x}" cy="${y}" r="13" fill="#fff" stroke="#1A1A1A" stroke-width="2.5"/>
+    <text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" font-weight="700" font-family="'Space Mono', monospace" fill="#1A1A1A">${n}</text>
+  </g>`).join('')}
+</svg>`;
+
+  // ---- Audio (Web Speech API) ----
+  // Browsers ship several voices; the default picked automatically is often
+  // the flattest-sounding one. We look for higher-quality voices by name and
+  // prefer those, per language, once the voice list has loaded.
+  let voiceList = [];
+  function loadVoices(){
+    voiceList = window.speechSynthesis.getVoices();
+  }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+
+  function speak(text, lang, rate, pitch, volume){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = rate || 0.92;
+    utter.pitch = pitch || 1;
+    utter.volume = volume || 1;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function speakItem(sentenceOrParts){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    if(Array.isArray(sentenceOrParts)){
+      sentenceOrParts.forEach(part=> speak(part.text, part.lang, part.rate, part.pitch, part.volume));
+    } else {
+      speak(sentenceOrParts, 'en-US');
+    }
+  }
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- Front face builder (emoji, custom art, or photo) ----
+  function buildFront(item){
+    if(item.photo){
+      return `<div class="photo-wrap">
+        <img src="${item.photo}" alt="${item.word}">
+        ${item.badge ? `<div class="photo-badge">${item.badge}</div>` : ''}
+      </div>`;
+    }
+    if(item.art){ return item.art; }
+    return item.flag || item.emoji || '';
+  }
+
+  // ---- Flip card builder ----
+  function buildFlipCards(containerId, data, accentVar, buildBackTop, speakFn, question, answerTextFn, extraFn, frontFn){
+    const grid = document.getElementById(containerId);
+    data.forEach(item=>{
+      const speakContent = speakFn(item);
+      const answerText = answerTextFn(item);
+      const card = document.createElement('div');
+      card.className = 'flip-card';
+      card.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-front">${frontFn ? frontFn(item) : buildFront(item)}</div>
+          <div class="flip-back" style="--accent:${accentVar}">
+            ${buildBackTop(item)}
+            <div class="qa-turns">
+              ${question ? `<div class="qa-ask"><span class="qa-icon">🧑</span><span>${question}</span></div>` : ''}
+              <div class="qa-answer"><span class="qa-icon">🙂</span><span>${answerText}</span></div>
+            </div>
+            ${extraFn ? extraFn(item) : ''}
+            <button class="replay-btn" type="button" aria-label="Play audio">🔊</button>
+          </div>
+        </div>
+        <span class="tap-hint">🔊 tap</span>
+      `;
+      card.addEventListener('click', ()=>{
+        const nowFlipped = card.classList.toggle('flipped');
+        if(nowFlipped){
+          speakItem(speakContent);
+        } else if('speechSynthesis' in window){
+          window.speechSynthesis.cancel();
+        }
+      });
+      card.querySelector('.replay-btn').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        speakItem(speakContent);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  buildFlipCards('colors-grid', colors, 'var(--rose)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `It is ${item.word}.`,
+    "",
+    (item)=> `It is ${item.word}.`
+  );
+
+  buildFlipCards('bodyParts-grid', bodyParts, 'var(--teal)',
+    (item)=>`
+      <div class="back-word">${item.es}</div>
+      <div class="back-es">Its ${item.word} ${item.plural ? 'are' : 'is'} ___.</div>
+    `,
+    (item)=> item.word,
+    "",
+    (item)=> item.es,
+    null,
+    (item)=> `
+      <div class="front-word">${item.word}</div>
+      ${item.num ? `<div class="front-num">Diagram #${item.num}</div>` : ''}
+    `
+  );
+
+  buildFlipCards('locations-grid', locations, 'var(--green)',
+    (item)=>`
+      <div class="back-word" style="font-size:0.85rem;">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `The bird is ${item.word}.`,
+    "",
+    (item)=> `The bird is ${item.word}.`
+  );
+
+  buildFlipCards('actions-grid', actions, 'var(--blue)',
+    (item)=>`
+      <div class="back-word" style="font-size:0.85rem;">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `It is ${item.word}.`,
+    "",
+    (item)=> `It is ${item.word}.`
+  );
+
+  buildFlipCards('habitats-grid', habitats, 'var(--sky)',
+    (item)=>`
+      <div class="back-word">${item.word}</div>
+      <div class="back-es">${item.es}</div>
+    `,
+    (item)=> `This is a ${item.word}.`,
+    "",
+    (item)=> `This is a ${item.word}.`
+  );
+
+  buildFlipCards('patterns-grid', patterns, 'var(--gold)',
+    (item)=>`
+      <div class="back-word" style="font-size:0.8rem;">${item.en}</div>
+    `,
+    (item)=> item.en,
+    "",
+    (item)=> item.en,
+    null,
+    (item)=> `<div class="front-word" style="font-size:0.95rem;">${item.es}</div>`
+  );
+
+  buildFlipCards('phrases-grid', guidePhrases, 'var(--plum)',
+    (item)=>`
+      <div class="back-word" style="font-size:0.85rem;">${item.en}</div>
+    `,
+    (item)=> item.en,
+    "",
+    (item)=> item.en,
+    null,
+    (item)=> `<div class="front-word" style="font-size:0.95rem;">${item.es}</div>`
+  );
+
+  // ---- Bird diagram + legend ----
+  document.getElementById('bird-diagram').innerHTML = BIRD_DIAGRAM_SVG;
+  const legendGrid = document.getElementById('legend-grid');
+  LEGEND.forEach(([n, en, es])=>{
+    const el = document.createElement('div');
+    el.className = 'legend-item';
+    el.innerHTML = `<span class="legend-num">${n}</span> ${en} <span class="legend-es">— ${es}</span>`;
+    legendGrid.appendChild(el);
+  });
+
+  // ---- "Describe the Bird" generator ----
+  // Puts the whole pattern together in the order the field guide teaches:
+  // location, then action, then a color+body-part description.
+  let genCount = 0;
+  let currentGen = null;
+  const describableParts = bodyParts.filter(p => p.num || !p.plural); // keep sentences natural
+
+  function pickRandom(arr){
+    return arr[Math.floor(Math.random()*arr.length)];
+  }
+
+  function generateDescription(){
+    const loc = pickRandom(locations);
+    const act = pickRandom(actions);
+    const part = pickRandom(describableParts);
+    const color = pickRandom(colors);
+    const verb = part.plural ? 'are' : 'is';
+    const sentence = `Look! The bird is ${loc.word}. It is ${act.word}. Its ${part.word} ${verb} ${color.word}.`;
+    return { sentence, loc, act, part, color };
+  }
+
+  function renderGenerator(){
+    currentGen = generateDescription();
+    document.getElementById('gen-sentence').textContent = currentGen.sentence;
+    document.getElementById('gen-card').classList.add('pulse');
+    setTimeout(()=> document.getElementById('gen-card').classList.remove('pulse'), 400);
+    speakItem(currentGen.sentence);
+  }
+
+  document.getElementById('gen-next').addEventListener('click', ()=>{
+    genCount++;
+    document.getElementById('gen-count').textContent = genCount;
+    renderGenerator();
+  });
+
+  document.getElementById('gen-replay').addEventListener('click', ()=>{
+    if(currentGen) speakItem(currentGen.sentence);
+  });
+
+  renderGenerator();
+</script>
+</body>
+</html>

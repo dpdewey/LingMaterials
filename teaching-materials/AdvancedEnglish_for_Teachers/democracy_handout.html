@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teach for Success — Democracy &amp; Voting Handout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0f1e;
+    --paper: #fff8eb;
+    --teal: #00b89c;
+    --sand: #f0a500;
+    --coral: #e8432b;
+    --blue: #2563eb;
+    --lilac: #c4b5fd;
+    --mint: #bbf7d0;
+    --border: 3px solid var(--ink);
+    --shadow: 5px 5px 0 var(--ink);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.65;
+    padding: 0 0 60px 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 24px 40px 18px;
+    border-bottom: 5px solid var(--coral);
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-family: 'Bungee', sans-serif;
+    font-size: 2.3rem;
+    color: var(--coral);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .brand span { color: var(--sand); }
+  .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-top: 4px;
+  }
+
+  /* ── META STRIP ── */
+  .meta-strip {
+    background: var(--coral);
+    color: var(--paper);
+    padding: 9px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: var(--border);
+  }
+  .meta-strip span::before { content: '▸ '; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 28px 22px 0; }
+
+  /* ── SECTION HEADS ── */
+  .section-head {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1rem;
+    background: var(--ink);
+    color: var(--coral);
+    padding: 7px 16px;
+    margin: 32px 0 0 0;
+    letter-spacing: 0.08em;
+    border-left: 6px solid var(--coral);
+  }
+
+  /* ── VOCAB CARDS ── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .vocab-card {
+    border: var(--border);
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+  }
+  .vc-head {
+    background: var(--ink);
+    color: var(--sand);
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    letter-spacing: 0.05em;
+  }
+  .vc-body {
+    padding: 10px 11px;
+    background: #fff;
+  }
+  .vc-body .def { font-size: 11.5px; color: #444; margin-bottom: 5px; }
+  .vc-body .ex { font-family: 'Fraunces', serif; font-style: italic; font-size: 11.5px; color: var(--coral); border-left: 3px solid var(--coral); padding-left: 7px; }
+
+  /* ── AFFECTIVE CARDS ── */
+  .affect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .affect-card {
+    border: var(--border);
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+  }
+  .ac-head {
+    padding: 6px 10px;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+  }
+  .ac-body {
+    padding: 9px 11px;
+    background: #fff;
+    font-size: 11.5px;
+  }
+  .ac-body .def { color: #444; margin-bottom: 5px; }
+  .ac-body .try { font-weight: 700; font-size: 10.5px; color: var(--teal); letter-spacing: 0.05em; }
+  .ac-body .blank {
+    display: inline-block;
+    width: 130px;
+    height: 13px;
+    border-bottom: 2px solid var(--ink);
+    margin-left: 4px;
+  }
+
+  /* Teal accent cards */
+  .ac-head.c1 { background: var(--teal); color: var(--ink); }
+  .ac-head.c2 { background: #3b82f6; color: #fff; }
+  .ac-head.c3 { background: var(--coral); color: #fff; }
+  .ac-head.c4 { background: #8b5cf6; color: #fff; }
+  .ac-head.c5 { background: var(--sand); color: var(--ink); }
+  .ac-head.c6 { background: #06b6d4; color: var(--ink); }
+  .ac-head.c7 { background: #10b981; color: var(--ink); }
+  .ac-head.c8 { background: #f59e0b; color: var(--ink); }
+  .ac-head.c9 { background: #ec4899; color: #fff; }
+
+  /* ── PROGRESSION BOX ── */
+  .prog-box {
+    border: var(--border);
+    display: flex;
+    margin: 14px 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .prog-step {
+    flex: 1;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 11px;
+  }
+  .prog-step .label {
+    font-family: 'Bungee', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .prog-step.basic { background: var(--mint); }
+  .prog-step.mid { background: #fef3c7; }
+  .prog-step.adv { background: var(--lilac); }
+  .prog-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 1.3rem;
+    color: #999;
+    background: var(--paper);
+    border-left: 1.5px solid var(--ink);
+    border-right: 1.5px solid var(--ink);
+  }
+
+  /* ── DISCUSSION SECTIONS ── */
+  .disc-block {
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .disc-head {
+    background: var(--sand);
+    padding: 8px 16px;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    border-bottom: var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .disc-badge {
+    background: var(--ink);
+    color: var(--sand);
+    font-size: 10px;
+    padding: 2px 8px;
+    font-family: 'Space Mono', monospace;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+  }
+  .disc-body { padding: 16px 18px; }
+  .disc-body ol { list-style: none; padding: 0; }
+  .disc-body ol li {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1.5px dashed #ccc;
+    font-size: 12.5px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .disc-body ol li:last-child { border-bottom: none; }
+  .disc-body ol li .qnum {
+    font-family: 'Bungee', sans-serif;
+    font-size: 1rem;
+    color: var(--coral);
+    min-width: 22px;
+  }
+  .disc-body ol li .qtext strong { color: var(--blue); }
+
+  /* ── COMPARISON PANELS ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 14px;
+  }
+  .compare-card {
+    border: var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .cc-head {
+    padding: 9px 14px;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .cc-head.usa { background: var(--blue); color: #fff; }
+  .cc-head.peru { background: var(--coral); color: #fff; }
+  .compare-card ul {
+    list-style: none;
+    padding: 12px 14px;
+    font-size: 12px;
+    background: #fff;
+  }
+  .compare-card ul li {
+    padding: 4px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .compare-card ul li:last-child { border-bottom: none; }
+  .compare-card ul li::before { content: '→'; color: #aaa; flex-shrink: 0; }
+
+  /* ── LIKERT ── */
+  .likert-scale {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0 0;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .likert-scale .lbl {
+    font-size: 10px;
+    color: #888;
+    font-style: italic;
+    min-width: 90px;
+  }
+  .likert-scale .lbl.right { text-align: right; }
+  .likert-scale .dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .lk-dot {
+    width: 28px; height: 28px;
+    border: var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.7rem;
+    cursor: default;
+    background: var(--paper);
+    transition: background 0.15s;
+  }
+  .lk-dot:hover { background: var(--sand); }
+
+  .likert-items { margin-top: 14px; }
+  .likert-item {
+    border: var(--border);
+    box-shadow: 3px 3px 0 var(--ink);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .li-stmt {
+    padding: 9px 14px;
+    background: #fff;
+    font-size: 12.5px;
+    border-bottom: 1.5px solid #ccc;
+  }
+  .li-stmt strong { color: var(--blue); }
+  .li-scale {
+    background: #f9f5ec;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .li-label { font-size: 10px; color: #888; font-style: italic; }
+  .li-dots { display: flex; gap: 6px; }
+  .li-dot {
+    width: 26px; height: 26px;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.65rem;
+    background: var(--paper);
+  }
+
+  /* ── OPEN-ENDED NOTES ── */
+  .open-q {
+    border: var(--border);
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .oq-head {
+    background: var(--teal);
+    color: var(--ink);
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.75rem;
+    padding: 6px 12px;
+    letter-spacing: 0.07em;
+    border-bottom: var(--border);
+  }
+  .oq-q {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    background: #fff;
+    border-bottom: 1.5px dashed #ccc;
+  }
+  .oq-q strong { color: var(--coral); }
+  .oq-lines {
+    padding: 8px 14px 12px;
+    background: #fafaf8;
+  }
+  .oq-line {
+    width: 100%;
+    height: 0;
+    border-bottom: 1.5px solid #ccc;
+    margin-bottom: 16px;
+  }
+
+  /* ── USEFUL LANGUAGE BOX ── */
+  .lang-box {
+    border: var(--border);
+    box-shadow: var(--shadow);
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .lb-head {
+    background: var(--teal);
+    color: var(--ink);
+    font-family: 'Bungee', sans-serif;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    letter-spacing: 0.06em;
+    border-bottom: var(--border);
+  }
+  .lb-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .lb-col {
+    padding: 14px 16px;
+    border-right: var(--border);
+  }
+  .lb-col:last-child { border-right: none; }
+  .lb-col h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    margin-bottom: 8px;
+    border-bottom: 1.5px dashed var(--teal);
+    padding-bottom: 3px;
+  }
+  .lb-col ul { list-style: none; padding: 0; }
+  .lb-col ul li {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 12px;
+    padding: 3px 0;
+    border-bottom: 1px dotted #ddd;
+    color: #333;
+  }
+  .lb-col ul li:last-child { border-bottom: none; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: #888;
+    font-size: 10.5px;
+    padding: 12px 40px;
+    text-align: center;
+    border-top: 3px solid var(--coral);
+    margin-top: 40px;
+    letter-spacing: 0.04em;
+  }
+  .footer strong { color: var(--coral); }
+
+  @media print {
+    .vocab-card, .affect-card, .disc-block, .compare-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div>
+    <div class="brand">Teach <span>for</span> Success</div>
+    <div class="subtitle">Student Handout · Democracy &amp; Voting: Comparing Systems, Questioning Results</div>
+  </div>
+</div>
+
+<!-- META STRIP -->
+<div class="meta-strip">
+  <span>Advanced ESL B2–C1</span>
+  <span>Topic: Democracy &amp; Voting</span>
+  <span>Focus: Civic Vocabulary + Discussion</span>
+  <span>Comparing: Peru &amp; United States</span>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════ VOCABULARY SET 1 ═══════════ -->
+  <div class="section-head">VOCABULARY SET 1 — CIVIC &amp; ELECTORAL PROCESS</div>
+
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="vc-head">RUNOFF (n)</div>
+      <div class="vc-body">
+        <div class="def">A second election when no candidate wins a majority in the first round.</div>
+        <div class="ex">"Neither candidate got 50%, so there will be a runoff."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">COMPULSORY VOTING (n)</div>
+      <div class="vc-body">
+        <div class="def">A system where citizens are <em>legally required</em> to vote or face a penalty.</div>
+        <div class="ex">"Peru has compulsory voting — you can be fined for not showing up."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">POLLING STATION (n)</div>
+      <div class="vc-body">
+        <div class="def">The place where people go to cast their vote.</div>
+        <div class="ex">"The polling station in my district opened three hours late."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">ELECTORAL FRAUD (n)</div>
+      <div class="vc-body">
+        <div class="def">Illegal actions that affect the outcome of an election.</div>
+        <div class="ex">"Observers found no evidence of electoral fraud despite allegations."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">TO ANNUL (v)</div>
+      <div class="vc-body">
+        <div class="def">To officially declare that a result has no legal force.</div>
+        <div class="ex">"The losing candidate called on authorities to annul the election."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">VOTER TURNOUT (n)</div>
+      <div class="vc-body">
+        <div class="def">The percentage of eligible voters who actually voted.</div>
+        <div class="ex">"Turnout in 2020 was the highest in over a century."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">ELECTORAL COLLEGE (n)</div>
+      <div class="vc-body">
+        <div class="def">A body of electors that formally elects the U.S. president.</div>
+        <div class="ex">"You can win the popular vote but lose the Electoral College."</div>
+      </div>
+    </div>
+    <div class="vocab-card">
+      <div class="vc-head">LOGISTICAL FAILURE (n)</div>
+      <div class="vc-body">
+        <div class="def">A breakdown in the practical organization of an event.</div>
+        <div class="ex">"Logistical failures delayed hundreds of polling stations."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ VOCABULARY SET 2 ═══════════ -->
+  <div class="section-head">VOCABULARY SET 2 — EXPRESSING OPINIONS ABOUT CIVIC LIFE</div>
+
+  <div class="prog-box">
+    <div class="prog-step basic">
+      <span class="label">BASIC</span>
+      sad · angry · happy · worried · unfair
+    </div>
+    <div class="prog-arrow">→</div>
+    <div class="prog-step mid">
+      <span class="label">INTERMEDIATE</span>
+      frustrated · concerned · disappointed · suspicious
+    </div>
+    <div class="prog-arrow">→</div>
+    <div class="prog-step adv">
+      <span class="label">TODAY'S WORDS ★</span>
+      disillusioned · skeptical · vigilant · outraged · accountable · legitimate
+    </div>
+  </div>
+
+  <div class="affect-grid">
+    <div class="affect-card">
+      <div class="ac-head c1">DISILLUSIONED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Disappointed after discovering something is not as good as expected.</div>
+        <div class="try">TRY IT: "Many voters feel _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c2">SKEPTICAL (adj)</div>
+      <div class="ac-body">
+        <div class="def">Not easily convinced; having doubts.</div>
+        <div class="try">TRY IT: "I'm skeptical that _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c3">OUTRAGED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Furious at something felt to be deeply unjust.</div>
+        <div class="try">TRY IT: "Protesters were outraged by _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c4">EMPOWERED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Feeling confident and in control of your own decisions.</div>
+        <div class="try">TRY IT: "Voting can make people feel _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c5">APATHETIC (adj)</div>
+      <div class="ac-body">
+        <div class="def">Showing no interest or concern about something.</div>
+        <div class="try">TRY IT: "When politicians ignore us, we become _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c6">VIGILANT (adj)</div>
+      <div class="ac-body">
+        <div class="def">Watchful and alert, especially to detect problems.</div>
+        <div class="try">TRY IT: "Citizens must remain _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c7">REASSURED (adj)</div>
+      <div class="ac-body">
+        <div class="def">Having had your fears reduced; feeling less worried.</div>
+        <div class="try">TRY IT: "The observer report _______________ many people."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c8">ACCOUNTABLE (adj)</div>
+      <div class="ac-body">
+        <div class="def">Required to explain and justify your actions.</div>
+        <div class="try">TRY IT: "Officials must be held _______________."</div>
+      </div>
+    </div>
+    <div class="affect-card">
+      <div class="ac-head c9">LEGITIMATE (adj)</div>
+      <div class="ac-body">
+        <div class="def">Conforming to the law; accepted as genuinely valid.</div>
+        <div class="try">TRY IT: "The results were declared _______________."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION A — DISCUSSION ═══════════ -->
+  <div class="section-head">SECTION A — PAIR DISCUSSION</div>
+
+  <div class="disc-block">
+    <div class="disc-head">
+      <span>Choose any two questions — discuss with your partner</span>
+      <div class="disc-badge">6 MINUTES</div>
+    </div>
+    <div class="disc-body">
+      <ol>
+        <li><span class="qnum">1</span><span class="qtext">In your country, is voting <strong>compulsory</strong> or <strong>voluntary</strong>? What do you think about that? What are the advantages and disadvantages of each?</span></li>
+        <li><span class="qnum">2</span><span class="qtext">What do you think the purpose of voting is? Is it a <strong>duty</strong>, a <strong>right</strong>, or something else entirely?</span></li>
+        <li><span class="qnum">3</span><span class="qtext">Have you ever felt <strong>disillusioned</strong> with an election result or the voting process? What happened? How did you respond?</span></li>
+        <li><span class="qnum">4</span><span class="qtext">What would make you <strong>trust</strong> or <strong>distrust</strong> the results of an election? What kinds of evidence would you need?</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════ COMPARISON PANELS ═══════════ -->
+  <div class="section-head">COMPARISON TASK — PERU &amp; UNITED STATES</div>
+  <p style="margin-top:10px;font-size:12px;color:#666;">Your teacher will assign you either Group A (Peru) or Group B (U.S.). Read your panel carefully — then find a partner from the other group and share what you learned.</p>
+
+  <div class="compare-grid">
+    <div class="compare-card">
+      <div class="cc-head peru">🇵🇪 GROUP A — PERU (2026)</div>
+      <ul>
+        <li>Two-round system: need &gt;50% of the vote to win outright</li>
+        <li>Compulsory voting for citizens aged 18–70; fines apply for not voting</li>
+        <li>First round: April 12, 2026 — major delays struck Lima polling stations</li>
+        <li>Runoff: Keiko Fujimori (17%) vs. Roberto Sánchez (12%); scheduled June 7</li>
+        <li>Margin between 2nd and 3rd place: only ~21,200 votes (0.09%)</li>
+        <li>Stanford study: delays caused ~27,000 fewer votes — but <em>did not change who advanced</em></li>
+        <li>JNE (National Jury of Elections) oversees; ONPE administers polling stations</li>
+        <li>Political instability: 9 presidents in the last decade due to congressional impeachment</li>
+        <li>Third-place candidate alleged fraud; election observers found no evidence</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <div class="cc-head usa">🇺🇸 GROUP B — UNITED STATES (2020)</div>
+      <ul>
+        <li>Electoral College: need 270 of 538 electoral votes to win — not a direct popular vote</li>
+        <li>Voluntary voting; no legal penalty for not voting</li>
+        <li>2020 voter turnout: 66.6% — highest since 1900</li>
+        <li>Biden won: 306 electoral votes, 51.3% of the popular vote</li>
+        <li>Record: over 100 million votes cast before Election Day (mail + early voting)</li>
+        <li>It is <em>possible</em> to win the popular vote but lose the election (as in 2016)</li>
+        <li>CISA called 2020 "the most secure election in American history"</li>
+        <li>Trump refused to concede; the January 6, 2021 Capitol attack followed</li>
+        <li>67+ countries sent election observers; no evidence of systemic fraud found</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Jigsaw discussion questions -->
+  <div class="disc-block" style="margin-top:14px;">
+    <div class="disc-head">
+      <span>Discussion — with your partner from the other group</span>
+      <div class="disc-badge">6 MINUTES</div>
+    </div>
+    <div class="disc-body">
+      <ol>
+        <li><span class="qnum">1</span><span class="qtext">How does <strong>your</strong> assigned system decide who wins? Explain it to your partner.</span></li>
+        <li><span class="qnum">2</span><span class="qtext">What could go wrong in your system? What <strong>safeguards</strong> exist to prevent or address problems?</span></li>
+        <li><span class="qnum">3</span><span class="qtext">Which one element of <strong>your partner's system</strong> would you most want to adopt — or reject? Why?</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION C — LIKERT ═══════════ -->
+  <div class="section-head">SECTION C — WHOLE-CLASS DISCUSSION: WHERE DO YOU STAND?</div>
+  <p style="margin-top:10px;font-size:12px;color:#666;">Circle your position (1 = strongly disagree → 5 = strongly agree). Be ready to explain your choice in one sentence.</p>
+
+  <div class="likert-items" style="margin-top:14px;">
+
+    <div class="likert-item">
+      <div class="li-stmt">1. Compulsory voting produces <strong>better democracy</strong> than voluntary voting.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">2. When an election has logistical problems, the result should be <strong>annulled and re-run</strong>, no matter the size of the problems.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">3. The <strong>Electoral College</strong> is an unfair system that should be replaced with a direct popular vote.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">4. A candidate who <strong>refuses to concede</strong> after an election loss is dangerous to democracy.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">5. <strong>International election observers</strong> make elections more trustworthy.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+    <div class="likert-item">
+      <div class="li-stmt">6. Democracy is in <strong>serious trouble</strong> in many countries right now.</div>
+      <div class="li-scale">
+        <span class="li-label">strongly disagree</span>
+        <div class="li-dots">
+          <div class="li-dot">1</div><div class="li-dot">2</div><div class="li-dot">3</div><div class="li-dot">4</div><div class="li-dot">5</div>
+        </div>
+        <span class="li-label">strongly agree</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ USEFUL LANGUAGE ═══════════ -->
+  <div class="lang-box">
+    <div class="lb-head">USEFUL LANGUAGE — EXPRESSING OPINIONS &amp; DISAGREEING POLITELY</div>
+    <div class="lb-body">
+      <div class="lb-col">
+        <h4>Giving Your Opinion</h4>
+        <ul>
+          <li>"From my perspective, …"</li>
+          <li>"In my experience, …"</li>
+          <li>"I tend to think that …"</li>
+          <li>"What concerns me most is …"</li>
+          <li>"I'm skeptical about … because …"</li>
+        </ul>
+      </div>
+      <div class="lb-col">
+        <h4>Polite Disagreement</h4>
+        <ul>
+          <li>"I see what you mean, but …"</li>
+          <li>"That's a fair point, although …"</li>
+          <li>"I'm not fully convinced that …"</li>
+          <li>"I'd push back on that a little …"</li>
+          <li>"The evidence suggests otherwise …"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  <strong>Teach for Success</strong> &nbsp;·&nbsp; Student Handout · Democracy &amp; Voting &nbsp;·&nbsp; Advanced ESL B2–C1 &nbsp;·&nbsp; Scan the QR code for the full survey and digital version
+</div>
+
+</body>
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 4: Directions & Locations — Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --rose-light:#FCE8EF;
+    --sky:#2E86C1;
+    --sky-light:#E7F1FA;
+    --yellow:#FFC93C;
+    --stone:#8B6F47;
+    --stone-deep:#5C4A2F;
+    --stone-light:#EFE8DC;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:920px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:20px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.7rem, 5vw, 2.6rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.95rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .print-link{
+    display:inline-flex;flex-direction:column;align-items:center;gap:2px;
+    text-decoration:none;color:var(--ink);
+    background:#fff;border:3px solid var(--ink);border-radius:18px;
+    padding:8px 18px;box-shadow:4px 4px 0 var(--ink);
+    transition:transform 0.1s ease;
+  }
+  .print-link:hover{transform:translate(-1px,-1px);}
+  .print-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+  .nav-links-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px;}
+  .nav-links-row .print-link{margin-top:0;}
+  .print-link .en{font-family:'Bungee', cursive;font-size:0.75rem;}
+  .print-link .es{font-family:'Space Mono', monospace;font-size:0.68rem;opacity:0.7;}
+
+  .tabs{
+    display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:22px 0 20px;
+  }
+  .tab-btn{
+    font-family:'Bungee', cursive;font-size:0.75rem;padding:10px 13px;
+    background:var(--paper);border:3px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform 0.1s ease;
+  }
+  .tab-btn:hover{transform:translate(-2px,-2px);}
+  .tab-btn.active{background:var(--accent, var(--yellow));transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+
+  .panel{display:none;}
+  .panel.active{display:block;animation:fadein 0.25s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .panel-toolbar{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:14px 18px;margin-bottom:18px;
+  }
+  .prompt{margin:0;font-size:1.05rem;}
+  .frame{
+    font-family:'Space Mono', monospace;font-weight:700;background:var(--yellow);
+    padding:2px 8px;border-radius:6px;border:2px solid var(--ink);margin-left:6px;white-space:nowrap;
+  }
+
+  .card-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));gap:16px;
+  }
+  .section-heading{
+    font-family:'Bungee', cursive;font-size:0.95rem;margin:20px 0 12px;padding:8px 16px;
+    display:inline-block;background:var(--heading-accent, var(--yellow));
+    border:3px solid var(--ink);border-radius:10px;box-shadow:4px 4px 0 var(--ink);
+  }
+  .section-heading:first-child{margin-top:4px;}
+
+  .culture-note{
+    margin-top:18px;background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:16px 20px;
+  }
+  .culture-note h3{font-family:'Bungee', cursive;font-size:0.9rem;margin:0 0 8px;display:flex;align-items:center;gap:8px;}
+  .culture-note p{font-family:'Fraunces', serif;font-size:0.92rem;line-height:1.55;margin:0 0 10px;}
+  .culture-note p:last-child{margin-bottom:0;}
+
+  .flip-card{perspective:1000px;height:196px;cursor:pointer;}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform 0.5s;transform-style:preserve-3d;}
+  .flip-card.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-front, .flip-back{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border:4px solid var(--ink);border-radius:var(--card-radius);box-shadow:5px 5px 0 var(--ink);
+    backface-visibility:hidden;padding:8px;text-align:center;overflow:hidden;
+  }
+  .flip-front{background:#fff;font-size:3rem;}
+  .front-word{font-family:'Bungee', cursive;font-size:1.1rem;line-height:1.25;}
+  .flip-back{background:var(--accent, var(--yellow));transform:rotateY(180deg);}
+  .back-word{font-family:'Bungee', cursive;font-size:1rem;line-height:1.2;margin-bottom:4px;}
+  .back-es{font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.75;}
+  .qa-turns{display:flex;flex-direction:column;gap:5px;width:100%;margin-top:8px;}
+  .qa-ask, .qa-answer{
+    display:flex;align-items:center;gap:5px;font-family:'Space Mono', monospace;font-size:0.62rem;
+    line-height:1.25;padding:3px 8px;border-radius:12px;border:1.5px solid var(--ink);background:#fff;
+    text-align:left;opacity:0;transform:translateY(4px);
+  }
+  .qa-icon{font-size:0.85rem;flex-shrink:0;}
+  .qa-answer{font-weight:700;}
+  .flip-card.flipped .qa-ask{animation:qaPop 0.3s ease forwards;animation-delay:0.1s;}
+  .flip-card.flipped .qa-answer{animation:qaPop 0.3s ease forwards;animation-delay:0.5s;}
+  @keyframes qaPop{to{ opacity:1; transform:translateY(0); }}
+  .tap-hint{position:absolute;bottom:6px;right:8px;font-family:'Space Mono', monospace;font-size:0.62rem;opacity:0.45;}
+  .replay-btn{
+    margin-top:6px;font-size:0.8rem;background:#fff;border:2px solid var(--ink);border-radius:20px;
+    padding:2px 10px;cursor:pointer;font-family:'Space Mono', monospace;
+  }
+  .replay-btn:active{transform:translate(1px,1px);}
+
+  .sort-btn{
+    font-family:'Bungee', cursive;font-size:0.8rem;padding:14px 18px;border:4px solid var(--ink);
+    border-radius:var(--card-radius);box-shadow:5px 5px 0 var(--ink);cursor:pointer;background:#fff;
+  }
+  .sort-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+
+  .score{
+    font-family:'Space Mono', monospace;font-size:0.85rem;background:var(--paper);
+    border:2px solid var(--ink);border-radius:8px;padding:6px 10px;
+  }
+
+  .diagram-wrap{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);padding:18px;max-width:640px;margin:0 auto 26px;
+  }
+  .diagram-wrap svg{width:100%;height:auto;display:block;}
+
+  .tpr-hint{text-align:center;font-size:0.88rem;color:#555;margin:0 0 16px;}
+  .tpr-stage, .gen-stage{
+    display:flex;flex-direction:column;align-items:center;gap:16px;margin:0 0 30px;
+  }
+  .tpr-card, .gen-card{
+    width:100%;max-width:460px;min-height:150px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;padding:26px 22px;text-align:center;transition:transform 0.2s ease;
+  }
+  .tpr-card{background:var(--sky-light);}
+  .gen-card{background:var(--rose-light);}
+  .tpr-card.pulse, .gen-card.pulse{animation:pulse 0.4s;}
+  @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
+  .tpr-instruction, .gen-sentence{font-family:'Bungee', cursive;font-size:1.1rem;line-height:1.5;}
+  .tpr-buttons, .gen-buttons{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+  .tpr-next-btn{background:var(--sky);color:#fff;}
+  .gen-next-btn{background:var(--rose);color:#fff;}
+  .tpr-note{
+    font-family:'Space Mono', monospace;font-size:0.75rem;opacity:0.6;text-align:center;margin-top:-6px;
+  }
+
+  .video-embed-wrap{
+    position:relative;width:100%;max-width:480px;aspect-ratio:16/9;margin:14px auto 10px;
+    border:3px solid var(--ink);border-radius:10px;overflow:hidden;box-shadow:4px 4px 0 var(--ink);
+  }
+  .video-embed-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  .video-link{
+    display:block;width:fit-content;margin:0 auto;font-family:'Bungee', cursive;font-size:0.78rem;
+    background:var(--coral);color:#fff;border:2px solid var(--ink);border-radius:16px;
+    padding:6px 16px;text-decoration:none;
+  }
+  .video-link:active{transform:translate(2px,2px);}
+
+  /* Town Map */
+  .map-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(120px,1fr));
+    gap:14px;margin-bottom:20px;
+  }
+  .map-pin{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:16px 10px;cursor:pointer;
+    font-family:'Bungee', cursive;font-size:0.8rem;transition:transform 0.15s ease;
+  }
+  .map-pin:hover{transform:translate(-2px,-2px);}
+  .map-pin:nth-child(3n+1){transform:rotate(-1.5deg);}
+  .map-pin:nth-child(3n+2){transform:rotate(1.5deg);}
+  .map-pin:hover:nth-child(3n+1){transform:rotate(-1.5deg) translate(-2px,-2px);}
+  .map-pin:hover:nth-child(3n+2){transform:rotate(1.5deg) translate(-2px,-2px);}
+  .map-pin.active{background:var(--yellow);transform:translate(2px,2px) !important;box-shadow:2px 2px 0 var(--ink);}
+  .map-pin-icon{font-size:2.4rem;}
+
+  .info-card{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);padding:24px;text-align:center;max-width:480px;margin:0 auto;
+  }
+  .info-icon{font-size:3.4rem;margin-bottom:6px;}
+  .info-word{font-family:'Bungee', cursive;font-size:1.3rem;margin-bottom:4px;}
+  .info-def{font-family:'Fraunces', serif;font-size:0.95rem;line-height:1.5;margin-bottom:10px;}
+  .info-es{font-family:'Space Mono', monospace;font-size:0.85rem;font-style:italic;opacity:0.8;margin-bottom:6px;}
+  .info-sentence{font-family:'Space Mono', monospace;font-size:0.78rem;opacity:0.65;margin-bottom:14px;}
+  .info-buttons{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+  footer{text-align:center;font-family:'Space Mono', monospace;font-size:0.7rem;opacity:0.5;margin-top:40px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">DAY 4 · GET TO KNOW</div>
+    <h1>Where Is It?</h1>
+    <p class="subtitle">Direcciones y lugares · Say it out loud, then tap to check and hear it. 🔊</p>
+    <div class="nav-links-row">
+      <a class="print-link" href="day4_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Get the Printable Cards (PDF)</span>
+        <span class="es">Descargar las tarjetas para imprimir</span>
+      </a>
+      <a class="print-link" href="day4_quiz.html">
+        <span class="en">🎯 Take the Quiz</span>
+        <span class="es">Hacer el cuestionario</span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="townmap" style="--accent:var(--gold)">🗺️ Town Map</button>
+    <button class="tab-btn" data-tab="locations" style="--accent:var(--rose)">🏙️ Locations</button>
+    <button class="tab-btn" data-tab="directions" style="--accent:var(--blue)">🧭 Directions</button>
+    <button class="tab-btn" data-tab="prepositions" style="--accent:var(--teal)">📍 Where Is It?</button>
+    <button class="tab-btn" data-tab="landmarks" style="--accent:var(--stone)">🏔️ Andean Landmarks</button>
+    <button class="tab-btn" data-tab="phrases" style="--accent:var(--plum)">🗣️ Asking &amp; Giving Directions</button>
+    <button class="tab-btn" data-tab="songs" style="--accent:var(--coral)">🎶 Direction Songs</button>
+    <button class="tab-btn" data-tab="simon" style="--accent:var(--sky)">🎯 Simon Says</button>
+    <button class="tab-btn" data-tab="giveDirections" style="--accent:var(--green)">🧭 Give Directions!</button>
+  </nav>
+
+  <section id="townmap" class="panel active">
+    <div class="panel-toolbar">
+      <p class="prompt">Explore the town! <span class="frame">Click and listen. Click and learn.</span></p>
+    </div>
+
+    <div class="map-grid" id="map-grid"></div>
+
+    <div class="info-card" id="info-card">
+      <div class="info-icon" id="info-icon">🗺️</div>
+      <div class="info-word" id="info-word">Tap a place to start!</div>
+      <div class="info-def" id="info-def">Toca cualquier lugar del mapa para aprender la palabra, su definición y un ejemplo.</div>
+      <div class="info-es" id="info-es"></div>
+      <div class="info-sentence" id="info-sentence"></div>
+      <div class="info-buttons">
+        <button class="sort-btn" id="info-replay-en">🔊 English</button>
+        <button class="sort-btn" id="info-replay-es">🔊 Español</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="locations" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Where is the...? <span class="frame">Where is the ___?</span></p>
+    </div>
+    <div class="card-grid" id="locations-grid"></div>
+  </section>
+
+  <section id="directions" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Follow the directions! <span class="frame">Turn left/right. Go straight. Stop.</span></p>
+    </div>
+    <div class="card-grid" id="directions-grid"></div>
+    <div class="culture-note">
+      <p>📌 In mountain terrain, <strong>go up</strong> (suba) and <strong>go down</strong> (baje) are just as important as left and right — see the Andean Landmarks tab for more on how directions really work here.</p>
+    </div>
+  </section>
+
+  <section id="prepositions" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Where is it, relative to the store? <span class="frame">It's ___ the store.</span></p>
+    </div>
+
+    <div class="diagram-wrap" id="prep-diagram"></div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--teal)">📍 All Location Words</h2>
+    <div class="card-grid" id="prepositions-grid"></div>
+  </section>
+
+  <section id="landmarks" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">How do people really give directions here? <span class="frame">Landmarks, not street names.</span></p>
+    </div>
+
+    <div class="culture-note">
+      <h3>📌 Nota cultural para los estudiantes</h3>
+      <p>In Andean towns and rural areas, people give directions using <strong>visible landmarks</strong> — the main plaza, the church, a bridge, a mountain pass — much more than official street names or "north/south." Because the terrain is so steep, directions almost always include <strong>subir</strong> (go up) or <strong>bajar</strong> (go down) alongside left/right.</p>
+      <p>En los pueblos y zonas rurales de los Andes, la gente da direcciones usando <strong>puntos de referencia visibles</strong> — la plaza principal, la iglesia, un puente, un abra — mucho más que nombres oficiales de calles o "norte/sur." Por la topografía, las direcciones casi siempre incluyen <strong>subir</strong> o <strong>bajar</strong>, además de izquierda/derecha.</p>
+    </div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--stone)">🏘️ Town Landmarks</h2>
+    <div class="card-grid" id="landmarks-urban-grid"></div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--stone)">⛰️ Rural &amp; Mountain Landmarks</h2>
+    <div class="card-grid" id="landmarks-rural-grid"></div>
+  </section>
+
+  <section id="phrases" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Ask and give directions! <span class="frame">Where is the ___? Turn left/right...</span></p>
+    </div>
+    <div class="card-grid" id="phrases-grid"></div>
+  </section>
+
+  <section id="songs" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Sing and dance! <span class="frame">Pre-teach the vocab, then dance together.</span></p>
+    </div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--coral)">🕺 Hokey Pokey</h2>
+    <div class="culture-note">
+      <p>Pre-teach the vocabulary before playing: <strong>hand, foot, head, in, out, shake it, turn around</strong>. Then play the song and do the actions together — a fun way to review body-part and direction words at the same time.</p>
+      <div class="video-embed-wrap">
+        <iframe src="https://www.youtube.com/embed/B7sEtc326kM" title="Hokey Pokey - The Learning Station" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=B7sEtc326kM" target="_blank" rel="noopener">▶️ Open in YouTube</a>
+    </div>
+
+    <h2 class="section-heading" style="--heading-accent:var(--coral)">💃 Cupid Shuffle</h2>
+    <div class="culture-note">
+      <p>Pre-teach: <strong>right, left, walk it out, kick, hop, shuffle</strong> — this song directly reuses the <strong>turn right / turn left</strong> vocabulary from the Directions tab! Do the dance together once trainees know the words.</p>
+      <div class="video-embed-wrap">
+        <iframe src="https://www.youtube.com/embed/uPna1dIeUHQ" title="Cupid Shuffle - Cupid" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=uPna1dIeUHQ" target="_blank" rel="noopener">▶️ Open in YouTube</a>
+    </div>
+  </section>
+
+  <section id="simon" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Simon Says! <span class="frame">Very active — get up and move!</span></p>
+    </div>
+
+    <div class="culture-note">
+      <p>Call out the command below. Students should only do the action if it starts with <strong>"Simon says."</strong> If a student does the action when the caller <em>didn't</em> say "Simon says," they're out!</p>
+      <p>Digan la orden en voz alta. Los estudiantes solo deben hacer la acción si empieza con "Simon says." Si alguien hace la acción sin esas palabras, ¡queda eliminado!</p>
+    </div>
+
+    <div class="tpr-stage">
+      <div class="tpr-card" id="simon-card">
+        <div class="tpr-instruction" id="simon-instruction">Simon says, "Turn left!"</div>
+      </div>
+      <div class="tpr-buttons">
+        <button class="sort-btn" id="simon-replay">🔊 Hear it</button>
+        <button class="sort-btn tpr-next-btn" id="simon-next">🔄 New Command</button>
+      </div>
+      <div class="score">Commands called: <span id="simon-count">0</span></div>
+      <p class="tpr-note" id="simon-teacher-note">(Teacher note: this one is a real "Simon says" command.)</p>
+    </div>
+  </section>
+
+  <section id="giveDirections" class="panel">
+    <div class="panel-toolbar">
+      <p class="prompt">Put it all together! <span class="frame">Turn ___. Go straight ___ blocks. It's on your ___.</span></p>
+    </div>
+
+    <div class="culture-note">
+      <p>Tap <strong>New Directions!</strong> for a random practice route. Try saying it out loud — and pointing/walking it out — before you listen.</p>
+      <p>Toque <strong>New Directions!</strong> para una ruta de práctica al azar. Intente decirla en voz alta — y caminarla — antes de escucharla.</p>
+    </div>
+
+    <div class="gen-stage">
+      <div class="gen-card" id="dir-gen-card">
+        <div class="gen-sentence" id="dir-gen-sentence">Turn left. Go straight three blocks. The library will be on your right.</div>
+      </div>
+      <div class="gen-buttons">
+        <button class="sort-btn" id="dir-gen-replay">🔊 Hear it</button>
+        <button class="sort-btn gen-next-btn" id="dir-gen-next">🔄 New Directions!</button>
+      </div>
+      <div class="score">Directions given: <span id="dir-gen-count">0</span></div>
+    </div>
+  </section>
+
+  <footer>Teach for Success · Day 4 practice tool</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  const locations = [
+    {emoji:"🚻", word:"bathroom", es:"baño", def:"A room where you wash up or use the toilet.", sentence:"Where is the bathroom?"},
+    {emoji:"🏥", word:"hospital", es:"hospital", def:"A place where doctors and nurses help sick or hurt people.", sentence:"Where is the hospital?"},
+    {emoji:"🍽️", word:"restaurant", es:"restaurante", def:"A place where you go to eat a meal.", sentence:"Where is the restaurant?"},
+    {emoji:"🏠", word:"house", es:"casa", def:"A building where a family lives.", sentence:"Where is your house?"},
+    {emoji:"📚", word:"library", es:"biblioteca", def:"A place with many books you can read or borrow.", sentence:"Where is the library?"},
+    {emoji:"🏪", word:"store", es:"tienda", def:"A place where you buy things you need.", sentence:"Where is the store?"},
+    {emoji:"🏫", word:"school", es:"escuela", def:"A place where students go to learn.", sentence:"Where is the school?"},
+    {emoji:"🏞️", word:"park", es:"parque", def:"An outdoor place with grass and trees where you can play.", sentence:"Where is the park?"},
+    {emoji:"🏦", word:"bank", es:"banco", def:"A place where people keep and manage their money.", sentence:"Where is the bank?"},
+    {emoji:"⛪", word:"church", es:"iglesia", def:"A building where people go to pray or worship.", sentence:"Where is the church?"},
+    {emoji:"🏬", word:"market", es:"mercado", def:"A place where people buy fresh food, like fruits and vegetables.", sentence:"Where is the market?"}
+  ];
+
+  const directions = [
+    {emoji:"⬅️", word:"turn left", es:"doble a la izquierda"},
+    {emoji:"➡️", word:"turn right", es:"doble a la derecha"},
+    {emoji:"⬆️", word:"go straight", es:"siga derecho"},
+    {emoji:"🛑", word:"stop", es:"alto"},
+    {emoji:"🚸", word:"cross the street", es:"cruce la calle"},
+    {emoji:"🧗", word:"go up", es:"suba"},
+    {emoji:"⬇️", word:"go down", es:"baje"}
+  ];
+
+  // In Andean towns, giving directions leans on landmarks — the main plaza,
+  // the church, a bridge, a mountain pass — far more than street names or
+  // cardinal directions, and mountain terrain means "up/down" matters as
+  // much as "left/right." These cover both the small-town and rural/trail
+  // versions of that.
+  const landmarksUrban = [
+    {emoji:"⛲", word:"the plaza", es:"la plaza"},
+    {emoji:"🚌", word:"the bus terminal", es:"el terminal de buses"},
+    {emoji:"⚽", word:"the soccer field", es:"la cancha"},
+    {emoji:"🌉", word:"the bridge", es:"el puente"}
+  ];
+  const landmarksRural = [
+    {emoji:"🏔️", word:"the mountain pass", es:"el abra"},
+    {emoji:"🔀", word:"the fork in the road", es:"la Y"},
+    {emoji:"🌀", word:"the curve", es:"la curva"},
+    {emoji:"🪦", word:"the cemetery", es:"el cementerio"},
+    {emoji:"🗿", word:"the stone marker", es:"la apacheta"},
+    {emoji:"🌊", word:"the river", es:"el río"},
+    {emoji:"⛰️", word:"the ravine", es:"la quebrada"},
+    {emoji:"📡", word:"the tower", es:"la antena"}
+  ];
+  const landmarks = [...landmarksUrban, ...landmarksRural];
+
+  const prepositions = [
+    {word:"next to", es:"al lado de"},
+    {word:"in front of", es:"enfrente de"},
+    {word:"behind", es:"detrás de"},
+    {word:"across from", es:"frente a"},
+    {word:"between", es:"entre"},
+    {word:"near", es:"cerca de"},
+    {word:"toward", es:"hacia"}
+  ];
+
+  const directionPhrases = [
+    {en:"Where is the library?", es:"¿Dónde está la biblioteca?"},
+    {en:"Turn left at the corner.", es:"Doble a la izquierda en la esquina."},
+    {en:"Turn right on Main Street.", es:"Doble a la derecha en la calle Main."},
+    {en:"Go straight two blocks.", es:"Siga derecho dos cuadras."},
+    {en:"It will be on your right.", es:"Estará a su derecha."},
+    {en:"It will be on your left.", es:"Estará a su izquierda."},
+    {en:"The bank is next to the store.", es:"El banco está al lado de la tienda."},
+    {en:"The school is across from the park.", es:"La escuela está frente al parque."}
+  ];
+
+  const PREP_DIAGRAM_SVG = `<svg viewBox="0 0 660 500" xmlns="http://www.w3.org/2000/svg">
+    <line x1="210" y1="205" x2="290" y2="205" stroke="#1A1A1A" stroke-width="3"/>
+    <text x="250" y="195" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">next to</text>
+    <line x1="345" y1="175" x2="345" y2="104" stroke="#1A1A1A" stroke-width="3"/>
+    <text x="345" y="140" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">behind</text>
+    <line x1="345" y1="235" x2="345" y2="310" stroke="#1A1A1A" stroke-width="3"/>
+    <text x="390" y="272" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">in front of</text>
+    <rect x="465" y="40" width="24" height="340" fill="#ddd"/>
+    <line x1="400" y1="205" x2="510" y2="205" stroke="#1A1A1A" stroke-width="3" stroke-dasharray="5,5"/>
+    <text x="455" y="195" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">across from</text>
+    <line x1="410" y1="235" x2="510" y2="300" stroke="#1A1A1A" stroke-width="3" stroke-dasharray="2,4"/>
+    <text x="475" y="255" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">near</text>
+    <line x1="200" y1="457" x2="232" y2="457" stroke="#1A1A1A" stroke-width="3"/>
+    <line x1="322" y1="457" x2="360" y2="457" stroke="#1A1A1A" stroke-width="3"/>
+    <text x="277" y="415" text-anchor="middle" font-size="12" font-weight="700" font-family="'Space Mono', monospace" fill="#8C1D46">between</text>
+    <rect x="290" y="175" width="110" height="60" rx="10" fill="#FFC93C" stroke="#1A1A1A" stroke-width="5"/>
+    <text x="345" y="203" text-anchor="middle" font-size="22">🏪</text>
+    <text x="345" y="225" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">STORE</text>
+    <rect x="100" y="178" width="110" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="155" y="203" text-anchor="middle" font-size="22">🌳</text>
+    <text x="155" y="225" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">TREE</text>
+    <rect x="290" y="50" width="110" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="345" y="75" text-anchor="middle" font-size="22">🏞️</text>
+    <text x="345" y="97" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">PARK</text>
+    <rect x="290" y="310" width="110" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="345" y="335" text-anchor="middle" font-size="22">🚗</text>
+    <text x="345" y="357" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">CAR</text>
+    <rect x="510" y="178" width="100" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="560" y="203" text-anchor="middle" font-size="22">🏫</text>
+    <text x="560" y="225" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">SCHOOL</text>
+    <rect x="510" y="290" width="100" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="560" y="315" text-anchor="middle" font-size="22">🏥</text>
+    <text x="560" y="337" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">HOSPITAL</text>
+    <rect x="100" y="430" width="100" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="150" y="455" text-anchor="middle" font-size="22">🏠</text>
+    <text x="150" y="477" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">HOUSE</text>
+    <rect x="232" y="430" width="90" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="277" y="455" text-anchor="middle" font-size="22">📫</text>
+    <text x="277" y="477" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">MAILBOX</text>
+    <rect x="360" y="430" width="100" height="54" rx="10" fill="#fff" stroke="#1A1A1A" stroke-width="3.5"/>
+    <text x="410" y="455" text-anchor="middle" font-size="22">📚</text>
+    <text x="410" y="477" text-anchor="middle" font-size="11" font-weight="700" font-family="'Bungee', cursive" fill="#1A1A1A">LIBRARY</text>
+  </svg>`;
+
+  // ---- Audio (Web Speech API) ----
+  let voiceList = [];
+  function loadVoices(){ voiceList = window.speechSynthesis.getVoices(); }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+  function speak(text, lang, rate, pitch, volume){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = rate || 0.92;
+    utter.pitch = pitch || 1;
+    utter.volume = volume || 1;
+    window.speechSynthesis.speak(utter);
+  }
+  function speakItem(sentenceOrParts, lang){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    if(Array.isArray(sentenceOrParts)){
+      sentenceOrParts.forEach(part=> speak(part.text, part.lang, part.rate, part.pitch, part.volume));
+    } else {
+      speak(sentenceOrParts, lang || 'en-US');
+    }
+  }
+
+  function pickRandom(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---- Front face builder ----
+  function buildFront(item){
+    if(item.photo){ return `<div class="photo-wrap"><img src="${item.photo}" alt="${item.word}"></div>`; }
+    if(item.art){ return item.art; }
+    return item.flag || item.emoji || '';
+  }
+
+  // ---- Flip card builder ----
+  function buildFlipCards(containerId, data, accentVar, buildBackTop, speakFn, question, answerTextFn, extraFn, frontFn){
+    const grid = document.getElementById(containerId);
+    data.forEach(item=>{
+      const speakContent = speakFn(item);
+      const answerText = answerTextFn(item);
+      const card = document.createElement('div');
+      card.className = 'flip-card';
+      card.innerHTML = `
+        <div class="flip-inner">
+          <div class="flip-front">${frontFn ? frontFn(item) : buildFront(item)}</div>
+          <div class="flip-back" style="--accent:${accentVar}">
+            ${buildBackTop(item)}
+            <div class="qa-turns">
+              ${question ? `<div class="qa-ask"><span class="qa-icon">🧑</span><span>${question}</span></div>` : ''}
+              <div class="qa-answer"><span class="qa-icon">🙂</span><span>${answerText}</span></div>
+            </div>
+            ${extraFn ? extraFn(item) : ''}
+            <button class="replay-btn" type="button" aria-label="Play audio">🔊</button>
+          </div>
+        </div>
+        <span class="tap-hint">🔊 tap</span>
+      `;
+      card.addEventListener('click', ()=>{
+        const nowFlipped = card.classList.toggle('flipped');
+        if(nowFlipped){
+          speakItem(speakContent);
+        } else if('speechSynthesis' in window){
+          window.speechSynthesis.cancel();
+        }
+      });
+      card.querySelector('.replay-btn').addEventListener('click', (e)=>{
+        e.stopPropagation();
+        speakItem(speakContent);
+      });
+      grid.appendChild(card);
+    });
+  }
+
+  buildFlipCards('locations-grid', locations, 'var(--rose)',
+    (item)=>`<div class="back-word">${item.word}</div><div class="back-es">${item.es}</div>`,
+    (item)=> item.sentence, "", (item)=> item.sentence
+  );
+
+  buildFlipCards('directions-grid', directions, 'var(--blue)',
+    (item)=>`<div class="back-word">${item.word}</div><div class="back-es">${item.es}</div>`,
+    (item)=> `${item.word.charAt(0).toUpperCase()}${item.word.slice(1)}!`, "",
+    (item)=> `${item.word.charAt(0).toUpperCase()}${item.word.slice(1)}!`
+  );
+
+  buildFlipCards('prepositions-grid', prepositions, 'var(--teal)',
+    (item)=>`<div class="back-word" style="font-size:0.85rem;">${item.word}</div><div class="back-es">${item.es}</div>`,
+    (item)=> `It's ${item.word} the store.`, "",
+    (item)=> `It's ${item.word} the store.`,
+    null,
+    (item)=> `<div class="front-word">${item.word}</div>`
+  );
+
+  buildFlipCards('landmarks-urban-grid', landmarksUrban, 'var(--stone)',
+    (item)=>`<div class="back-word" style="font-size:0.85rem;">${item.word}</div><div class="back-es">${item.es}</div>`,
+    (item)=> `Where is ${item.word}?`, "",
+    (item)=> `Where is ${item.word}?`
+  );
+
+  buildFlipCards('landmarks-rural-grid', landmarksRural, 'var(--stone)',
+    (item)=>`<div class="back-word" style="font-size:0.85rem;">${item.word}</div><div class="back-es">${item.es}</div>`,
+    (item)=> `Where is ${item.word}?`, "",
+    (item)=> `Where is ${item.word}?`
+  );
+
+  buildFlipCards('phrases-grid', directionPhrases, 'var(--plum)',
+    (item)=>`<div class="back-word" style="font-size:0.82rem;">${item.en}</div>`,
+    (item)=> item.en, "", (item)=> item.en,
+    null,
+    (item)=> `<div class="front-word" style="font-size:0.88rem;">${item.es}</div>`
+  );
+
+  // ---- Prepositions diagram ----
+  document.getElementById('prep-diagram').innerHTML = PREP_DIAGRAM_SVG;
+
+  // ---- Town Map ----
+  let currentMapItem = null;
+  const mapGrid = document.getElementById('map-grid');
+  locations.forEach(item=>{
+    const pin = document.createElement('button');
+    pin.type = 'button';
+    pin.className = 'map-pin';
+    pin.innerHTML = `<span class="map-pin-icon">${item.emoji}</span><span>${item.word}</span>`;
+    pin.addEventListener('click', ()=>{
+      document.querySelectorAll('.map-pin').forEach(p=>p.classList.remove('active'));
+      pin.classList.add('active');
+      currentMapItem = item;
+      document.getElementById('info-icon').textContent = item.emoji;
+      document.getElementById('info-word').textContent = item.word.charAt(0).toUpperCase()+item.word.slice(1);
+      document.getElementById('info-def').textContent = item.def;
+      document.getElementById('info-es').textContent = item.es;
+      document.getElementById('info-sentence').textContent = item.sentence;
+      speakItem(item.word, 'en-US');
+    });
+    mapGrid.appendChild(pin);
+  });
+  document.getElementById('info-replay-en').addEventListener('click', ()=>{
+    if(currentMapItem) speakItem(currentMapItem.sentence, 'en-US');
+  });
+  document.getElementById('info-replay-es').addEventListener('click', ()=>{
+    if(currentMapItem) speakItem(currentMapItem.es, 'es-ES');
+  });
+
+  // ---- Simon Says (very active) ----
+  let simonCount = 0;
+  let currentSimon = null;
+
+  function generateSimonSays(){
+    const includesSimon = Math.random() < 0.7;
+    const action = pickRandom(directions);
+    const actionText = `${action.word.charAt(0).toUpperCase()}${action.word.slice(1)}!`;
+    const callText = includesSimon ? `Simon says, "${actionText}"` : actionText;
+    return { callText, includesSimon, actionEs: action.es };
+  }
+
+  function renderSimon(){
+    currentSimon = generateSimonSays();
+    document.getElementById('simon-instruction').textContent = currentSimon.callText;
+    document.getElementById('simon-teacher-note').textContent = currentSimon.includesSimon
+      ? '(Teacher note: this IS a real "Simon says" command — do the action.)'
+      : '(Teacher note: this is a TRICK — no "Simon says," do not move!)';
+    const card = document.getElementById('simon-card');
+    card.classList.add('pulse');
+    setTimeout(()=> card.classList.remove('pulse'), 400);
+    speakItem(currentSimon.callText);
+  }
+
+  document.getElementById('simon-next').addEventListener('click', ()=>{
+    simonCount++;
+    document.getElementById('simon-count').textContent = simonCount;
+    renderSimon();
+  });
+  document.getElementById('simon-replay').addEventListener('click', ()=>{
+    if(currentSimon) speakItem(currentSimon.callText);
+  });
+  renderSimon();
+
+  // ---- Give Directions! generator ----
+  // Alternates between a "town" style route (street name + blocks) and a
+  // "rural/mountain" style route (elevation + landmarks) — reflecting that
+  // Andean direction-giving actually shifts frameworks between the two.
+  const BLOCK_WORDS = ["one","two","three","four","five"];
+  const STREET_NAMES = ["Calle Sucre","Calle Bolívar","Avenida Amazonas","Calle Rocafuerte","Calle Olmedo","Calle García Moreno","Calle Chimborazo"];
+  let dirGenCount = 0;
+  let currentDirGen = null;
+
+  function generateUrbanDirections(){
+    const turnDir = pickRandom(["left","right"]);
+    const blocks = 1 + Math.floor(Math.random()*5);
+    const loc = pickRandom(locations);
+    const side = pickRandom(["left","right"]);
+    const street = pickRandom(STREET_NAMES);
+    const blockWord = BLOCK_WORDS[blocks-1];
+    return { sentence: `Turn ${turnDir} on ${street}. Go straight ${blockWord} block${blocks>1?'s':''}. The ${loc.word} will be on your ${side}.` };
+  }
+
+  function generateRuralDirections(){
+    const verticality = pickRandom(["Go up","Go down"]);
+    const landmark1 = pickRandom(landmarks);
+    const others = landmarks.filter(l=>l.word!==landmark1.word);
+    const landmark2 = pickRandom(others);
+    const turnDir = pickRandom(["left","right"]);
+    return { sentence: `${verticality} toward ${landmark1.word}. Turn ${turnDir} at ${landmark2.word}.` };
+  }
+
+  function generateDirections(){
+    return Math.random() < 0.5 ? generateUrbanDirections() : generateRuralDirections();
+  }
+
+  function renderDirGenerator(){
+    currentDirGen = generateDirections();
+    document.getElementById('dir-gen-sentence').textContent = currentDirGen.sentence;
+    const card = document.getElementById('dir-gen-card');
+    card.classList.add('pulse');
+    setTimeout(()=> card.classList.remove('pulse'), 400);
+    speakItem(currentDirGen.sentence);
+  }
+
+  document.getElementById('dir-gen-next').addEventListener('click', ()=>{
+    dirGenCount++;
+    document.getElementById('dir-gen-count').textContent = dirGenCount;
+    renderDirGenerator();
+  });
+  document.getElementById('dir-gen-replay').addEventListener('click', ()=>{
+    if(currentDirGen) speakItem(currentDirGen.sentence);
+  });
+  renderDirGenerator();
+</script>
+</body>
+</html>

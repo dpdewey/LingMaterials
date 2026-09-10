@@ -1,0 +1,117 @@
+============================================================
+  LING MATERIALS — BYU BRAND-COMPLIANT REDESIGN
+  Deployment Guide
+============================================================
+
+WHAT THIS UPDATE IS
+-------------------
+A full visual rebuild that aligns the mentoring archive with
+official BYU brand standards, mirroring the structure of
+ling.byu.edu (which uses BYU's Brightspot template).
+
+Functionality is unchanged — all forms, archives, admin pages,
+privacy toggles, and AI summary work exactly as before. Only
+the visual layer was rewritten.
+
+============================================================
+  WHAT TO UPLOAD
+============================================================
+
+The folder structure matches your existing GitHub repo. Simply
+replace the existing files. Below is exactly what goes where.
+
+ROOT OF YOUR REPOSITORY (LingMaterials/)
+----------------------------------------
+  index.html                   ← landing page
+  styles.css                   ← (unused at root, kept for legacy)
+  storage.js                   ← (unused at root, kept for legacy)
+  seed-data.js                 ← (unused at root, kept for legacy)
+  student-seed.js              ← (unused at root, kept for legacy)
+  student-styles.css           ← (unused at root, kept for legacy)
+  netlify.toml                 ← serverless config (Netlify only)
+  api/summary.js               ← serverless AI summary (Vercel)
+  netlify/functions/summary.js ← serverless AI summary (Netlify)
+  assets/logos/*.png           ← official BYU Linguistics logos
+
+INSIDE FacultyMentoring/  (REPLACE the whole folder)
+----------------------------------------------------
+  entry.html       ← faculty submission form
+  entry.js
+  view.html        ← public faculty archive
+  view.js
+  admin.html       ← password-gated admin page
+  admin.js         ← admin logic + CSV export
+  styles.css       ← BYU brand-compliant styles
+  storage.js       ← shared storage shim
+  seed-data.js     ← faculty sample data
+
+INSIDE MentoredStudent/  (REPLACE the whole folder)
+---------------------------------------------------
+  student-entry.html   ← student submission form
+  student-entry.js
+  student-view.html    ← public student archive
+  student-view.js
+  admin.html           ← password-gated admin page
+  admin.js             ← admin logic + CSV export
+  styles.css           ← BYU brand-compliant styles
+  student-styles.css   ← duplicate kept for legacy refs
+  storage.js           ← shared storage shim
+  student-seed.js      ← student sample data
+
+INSIDE assets/logos/
+--------------------
+  ling_horiz_navy.png    ← BYU Linguistics horizontal, navy
+  ling_horiz_white.png   ← BYU Linguistics horizontal, white (used in footer)
+  ling_cent_navy.png     ← BYU Linguistics centered, navy
+  ling_cent_white.png    ← BYU Linguistics centered, white
+
+These are the official sub-brand logos provided in your zip;
+they are required for the page footer to render correctly.
+
+============================================================
+  ADMIN ACCESS
+============================================================
+
+Faculty admin URL:
+  https://dpdewey.github.io/LingMaterials/FacultyMentoring/admin.html
+
+Student admin URL:
+  https://dpdewey.github.io/LingMaterials/MentoredStudent/admin.html
+
+Password (for both):  ShaneReeseMentors
+
+The admin pages:
+  - Are tagged noindex/nofollow (search engines skip them)
+  - Are NOT linked from any public page
+  - Show all data including private fields and real names
+  - Have a "Download CSV" button for full data export
+
+The password is client-side only — fine for keeping casual
+visitors out, NOT real security. For sensitive data you would
+need NetID/SSO authentication.
+
+============================================================
+  WHY EACH FOLDER IS SELF-CONTAINED
+============================================================
+
+Each subfolder includes its own copy of styles.css, storage.js,
+and seed-data.js. This means:
+  - You can open any URL directly without depending on root files
+  - GitHub Pages serves each page correctly with no path issues
+  - The cost is a few duplicated files (totalling ~80KB)
+
+The duplication is intentional. Don't be alarmed by it.
+
+============================================================
+  KEY DESIGN CHANGES FROM PREVIOUS VERSION
+============================================================
+
+(See CHANGES.md for full details.)
+
+  - Font: IBM Plex Sans (BYU's official web font)
+  - Colors: navy #002E5D, white, royal #0047BA — strict BYU palette
+  - Logo: official BYU Linguistics PNG in footer (no custom typeset)
+  - Layout: navy top breadcrumb bar + white nav + footer pattern
+    matching ling.byu.edu Brightspot template
+  - All previous editorial styling (Crimson Pro serif, tan/cream
+    palette, IPA glyph ornaments) removed per brand guidelines.

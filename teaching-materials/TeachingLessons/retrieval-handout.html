@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrieval Practice — Teacher Review &amp; Self-Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1A140E; --paper:#FBF7F0; --paper-2:#EFE6D6;
+    --recall:#6D28D9; --space:#DB6A0A;
+    --correct:#1f7a4d; --rethink:#B23A2E;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper-2);color:var(--ink);line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:36px 18px 80px}
+  header.hero{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:12px 12px 0 var(--recall);padding:34px 30px;margin-bottom:14px}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:12px;color:var(--space)}
+  header.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,7vw,54px);line-height:.98;letter-spacing:-.02em;margin:10px 0 12px}
+  header.hero p{max-width:54ch;color:rgba(251,247,240,.85);font-size:16px}
+  .scorebar{position:sticky;top:0;z-index:20;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    margin:18px 0 30px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+  .scorebar .label{font-family:var(--mono);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  .track{flex:1;height:14px;background:var(--paper-2);border:2px solid var(--ink);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--recall);transition:width .4s ease}
+  #scoreNum{font-family:var(--mono);font-weight:700;font-size:13px;min-width:54px;text-align:right}
+  .dials{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  .dial{border:3px solid var(--ink);padding:18px 18px;box-shadow:6px 6px 0 var(--ink);background:var(--paper)}
+  .dial.v{border-top:10px solid var(--recall)} .dial.p{border-top:10px solid var(--space)}
+  .dial .t{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .dial.v .t{color:var(--recall)} .dial.p .t{color:var(--space)}
+  .dial h3{font-family:var(--display);font-weight:900;font-size:22px;margin:6px 0}
+  .dial p{font-size:14px;color:#5b544a}
+  .intro-block{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin-bottom:8px}
+  .intro-block > p{font-size:16px;margin-bottom:12px}
+  .try{background:var(--paper-2);border:2px solid var(--ink);padding:14px 16px;margin-top:10px}
+  .try .lbl{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--recall)}
+  .try ul{list-style:none;margin-top:8px}
+  .try li{padding:5px 0 5px 22px;position:relative;font-size:15px}
+  .try li::before{content:"→";position:absolute;left:0;font-weight:700}
+  .keyterms{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--recall);padding:22px 24px;margin:26px 0}
+  .keyterms .kt-h{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--recall);margin-bottom:14px}
+  .keyterms dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}
+  .keyterms dt{font-family:var(--display);font-weight:900;font-size:16px;white-space:nowrap}
+  .keyterms dd{font-size:15px;color:#4a443b;margin:0;line-height:1.4}
+  @media (max-width:520px){.keyterms dl{grid-template-columns:1fr;gap:2px 0}.keyterms dd{margin-bottom:10px}}
+  .quiz{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin:26px 0}
+  .qlabel{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8a8170}
+  .q{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.22;margin:6px 0 16px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper);padding:13px 15px;font:inherit;font-size:15px;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  .opt:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .opt .mark{font-family:var(--mono);font-weight:700;flex:none;width:22px;height:22px;border:2px solid var(--ink);display:grid;place-items:center;font-size:12px;border-radius:50%}
+  .opt.correct{background:#e7f3ec;border-color:var(--correct);box-shadow:4px 4px 0 var(--correct)}
+  .opt.correct .mark{background:var(--correct);color:#fff;border-color:var(--correct)}
+  .opt.wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:4px 4px 0 var(--rethink);transform:translate(2px,2px)}
+  .opt.wrong .mark{background:var(--rethink);color:#fff;border-color:var(--rethink)}
+  .opt[disabled]{cursor:default;opacity:.96}
+  .fb{margin-top:14px;border-left:6px solid var(--ink);background:var(--paper-2);padding:12px 14px;font-size:15px;display:none}
+  .fb.show{display:block;animation:pop .25s ease}
+  .fb.ok{border-color:var(--correct)} .fb.no{border-color:var(--rethink)}
+  .fb b{font-family:var(--mono);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0}
+  .chip{cursor:pointer;font:inherit;font-weight:600;font-size:14px;border:2px solid var(--ink);background:var(--paper);
+    padding:10px 14px;box-shadow:3px 3px 0 var(--ink)}
+  .chip:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .chip.hit{background:var(--space);color:var(--paper);border-color:var(--ink)}
+  .chip.miss{background:#f6e6e4;color:var(--rethink);text-decoration:line-through}
+  .hintline{font-size:13px;color:#8a8170;font-family:var(--mono);margin-top:8px}
+  .scn{border:2px solid var(--ink);background:var(--paper);padding:14px 16px;margin-top:12px;box-shadow:4px 4px 0 var(--ink)}
+  .scn p.text{font-size:15px;margin-bottom:12px}
+  .toggle{display:flex;gap:10px}
+  .toggle button{flex:1;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper-2);padding:9px;box-shadow:3px 3px 0 var(--ink)}
+  .toggle button:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .toggle button.picked-right{background:#e7f3ec;border-color:var(--correct);box-shadow:3px 3px 0 var(--correct)}
+  .toggle button.picked-wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:3px 3px 0 var(--rethink)}
+  .toggle button[disabled]{cursor:default}
+  .finale{border:3px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px 26px;margin-top:30px;box-shadow:10px 10px 0 var(--space);text-align:center;display:none}
+  .finale.show{display:block;animation:pop .3s ease}
+  .finale h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,40px);line-height:1.02;margin-bottom:8px}
+  .finale p{color:rgba(251,247,240,.85);max-width:46ch;margin:0 auto}
+  .commit{margin-top:34px;border:3px dashed var(--ink);padding:22px 24px;background:var(--paper)}
+  .commit h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px}
+  .commit textarea{width:100%;margin-top:12px;border:2px solid var(--ink);background:var(--paper-2);padding:12px;font:inherit;font-size:15px;min-height:70px;resize:vertical}
+  footer{margin-top:40px;font-family:var(--mono);font-size:12px;color:#8a8170;text-align:center;line-height:1.7}
+  :focus-visible{outline:3px solid var(--recall);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Teacher review · self-check · EFL</div>
+    <h1>Retrieval practice, on one page.</h1>
+    <p>The cheapest way to make learning last: make students remember things, not just see them again — and spread that remembering over time. Here's the idea, the moves to try tomorrow, and a few checks with instant feedback.</p>
+  </header>
+
+  <div class="scorebar" aria-live="polite">
+    <span class="label">Checks done</span>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span id="scoreNum">0 / 4</span>
+  </div>
+
+  <div class="intro-block">
+    <p><strong>The idea.</strong> Forgetting is normal — the brain drops most new information quickly unless we use it again. The strongest fix is also the cheapest: ask students to <em>remember</em> what they learned, instead of just showing it to them again. The act of pulling it out of memory is what makes it stick.</p>
+    <p>So work on two dials at the same time:</p>
+    <div class="dials">
+      <div class="dial v"><span class="t">Dial 01</span><h3>Retrieval</h3><p>Make students remember it (notes closed), instead of re-reading or re-explaining.</p></div>
+      <div class="dial p"><span class="t">Dial 02</span><h3>Spacing</h3><p>Spread the practice over several days, instead of doing it all at once.</p></div>
+    </div>
+    <div class="try"><span class="lbl">Try it tomorrow</span>
+      <ul>
+        <li>Start class with a 2-minute brain dump: "Write everything you remember from last time."</li>
+        <li>Ask three quick questions — one from last class, one from last week, one from last month.</li>
+        <li>End class with a no-notes "What did we learn today?" — and don't grade it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="keyterms">
+    <div class="kt-h">Key terms in plain English</div>
+    <dl>
+      <dt>Retrieval</dt><dd>pulling information out of your memory, with notes closed.</dd>
+      <dt>Review</dt><dd>looking at the information again (re-reading, re-explaining).</dd>
+      <dt>Spacing</dt><dd>spreading practice over several days, not all at once.</dd>
+      <dt>Cramming</dt><dd>doing all the practice in one go (also called "massed practice").</dd>
+      <dt>Low-stakes</dt><dd>no grade and no pressure — the trying is what matters.</dd>
+      <dt>Desirable difficulty</dt><dd>a little difficulty that actually helps learning.</dd>
+      <dt>Forgetting curve</dt><dd>how fast we lose new information when we don't use it.</dd>
+    </dl>
+  </div>
+
+  <!-- CHECK 1 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 1 · multiple choice</div>
+    <p class="q">Which warm-up uses retrieval?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The teacher re-explains yesterday's lesson while students follow along in their notes.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Students close their notebooks and write everything they can remember from yesterday, then check.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Students copy yesterday's new words neatly three times.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 2 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 2 · click the right move</div>
+    <p class="q">All of these give more practice. Click the one that adds <strong>spacing</strong> (spreads it over time).</p>
+    <div class="chips" data-pick>
+      <button class="chip">Quiz the new words again right after teaching them</button>
+      <button class="chip" data-c>Review today's words again next week, then next month</button>
+      <button class="chip">Re-read the word list five times today</button>
+      <button class="chip">Do twenty examples in a row right now</button>
+    </div>
+    <p class="hintline">Spacing is about <em>when</em> you practise — across days, not all in one lesson.</p>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 3 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 3 · multiple choice</div>
+    <p class="q">Retrieval feels harder than re-reading. Why does it still work better?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>It doesn't really — re-reading feels easier, so it must be the better method.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>The effort of remembering is exactly what strengthens the memory; re-reading feels easy but changes little.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>It works because students feel more stressed, and stress helps memory.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 4 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 4 · retrieval, or just review?</div>
+    <p class="q">Decide whether each activity is real retrieval, or only review.</p>
+
+    <div class="scn" data-scn data-right="retrieval">
+      <p class="text">Students close their books and write down everything they remember from last class.</p>
+      <div class="toggle"><button data-pick="retrieval">Retrieval</button><button data-pick="review">Just review</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="review">
+      <p class="text">The teacher reads the summary aloud again while students follow along in their notes.</p>
+      <div class="toggle"><button data-pick="retrieval">Retrieval</button><button data-pick="review">Just review</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="retrieval">
+      <p class="text">Before starting new material, students answer last week's questions from memory, then check their answers.</p>
+      <div class="toggle"><button data-pick="retrieval">Retrieval</button><button data-pick="review">Just review</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+  </div>
+
+  <div class="finale" id="finale">
+    <h2>That's the engine.</h2>
+    <p id="finaleText"></p>
+  </div>
+
+  <div class="commit">
+    <h3>One move, next class.</h3>
+    <p>Don't try all of it. Pick the one move you'll use in your very next lesson — then write it somewhere you'll see it.</p>
+    <textarea placeholder="In my next class I will…"></textarea>
+  </div>
+
+  <footer>
+    Companion to the slide deck and facilitator demo pack.<br>
+    Sources: Roediger &amp; Karpicke (testing effect) · Cepeda et al. (spacing) · Bjork (desirable difficulties) · Ebbinghaus (forgetting curve) · Brown, Roediger &amp; McDaniel (<em>Make It Stick</em>) · Nation · Ortega.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const total=4; let done=0;
+  const fill=document.getElementById('fill'); const scoreNum=document.getElementById('scoreNum');
+  const seen=new WeakSet();
+  function bump(el){ if(seen.has(el))return; seen.add(el); done++; scoreNum.textContent=done+' / '+total;
+    fill.style.width=(done/total*100)+'%'; if(done===total) showFinale(); }
+  function showFinale(){ const f=document.getElementById('finale');
+    document.getElementById('finaleText').textContent="Make students remember it, spread that remembering over days, and keep it low-stakes — using only the students and whiteboard you already have. Now scroll down and choose one move to try.";
+    f.classList.add('show'); f.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+  /* multiple choice */
+  document.querySelectorAll('.opts').forEach(group=>{
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    const correctMsg={
+      'Check 1':"Right. Writing from memory with notebooks closed is retrieval — the students' minds have to produce the answer. Re-explaining and copying just put the information in front of them again, which feels easy but does little.",
+      'Check 3':"Exactly. Re-reading feels smooth, so it feels like learning — but the work of pulling the answer out of memory is what builds it. A little difficulty here is a good sign, not a problem."
+    };
+    const wrongMsg={
+      'Check 1':"Not quite. In that option the students only look at the information again (re-reading, re-explaining, or copying). Retrieval means producing it from memory, with notes closed.",
+      'Check 3':"Not quite. It's not about stress, and re-reading only feels better. The real reason is the effort of remembering: pulling the answer out of memory is what makes it stick."
+    };
+    const qkey=quiz.querySelector('.qlabel').textContent.split('·')[0].trim();
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        if(group.dataset.locked)return; group.dataset.locked='1';
+        const right=opt.dataset.correct==='true';
+        opt.classList.add(right?'correct':'wrong'); opt.querySelector('.mark').textContent=right?'✓':'✕';
+        if(!right){ const r=[...group.querySelectorAll('.opt')].find(o=>o.dataset.correct==='true'); r.classList.add('correct'); r.querySelector('.mark').textContent='✓'; }
+        group.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+        fb.classList.add('show', right?'ok':'no'); fbText.textContent=right?correctMsg[qkey]:wrongMsg[qkey];
+        bump(quiz);
+      });
+    });
+  });
+
+  /* chip pick (single correct) */
+  document.querySelectorAll('[data-pick]').forEach(group=>{
+    if(!group.classList.contains('chips'))return;
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    group.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        if(group.dataset.locked)return;
+        if(chip.dataset.c!==undefined){
+          group.dataset.locked='1'; chip.classList.add('hit');
+          group.querySelectorAll('.chip').forEach(c=>c.disabled=true);
+          fb.classList.add('show','ok');
+          fbText.textContent='Yes. The other three all happen in one lesson — that\u2019s cramming. Only reviewing again next week and next month spreads the practice across time. That gap is what makes spacing work.';
+          bump(quiz);
+        } else {
+          chip.classList.add('miss'); chip.disabled=true;
+          fb.classList.add('show','no');
+          fbText.textContent='That one gives more practice, but all in the same lesson. Spacing is about leaving a gap of days or weeks between practices. Look for the move that comes back to the words later.';
+        }
+      });
+    });
+  });
+
+  /* scenarios */
+  document.querySelectorAll('[data-scn]').forEach(scn=>{
+    const right=scn.dataset.right; const fb=scn.querySelector('[data-fb]'); const fbText=scn.querySelector('[data-fbtext]');
+    const msgs={
+      'retrieval-ok':"Retrieval. Notebooks are closed and students produce the information from memory — that effort is what builds it.",
+      'review-retrieval':"This one is actually retrieval: students answer from memory before checking. Producing it themselves, with notes closed, is the key.",
+      'review-ok':"Right — this is just review. Students only look at the information again. It feels easy, but it does little for memory.",
+      'retrieval-review':"Look again: here students only follow along while the teacher re-reads. Nobody is producing anything from memory, so it's review, not retrieval."
+    };
+    const buttons=scn.querySelectorAll('.toggle button');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(scn.dataset.locked)return; scn.dataset.locked='1';
+        const pick=btn.dataset.pick; const correct=pick===right;
+        btn.classList.add(correct?'picked-right':'picked-wrong');
+        if(!correct){ const rb=[...buttons].find(b=>b.dataset.pick===right); rb.classList.add('picked-right'); }
+        buttons.forEach(b=>b.disabled=true);
+        fb.classList.add('show', correct?'ok':'no');
+        fbText.textContent = correct ? msgs[right+'-ok'] : msgs[pick+'-'+right];
+        const parentQuiz=scn.closest('[data-q]'); const all=[...parentQuiz.querySelectorAll('[data-scn]')];
+        if(all.every(s=>s.dataset.locked)) bump(parentQuiz);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

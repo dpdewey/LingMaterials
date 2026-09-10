@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Places I Want To See — Handout (A2–B1)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#15110d; --paper:#f3efe7; --c1:#7d2238; --c2:#2f3a4a; --c3:#6fb3d6;
+  --shadow:6px 6px 0 var(--ink);
+}
+body{font-family:'Fraunces',Georgia,serif;background:var(--paper);color:var(--ink);
+  line-height:1.6;padding:24px;max-width:880px;margin:0 auto}
+h1,h2,h3,.bungee{font-family:'Bungee',sans-serif;line-height:1.05;letter-spacing:.5px}
+.mono{font-family:'Space Mono',monospace}
+.banner{background:var(--c1);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:24px;margin-bottom:28px}
+.banner h1{font-size:clamp(28px,7vw,48px);margin-bottom:6px}
+.banner .meta{font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;
+  letter-spacing:1px;opacity:.95}
+.tag{display:inline-block;background:var(--c3);color:var(--ink);border:3px solid var(--ink);
+  padding:3px 10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  text-transform:uppercase;margin:4px 6px 4px 0}
+.phase{background:#fff;border:4px solid var(--ink);box-shadow:var(--shadow);
+  padding:20px 22px;margin-bottom:22px}
+.phase-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:3px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+.phase-num{font-family:'Bungee',sans-serif;background:var(--c2);color:var(--paper);
+  border:3px solid var(--ink);padding:2px 12px;font-size:20px}
+.phase-title{font-family:'Bungee',sans-serif;font-size:19px;flex:1;min-width:180px}
+.time{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
+  background:var(--c3);border:3px solid var(--ink);padding:3px 9px}
+.ttt{font-family:'Space Mono',monospace;font-size:11px;background:var(--ink);
+  color:var(--paper);padding:2px 8px;text-transform:uppercase;letter-spacing:1px}
+.phase p{margin-bottom:10px}
+.phase ul,.phase ol{margin:8px 0 12px 22px}
+.phase li{margin-bottom:6px}
+.note{background:var(--c3);border-left:8px solid var(--ink);border-top:3px solid var(--ink);
+  border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  padding:12px 14px;margin:12px 0;font-size:15px}
+.note .lab{font-family:'Space Mono',monospace;font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:5px}
+.frame{background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:10px 12px;margin:10px 0;font-family:'Space Mono',monospace;font-size:14px}
+.frame b{color:var(--c1)}
+.box{background:var(--paper);border:3px dashed var(--ink);padding:14px;margin:12px 0}
+.box h4{font-family:'Bungee',sans-serif;font-size:14px;margin-bottom:8px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.word{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:10px}
+.word b{font-family:'Bungee',sans-serif;font-size:15px;display:block;margin-bottom:3px;color:var(--c1)}
+.word .pos{font-family:'Space Mono',monospace;font-size:11px;color:#7a6a55}
+.toolkit{background:var(--c2);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:16px 18px;margin:14px 0}
+.toolkit h4{font-family:'Bungee',sans-serif;color:var(--paper);font-size:15px;margin-bottom:8px}
+.toolkit ul{list-style:none;margin-left:0}
+.toolkit li{padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.4);font-family:'Space Mono',monospace;font-size:14px}
+.toolkit li:before{content:"\2192  ";font-weight:700}
+.jigsaw{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0}
+.card{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:12px}
+.card .role{font-family:'Bungee',sans-serif;font-size:13px;color:var(--c1);display:block;margin-bottom:6px}
+.debate{counter-reset:d}
+.debate .stmt{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:12px 14px 12px 48px;margin:10px 0;position:relative}
+.debate .stmt:before{counter-increment:d;content:counter(d);position:absolute;left:10px;top:10px;
+  font-family:'Bungee',sans-serif;background:var(--c1);color:var(--paper);
+  border:2px solid var(--ink);width:26px;height:26px;display:flex;align-items:center;
+  justify-content:center;font-size:14px}
+.foot{font-family:'Space Mono',monospace;font-size:11px;text-align:center;
+  padding-top:18px;border-top:3px solid var(--ink);margin-top:24px;color:#7a6a55}
+.likert{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:14px 16px;margin:14px 0}
+.likert .q{font-weight:600;margin-bottom:10px;font-size:17px}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.dot{font-family:'Space Mono',monospace;font-size:13px;text-align:center;cursor:pointer;
+  border:3px solid var(--ink);background:var(--paper);padding:10px 4px;flex:1;min-width:90px;
+  user-select:none;transition:transform .05s}
+.dot:hover{transform:translate(-1px,-1px)}
+.dot.sel{background:var(--c1);color:var(--paper);box-shadow:2px 2px 0 var(--ink)}
+.open{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:14px 16px;margin:14px 0}
+.open label{display:block;font-weight:600;margin-bottom:8px}
+.open textarea{width:100%;min-height:70px;border:3px solid var(--ink);padding:8px;
+  font-family:'Fraunces',serif;font-size:15px;resize:vertical}
+.progress{position:sticky;top:0;background:var(--ink);color:var(--paper);
+  font-family:'Space Mono',monospace;font-size:13px;padding:8px 14px;border:3px solid var(--ink);
+  margin-bottom:18px;z-index:5}
+.progress b{color:var(--c3)}
+@media print{.dot{cursor:default}.progress{position:static}}
+</style>
+</head>
+<body>
+<header class="banner">
+  <div class="meta">TEACH FOR SUCCESS! &middot; STUDENT HANDOUT</div>
+  <h1>PLACES I WANT TO SEE</h1>
+  <div class="meta">Places I Want To See &middot; CEFR A2–B1 &middot; 65 min</div>
+</header>
+<div class="phase"><div class="phase-head"><span class="phase-title">1 &middot; New words</span></div>
+<div class="vocab"><div class="word"><b>travel</b><span class="pos">verb</span><br>to go to a new place</div><div class="word"><b>visit</b><span class="pos">verb</span><br>to go and see a place</div><div class="word"><b>place</b><span class="pos">noun</span><br>a city, a town, a country</div><div class="word"><b>city</b><span class="pos">noun</span><br>a big town</div><div class="word"><b>photo</b><span class="pos">noun</span><br>a picture from a camera</div><div class="word"><b>trip</b><span class="pos">noun</span><br>a short travel</div><div class="word"><b>famous</b><span class="pos">adj</span><br>many people know it</div><div class="word"><b>hotel</b><span class="pos">noun</span><br>you sleep there when you travel</div><div class="word"><b>mountain</b><span class="pos">noun</span><br>a very high place of rock</div><div class="word"><b>beach</b><span class="pos">noun</span><br>sand next to the sea</div><div class="word"><b>tourist</b><span class="pos">noun</span><br>a person who travels to visit</div><div class="word"><b>map</b><span class="pos">noun</span><br>a picture to find the way</div></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-title">2 &middot; Ask your partner</span></div>
+<ol><li>Do you like to travel?</li><li>What city do you want to visit?</li><li>Do you like the beach or the mountains?</li><li>What is a famous place in your country?</li></ol></div>
+<div class="phase"><div class="phase-head"><span class="phase-title">3 &middot; Say it like this</span></div>
+<div class="toolkit"><h4>SAY IT LIKE THIS</h4><ul><li>I want to visit ___.</li><li>I like ___. / I don’t like ___.</li><li>It is famous for ___.</li><li>Last year, I went to ___.</li><li>My favourite place is ___.</li></ul></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-title">4 &middot; Different people</span></div>
+<p><b>Is it good to have many tourists?</b></p>
+<div class="jigsaw"><div class="card"><span class="role">A LOCAL PERSON</span>Many tourists. The city is very busy.</div><div class="card"><span class="role">A TOURIST</span>I am happy to see this place. It is beautiful.</div><div class="card"><span class="role">A GUIDE</span>Tourists give me my job. I show them my city.</div><div class="card"><span class="role">A SHOP OWNER</span>Tourists buy things. This is good for me.</div></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-title">5 &middot; Agree or disagree?</span></div>
+<p>Agree, not sure, or disagree? Say one reason.</p>
+<div class="debate"><div class="stmt">Travel is fun.</div><div class="stmt">Too many tourists are a problem.</div><div class="stmt">We must keep famous places safe.</div><div class="stmt">The beach is better than the mountains.</div><div class="stmt">It is good to visit new places.</div></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-title">6 &middot; Your turn (choose one)</span></div>
+<p>Choose ONE. Use short sentences.</p>
+<ul><li>Write 3 places you want to visit.</li><li>Draw a famous place and write its name.</li><li>Make a poster for a city: the name and one word.</li></ul></div>
+<div class="phase"><div class="phase-head"><span class="phase-title">7 &middot; One word</span></div>
+<p>Say one place you want to visit.</p></div>
+<div class="foot">TEACH FOR SUCCESS! &middot; Student handout &middot; A2–B1</div>
+</body>
+</html>

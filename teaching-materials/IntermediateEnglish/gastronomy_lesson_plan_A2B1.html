@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Food I Like — Lesson Plan (A2–B1)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#15110d; --paper:#fbf3e4; --c1:#c0392b; --c2:#1d1b18; --c3:#e8b339;
+  --shadow:6px 6px 0 var(--ink);
+}
+body{font-family:'Fraunces',Georgia,serif;background:var(--paper);color:var(--ink);
+  line-height:1.6;padding:24px;max-width:880px;margin:0 auto}
+h1,h2,h3,.bungee{font-family:'Bungee',sans-serif;line-height:1.05;letter-spacing:.5px}
+.mono{font-family:'Space Mono',monospace}
+.banner{background:var(--c1);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:24px;margin-bottom:28px}
+.banner h1{font-size:clamp(28px,7vw,48px);margin-bottom:6px}
+.banner .meta{font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;
+  letter-spacing:1px;opacity:.95}
+.tag{display:inline-block;background:var(--c3);color:var(--ink);border:3px solid var(--ink);
+  padding:3px 10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  text-transform:uppercase;margin:4px 6px 4px 0}
+.phase{background:#fff;border:4px solid var(--ink);box-shadow:var(--shadow);
+  padding:20px 22px;margin-bottom:22px}
+.phase-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:3px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+.phase-num{font-family:'Bungee',sans-serif;background:var(--c2);color:var(--paper);
+  border:3px solid var(--ink);padding:2px 12px;font-size:20px}
+.phase-title{font-family:'Bungee',sans-serif;font-size:19px;flex:1;min-width:180px}
+.time{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
+  background:var(--c3);border:3px solid var(--ink);padding:3px 9px}
+.ttt{font-family:'Space Mono',monospace;font-size:11px;background:var(--ink);
+  color:var(--paper);padding:2px 8px;text-transform:uppercase;letter-spacing:1px}
+.phase p{margin-bottom:10px}
+.phase ul,.phase ol{margin:8px 0 12px 22px}
+.phase li{margin-bottom:6px}
+.note{background:var(--c3);border-left:8px solid var(--ink);border-top:3px solid var(--ink);
+  border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  padding:12px 14px;margin:12px 0;font-size:15px}
+.note .lab{font-family:'Space Mono',monospace;font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:5px}
+.frame{background:var(--paper);border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:10px 12px;margin:10px 0;font-family:'Space Mono',monospace;font-size:14px}
+.frame b{color:var(--c1)}
+.box{background:var(--paper);border:3px dashed var(--ink);padding:14px;margin:12px 0}
+.box h4{font-family:'Bungee',sans-serif;font-size:14px;margin-bottom:8px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.word{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:10px}
+.word b{font-family:'Bungee',sans-serif;font-size:15px;display:block;margin-bottom:3px;color:var(--c1)}
+.word .pos{font-family:'Space Mono',monospace;font-size:11px;color:#7a6a55}
+.toolkit{background:var(--c2);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:16px 18px;margin:14px 0}
+.toolkit h4{font-family:'Bungee',sans-serif;color:var(--paper);font-size:15px;margin-bottom:8px}
+.toolkit ul{list-style:none;margin-left:0}
+.toolkit li{padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.4);font-family:'Space Mono',monospace;font-size:14px}
+.toolkit li:before{content:"\2192  ";font-weight:700}
+.jigsaw{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0}
+.card{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:12px}
+.card .role{font-family:'Bungee',sans-serif;font-size:13px;color:var(--c1);display:block;margin-bottom:6px}
+.debate{counter-reset:d}
+.debate .stmt{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:12px 14px 12px 48px;margin:10px 0;position:relative}
+.debate .stmt:before{counter-increment:d;content:counter(d);position:absolute;left:10px;top:10px;
+  font-family:'Bungee',sans-serif;background:var(--c1);color:var(--paper);
+  border:2px solid var(--ink);width:26px;height:26px;display:flex;align-items:center;
+  justify-content:center;font-size:14px}
+.foot{font-family:'Space Mono',monospace;font-size:11px;text-align:center;
+  padding-top:18px;border-top:3px solid var(--ink);margin-top:24px;color:#7a6a55}
+.likert{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:14px 16px;margin:14px 0}
+.likert .q{font-weight:600;margin-bottom:10px;font-size:17px}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.dot{font-family:'Space Mono',monospace;font-size:13px;text-align:center;cursor:pointer;
+  border:3px solid var(--ink);background:var(--paper);padding:10px 4px;flex:1;min-width:90px;
+  user-select:none;transition:transform .05s}
+.dot:hover{transform:translate(-1px,-1px)}
+.dot.sel{background:var(--c1);color:var(--paper);box-shadow:2px 2px 0 var(--ink)}
+.open{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:14px 16px;margin:14px 0}
+.open label{display:block;font-weight:600;margin-bottom:8px}
+.open textarea{width:100%;min-height:70px;border:3px solid var(--ink);padding:8px;
+  font-family:'Fraunces',serif;font-size:15px;resize:vertical}
+.progress{position:sticky;top:0;background:var(--ink);color:var(--paper);
+  font-family:'Space Mono',monospace;font-size:13px;padding:8px 14px;border:3px solid var(--ink);
+  margin-bottom:18px;z-index:5}
+.progress b{color:var(--c3)}
+@media print{.dot{cursor:default}.progress{position:static}}
+</style>
+</head>
+<body>
+<header class="banner">
+  <div class="meta">TEACH FOR SUCCESS! &middot; LESSON PLAN (teacher)</div>
+  <h1>FOOD I LIKE</h1>
+  <div class="meta">Food I Like &middot; CEFR A2–B1 &middot; 65 min</div>
+</header>
+<p><span class="tag">Strong A2 / emerging B1</span><span class="tag">65 min &middot; 55-min trim</span><span class="tag">Teacher talk &lt; 1/3</span></p>
+<div class="box"><h4>Why this lesson</h4><p>We eat food every day. Food is not only for living. Food makes us happy. Food helps us think of our family and our home.</p></div>
+<div class="note"><span class="lab">MY NOTE &mdash; personal reminders and in-the-moment cues</span>This is the A2–B1 edition. Sentences are short and the grammar is simple. It’s anticipated that students need more time and more examples here, so model every task yourself first, then let them copy the pattern.</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">1</span><span class="phase-title">Warm-up: look at the survey</span><span class="time">5 min</span><span class="ttt">TTT low</span></div>
+<p>Give out the survey. Students read the short sentences and tick agree, not sure, or disagree. No talking yet. This shows them the topic and the new words.</p>
+<div class="note"><span class="lab">MY NOTE &mdash; personal reminders and in-the-moment cues</span>It’s likely a few words are new. Say: ‘Don’t worry, we learn them next.’</div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">2</span><span class="phase-title">New words (two sets)</span><span class="time">12 min</span><span class="ttt">TTT med</span></div>
+<p><b>Set 1:</b></p>
+<div class="vocab"><div class="word"><b>food</b><span class="pos">noun</span><br>what we eat</div><div class="word"><b>eat</b><span class="pos">verb</span><br>to put food in your mouth</div><div class="word"><b>cook</b><span class="pos">verb</span><br>to make food hot and ready</div><div class="word"><b>rice</b><span class="pos">noun</span><br>small white food, very common</div><div class="word"><b>meat</b><span class="pos">noun</span><br>food from animals</div><div class="word"><b>fruit</b><span class="pos">noun</span><br>sweet food like apples</div></div>
+<p><b>Set 2:</b></p>
+<div class="vocab"><div class="word"><b>drink</b><span class="pos">verb/noun</span><br>to take water, juice / a thing you drink</div><div class="word"><b>sweet</b><span class="pos">adj</span><br>like sugar</div><div class="word"><b>spicy</b><span class="pos">adj</span><br>hot in your mouth, like chilli</div><div class="word"><b>favourite</b><span class="pos">adj</span><br>the one you like best</div><div class="word"><b>dinner</b><span class="pos">noun</span><br>the big meal at night</div><div class="word"><b>market</b><span class="pos">noun</span><br>a place to buy food</div></div>
+<div class="note"><span class="lab">MY NOTE &mdash; personal reminders and in-the-moment cues</span>Show a picture or do an action for each word. Say it 3 times together as a class. Students will likely know one or two already — that builds confidence.</div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">3</span><span class="phase-title">Watch / listen</span><span class="time">7 min</span><span class="ttt">TTT low</span></div>
+<p>A short clip of a market with lots of food, or a family eating together. Play it two times. After, students say ONE word they saw.</p>
+<div class="box"><h4>No video? Read this aloud</h4><p><em>Read aloud, slowly: “This is my family. We eat dinner together. My mother cooks rice and meat. The food is good. We are happy.”</em></p></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">4</span><span class="phase-title">Talk with a partner</span><span class="time">10 min</span><span class="ttt">TTT low</span></div>
+<p>Pairs ask and answer the questions. The frames below help them make full sentences.</p>
+<ol><li>What is your favourite food?</li><li>What do you eat in the morning?</li><li>Can you cook? What can you cook?</li><li>Do you like fruit? Which fruit?</li></ol>
+<div class="toolkit"><h4>SAY IT LIKE THIS</h4><ul><li>My favourite food is ___.</li><li>I like ___. / I don’t like ___.</li><li>In the morning, I eat ___.</li><li>It is sweet / spicy / good.</li><li>I can cook ___.</li></ul></div>
+<div class="note"><span class="lab">MY NOTE &mdash; personal reminders and in-the-moment cues</span>It’s anticipated that some pairs finish fast. Ask them: ‘Why?’ to get one more sentence.</div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">5</span><span class="phase-title">Language Clinic 1</span><span class="time">5 min</span><span class="ttt">TTT med</span></div>
+<p>Anticipated focus: like + noun and like + -ing (I like rice. I like cooking.). It’s likely students will say ‘I like cook’ — a quick board fix helps.</p>
+<p>Write 2–3 student sentences on the board (no names). Fix them together, slowly.</p>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">6</span><span class="phase-title">Different people say different things</span><span class="time">9 min</span><span class="ttt">TTT low</span></div>
+<p><b>The question:</b> Is home food better than restaurant food?</p>
+<p>Give each student one card. They read it and say that person’s idea in their own words.</p>
+<div class="jigsaw"><div class="card"><span class="role">A MOTHER</span>Home food is good and cheap. I cook for my family.</div><div class="card"><span class="role">A STUDENT</span>I like restaurants. The food is fast and fun.</div><div class="card"><span class="role">A COOK</span>I make new food in my restaurant. I love my job.</div><div class="card"><span class="role">A FARMER</span>I grow good food. Fresh food is the best.</div></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">7</span><span class="phase-title">Agree or disagree?</span><span class="time">8 min</span><span class="ttt">TTT low</span></div>
+<p>Read each sentence. Students stand on one side for AGREE, the other for DISAGREE, the middle for NOT SURE. Then one student says why.</p>
+<div class="debate"><div class="stmt">Home food is better than restaurant food.</div><div class="stmt">Fast food is bad for us.</div><div class="stmt">Everyone can learn to cook.</div><div class="stmt">Breakfast is the most important meal.</div><div class="stmt">The food in my country is very good.</div></div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">8</span><span class="phase-title">Language Clinic 2</span><span class="time">4 min</span><span class="ttt">TTT med</span></div>
+<p>Anticipated focus: there is / there are (There is rice. There are vegetables.). Students will probably forget the plural ‘are’.</p>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">9</span><span class="phase-title">Your turn (choose one)</span><span class="time">5 min</span><span class="ttt">TTT low</span></div>
+<p>Choose ONE. Use short sentences.</p>
+<ul><li>Write 4 foods you like.</li><li>Draw your favourite meal and write its name.</li><li>Make a small menu for a café: 3 foods and 2 drinks.</li></ul>
+<div class="note"><span class="lab">MY NOTE &mdash; personal reminders and in-the-moment cues</span>For the 55-minute trim: give this as homework and end after ‘Agree or disagree?’</div>
+</div>
+<div class="phase"><div class="phase-head"><span class="phase-num">10</span><span class="phase-title">One word to finish</span><span class="time">2 min</span><span class="ttt">TTT low</span></div>
+<p>Go around the class: <b>Say one food you like.</b> Just one word each.</p>
+</div>
+<div class="foot">TEACH FOR SUCCESS! &middot; Foundation (A2–B1) &middot; 65 min / 55-min trim</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYU Linguistics Mentoring Archive</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="byu-topbar">
+  <div class="byu-topbar-inner">
+    <a href="https://byu.edu" class="byu-mono">BYU</a>
+    <span class="sep">|</span>
+    <a href="https://hum.byu.edu/" class="topbar-link optional">College of Humanities</a>
+    <span class="sep optional">|</span>
+    <a href="https://ling.byu.edu/">Linguistics</a>
+    <span class="spacer"></span>
+    <a href="https://donate.churchofjesuschrist.org/donations/byu/humanities" class="topbar-link optional">Donate</a>
+  </div>
+</div>
+
+<header class="byu-navbar">
+  <div class="byu-navbar-inner">
+    <h1 class="page-title">
+      <small>Department of Linguistics</small>
+      Mentoring Archive
+    </h1>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="FacultyMentoring/view.html">Faculty Mentoring</a>
+      <a href="MentoredStudent/student-view.html">Student Experiences</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-subtitle">Department of Linguistics</div>
+    <h1>Mentoring Archive</h1>
+    <p class="hero-statement">
+      A record of the mentored learning experiences that shape our
+      students &mdash; research collaborations, conference presentations,
+      teaching apprenticeships, editorial internships, study abroad,
+      and the everyday conversations that redirect a career.
+    </p>
+  </div>
+</section>
+
+<main class="main">
+
+  <!-- About the archive -->
+  <section class="section">
+    <h2>About This Archive</h2>
+    <p>
+      Mentoring is central to what we do in the Department of Linguistics
+      at Brigham Young University. Faculty in TESOL, English Applied
+      Linguistics, Editing &amp; Publishing, Linguistic Computing, and
+      Linguistics work alongside students on published research,
+      conference presentations, applied projects, and community engagement.
+      This archive documents that work and its outcomes.
+    </p>
+    <p>
+      The archive serves several purposes. It gives faculty a place to
+      record mentoring activities for annual reports and rank-and-status
+      reviews. It gives current and prospective students concrete examples
+      of what mentored learning looks like in our department. And it lets
+      students reflect on how their mentored experiences shaped their
+      development along the four
+      <a href="https://aims.byu.edu/aims-of-a-byu-education" target="_blank" rel="noopener">Aims of a BYU Education</a>:
+      spiritually strengthening, intellectually enlarging,
+      character-building, and lifelong learning &amp; service.
+    </p>
+  </section>
+
+  <!-- The two archives -->
+  <section class="section">
+    <h2>Two Views of the Same Story</h2>
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Faculty Mentoring</h3>
+        <p>
+          Faculty-authored records of coauthored research, conference
+          presentations, teaching assistantships, thesis supervision,
+          study abroad programs, curriculum development, and other
+          mentoring activities. Each entry includes the students
+          involved, the accomplishments, and the mentor's reflection
+          on what the experience produced.
+        </p>
+        <p>
+          <a href="FacultyMentoring/view.html" class="btn btn-primary">Browse faculty entries</a>
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Student Experiences</h3>
+        <p>
+          Student reflections on transformative mentored experiences,
+          organized by the four Aims. Students describe what they
+          worked on, who they worked with, and how the experience
+          shaped their intellectual, spiritual, character, and
+          service-oriented development.
+        </p>
+        <p>
+          <a href="MentoredStudent/student-view.html" class="btn btn-primary">Browse student reflections</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contributing -->
+  <section class="section">
+    <h2>Contribute an Entry</h2>
+    <p>
+      Faculty and students in the Department of Linguistics are invited to
+      contribute to the archive. Submissions go through short Google Forms
+      and are reviewed by the department before appearing on the site.
+    </p>
+    <p>
+      Contributors decide what appears publicly. Any submission can be
+      marked entirely private, and individual fields can be flagged to
+      keep them out of the public view. Students may share their
+      reflections anonymously if they prefer.
+    </p>
+
+    <div class="panels">
+      <div class="panel">
+        <h3>Faculty</h3>
+        <p>
+          Document a mentoring activity, project, or outcome &mdash; a
+          coauthored paper, a conference presentation, a lab
+          assistantship, a study abroad program, curriculum work, or an
+          office-hour conversation that mattered.
+        </p>
+        <p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSd1W_Q90Q4yzKKRn0lQjG-Sm-dmK_NUo2xRBQOH9zmJE8hldw/viewform" target="_blank" rel="noopener" class="btn btn-primary">Submit faculty entry</a>
+        </p>
+      </div>
+
+      <div class="panel">
+        <h3>Students</h3>
+        <p>
+          Share a mentored experience that shaped you &mdash; a research
+          project, an internship, a course that changed your direction,
+          a conversation with a mentor. Reflect on how it developed you
+          across the Aims of a BYU Education.
+        </p>
+        <p>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeywfK4kLT_hr1-ZMiMd0-GcE463EaFKrDcEiaOaeaqdlfjAQ/viewform" target="_blank" rel="noopener" class="btn btn-primary">Submit student experience</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="section">
+    <h2>A Note on Privacy</h2>
+    <p>
+      The archive is designed to respect the choices of contributors.
+      Faculty and students who submit can:
+    </p>
+    <ul style="font-size: 1.0625rem; line-height: 1.7; padding-left: 1.5rem; margin-bottom: 1rem;">
+      <li>Mark specific fields as private &mdash; they stay in the
+          departmental record but never appear on this site.</li>
+      <li>Mark an entire entry as private &mdash; the departmental
+          record keeps it, but nothing about it is published.</li>
+      <li>(Students) Share their reflection anonymously &mdash; their
+          name appears as &ldquo;Anonymous student&rdquo; on the
+          public page while the department retains the original for
+          its records.</li>
+    </ul>
+    <p>
+      Submissions are reviewed before publication. If you have
+      questions, please contact the department office.
+    </p>
+  </section>
+
+</main>
+
+<footer class="area-footer">
+  <div class="area-footer-inner">
+    <div>
+      <div class="area-footer-logo"><img src="assets/logos/ling_horiz_white.png" alt="BYU Linguistics"></div>
+      <p>4064 JFSB<br>Brigham Young University<br>Provo, UT 84602</p>
+      <p>Office: 801-422-2937<br>Email: <a href="mailto:lingoffice@byu.edu">lingoffice@byu.edu</a></p>
+    </div>
+    <div>
+      <h4>Department</h4>
+      <ul>
+        <li><a href="https://ling.byu.edu/">Department Home</a></li>
+        <li><a href="https://ling.byu.edu/faculty-staff-directory">Faculty &amp; Staff</a></li>
+        <li><a href="https://ling.byu.edu/about">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Mentoring Archive</h4>
+      <ul>
+        <li><a href="FacultyMentoring/view.html">Faculty Mentoring</a></li>
+        <li><a href="MentoredStudent/student-view.html">Student Experiences</a></li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSd1W_Q90Q4yzKKRn0lQjG-Sm-dmK_NUo2xRBQOH9zmJE8hldw/viewform" target="_blank" rel="noopener">Submit Faculty Entry</a></li>
+        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSeywfK4kLT_hr1-ZMiMd0-GcE463EaFKrDcEiaOaeaqdlfjAQ/viewform" target="_blank" rel="noopener">Submit Student Experience</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="university-footer">
+  <div class="university-footer-inner">
+    <span class="byu-mark">BYU</span>
+    <span>Provo, UT 84602, USA &middot; 801-422-4636</span>
+    <span>&copy; 2026 Brigham Young University</span>
+  </div>
+</div>
+
+</body>
+</html>

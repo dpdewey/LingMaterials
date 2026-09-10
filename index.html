@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LingMaterials</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2937;
+      --muted: #5b6573;
+      --line: #d9e0e8;
+      --card: #ffffff;
+      --accent: #1769aa;
+      --background: #f5f7fa;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--background);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    header p {
+      max-width: 42rem;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    main {
+      width: min(68rem, calc(100% - 2rem));
+      margin: 2.5rem auto 4rem;
+    }
+
+    .folder-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .folder-list a {
+      display: block;
+      height: 100%;
+      padding: 1.25rem;
+      color: var(--ink);
+      text-decoration: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgb(31 41 55 / 5%);
+      transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+    }
+
+    .folder-list a:hover,
+    .folder-list a:focus-visible {
+      border-color: var(--accent);
+      box-shadow: 0 5px 16px rgb(31 41 55 / 12%);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .folder-name {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--accent);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .folder-description {
+      display: block;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 1.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LingMaterials</h1>
+    <p>Teaching materials, lessons, and resources organized by project.</p>
+  </header>
+
+  <main>
+    <!--
+      These links assume that each folder contains its own index.html file.
+      If your final folder names are different, change only the href values.
+    -->
+    <ul class="folder-list">
+      <li>
+        <a href="spanish-lessons/">
+          <span class="folder-name">Spanish Lessons</span>
+          <span class="folder-description">Spanish language lessons and practice activities.</span>
+        </a>
+      </li>
+      <li>
+        <a href="mentoring/">
+          <span class="folder-name">Mentoring</span>
+          <span class="folder-description">Mentoring resources, guides, and materials.</span>
+        </a>
+      </li>
+      <li>
+        <a href="teaching-materials/">
+          <span class="folder-name">Teaching Materials</span>
+          <span class="folder-description">Additional classroom resources and lesson collections.</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <footer>
+    Choose a folder above to begin.
+  </footer>
+</body>
+</html>

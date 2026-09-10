@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Travel & Famous Places — Survey (B1–B2)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Space+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#15110d; --paper:#f3efe7; --c1:#7d2238; --c2:#2f3a4a; --c3:#6fb3d6;
+  --shadow:6px 6px 0 var(--ink);
+}
+body{font-family:'Fraunces',Georgia,serif;background:var(--paper);color:var(--ink);
+  line-height:1.6;padding:24px;max-width:880px;margin:0 auto}
+h1,h2,h3,.bungee{font-family:'Bungee',sans-serif;line-height:1.05;letter-spacing:.5px}
+.mono{font-family:'Space Mono',monospace}
+.banner{background:var(--c1);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:24px;margin-bottom:28px}
+.banner h1{font-size:clamp(28px,7vw,48px);margin-bottom:6px}
+.banner .meta{font-family:'Space Mono',monospace;font-size:13px;text-transform:uppercase;
+  letter-spacing:1px;opacity:.95}
+.tag{display:inline-block;background:var(--c3);color:var(--ink);border:3px solid var(--ink);
+  padding:3px 10px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;
+  text-transform:uppercase;margin:4px 6px 4px 0}
+.phase{background:#fff;border:4px solid var(--ink);box-shadow:var(--shadow);
+  padding:20px 22px;margin-bottom:22px}
+.phase-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  border-bottom:3px solid var(--ink);padding-bottom:10px;margin-bottom:14px}
+.phase-num{font-family:'Bungee',sans-serif;background:var(--c2);color:var(--paper);
+  border:3px solid var(--ink);padding:2px 12px;font-size:20px}
+.phase-title{font-family:'Bungee',sans-serif;font-size:19px;flex:1;min-width:180px}
+.time{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;
+  background:var(--c3);border:3px solid var(--ink);padding:3px 9px}
+.ttt{font-family:'Space Mono',monospace;font-size:11px;background:var(--ink);
+  color:var(--paper);padding:2px 8px;text-transform:uppercase;letter-spacing:1px}
+.phase p{margin-bottom:10px}
+.phase ul,.phase ol{margin:8px 0 12px 22px}
+.phase li{margin-bottom:6px}
+.note{background:var(--c3);border-left:8px solid var(--ink);border-top:3px solid var(--ink);
+  border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);
+  padding:12px 14px;margin:12px 0;font-size:15px}
+.note .lab{font-family:'Space Mono',monospace;font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:5px}
+.box{background:var(--paper);border:3px dashed var(--ink);padding:14px;margin:12px 0}
+.box h4{font-family:'Bungee',sans-serif;font-size:14px;margin-bottom:8px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+.word{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:10px}
+.word b{font-family:'Bungee',sans-serif;font-size:15px;display:block;margin-bottom:3px;color:var(--c1)}
+.word .pos{font-family:'Space Mono',monospace;font-size:11px;color:#7a6a55}
+.toolkit{background:var(--c2);color:var(--paper);border:4px solid var(--ink);
+  box-shadow:var(--shadow);padding:16px 18px;margin:14px 0}
+.toolkit h4{font-family:'Bungee',sans-serif;color:var(--paper);font-size:15px;margin-bottom:8px}
+.toolkit ul{list-style:none;margin-left:0}
+.toolkit li{padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.4)}
+.toolkit li:before{content:"\2192  ";font-weight:700}
+.jigsaw{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:12px 0}
+.card{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:12px}
+.card .role{font-family:'Bungee',sans-serif;font-size:13px;color:var(--c1);display:block;margin-bottom:6px}
+.debate{counter-reset:d}
+.debate .stmt{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:12px 14px 12px 48px;margin:10px 0;position:relative}
+.debate .stmt:before{counter-increment:d;content:counter(d);position:absolute;left:10px;top:10px;
+  font-family:'Bungee',sans-serif;background:var(--c1);color:var(--paper);
+  border:2px solid var(--ink);width:26px;height:26px;display:flex;align-items:center;
+  justify-content:center;font-size:14px}
+.foot{font-family:'Space Mono',monospace;font-size:11px;text-align:center;
+  padding-top:18px;border-top:3px solid var(--ink);margin-top:24px;color:#7a6a55}
+/* survey */
+.likert{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+  padding:14px 16px;margin:14px 0}
+.likert .q{font-weight:600;margin-bottom:10px}
+.dots{display:flex;gap:8px;flex-wrap:wrap}
+.dot{font-family:'Space Mono',monospace;font-size:11px;text-align:center;cursor:pointer;
+  border:3px solid var(--ink);background:var(--paper);padding:6px 4px;flex:1;min-width:74px;
+  user-select:none;transition:transform .05s}
+.dot:hover{transform:translate(-1px,-1px)}
+.dot.sel{background:var(--c1);color:var(--paper);box-shadow:2px 2px 0 var(--ink)}
+.open{background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:14px 16px;margin:14px 0}
+.open label{display:block;font-weight:600;margin-bottom:8px}
+.open textarea{width:100%;min-height:80px;border:3px solid var(--ink);padding:8px;
+  font-family:'Fraunces',serif;font-size:15px;resize:vertical}
+.progress{position:sticky;top:0;background:var(--ink);color:var(--paper);
+  font-family:'Space Mono',monospace;font-size:13px;padding:8px 14px;border:3px solid var(--ink);
+  margin-bottom:18px;z-index:5}
+.progress b{color:var(--c3)}
+@media print{.dot{cursor:default}.progress{position:static}}
+</style>
+</head>
+<body>
+<header class="banner">
+  <div class="meta">TEACH FOR SUCCESS! &middot; OPINION SURVEY</div>
+  <h1>TRAVEL & FAMOUS PLACES</h1>
+  <div class="meta">Travel & Famous Places &middot; CEFR B1–B2 &middot;  min</div>
+</header>
+<div class="progress">Answered: <b><span id="count">0</span></b> / 8 statements</div>
+<p>Read each sentence. Tap the box that shows your opinion.</p>
+<div class="likert"><div class="q">1. Too many tourists can damage famous places.</div><div class="dots" data-q="0"><div class="dot" onclick="pick(this,0)">Strongly disagree</div><div class="dot" onclick="pick(this,0)">Disagree</div><div class="dot" onclick="pick(this,0)">Not sure</div><div class="dot" onclick="pick(this,0)">Agree</div><div class="dot" onclick="pick(this,0)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">2. Travel is the best way to learn about other cultures.</div><div class="dots" data-q="1"><div class="dot" onclick="pick(this,1)">Strongly disagree</div><div class="dot" onclick="pick(this,1)">Disagree</div><div class="dot" onclick="pick(this,1)">Not sure</div><div class="dot" onclick="pick(this,1)">Agree</div><div class="dot" onclick="pick(this,1)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">3. Local people should decide how many tourists can visit.</div><div class="dots" data-q="2"><div class="dot" onclick="pick(this,2)">Strongly disagree</div><div class="dot" onclick="pick(this,2)">Disagree</div><div class="dot" onclick="pick(this,2)">Not sure</div><div class="dot" onclick="pick(this,2)">Agree</div><div class="dot" onclick="pick(this,2)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">4. Famous places should cost more to enter, to help protect them.</div><div class="dots" data-q="3"><div class="dot" onclick="pick(this,3)">Strongly disagree</div><div class="dot" onclick="pick(this,3)">Disagree</div><div class="dot" onclick="pick(this,3)">Not sure</div><div class="dot" onclick="pick(this,3)">Agree</div><div class="dot" onclick="pick(this,3)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">5. It is better to visit new places than to return to the same one.</div><div class="dots" data-q="4"><div class="dot" onclick="pick(this,4)">Strongly disagree</div><div class="dot" onclick="pick(this,4)">Disagree</div><div class="dot" onclick="pick(this,4)">Not sure</div><div class="dot" onclick="pick(this,4)">Agree</div><div class="dot" onclick="pick(this,4)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">6. I enjoy visiting new and different places.</div><div class="dots" data-q="5"><div class="dot" onclick="pick(this,5)">Strongly disagree</div><div class="dot" onclick="pick(this,5)">Disagree</div><div class="dot" onclick="pick(this,5)">Not sure</div><div class="dot" onclick="pick(this,5)">Agree</div><div class="dot" onclick="pick(this,5)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">7. Tourism is good for local people.</div><div class="dots" data-q="6"><div class="dot" onclick="pick(this,6)">Strongly disagree</div><div class="dot" onclick="pick(this,6)">Disagree</div><div class="dot" onclick="pick(this,6)">Not sure</div><div class="dot" onclick="pick(this,6)">Agree</div><div class="dot" onclick="pick(this,6)">Strongly agree</div></div></div>
+<div class="likert"><div class="q">8. We should protect famous places for future generations.</div><div class="dots" data-q="7"><div class="dot" onclick="pick(this,7)">Strongly disagree</div><div class="dot" onclick="pick(this,7)">Disagree</div><div class="dot" onclick="pick(this,7)">Not sure</div><div class="dot" onclick="pick(this,7)">Agree</div><div class="dot" onclick="pick(this,7)">Strongly agree</div></div></div>
+<div class="open"><label>Describe a place you have visited or want to visit. Why is it special?</label><textarea></textarea></div>
+<div class="open"><label>Do you think tourism helps or harms local communities? Explain.</label><textarea></textarea></div>
+<div class="box"><h4>For the teacher</h4><p class="mono" style="font-size:12px">This survey works on its own (answers stay on the page). To collect responses, wire the eight Likert items + two open prompts to a single-page Google Form using the hidden-iframe POST pattern — remember to flatten any section breaks so no answers are dropped.</p></div>
+<div class="foot">TEACH FOR SUCCESS! &middot; Opinion survey &middot; B1–B2</div>
+<script>
+var answered={};
+function pick(el,q){
+  var group=el.parentNode;
+  var dots=group.querySelectorAll('.dot');
+  for(var k=0;k<dots.length;k++){dots[k].classList.remove('sel');}
+  el.classList.add('sel');
+  answered[q]=1;
+  document.getElementById('count').textContent=Object.keys(answered).length;
+}
+</script>
+</body>
+</html>

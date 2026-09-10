@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bird Guide English — Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fraunces:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7F0;
+    --ink:#1A1A1A;
+    --blue:#3B6FE0;
+    --blue-deep:#1F3E96;
+    --coral:#FF6B4A;
+    --coral-deep:#B8391E;
+    --green:#2F9E52;
+    --green-deep:#1C6E38;
+    --gold:#D9A621;
+    --gold-deep:#8F6A0F;
+    --leaf:#4C9A2A;
+    --leaf-deep:#2E6318;
+    --spice:#E8823B;
+    --spice-deep:#B85A1E;
+    --teal:#1E9C94;
+    --teal-deep:#146B65;
+    --plum:#8B5FBF;
+    --plum-deep:#5E3D87;
+    --plum-light:#F1E9FC;
+    --yellow:#FFC93C;
+    --rose:#D6336C;
+    --rose-deep:#8C1D46;
+    --sky:#2E86C1;
+    --sky-deep:#1B4F72;
+    --card-radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(26,26,26,0.06) 1.5px, transparent 0);
+    background-size:22px 22px;
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    padding:24px 16px 60px;
+  }
+  .app{max-width:760px;margin:0 auto;}
+
+  .hero{text-align:center;margin-bottom:22px;}
+  .hero-badge{
+    display:inline-block;
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    background:var(--ink);
+    color:var(--paper);
+    padding:6px 16px;
+    border-radius:999px;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Bungee', cursive;
+    font-size:clamp(1.5rem, 5vw, 2.2rem);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  .subtitle{
+    font-family:'Space Mono', monospace;
+    font-size:0.9rem;
+    color:#4a4a4a;
+    margin:0;
+  }
+  .nav-links{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;
+  }
+  .nav-link{
+    display:inline-flex;flex-direction:column;align-items:center;gap:2px;
+    text-decoration:none;color:var(--ink);
+    background:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:7px 14px;box-shadow:4px 4px 0 var(--ink);
+  }
+  .nav-link .en{font-family:'Bungee', cursive;font-size:0.7rem;}
+  .nav-link .es{font-family:'Space Mono', monospace;font-size:0.62rem;opacity:0.7;}
+  .nav-link:hover{transform:translate(-1px,-1px);}
+  .nav-link:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+
+  /* ---- Landing screen ---- */
+  .landing-intro{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:16px 20px;margin-bottom:22px;
+  }
+  .landing-intro p{margin:0;font-size:1rem;}
+  .landing-grid{
+    display:grid;grid-template-columns:repeat(auto-fill, minmax(190px,1fr));
+    gap:14px;margin-bottom:20px;
+  }
+  .topic-card{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    background:var(--accent, #fff);
+    border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);
+    padding:20px 12px;cursor:pointer;text-align:center;
+    transition:transform 0.1s ease;
+  }
+  .topic-card:hover{transform:translate(-2px,-2px);}
+  .topic-card:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .topic-card .icon{font-size:2rem;}
+  .topic-card .label{font-family:'Bungee', cursive;font-size:0.88rem;line-height:1.3;}
+  .topic-card .count{font-family:'Space Mono', monospace;font-size:0.68rem;opacity:0.75;}
+  .topic-card.all-areas{
+    grid-column:1 / -1;
+    background:repeating-linear-gradient(135deg, var(--yellow), var(--yellow) 12px, #fff 12px, #fff 24px);
+  }
+
+  /* ---- Quiz screen ---- */
+  .quiz-topbar{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);padding:12px 18px;margin-bottom:20px;
+  }
+  .quiz-progress{font-family:'Space Mono', monospace;font-size:0.85rem;}
+  .quiz-score{font-family:'Space Mono', monospace;font-size:0.85rem;
+    background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:5px 10px;}
+  .exit-btn{
+    font-family:'Space Mono', monospace;font-size:0.75rem;
+    background:#fff;border:2px solid var(--ink);border-radius:14px;
+    padding:5px 12px;cursor:pointer;
+  }
+
+  .quiz-prompt{
+    text-align:center;font-size:1.05rem;margin-bottom:16px;
+  }
+  .quiz-frame{
+    font-family:'Space Mono', monospace;font-weight:700;
+    background:var(--yellow);padding:2px 8px;border-radius:6px;
+    border:2px solid var(--ink);white-space:nowrap;
+  }
+
+  .quiz-visual-wrap{display:flex;justify-content:center;margin-bottom:20px;}
+  .quiz-visual{
+    width:190px;height:190px;
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    font-size:3.6rem;position:relative;overflow:hidden;padding:10px;
+  }
+  .quiz-visual svg{width:75%;height:75%;}
+  .quiz-visual .photo-wrap{position:relative;width:100%;height:100%;}
+  .quiz-visual .photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center;border-radius:calc(var(--card-radius) - 4px);}
+  .quiz-visual .photo-badge{
+    position:absolute;bottom:6px;right:6px;min-width:28px;height:24px;padding:0 6px;
+    background:#fff;border:2px solid var(--ink);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;font-size:13px;white-space:nowrap;
+  }
+  .quiz-visual.word-display{
+    font-family:'Bungee', cursive;font-size:1.35rem;text-align:center;
+    padding:12px;line-height:1.25;
+  }
+  .replay-btn{
+    display:block;margin:0 auto 20px;
+    font-family:'Bungee', cursive;font-size:0.8rem;
+    background:var(--plum);color:#fff;border:3px solid var(--ink);border-radius:16px;
+    padding:8px 18px;box-shadow:4px 4px 0 var(--ink);cursor:pointer;
+  }
+  .replay-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+
+  .quiz-options{
+    display:grid;grid-template-columns:repeat(auto-fit, minmax(140px,1fr));
+    gap:12px;margin-bottom:16px;
+  }
+  .option-btn{
+    font-family:'Bungee', cursive;font-size:0.9rem;
+    padding:16px 10px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);background:#fff;cursor:pointer;
+  }
+  .option-btn:active:not(:disabled){transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .option-btn.correct{background:var(--green);color:#fff;}
+  .option-btn.wrong{background:var(--coral);color:#fff;}
+  .option-btn:disabled{cursor:default;}
+
+  .quiz-options.image-options{
+    grid-template-columns:repeat(auto-fit, minmax(110px,1fr));
+  }
+  .option-btn.image-option{
+    display:flex;align-items:center;justify-content:center;
+    min-height:110px;font-size:2.6rem;padding:8px;position:relative;overflow:hidden;
+  }
+  .option-btn.image-option .photo-wrap{position:relative;width:100%;height:90px;}
+  .option-btn.image-option .photo-wrap img{width:100%;height:100%;object-fit:cover;border-radius:calc(var(--card-radius) - 6px);}
+  .option-btn.image-option svg{width:70%;height:70%;}
+
+  .feedback-box{
+    min-height:26px;text-align:center;font-family:'Space Mono', monospace;font-weight:700;
+    margin-bottom:16px;
+  }
+  .feedback-box.correct{color:var(--green-deep);}
+  .feedback-box.wrong{color:var(--coral-deep);}
+  .feedback-reveal{
+    font-family:'Fraunces', serif;font-weight:600;font-size:1.3rem;
+    margin-top:6px;color:var(--ink);
+  }
+  .feedback-reveal .feedback-es{font-style:italic;}
+
+  .next-btn{
+    display:none;margin:0 auto;
+    font-family:'Bungee', cursive;font-size:0.9rem;
+    padding:12px 26px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);background:var(--yellow);cursor:pointer;
+  }
+  .next-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+
+  /* ---- Results screen ---- */
+  .results-box{
+    background:#fff;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:6px 6px 0 var(--ink);padding:28px 24px;text-align:center;
+  }
+  .results-box .big-score{font-family:'Bungee', cursive;font-size:2.4rem;margin:10px 0;}
+  .results-box p{font-size:1rem;margin:6px 0;}
+  .results-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+  .results-buttons button{
+    font-family:'Bungee', cursive;font-size:0.85rem;
+    padding:12px 20px;border:4px solid var(--ink);border-radius:var(--card-radius);
+    box-shadow:5px 5px 0 var(--ink);cursor:pointer;
+  }
+  .results-buttons button:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink);}
+  .btn-retry{background:var(--yellow);}
+  .btn-choose{background:#fff;}
+
+  .hidden{display:none !important;}
+
+  footer{
+    text-align:center;font-family:'Space Mono', monospace;font-size:0.7rem;
+    opacity:0.5;margin-top:40px;
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="hero">
+    <div class="hero-badge">BIRD GUIDE ENGLISH · QUIZ</div>
+    <h1>Talk About Birds!</h1>
+    <p class="subtitle">Para guías de reservas de aves · Pick a topic, or try them all mixed together.</p>
+    <div class="nav-links">
+      <a class="nav-link" href="birdguide_get_to_know.html">
+        <span class="en">🔊 Practice Tool</span>
+        <span class="es">Herramienta de práctica</span>
+      </a>
+      <a class="nav-link" href="birdguide_printable_cards.pdf" target="_blank" rel="noopener">
+        <span class="en">🖨️ Printable Cards</span>
+        <span class="es">Tarjetas para imprimir</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- LANDING SCREEN -->
+  <section id="landing-screen">
+    <div class="landing-intro">
+      <p>Choose one area to study, or try <strong>All Areas Mixed</strong> for a full review. Each quiz shows 4 answer choices — pick the one you think is right, then check your answer.</p>
+    </div>
+    <div class="landing-grid" id="landing-grid"></div>
+  </section>
+
+  <!-- QUIZ SCREEN -->
+  <section id="quiz-screen" class="hidden">
+    <div class="quiz-topbar">
+      <span class="quiz-progress">Question <span id="q-current">1</span>/<span id="q-total">10</span></span>
+      <span class="quiz-score">✅ <span id="q-correct">0</span> correct</span>
+      <button class="exit-btn" id="exit-quiz">✕ Choose another area</button>
+    </div>
+
+    <p class="quiz-prompt" id="quiz-prompt-text"></p>
+
+    <div class="quiz-visual-wrap" id="quiz-visual-wrap">
+      <div class="quiz-visual" id="quiz-visual"></div>
+    </div>
+
+    <button class="replay-btn" id="replay-audio">🔊 Hear it again</button>
+
+    <div class="quiz-options" id="quiz-options"></div>
+    <div class="feedback-box" id="quiz-feedback"></div>
+    <button class="next-btn" id="next-question">Next ▶</button>
+  </section>
+
+  <!-- RESULTS SCREEN -->
+  <section id="results-screen" class="hidden">
+    <div class="results-box">
+      <h2 style="font-family:'Bungee', cursive; margin:0;">🎉 All Done!</h2>
+      <div class="big-score" id="final-score">0/0</div>
+      <p id="final-message"></p>
+      <div class="results-buttons">
+        <button class="btn-retry" id="retry-btn">🔄 Try Again</button>
+        <button class="btn-choose" id="choose-btn">📋 Choose Another Area</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>Bird Guide English · Reserve staff training</footer>
+</div>
+
+<script>
+  // ---- Data ----
+  // Colors, body parts, and description patterns come from the field guide
+  // handout. Location, Action, Habitat, and Guide Phrases were added so
+  // trainees can build a full description in the order the handout itself
+  // teaches: location, then action, then description.
+  const colors = [
+    {emoji:"⚫", word:"black", es:"negro"},
+    {emoji:"⚪", word:"white", es:"blanco"},
+    {emoji:"🔘", word:"gray", es:"gris"},
+    {emoji:"🟤", word:"brown", es:"café / marrón"},
+    {emoji:"🟢", word:"green", es:"verde"},
+    {emoji:"🔵", word:"blue", es:"azul"},
+    {emoji:"🟡", word:"yellow", es:"amarillo"},
+    {emoji:"🟠", word:"orange", es:"anaranjado"},
+    {emoji:"🔴", word:"red", es:"rojo"},
+    {emoji:"🟣", word:"purple", es:"morado"},
+    {emoji:"💗", word:"pink", es:"rosado"},
+    {emoji:"🌾", word:"buff", es:"beige"},
+    {emoji:"🫒", word:"olive", es:"verde olivo"},
+    {emoji:"🦊", word:"rufous", es:"rufo / rojizo"},
+    {emoji:"🥇", word:"golden", es:"dorado"}
+  ];
+
+  // Body parts have no meaningful icon, so the quiz tests English<->Spanish
+  // word matching instead of picture matching (see makeWordQuestion below).
+  const bodyParts = [
+    {word:"head", es:"cabeza"},
+    {word:"crown", es:"corona"},
+    {word:"forehead", es:"frente"},
+    {word:"eye", es:"ojo"},
+    {word:"eye ring", es:"anillo ocular"},
+    {word:"beak", es:"pico"},
+    {word:"nostril", es:"narina"},
+    {word:"throat", es:"garganta"},
+    {word:"neck", es:"cuello"},
+    {word:"back", es:"espalda"},
+    {word:"shoulder", es:"hombro"},
+    {word:"wing", es:"ala"},
+    {word:"wing feathers", es:"plumas del ala"},
+    {word:"tail", es:"cola"},
+    {word:"tail feathers", es:"plumas de la cola"},
+    {word:"breast", es:"pecho"},
+    {word:"belly", es:"vientre"},
+    {word:"flank", es:"flanco"},
+    {word:"leg", es:"pata"},
+    {word:"foot", es:"pie"},
+    {word:"claw", es:"garra"},
+    {word:"crest", es:"cresta"},
+    {word:"feathers", es:"plumas"}
+  ];
+
+  const locations = [
+    {emoji:"🌳", word:"in the tree", es:"en el árbol"},
+    {emoji:"🪵", word:"on the branch", es:"en la rama"},
+    {emoji:"🟫", word:"on the ground", es:"en el suelo"},
+    {emoji:"🌊", word:"near the water", es:"cerca del agua"},
+    {emoji:"🍃", word:"in the bush", es:"en el arbusto"},
+    {emoji:"☁️", word:"in the sky", es:"en el cielo"},
+    {emoji:"🪨", word:"on the rock", es:"en la roca"},
+    {emoji:"🪺", word:"in the nest", es:"en el nido"}
+  ];
+
+  const actions = [
+    {emoji:"🕊️", word:"flying", es:"volando"},
+    {emoji:"🐦", word:"perching", es:"posado/a"},
+    {emoji:"🎵", word:"singing", es:"cantando"},
+    {emoji:"📢", word:"calling", es:"llamando"},
+    {emoji:"🍽️", word:"eating", es:"comiendo"},
+    {emoji:"💧", word:"drinking", es:"bebiendo"},
+    {emoji:"💦", word:"bathing", es:"bañándose"},
+    {emoji:"🎯", word:"hunting", es:"cazando"},
+    {emoji:"🐣", word:"feeding its chicks", es:"alimentando a sus polluelos"}
+  ];
+
+  const habitats = [
+    {emoji:"🌲🌫️", word:"cloud forest", es:"bosque nuboso"},
+    {emoji:"🌴🌧️", word:"rainforest", es:"selva tropical"},
+    {emoji:"🌊", word:"river", es:"río"},
+    {emoji:"🏞️", word:"lake", es:"lago"},
+    {emoji:"🐸", word:"wetland", es:"humedal"},
+    {emoji:"⛰️", word:"mountain", es:"montaña"},
+    {emoji:"🌻", word:"garden", es:"jardín"},
+    {emoji:"⛲", word:"waterfall", es:"cascada"}
+  ];
+
+  // Sentence-level description patterns from the handout — tests
+  // recognizing the correct English translation of a Spanish description.
+  const patterns = [
+    {en:"It has a crest.", es:"Tiene una cresta."},
+    {en:"It has a white eye ring.", es:"Tiene un anillo ocular blanco."},
+    {en:"It has white spots.", es:"Tiene manchas blancas."},
+    {en:"It has black stripes.", es:"Tiene rayas negras."},
+    {en:"It is black and white.", es:"Es blanco y negro."},
+    {en:"It is small and black.", es:"Es pequeño y negro."},
+    {en:"It is large and colorful.", es:"Es grande y colorido."},
+    {en:"Its beak is curved.", es:"Su pico es curvo."},
+    {en:"Its tail is long.", es:"Su cola es larga."}
+  ];
+
+  // Practical phrases for guiding visitors — not in the handout, added to
+  // round out functional, on-the-job English.
+  const guidePhrases = [
+    {en:"Look!", es:"¡Mire!"},
+    {en:"Do you see it?", es:"¿Lo ve?"},
+    {en:"It's over there.", es:"Está allí."},
+    {en:"Please be quiet.", es:"Por favor, silencio."},
+    {en:"Follow me.", es:"Sígame."},
+    {en:"Welcome to the reserve.", es:"Bienvenido a la reserva."},
+    {en:"Do you have binoculars?", es:"¿Tiene binoculares?"},
+    {en:"Listen!", es:"¡Escuche!"}
+  ];
+
+  // ---- Audio (Web Speech API) ----
+  // Browsers ship several voices; the default picked automatically is often
+  // the flattest-sounding one. We look for higher-quality voices by name and
+  // prefer those, per language, once the voice list has loaded.
+  let voiceList = [];
+  function loadVoices(){
+    voiceList = window.speechSynthesis.getVoices();
+  }
+  if('speechSynthesis' in window){
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+  }
+
+  const QUALITY_HINTS = ['Enhanced','Premium','Neural','Natural','Siri'];
+  const PREFERRED_BY_LANG = {
+    en: ['Google US English','Samantha','Ava','Nicky','Alex','Serena'],
+    es: ['Google español','Mónica','Paulina','Jorge','Juan','Google español de Estados Unidos']
+  };
+
+  function pickVoice(lang){
+    if(!voiceList.length) return null;
+    const prefix = lang.split('-')[0].toLowerCase();
+    const candidates = voiceList.filter(v => v.lang.toLowerCase().startsWith(prefix));
+    if(!candidates.length) return null;
+
+    let pick = candidates.find(v => QUALITY_HINTS.some(hint => v.name.includes(hint)));
+    if(!pick){
+      const preferredNames = PREFERRED_BY_LANG[prefix] || [];
+      pick = candidates.find(v => preferredNames.some(name => v.name.includes(name)));
+    }
+    if(!pick) pick = candidates.find(v => v.lang.toLowerCase() === lang.toLowerCase());
+    if(!pick) pick = candidates[0];
+    return pick;
+  }
+
+  function speak(text, lang, rate, pitch, volume){
+    if(!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang || 'en-US';
+    const voice = pickVoice(utter.lang);
+    if(voice) utter.voice = voice;
+    utter.rate = rate || 0.92;
+    utter.pitch = pitch || 1;
+    utter.volume = volume || 1;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function speakItem(sentenceOrParts){
+    if(!('speechSynthesis' in window)) return;
+    window.speechSynthesis.cancel();
+    if(Array.isArray(sentenceOrParts)){
+      sentenceOrParts.forEach(part=> speak(part.text, part.lang, part.rate, part.pitch, part.volume));
+    } else {
+      speak(sentenceOrParts, 'en-US');
+    }
+  }
+
+  function buildFront(item){
+    if(item.photo){
+      return `<div class="photo-wrap">
+        <img src="${item.photo}" alt="${item.word}">
+        ${item.badge ? `<div class="photo-badge">${item.badge}</div>` : ''}
+      </div>`;
+    }
+    if(item.art){ return item.art; }
+    return item.flag || item.emoji || '';
+  }
+
+  // ---- Shuffle helper ----
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  // ---- Question builders ----
+  // Picture-based: Colors, Location, Action, Habitat — listen to the word,
+  // tap the matching picture, then see the picture + Spanish word confirmed.
+  function makeVocabQuestion(item, pool, promptText, sentenceFn, framePattern){
+    const others = pool.filter(p=>p.word!==item.word);
+    const distractors = shuffle(others).slice(0,3);
+    return {
+      frontItem:null,
+      prompt:promptText,
+      frame:framePattern,
+      correct:item.word,
+      optionType:'image',
+      options:shuffle([item, ...distractors]),
+      speak:sentenceFn(item),
+      reveal:`${item.emoji} <span class="feedback-es">${item.es}</span>`
+    };
+  }
+
+  // Word-based: Body Parts — no icon exists, so show the English word and
+  // pick the matching Spanish word instead of a picture.
+  function makeWordQuestion(item, pool){
+    const others = pool.filter(p=>p.word!==item.word);
+    const distractors = shuffle(others).slice(0,3).map(p=>p.es);
+    return {
+      frontItem:null,
+      frontWord:item.word,
+      prompt:"Which is the Spanish word?",
+      frame:"¿Cómo se dice en español?",
+      correct:item.es,
+      options:shuffle([item.es, ...distractors]),
+      speak:item.word
+    };
+  }
+
+  // Sentence-based: Describe It / Guide Phrases — show the Spanish sentence,
+  // pick the correct English translation.
+  function makeSentenceQuestion(item, pool){
+    const others = pool.filter(p=>p.en!==item.en);
+    const distractors = shuffle(others).slice(0,3).map(p=>p.en);
+    return {
+      frontItem:null,
+      frontWord:item.es,
+      prompt:"Which is the English translation?",
+      frame:"¿Cómo se dice en inglés?",
+      correct:item.en,
+      options:shuffle([item.en, ...distractors]),
+      speak:item.en
+    };
+  }
+
+  const CATEGORIES = {
+    colors:{
+      label:"Colors", icon:"🎨", accent:"var(--rose)",
+      build:()=> shuffle(colors).map(it=>makeVocabQuestion(it, colors,
+        "Listen, then tap the matching color.",
+        (item)=>`It is ${item.word}.`,
+        "Its ___ is ___."))
+    },
+    bodyParts:{
+      label:"Body Parts", icon:"🦴", accent:"var(--teal)",
+      build:()=> shuffle(bodyParts).map(it=>makeWordQuestion(it, bodyParts))
+    },
+    locations:{
+      label:"Location", icon:"📍", accent:"var(--green)",
+      build:()=> shuffle(locations).map(it=>makeVocabQuestion(it, locations,
+        "Listen, then tap the matching location.",
+        (item)=>`The bird is ${item.word}.`,
+        "The bird is ___."))
+    },
+    actions:{
+      label:"Action", icon:"🏃", accent:"var(--blue)",
+      build:()=> shuffle(actions).map(it=>makeVocabQuestion(it, actions,
+        "Listen, then tap the matching action.",
+        (item)=>`It is ${item.word}.`,
+        "It is ___."))
+    },
+    habitats:{
+      label:"Habitat", icon:"🌳", accent:"var(--sky)",
+      build:()=> shuffle(habitats).map(it=>makeVocabQuestion(it, habitats,
+        "Listen, then tap the matching habitat.",
+        (item)=>`This is a ${item.word}.`,
+        "This is a ___."))
+    },
+    patterns:{
+      label:"Describe It", icon:"💬", accent:"var(--gold)",
+      build:()=> shuffle(patterns).map(it=>makeSentenceQuestion(it, patterns))
+    },
+    phrases:{
+      label:"Guide Phrases", icon:"🗣️", accent:"var(--plum)",
+      build:()=> shuffle(guidePhrases).map(it=>makeSentenceQuestion(it, guidePhrases))
+    }
+  };
+
+  function buildAllAreasDeck(){
+    let deck = [];
+    Object.keys(CATEGORIES).forEach(key=>{
+      deck = deck.concat(CATEGORIES[key].build().slice(0,4));
+    });
+    return shuffle(deck);
+  }
+
+  // ---- Landing screen render ----
+  const landingGrid = document.getElementById('landing-grid');
+  Object.keys(CATEGORIES).forEach(key=>{
+    const cat = CATEGORIES[key];
+    const poolSize = key==='colors' ? colors.length :
+      key==='bodyParts' ? bodyParts.length :
+      key==='locations' ? locations.length :
+      key==='actions' ? actions.length :
+      key==='habitats' ? habitats.length :
+      key==='patterns' ? patterns.length : guidePhrases.length;
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.style.setProperty('--accent', cat.accent);
+    card.innerHTML = `
+      <div class="icon">${cat.icon}</div>
+      <div class="label">${cat.label}</div>
+      <div class="count">${poolSize} questions</div>
+    `;
+    card.addEventListener('click', ()=> startQuiz(key));
+    landingGrid.appendChild(card);
+  });
+  const allCard = document.createElement('div');
+  allCard.className = 'topic-card all-areas';
+  allCard.innerHTML = `
+    <div class="icon">🎯</div>
+    <div class="label">All Areas Mixed</div>
+    <div class="count">28 questions</div>
+  `;
+  allCard.addEventListener('click', ()=> startQuiz('all'));
+  landingGrid.appendChild(allCard);
+
+  // ---- Quiz engine ----
+  let deck = [];
+  let idx = 0;
+  let correctCount = 0;
+  let lastSpeak = null;
+
+  const landingScreen = document.getElementById('landing-screen');
+  const quizScreen = document.getElementById('quiz-screen');
+  const resultsScreen = document.getElementById('results-screen');
+
+  function startQuiz(key){
+    deck = key==='all' ? buildAllAreasDeck() : CATEGORIES[key].build();
+    idx = 0;
+    correctCount = 0;
+    landingScreen.classList.add('hidden');
+    resultsScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+    document.getElementById('q-total').textContent = deck.length;
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const q = deck[idx];
+    document.getElementById('q-current').textContent = idx+1;
+    document.getElementById('q-correct').textContent = correctCount;
+    document.getElementById('quiz-prompt-text').innerHTML =
+      `${q.prompt} <span class="quiz-frame">${q.frame}</span>`;
+
+    const visualWrap = document.getElementById('quiz-visual-wrap');
+    const visualEl = document.getElementById('quiz-visual');
+    if(q.frontItem){
+      visualWrap.classList.remove('hidden');
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = buildFront(q.frontItem);
+    } else if(q.frontWord){
+      // Show the written word instead of a picture, so the picture options
+      // below aren't just confirming what's already on screen.
+      visualWrap.classList.remove('hidden');
+      visualEl.classList.add('word-display');
+      visualEl.innerHTML = `<span>${q.frontWord}</span>`;
+    } else {
+      // No front visual for this question — showing it would just be the
+      // answer's picture sitting right next to the picture options below.
+      visualWrap.classList.add('hidden');
+      visualEl.classList.remove('word-display');
+      visualEl.innerHTML = '';
+    }
+
+    document.getElementById('quiz-feedback').textContent = '';
+    document.getElementById('quiz-feedback').className = 'feedback-box';
+    document.getElementById('next-question').style.display = 'none';
+
+    const optionsEl = document.getElementById('quiz-options');
+    optionsEl.innerHTML = '';
+    const isImageOptions = q.optionType === 'image';
+    optionsEl.classList.toggle('image-options', isImageOptions);
+    q.options.forEach(opt=>{
+      const btn = document.createElement('button');
+      const optWord = isImageOptions ? (opt.name || opt.word) : opt;
+      btn.dataset.word = optWord;
+      if(isImageOptions){
+        btn.className = 'option-btn image-option';
+        btn.innerHTML = buildFront(opt);
+      } else {
+        btn.className = 'option-btn';
+        btn.textContent = opt;
+      }
+      btn.addEventListener('click', ()=> handleAnswer(optWord, btn, q));
+      optionsEl.appendChild(btn);
+    });
+
+    lastSpeak = q.speak;
+    speakItem(q.speak);
+  }
+
+  function handleAnswer(chosen, btnEl, q){
+    const isCorrect = chosen === q.correct;
+    document.querySelectorAll('.option-btn').forEach(b=>{
+      b.disabled = true;
+      if(b.dataset.word === q.correct) b.classList.add('correct');
+    });
+    if(!isCorrect) btnEl.classList.add('wrong');
+    if(isCorrect) correctCount++;
+    document.getElementById('q-correct').textContent = correctCount;
+
+    const feedback = document.getElementById('quiz-feedback');
+    let feedbackHtml = isCorrect ? `✅ Correct! ${q.speak}` : `Actually: ${q.speak}`;
+    if(q.reveal){
+      feedbackHtml += `<div class="feedback-reveal">${q.reveal}</div>`;
+    }
+    feedback.innerHTML = feedbackHtml;
+    feedback.className = `feedback-box ${isCorrect ? 'correct' : 'wrong'}`;
+    speakItem(q.speak);
+    document.getElementById('next-question').style.display = 'inline-block';
+  }
+
+  document.getElementById('replay-audio').addEventListener('click', ()=>{
+    if(lastSpeak) speakItem(lastSpeak);
+  });
+
+  document.getElementById('next-question').addEventListener('click', ()=>{
+    idx++;
+    if(idx >= deck.length){
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  });
+
+  document.getElementById('exit-quiz').addEventListener('click', ()=>{
+    quizScreen.classList.add('hidden');
+    landingScreen.classList.remove('hidden');
+  });
+
+  function showResults(){
+    quizScreen.classList.add('hidden');
+    resultsScreen.classList.remove('hidden');
+    document.getElementById('final-score').textContent = `${correctCount}/${deck.length}`;
+    const pct = Math.round((correctCount/deck.length)*100);
+    let msg = '';
+    if(pct === 100) msg = "¡Perfecto! You know this by heart.";
+    else if(pct >= 75) msg = "¡Muy bien! Almost there.";
+    else if(pct >= 50) msg = "Good start — keep practicing!";
+    else msg = "Let's practice this one some more.";
+    document.getElementById('final-message').textContent = msg;
+  }
+
+  document.getElementById('retry-btn').addEventListener('click', ()=>{
+    resultsScreen.classList.add('hidden');
+    quizScreen.classList.remove('hidden');
+    idx = 0;
+    correctCount = 0;
+    renderQuestion();
+  });
+
+  document.getElementById('choose-btn').addEventListener('click', ()=>{
+    resultsScreen.classList.add('hidden');
+    landingScreen.classList.remove('hidden');
+  });
+</script>
+</body>
+</html>
