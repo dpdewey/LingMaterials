@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Neurolinguistics Lab — Equipment Scheduler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E121B;
+    --panel:#161C29;
+    --panel-2:#1D2536;
+    --panel-3:#242C40;
+    --line:#2B3348;
+    --line-soft:#212942;
+    --paper:#E9ECF3;
+    --paper-dim:#8D94A8;
+    --paper-faint:#5B6378;
+    --source:#E2624C;
+    --source-dim:#5A362F;
+    --detector:#4F8FE0;
+    --detector-dim:#2C3F5C;
+    --accent:#E8A23C;
+    --accent-dim:#4A3C22;
+    --good:#4FAE86;
+    --good-dim:#274539;
+    --radius-sm:4px;
+    --radius-md:7px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    font-size:14px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent-dim);color:var(--paper);}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace;}
+  a{color:inherit;}
+  button{font-family:inherit;font-size:inherit;color:inherit;}
+  input,select{font-family:inherit;font-size:inherit;color:inherit;}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* ---------- App shell ---------- */
+  #app{display:flex;min-height:100vh;}
+
+  .rail{
+    width:230px;
+    flex-shrink:0;
+    background:var(--panel);
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    padding:20px 14px;
+    position:sticky;
+    top:0;
+    height:100vh;
+  }
+  .rail-brand{
+    padding:4px 8px 18px 8px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:16px;
+  }
+  .rail-brand .mark{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:6px;
+  }
+  .rail-brand svg{flex-shrink:0;}
+  .rail-brand .name{
+    font-weight:600;
+    font-size:14.5px;
+    letter-spacing:0.01em;
+  }
+  .rail-brand .sub{
+    color:var(--paper-faint);
+    font-size:11.5px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .rail-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+  .rail-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 10px;
+    border-radius:var(--radius-sm);
+    background:transparent;
+    border:none;
+    color:var(--paper-dim);
+    text-align:left;
+    cursor:pointer;
+    transition:background .12s ease, color .12s ease;
+  }
+  .rail-btn:hover{background:var(--panel-2);color:var(--paper);}
+  .rail-btn.active{background:var(--panel-3);color:var(--paper);}
+  .rail-btn.active .dot{background:var(--accent);}
+  .rail-btn .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--line);flex-shrink:0;
+  }
+  .rail-btn .label{font-size:13.5px;}
+  .rail-foot{
+    border-top:1px solid var(--line);
+    padding-top:14px;
+    margin-top:14px;
+  }
+  .user-switch{margin-bottom:8px;}
+  .user-switch label{
+    display:block;
+    font-size:10.5px;
+    color:var(--paper-faint);
+    font-family:'IBM Plex Mono',monospace;
+    text-transform:none;
+    margin-bottom:5px;
+  }
+  .user-switch select{
+    width:100%;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:7px 8px;
+    border-radius:var(--radius-sm);
+  }
+  .rail-note{
+    font-size:11px;
+    color:var(--paper-faint);
+    line-height:1.5;
+    margin-top:10px;
+  }
+
+  .main{flex:1;min-width:0;padding:34px 40px 80px 40px;max-width:1180px;}
+  .view-head{margin-bottom:26px;}
+  .view-head h1{
+    font-size:22px;
+    font-weight:600;
+    margin:0 0 6px 0;
+    letter-spacing:-0.01em;
+  }
+  .view-head p{
+    margin:0;
+    color:var(--paper-dim);
+    font-size:13.5px;
+    max-width:60ch;
+  }
+
+  /* ---------- shared bits ---------- */
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:9px 16px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    color:var(--paper);
+    cursor:pointer;
+    font-size:13px;
+    font-weight:500;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .btn:hover{border-color:var(--paper-faint);}
+  .btn.primary{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#241804;
+    font-weight:600;
+  }
+  .btn.primary:hover{background:#f0af51;}
+  .btn.primary:disabled{
+    background:var(--panel-3);
+    border-color:var(--line);
+    color:var(--paper-faint);
+    cursor:not-allowed;
+  }
+  .btn.ghost{background:transparent;}
+  .btn.danger{color:var(--source);}
+  .btn.small{padding:6px 11px;font-size:12px;}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:3px 9px;
+    border-radius:99px;
+    font-size:11px;
+    font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--line);
+  }
+  .pill.good{color:var(--good);border-color:var(--good-dim);background:rgba(79,174,134,0.08);}
+  .pill.warn{color:var(--source);border-color:var(--source-dim);background:rgba(226,98,76,0.08);}
+  .pill.neutral{color:var(--paper-dim);}
+
+  /* ---------- booking view ---------- */
+  .window-bar{
+    padding:18px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    align-items:flex-end;
+    margin-bottom:22px;
+  }
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field label{font-size:11px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;}
+  .field input[type=datetime-local]{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:8px 10px;
+    border-radius:var(--radius-sm);
+    min-width:210px;
+  }
+  .presets{display:flex;gap:6px;flex-wrap:wrap;}
+  .preset-btn{
+    padding:7px 12px;
+    border-radius:99px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--paper-dim);
+    cursor:pointer;
+    font-size:12px;
+  }
+  .preset-btn:hover{border-color:var(--paper-faint);color:var(--paper);}
+
+  .bundle-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+    padding:0 20px 18px 20px;
+    margin-top:-6px;
+  }
+  .bundle-row .bl{font-size:11px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;margin-right:4px;}
+  .bundle-btn{
+    padding:7px 13px;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    cursor:pointer;
+    font-size:12.5px;
+    display:flex;align-items:center;gap:7px;
+  }
+  .bundle-btn:hover{border-color:var(--detector);}
+  .bundle-btn .dot{width:6px;height:6px;border-radius:50%;}
+  .bundle-btn .dot.good{background:var(--good);}
+  .bundle-btn .dot.partial{background:var(--accent);}
+  .bundle-btn .dot.none{background:var(--source);}
+  .cap-size-picker{
+    display:flex;gap:6px;align-items:center;
+    padding:0 20px 18px 20px;margin-top:-10px;
+  }
+  .cap-size-picker .lbl{font-size:11px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;margin-right:4px;}
+  .cap-size-btn{
+    padding:5px 11px;border-radius:99px;border:1px solid var(--line);
+    background:transparent;color:var(--paper-dim);cursor:pointer;font-size:12px;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .cap-size-btn.sel{border-color:var(--accent);color:var(--accent);}
+
+  .book-layout{display:flex;gap:22px;align-items:flex-start;}
+  .grid-col{flex:1;min-width:0;}
+  .summary-col{width:300px;flex-shrink:0;position:sticky;top:34px;}
+
+  .cat-section{margin-bottom:26px;}
+  .cat-head{
+    display:flex;align-items:baseline;gap:9px;
+    margin-bottom:11px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .cat-head .cat-name{font-size:13.5px;font-weight:600;}
+  .cat-head .cat-count{font-size:11.5px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;}
+  .cat-head .cat-swatch{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+
+  .chip-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(74px, 1fr));
+    gap:7px;
+  }
+  .chip{
+    aspect-ratio:1/1;
+    border-radius:var(--radius-sm);
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    cursor:pointer;
+    position:relative;
+    transition:border-color .1s ease, transform .06s ease;
+  }
+  .chip:hover{border-color:var(--paper-faint);}
+  .chip:active{transform:scale(0.97);}
+  .chip .num{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;}
+  .chip .sub{font-size:9.5px;color:var(--paper-faint);}
+  .chip.available{}
+  .chip.available .num{color:var(--paper);}
+  .chip.selected{
+    border-color:var(--accent);
+    background:var(--accent-dim);
+  }
+  .chip.selected .num{color:var(--accent);}
+  .chip.reserved{
+    background:var(--panel);
+    border-style:dashed;
+    cursor:not-allowed;
+    opacity:0.55;
+  }
+  .chip.reserved .num{color:var(--paper-faint);}
+  .chip.maintenance{
+    background:repeating-linear-gradient(135deg, var(--panel) 0 6px, var(--panel-3) 6px 12px);
+    cursor:not-allowed;
+    opacity:0.6;
+  }
+  .chip.maintenance .num{color:var(--paper-faint);}
+  .chip .state-mark{
+    position:absolute;top:5px;right:5px;
+    width:5px;height:5px;border-radius:50%;
+  }
+  .chip.available .state-mark{background:var(--good);}
+  .chip.reserved .state-mark{background:var(--source);}
+  .chip .tooltip{
+    display:none;
+    position:absolute;
+    bottom:calc(100% + 6px);
+    left:50%;transform:translateX(-50%);
+    background:var(--panel-3);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:7px 9px;
+    border-radius:var(--radius-sm);
+    font-size:11px;
+    white-space:nowrap;
+    z-index:5;
+    font-family:'Space Grotesk',sans-serif;
+  }
+  .chip:hover .tooltip{display:block;}
+
+  .summary-panel{padding:18px;}
+  .summary-panel h3{margin:0 0 4px 0;font-size:13.5px;font-weight:600;}
+  .summary-panel .win{font-size:11.5px;color:var(--paper-dim);font-family:'IBM Plex Mono',monospace;margin-bottom:14px;}
+  .summary-list{display:flex;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto;margin-bottom:14px;}
+  .summary-item{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:12.5px;
+    padding:6px 8px;
+    background:var(--panel-2);
+    border-radius:var(--radius-sm);
+  }
+  .summary-item .x{
+    cursor:pointer;color:var(--paper-faint);font-size:14px;line-height:1;
+    padding:2px 4px;
+  }
+  .summary-item .x:hover{color:var(--source);}
+  .summary-empty{
+    color:var(--paper-faint);font-size:12.5px;
+    padding:16px 8px;text-align:center;
+    border:1px dashed var(--line);border-radius:var(--radius-sm);
+    margin-bottom:14px;
+  }
+  .summary-form{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+  .summary-form input, .summary-form textarea{
+    width:100%;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:8px 9px;
+    border-radius:var(--radius-sm);
+    resize:vertical;
+  }
+  .summary-form textarea{min-height:56px;}
+
+  /* ---------- calendar view ---------- */
+  .cal-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:18px;flex-wrap:wrap;gap:12px;
+  }
+  .cal-nav{display:flex;align-items:center;gap:10px;}
+  .cal-nav button{
+    width:30px;height:30px;border-radius:var(--radius-sm);
+    border:1px solid var(--line);background:var(--panel-2);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .cal-nav button:hover{border-color:var(--paper-faint);}
+  .cal-range{font-size:13.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;}
+  .week-grid{
+    display:grid;
+    grid-template-columns:44px repeat(7,1fr);
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    background:var(--panel);
+  }
+  .week-daylabel{
+    padding:10px 6px;
+    text-align:center;
+    border-left:1px solid var(--line-soft);
+    border-bottom:1px solid var(--line);
+    background:var(--panel-2);
+  }
+  .week-daylabel .dow{font-size:10.5px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;}
+  .week-daylabel .dom{font-size:14px;font-weight:600;margin-top:2px;}
+  .week-daylabel.today{background:var(--panel-3);}
+  .week-daylabel.today .dom{color:var(--accent);}
+  .hour-col{border-bottom:1px solid var(--line);}
+  .hour-label{
+    font-size:9.5px;color:var(--paper-faint);
+    font-family:'IBM Plex Mono',monospace;
+    text-align:right;padding:2px 6px 0 0;
+    height:34px;
+    border-bottom:1px solid var(--line-soft);
+    box-sizing:border-box;
+  }
+  .day-track{
+    position:relative;
+    border-left:1px solid var(--line-soft);
+    background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 33px, var(--line-soft) 33px, var(--line-soft) 34px);
+  }
+  .day-track .hourslot{height:34px;}
+  .resv-block{
+    position:absolute;
+    left:3px;right:3px;
+    border-radius:4px;
+    padding:4px 6px;
+    font-size:10.5px;
+    overflow:hidden;
+    cursor:pointer;
+    border-left:3px solid;
+    line-height:1.3;
+  }
+  .resv-block .who{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .resv-block .cnt{color:rgba(255,255,255,0.65);font-family:'IBM Plex Mono',monospace;font-size:9.5px;}
+  .legend{display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--paper-dim);}
+  .legend-swatch{width:10px;height:10px;border-radius:2px;}
+
+  /* ---------- equipment view ---------- */
+  .eq-layout{display:flex;gap:22px;align-items:flex-start;}
+  .eq-list-col{width:340px;flex-shrink:0;}
+  .eq-filters{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+  .filter-chip{
+    padding:5px 11px;border-radius:99px;border:1px solid var(--line);
+    background:transparent;color:var(--paper-dim);cursor:pointer;font-size:11.5px;
+  }
+  .filter-chip.sel{border-color:var(--detector);color:var(--detector);}
+  .eq-search{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);
+    color:var(--paper);padding:8px 10px;border-radius:var(--radius-sm);
+    margin-bottom:12px;
+  }
+  .eq-rows{display:flex;flex-direction:column;gap:3px;max-height:640px;overflow-y:auto;}
+  .eq-row{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    padding:9px 11px;border-radius:var(--radius-sm);cursor:pointer;
+    border:1px solid transparent;
+  }
+  .eq-row:hover{background:var(--panel-2);}
+  .eq-row.active{background:var(--panel-3);border-color:var(--line);}
+  .eq-row .eid{font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  .eq-row .estatus{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .eq-detail{flex:1;padding:22px;min-width:0;}
+  .eq-detail .eid-big{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;margin-bottom:4px;}
+  .eq-detail .ecat{color:var(--paper-dim);font-size:13px;margin-bottom:16px;}
+  .kv-row{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:13px;}
+  .kv-row .k{width:130px;color:var(--paper-faint);flex-shrink:0;}
+  .hist-item{
+    padding:10px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);
+    margin-bottom:7px;font-size:12.5px;display:flex;justify-content:space-between;gap:10px;
+  }
+  .hist-item .t{color:var(--paper-dim);font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+
+  /* ---------- my reservations / admin tables ---------- */
+  .resv-table{width:100%;border-collapse:collapse;}
+  .resv-table th{
+    text-align:left;font-size:11px;color:var(--paper-faint);
+    font-family:'IBM Plex Mono',monospace;font-weight:500;
+    padding:9px 12px;border-bottom:1px solid var(--line);
+  }
+  .resv-table td{
+    padding:11px 12px;border-bottom:1px solid var(--line-soft);
+    font-size:13px;vertical-align:top;
+  }
+  .resv-table tr:last-child td{border-bottom:none;}
+  .items-inline{color:var(--paper-dim);font-size:12px;}
+  .empty-state{
+    padding:50px 20px;text-align:center;color:var(--paper-faint);
+    border:1px dashed var(--line);border-radius:var(--radius-md);
+  }
+  .empty-state .big{font-size:15px;color:var(--paper-dim);margin-bottom:6px;}
+
+  .admin-section{margin-bottom:30px;}
+  .admin-section h2{font-size:15px;font-weight:600;margin-bottom:12px;}
+  .admin-cat-block{margin-bottom:20px;}
+  .admin-cat-head{
+    display:flex;align-items:center;gap:9px;
+    margin-bottom:10px;padding-bottom:8px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .admin-cat-head .cat-name{font-size:13.5px;font-weight:600;}
+  .admin-cat-head .cat-count{font-size:11.5px;color:var(--paper-faint);font-family:'IBM Plex Mono',monospace;}
+  .admin-eq-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:8px;
+  }
+  .add-form{
+    display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;
+    margin-top:10px;padding:14px;
+    background:var(--panel-2);border:1px solid var(--line);border-radius:var(--radius-sm);
+  }
+  .add-form input, .add-form select{
+    background:var(--panel);border:1px solid var(--line);color:var(--paper);
+    padding:7px 9px;border-radius:var(--radius-sm);min-width:110px;
+  }
+  .admin-eq-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:9px 11px;border:1px solid var(--line);border-radius:var(--radius-sm);
+    font-size:12.5px;
+  }
+  .toggle-btn{
+    border:1px solid var(--line);background:var(--panel-2);
+    padding:4px 9px;border-radius:99px;font-size:10.5px;cursor:pointer;
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .toggle-btn.active-state{color:var(--good);}
+  .toggle-btn.maint-state{color:var(--source);}
+
+  /* ---------- popover / toast ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(6,8,13,0.6);
+    display:flex;align-items:center;justify-content:center;
+    z-index:50;
+  }
+  .modal{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:22px;width:420px;max-width:90vw;
+  }
+  .modal h3{margin:0 0 4px 0;font-size:15px;}
+  .modal .subline{color:var(--paper-dim);font-size:12.5px;margin-bottom:16px;font-family:'IBM Plex Mono',monospace;}
+  .modal-items{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
+  .modal-item-tag{
+    font-size:11px;font-family:'IBM Plex Mono',monospace;
+    padding:4px 8px;border-radius:99px;border:1px solid var(--line);color:var(--paper-dim);
+  }
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end;}
+
+  .toast-wrap{
+    position:fixed;bottom:22px;right:22px;z-index:60;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .toast{
+    background:var(--panel-3);border:1px solid var(--line);
+    border-left:3px solid var(--good);
+    padding:11px 16px;border-radius:var(--radius-sm);
+    font-size:13px;min-width:220px;
+    animation:toast-in .18s ease;
+  }
+  .toast.err{border-left-color:var(--source);}
+  @keyframes toast-in{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  .proto-banner{
+    background:var(--panel-2);border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    padding:9px 13px;font-size:11.5px;color:var(--paper-dim);
+    margin-bottom:22px;font-family:'IBM Plex Mono',monospace;
+    display:flex;align-items:center;gap:8px;
+  }
+  .proto-banner .b-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+
+  @media (max-width: 900px){
+    #app{flex-direction:column;}
+    .rail{
+      width:100%;height:auto;position:relative;
+      flex-direction:row;align-items:center;padding:12px 16px;
+      overflow-x:auto;
+    }
+    .rail-brand,.rail-foot{display:none;}
+    .rail-nav{flex-direction:row;}
+    .main{padding:22px 16px 60px 16px;}
+    .book-layout,.eq-layout{flex-direction:column;}
+    .summary-col,.eq-list-col{width:100%;position:static;}
+  }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* =========================================================
+   DATA LAYER — Google Sheets via Apps Script
+   The Sheet is the database; Code.gs (deployed as a web app)
+   is the only thing that talks to it. Every screen below only
+   calls apiLoad / apiReserve / apiCancel / apiAddEquipment /
+   apiToggleMaintenance — nothing else touches storage, so this
+   is the only block that would need to change if the backend
+   ever moved again.
+========================================================= */
+
+// Paste the deployment's /exec URL here after deploying Code.gs
+// (Deploy > New deployment > Web app > Execute as: Me > Access: Anyone).
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwBKcwMj_euKZg0aioXWVMfKcM5LmNRelmQ4116BUXg0MBrz-MVvUa96NN8uriQ2pjQkQ/exec';
+
+async function apiLoad(){
+  const res = await fetch(APPS_SCRIPT_URL, { method:'GET' });
+  const data = await res.json();
+  if(!data.ok) throw new Error(data.error || 'Failed to load data.');
+  return data;
+}
+
+async function apiPost(action, payload){
+  const res = await fetch(APPS_SCRIPT_URL, {
+    method:'POST',
+    // text/plain keeps this a CORS "simple request" so Apps Script never
+    // has to answer a preflight — the body is still real JSON underneath.
+    headers: { 'Content-Type':'text/plain;charset=utf-8' },
+    body: JSON.stringify(Object.assign({ action }, payload)),
+  });
+  return res.json();
+}
+
+const NAME_COLOR_PALETTE = ['#E8A23C','#4F8FE0','#4FAE86','#B98AE0','#E2624C','#6BA6C9','#C9A26B','#D98BB0'];
+function colorForName(name){
+  const s = name || '?';
+  let hash = 0;
+  for(let i=0;i<s.length;i++) hash = (hash*31 + s.charCodeAt(i)) >>> 0;
+  return NAME_COLOR_PALETTE[hash % NAME_COLOR_PALETTE.length];
+}
+
+const CATEGORY_META = {
+  unit:      { name:'Imaging units',       swatch:'#E8A23C' },
+  source:    { name:'Red source bundles',  swatch:'#E2624C' },
+  detector:  { name:'Blue detector bundles', swatch:'#4F8FE0' },
+  headband:  { name:'Headbands',           swatch:'#8D94A8' },
+  cap:       { name:'Caps',                swatch:'#4FAE86' },
+  laptop:    { name:'Laptops',             swatch:'#B98AE0' },
+  network:   { name:'Network',             swatch:'#6BA6C9' },
+  storage:   { name:'Storage',             swatch:'#C9A26B' },
+};
+const CATEGORY_ORDER = ['unit','source','detector','headband','cap','laptop','network','storage'];
+const CATEGORY_PREFIX = { unit:'U', source:'S', detector:'D', headband:'H', cap:'C', laptop:'L', network:'R', storage:'CAB' };
+const CATEGORY_LABEL_FN = {
+  unit:      n => `NIRSport2 Unit ${n}`,
+  source:    n => `Red Source Bundle ${n}`,
+  detector:  n => `Blue Detector Bundle ${n}`,
+  headband:  n => `Headband ${n}`,
+  cap:       n => `Cap ${n}`,
+  laptop:    n => `fNIRS ${n}`,
+  network:   n => `Router ${n}`,
+  storage:   n => n===1 ? `Rolling Cabinet` : `Rolling Cabinet ${n}`,
+};
+const CAP_SIZES = [52,54,56,58,60];
+
+const state = {
+  equipment: [],
+  reservations: [],
+  status: 'loading',   // 'loading' | 'ready' | 'error'
+  errorMsg: '',
+  identity: { name:'', email:'' },
+  view: 'book',
+  // booking draft
+  draft: {
+    start: null,
+    end: null,
+    selected: new Set(),
+    project: '',
+    purpose: '',
+    capSizeChoice: null,
+  },
+  // calendar
+  calWeekStart: startOfWeek(new Date()),
+  // equipment view
+  eqFilter: 'all',
+  eqSearch: '',
+  eqActiveId: null,
+  // modal
+  modal: null,
+  // admin
+  addFormOpenCat: null,
+};
+
+function startOfWeek(d){
+  const dt = new Date(d);
+  const day = dt.getDay(); // 0 Sun .. 6 Sat
+  const diff = (day===0? -6 : 1-day); // shift to Monday
+  dt.setDate(dt.getDate()+diff);
+  dt.setHours(0,0,0,0);
+  return dt;
+}
+
+function eqById(id){ return state.equipment.find(e=>e.id===id); }
+
+function overlaps(aStart,aEnd,bStart,bEnd){
+  return aStart < bEnd && bStart < aEnd;
+}
+
+function activeReservations(excludeId){
+  return state.reservations.filter(r=>r.status==='active' && r.id!==excludeId);
+}
+
+function isItemAvailable(itemId, start, end, excludeResId){
+  if(!start||!end) return true;
+  const s = new Date(start), e = new Date(end);
+  return !activeReservations(excludeResId).some(r=>{
+    if(!r.items.includes(itemId)) return false;
+    return overlaps(s,e,new Date(r.start),new Date(r.end));
+  });
+}
+
+function conflictFor(itemId, start, end, excludeResId){
+  if(!start||!end) return null;
+  const s = new Date(start), e = new Date(end);
+  return activeReservations(excludeResId).find(r=>{
+    if(!r.items.includes(itemId)) return false;
+    return overlaps(s,e,new Date(r.start),new Date(r.end));
+  });
+}
+
+function fmtDateTime(isoStr){
+  const d = new Date(isoStr);
+  return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}) + ' · ' +
+         d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+}
+function fmtTime(isoStr){
+  return new Date(isoStr).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+}
+function fmtDayLabel(d){
+  return d.toLocaleDateString(undefined,{weekday:'short'});
+}
+function toLocalInputValue(date){
+  const pad = n=>String(n).padStart(2,'0');
+  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
+function showToast(msg, isErr){
+  const wrap = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast' + (isErr?' err':'');
+  t.textContent = msg;
+  wrap.appendChild(t);
+  setTimeout(()=>{ t.remove(); }, 3600);
+}
+
+function genId(prefix){
+  return prefix + '-' + Math.random().toString(36).slice(2,7).toUpperCase();
+}
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function render(){
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    ${renderRail()}
+    <div class="main">${renderView()}</div>
+  `;
+  attachGlobalHandlers();
+  if(state.modal) renderModal();
+}
+
+function renderRail(){
+  const nav = [
+    {k:'book', label:'Book equipment'},
+    {k:'calendar', label:'Calendar'},
+    {k:'equipment', label:'Equipment'},
+    {k:'mine', label:'My reservations'},
+    {k:'admin', label:'Admin'},
+  ];
+  return `
+  <div class="rail">
+    <div class="rail-brand">
+      <div class="mark">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="11" r="1.6" fill="#E8A23C"/>
+          <circle cx="4" cy="6" r="1.4" fill="#E2624C"/>
+          <circle cx="18" cy="6" r="1.4" fill="#4F8FE0"/>
+          <circle cx="4" cy="16" r="1.4" fill="#4F8FE0"/>
+          <circle cx="18" cy="16" r="1.4" fill="#E2624C"/>
+          <line x1="11" y1="11" x2="4" y2="6" stroke="#3A4258" stroke-width="1"/>
+          <line x1="11" y1="11" x2="18" y2="6" stroke="#3A4258" stroke-width="1"/>
+          <line x1="11" y1="11" x2="4" y2="16" stroke="#3A4258" stroke-width="1"/>
+          <line x1="11" y1="11" x2="18" y2="16" stroke="#3A4258" stroke-width="1"/>
+        </svg>
+        <div class="name">Neurolinguistics Lab</div>
+      </div>
+      <div class="sub">fNIRS equipment scheduler</div>
+    </div>
+    <div class="rail-nav">
+      ${nav.map(n=>`
+        <button class="rail-btn ${state.view===n.k?'active':''}" data-nav="${n.k}">
+          <span class="dot"></span><span class="label">${n.label}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div class="rail-foot">
+      <div class="user-switch">
+        <label>Your name</label>
+        <input type="text" id="identityName" placeholder="e.g. Ana Martinez" value="${state.identity.name}" style="width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--paper);padding:7px 8px;border-radius:var(--radius-sm);margin-bottom:8px;">
+        <label>Email (optional)</label>
+        <input type="email" id="identityEmail" placeholder="you@byu.edu" value="${state.identity.email}" style="width:100%;background:var(--panel-2);border:1px solid var(--line);color:var(--paper);padding:7px 8px;border-radius:var(--radius-sm);">
+      </div>
+      <div class="rail-note">There's no sign-in — reservations are labeled with whatever name is typed here. Everyone can also manage equipment and reservations from Admin.</div>
+    </div>
+  </div>`;
+}
+
+function renderView(){
+  if(state.status==='loading') return renderLoadingView();
+  if(state.status==='error') return renderErrorView();
+  if(state.view==='book') return renderBookView();
+  if(state.view==='calendar') return renderCalendarView();
+  if(state.view==='equipment') return renderEquipmentView();
+  if(state.view==='mine') return renderMineView();
+  if(state.view==='admin') return renderAdminView();
+  return '';
+}
+
+/* ---------- BOOK VIEW ---------- */
+function renderLoadingView(){
+  return `<div class="empty-state"><div class="big">Loading the schedule…</div>Reading equipment and reservations from the lab's Sheet.</div>`;
+}
+function renderErrorView(){
+  return `
+    <div class="empty-state">
+      <div class="big">Couldn't reach the scheduler</div>
+      ${state.errorMsg || 'Something went wrong loading data.'}<br><br>
+      <button class="btn" id="retryLoad">Try again</button>
+    </div>
+  `;
+}
+
+async function bootstrap(){
+  if(APPS_SCRIPT_URL.indexOf('PASTE_YOUR') === 0){
+    state.status = 'error';
+    state.errorMsg = 'No Apps Script URL is configured yet — paste your deployment\'s /exec URL into APPS_SCRIPT_URL near the top of the script.';
+    render();
+    return;
+  }
+  if(location.protocol === 'file:'){
+    state.status = 'error';
+    state.errorMsg = 'This page was opened straight from disk (file://), and browsers block it from contacting Google from there. Serve it over http instead — push it to GitHub Pages, or for local testing run "python3 -m http.server 8000" in the folder and open http://localhost:8000/fnirs-lab-scheduler.html.';
+    render();
+    return;
+  }
+  state.status = 'loading';
+  render();
+  try{
+    const data = await apiLoad();
+    state.equipment = data.equipment;
+    state.reservations = data.reservations;
+    if(!state.eqActiveId && state.equipment.length) state.eqActiveId = state.equipment[0].id;
+    state.status = 'ready';
+  } catch(err){
+    state.status = 'error';
+    state.errorMsg = String(err.message || err);
+  }
+  render();
+}
+
+function renderBookView(){
+  const d = state.draft;
+  const hasWindow = d.start && d.end && new Date(d.start) < new Date(d.end);
+
+  return `
+    <div class="view-head">
+      <h1>Book equipment</h1>
+      <p>Choose a date and time window, then select equipment. Items already reserved for that window are dimmed automatically.</p>
+    </div>
+    <div class="proto-banner"><span class="b-dot"></span>No sign-in required — reservations are labeled with the name entered in the left panel. Anyone with this link can book, edit, or cancel any reservation.</div>
+
+    <div class="panel window-bar">
+      <div class="field">
+        <label>Start</label>
+        <input type="datetime-local" id="startInput" value="${d.start?toLocalInputValue(new Date(d.start)):''}">
+      </div>
+      <div class="field">
+        <label>End</label>
+        <input type="datetime-local" id="endInput" value="${d.end?toLocalInputValue(new Date(d.end)):''}">
+      </div>
+      <div class="field">
+        <label>Quick presets</label>
+        <div class="presets">
+          <button class="preset-btn" data-preset="today">Today 9–5</button>
+          <button class="preset-btn" data-preset="tomorrow">Tomorrow 9–5</button>
+          <button class="preset-btn" data-preset="week">This week, 9–5</button>
+        </div>
+      </div>
+    </div>
+
+    ${hasWindow ? renderBundleRow() : `<div class="empty-state" style="margin-bottom:26px;"><div class="big">Pick a start and end time to see availability</div>Equipment can't be checked until a window is set.</div>`}
+
+    ${hasWindow ? `<div class="book-layout">
+      <div class="grid-col">
+        ${CATEGORY_ORDER.map(cat=>renderCatSection(cat, hasWindow)).join('')}
+      </div>
+      <div class="summary-col">
+        ${renderSummaryPanel(hasWindow)}
+      </div>
+    </div>` : ''}
+  `;
+}
+
+function renderBundleRow(){
+  const d = state.draft;
+  const unitNums = [1,2,3,4,5];
+  const sizes = [52,54,56,58,60];
+  return `
+    <div class="panel" style="margin-bottom:22px;">
+      <div class="bundle-row">
+        <span class="bl">Standard bundle —</span>
+        ${unitNums.map(n=>{
+          const ids = [`U${n}`,`S${n}`,`D${n}`,`H${n}`];
+          const availCount = ids.filter(id=>isItemAvailable(id,d.start,d.end)).length;
+          const dotClass = availCount===ids.length ? 'good' : (availCount===0?'none':'partial');
+          return `<button class="bundle-btn" data-bundle="${n}"><span class="dot ${dotClass}"></span>Bundle ${n}</button>`;
+        }).join('')}
+      </div>
+      <div class="cap-size-picker">
+        <span class="lbl">Cap size for bundle —</span>
+        ${sizes.map(s=>`<button class="cap-size-btn ${d.capSizeChoice===s?'sel':''}" data-capsize="${s}">${s} cm</button>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderCatSection(cat, hasWindow){
+  const meta = CATEGORY_META[cat];
+  const items = state.equipment.filter(e=>e.category===cat).sort((a,b)=>a.num-b.num);
+  const d = state.draft;
+  return `
+    <div class="cat-section">
+      <div class="cat-head">
+        <span class="cat-swatch" style="background:${meta.swatch}"></span>
+        <span class="cat-name">${meta.name}</span>
+        <span class="cat-count">${items.length} item${items.length===1?'':'s'}</span>
+      </div>
+      <div class="chip-grid">
+        ${items.map(item=>renderChip(item, hasWindow)).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderChip(item, hasWindow){
+  const d = state.draft;
+  const selected = d.selected.has(item.id);
+  const maintenance = item.status === 'maintenance';
+  const available = hasWindow ? isItemAvailable(item.id, d.start, d.end) : true;
+  let cls = 'chip';
+  let tooltip = '';
+  if(maintenance){
+    cls += ' maintenance';
+    tooltip = 'Under maintenance';
+  } else if(!available && !selected){
+    cls += ' reserved';
+    const c = conflictFor(item.id, d.start, d.end);
+    if(c){
+      tooltip = `Booked by ${c.userName}, ${fmtTime(c.start)}–${fmtTime(c.end)}`;
+    }
+  } else if(selected){
+    cls += ' selected';
+  } else {
+    cls += ' available';
+  }
+  const clickable = !maintenance && (available || selected);
+  return `
+    <div class="${cls}" ${clickable?`data-chip="${item.id}"`:''}>
+      ${!maintenance ? `<span class="state-mark"></span>` : ''}
+      <span class="num">${item.num}</span>
+      <span class="sub">${item.sub || item.category.slice(0,4)}</span>
+      ${tooltip ? `<div class="tooltip">${tooltip}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderSummaryPanel(hasWindow){
+  const d = state.draft;
+  const items = Array.from(d.selected).map(id=>eqById(id)).sort((a,b)=>{
+    if(a.category!==b.category) return CATEGORY_ORDER.indexOf(a.category)-CATEGORY_ORDER.indexOf(b.category);
+    return a.num-b.num;
+  });
+  const canSubmit = hasWindow && items.length>0 && d.project.trim().length>0;
+  return `
+    <div class="panel summary-panel">
+      <h3>Your reservation</h3>
+      <div class="win">${hasWindow ? fmtDateTime(d.start) + ' → ' + fmtDateTime(d.end) : 'No window set'}</div>
+      ${items.length===0 ? `<div class="summary-empty">No equipment selected yet</div>` : `
+        <div class="summary-list">
+          ${items.map(it=>`
+            <div class="summary-item">
+              <span>${it.label}</span>
+              <span class="x" data-remove="${it.id}">&times;</span>
+            </div>
+          `).join('')}
+        </div>
+      `}
+      <div class="summary-form">
+        <input type="text" id="projectInput" placeholder="Project or study name" value="${d.project}">
+        <textarea id="purposeInput" placeholder="Notes (optional)">${d.purpose}</textarea>
+      </div>
+      <button class="btn primary" id="submitReservation" style="width:100%;justify-content:center;" ${canSubmit?'':'disabled'}>Reserve equipment</button>
+    </div>
+  `;
+}
+
+/* ---------- CALENDAR VIEW ---------- */
+function renderCalendarView(){
+  const weekStart = state.calWeekStart;
+  const days = Array.from({length:7}, (_,i)=>{
+    const d = new Date(weekStart); d.setDate(d.getDate()+i); return d;
+  });
+  const dayEnds = days.map(d=>{ const e = new Date(d); e.setDate(e.getDate()+1); return e; });
+  const today = new Date();
+  const startHour = 7, endHour = 21; // 7am - 9pm
+  const totalMin = (endHour-startHour)*60;
+  const hours = [];
+  for(let h=startHour; h<endHour; h++) hours.push(h);
+
+  return `
+    <div class="view-head">
+      <h1>Calendar</h1>
+      <p>What's checked out, and when. Each block is one reservation — click it for the full equipment list.</p>
+    </div>
+    <div class="cal-head">
+      <div class="cal-nav">
+        <button data-week="-1">&larr;</button>
+        <span class="cal-range">${days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'})} – ${days[6].toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</span>
+        <button data-week="1">&rarr;</button>
+      </div>
+      <button class="btn small" data-week="today">This week</button>
+    </div>
+    <div class="week-grid">
+      <div class="week-daylabel"></div>
+      ${days.map((d,i)=>`
+        <div class="week-daylabel ${isSameDay(d,today)?'today':''}">
+          <div class="dow">${fmtDayLabel(d)}</div>
+          <div class="dom">${d.getDate()}</div>
+        </div>
+      `).join('')}
+      <div class="hour-col">
+        ${hours.map(h=>`<div class="hour-label">${formatHour(h)}</div>`).join('')}
+      </div>
+      ${days.map((d,i)=>renderDayTrack(d, dayEnds[i], startHour, totalMin)).join('')}
+    </div>
+    <div class="legend">
+      ${Array.from(new Set(activeReservations().map(r=>r.userName))).sort().map(name=>`<div class="legend-item"><span class="legend-swatch" style="background:${colorForName(name)}"></span>${name}</div>`).join('')}
+    </div>
+  `;
+}
+
+function formatHour(h){
+  const ampm = h<12?'AM':'PM';
+  const hr = h%12===0?12:h%12;
+  return hr+' '+ampm;
+}
+function isSameDay(a,b){ return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate(); }
+
+function renderDayTrack(dayStart, dayEnd, startHour, totalMin){
+  const hoursCount = totalMin/60;
+  const dayResvs = activeReservations().filter(r=>{
+    return new Date(r.start) < dayEnd && new Date(r.end) > dayStart;
+  });
+  const trackHeight = hoursCount*34;
+  const blocks = dayResvs.map(r=>{
+    const rs = new Date(r.start), re = new Date(r.end);
+    const winStart = new Date(dayStart); winStart.setHours(startHour,0,0,0);
+    const clipStart = rs < winStart ? winStart : rs;
+    const winEnd = new Date(dayStart); winEnd.setHours(startHour+hoursCount,0,0,0);
+    const clipEnd = re > winEnd ? winEnd : re;
+    const topMin = (clipStart - winStart)/60000;
+    const durMin = Math.max((clipEnd-clipStart)/60000, 20);
+    const top = (topMin/60)*34;
+    const height = (durMin/60)*34;
+    const color = colorForName(r.userName);
+    return `
+      <div class="resv-block" data-resv="${r.id}" style="top:${top}px; height:${height}px; background:${hexA(color,0.22)}; border-color:${color};">
+        <span class="who">${(r.userName||'').split(' ')[0]}</span>
+        <span class="cnt">${fmtTime(r.start)}–${fmtTime(r.end)} · ${r.items.length} items</span>
+      </div>
+    `;
+  }).join('');
+  return `<div class="day-track" style="height:${trackHeight}px;">${blocks}</div>`;
+}
+
+function hexA(hex, a){
+  const c = hex.replace('#','');
+  const r = parseInt(c.substring(0,2),16), g = parseInt(c.substring(2,4),16), b = parseInt(c.substring(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/* ---------- EQUIPMENT VIEW ---------- */
+function renderEquipmentView(){
+  const filtered = state.equipment.filter(e=>{
+    if(state.eqFilter!=='all' && e.category!==state.eqFilter) return false;
+    if(state.eqSearch && !(`${e.label} ${e.id}`.toLowerCase().includes(state.eqSearch.toLowerCase()))) return false;
+    return true;
+  });
+  const active = eqById(state.eqActiveId) || filtered[0];
+
+  return `
+    <div class="view-head">
+      <h1>Equipment</h1>
+      <p>Every item, its current status, and its reservation history.</p>
+    </div>
+    <div class="eq-layout">
+      <div class="eq-list-col">
+        <input type="text" class="eq-search" id="eqSearchInput" placeholder="Search by name or ID" value="${state.eqSearch}">
+        <div class="eq-filters">
+          <button class="filter-chip ${state.eqFilter==='all'?'sel':''}" data-eqfilter="all">All</button>
+          ${CATEGORY_ORDER.map(c=>`<button class="filter-chip ${state.eqFilter===c?'sel':''}" data-eqfilter="${c}">${CATEGORY_META[c].name}</button>`).join('')}
+        </div>
+        <div class="panel eq-rows">
+          ${filtered.map(e=>`
+            <div class="eq-row ${active && active.id===e.id?'active':''}" data-eqrow="${e.id}">
+              <span class="eid">${e.id} — ${e.label}</span>
+              <span class="estatus" style="background:${e.status==='maintenance'?'var(--source)':'var(--good)'}"></span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      ${active ? renderEquipmentDetail(active) : `<div class="empty-state" style="flex:1;">No matching equipment</div>`}
+    </div>
+  `;
+}
+
+function renderEquipmentDetail(item){
+  const now = new Date();
+  const related = activeReservations().filter(r=>r.items.includes(item.id)).sort((a,b)=>new Date(a.start)-new Date(b.start));
+  const upcoming = related.filter(r=>new Date(r.end) >= now);
+  const past = related.filter(r=>new Date(r.end) < now).sort((a,b)=>new Date(b.start)-new Date(a.start));
+
+  return `
+    <div class="panel eq-detail">
+      <div class="eid-big">${item.id} · ${item.label}</div>
+      <div class="ecat">${CATEGORY_META[item.category].name}${item.sub?' · '+item.sub:''}</div>
+
+      <div class="kv-row"><span class="k">Status</span><span>${item.status==='maintenance' ? `<span class="pill warn">Under maintenance</span>` : `<span class="pill good">Active</span>`}</span></div>
+      <div class="kv-row"><span class="k">Serial</span><span class="mono">${item.serial}</span></div>
+      <div class="kv-row"><span class="k">Notes</span><span>${item.notes || '—'}</span></div>
+
+      <div style="margin-top:20px;">
+        <h3 style="font-size:13.5px;margin:0 0 10px 0;">Upcoming reservations</h3>
+        ${upcoming.length===0 ? `<div class="items-inline">Nothing scheduled.</div>` :
+          upcoming.map(r=>`
+            <div class="hist-item">
+              <span>${r.userName} — ${r.project}</span>
+              <span class="t">${fmtDateTime(r.start)} → ${fmtTime(r.end)}</span>
+            </div>
+          `).join('')
+        }
+      </div>
+      <div style="margin-top:18px;">
+        <h3 style="font-size:13.5px;margin:0 0 10px 0;">Recent history</h3>
+        ${past.length===0 ? `<div class="items-inline">No past reservations recorded.</div>` :
+          past.slice(0,5).map(r=>`
+            <div class="hist-item">
+              <span>${r.userName} — ${r.project}</span>
+              <span class="t">${fmtDateTime(r.start)} → ${fmtTime(r.end)}</span>
+            </div>
+          `).join('')
+        }
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- MY RESERVATIONS VIEW ---------- */
+function renderMineView(){
+  const now = new Date();
+  const myName = state.identity.name.trim().toLowerCase();
+  const mine = state.reservations.filter(r=>r.status==='active' && r.userName.trim().toLowerCase()===myName)
+    .sort((a,b)=>new Date(a.start)-new Date(b.start));
+  const upcoming = mine.filter(r=>new Date(r.end) >= now);
+  const past = mine.filter(r=>new Date(r.end) < now);
+
+  if(!myName){
+    return `
+      <div class="view-head">
+        <h1>My reservations</h1>
+        <p>Enter your name in the left panel to see what's booked under it.</p>
+      </div>
+      <div class="empty-state"><div class="big">No name entered yet</div>Reservations are matched by the name typed into the left panel.</div>
+    `;
+  }
+
+  return `
+    <div class="view-head">
+      <h1>My reservations</h1>
+      <p>Everything booked under ${state.identity.name}.</p>
+    </div>
+    ${renderResvTable(upcoming, 'Upcoming', true)}
+    ${renderResvTable(past, 'Past', false)}
+  `;
+}
+
+function renderResvTable(rows, title, allowCancel){
+  return `
+    <div class="admin-section">
+      <h2>${title}</h2>
+      ${rows.length===0 ? `<div class="empty-state"><div class="big">Nothing here</div>${title==='Upcoming' ? 'Book equipment from the Book equipment tab.' : 'Past reservations will appear here once time passes.'}</div>` : `
+        <div class="panel" style="overflow:hidden;">
+          <table class="resv-table">
+            <thead><tr><th>Project</th><th>Window</th><th>Equipment</th><th></th></tr></thead>
+            <tbody>
+              ${rows.map(r=>`
+                <tr>
+                  <td>${r.project}${r.purpose?`<div class="items-inline">${r.purpose}</div>`:''}</td>
+                  <td class="mono" style="white-space:nowrap;">${fmtDateTime(r.start)}<br>→ ${fmtDateTime(r.end)}</td>
+                  <td><span class="items-inline">${r.items.map(id=>eqById(id).id).join(', ')}</span></td>
+                  <td>${allowCancel ? `<button class="btn small danger ghost" data-cancel="${r.id}">Cancel</button>` : ''}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+/* ---------- ADMIN VIEW ---------- */
+function renderAdminView(){
+  const now = new Date();
+  const upcoming = activeReservations().filter(r=>new Date(r.end)>=now).sort((a,b)=>new Date(a.start)-new Date(b.start));
+
+  return `
+    <div class="view-head">
+      <h1>Admin</h1>
+      <p>Manage equipment status and step in on any reservation.</p>
+    </div>
+    <div class="admin-section">
+      <h2>Equipment</h2>
+      ${CATEGORY_ORDER.map(cat=>renderAdminCategory(cat)).join('')}
+    </div>
+    <div class="admin-section">
+      <h2>All upcoming reservations</h2>
+      ${upcoming.length===0 ? `<div class="empty-state">Nothing scheduled.</div>` : `
+        <div class="panel" style="overflow:hidden;">
+          <table class="resv-table">
+            <thead><tr><th>User</th><th>Project</th><th>Window</th><th>Equipment</th><th></th></tr></thead>
+            <tbody>
+              ${upcoming.map(r=>`
+                <tr>
+                  <td>${r.userName}</td>
+                  <td>${r.project}</td>
+                  <td class="mono" style="white-space:nowrap;">${fmtDateTime(r.start)}<br>→ ${fmtDateTime(r.end)}</td>
+                  <td><span class="items-inline">${r.items.map(id=>eqById(id).id).join(', ')}</span></td>
+                  <td><button class="btn small danger ghost" data-cancel="${r.id}">Cancel</button></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `}
+    </div>
+  `;
+}
+
+function renderAdminCategory(cat){
+  const meta = CATEGORY_META[cat];
+  const items = state.equipment.filter(e=>e.category===cat).sort((a,b)=>a.num-b.num);
+  const formOpen = state.addFormOpenCat === cat;
+  const nextNum = items.length ? Math.max(...items.map(i=>i.num))+1 : 1;
+  return `
+    <div class="admin-cat-block">
+      <div class="admin-cat-head">
+        <span class="cat-swatch" style="background:${meta.swatch}"></span>
+        <span class="cat-name">${meta.name}</span>
+        <span class="cat-count">${items.length} item${items.length===1?'':'s'}</span>
+        <button class="btn small ghost" data-addopen="${cat}" style="margin-left:auto;">${formOpen?'Cancel':'+ Add item'}</button>
+      </div>
+      <div class="admin-eq-grid">
+        ${items.map(e=>`
+          <div class="admin-eq-row">
+            <span>${e.id} — ${e.label}${e.sub?` <span class="items-inline">(${e.sub})</span>`:''}</span>
+            <button class="toggle-btn ${e.status==='active'?'active-state':'maint-state'}" data-toggle-maint="${e.id}">
+              ${e.status==='active'?'Active':'Maintenance'}
+            </button>
+          </div>
+        `).join('')}
+      </div>
+      ${formOpen ? `
+        <div class="add-form">
+          <div class="field">
+            <label>Item number</label>
+            <input type="number" id="addNum-${cat}" value="${nextNum}" min="1">
+          </div>
+          ${cat==='cap' ? `
+            <div class="field">
+              <label>Cap size</label>
+              <select id="addCapSize-${cat}">
+                ${CAP_SIZES.map(s=>`<option value="${s}">${s} cm</option>`).join('')}
+              </select>
+            </div>
+          ` : ''}
+          <div class="field" style="flex:1;min-width:160px;">
+            <label>Notes (optional)</label>
+            <input type="text" id="addNotes-${cat}" placeholder="Serial number, source, etc.">
+          </div>
+          <button class="btn primary small" data-addsubmit="${cat}">Add ${CATEGORY_LABEL_FN[cat](nextNum).replace(/\s*\d+$/,'').trim()}</button>
+        </div>
+      ` : ''}
+    </div>
+  `;
+}
+
+async function addEquipmentItem(cat){
+  const numInput = document.getElementById(`addNum-${cat}`);
+  const items = state.equipment.filter(e=>e.category===cat);
+  const nextNum = items.length ? Math.max(...items.map(i=>i.num))+1 : 1;
+  const n = numInput && numInput.value ? parseInt(numInput.value,10) : nextNum;
+  if(!n || n<1){ showToast('Enter a valid item number.', true); return; }
+  const prefix = CATEGORY_PREFIX[cat];
+  const id = `${prefix}${n}`;
+  if(eqById(id)){ showToast(`${id} already exists — pick a different number.`, true); return; }
+  let size=null, sub=null;
+  if(cat==='cap'){
+    const sizeInput = document.getElementById(`addCapSize-${cat}`);
+    size = sizeInput ? parseInt(sizeInput.value,10) : 56;
+    sub = `${size} cm`;
+  }
+  const notesInput = document.getElementById(`addNotes-${cat}`);
+  const notes = notesInput ? notesInput.value.trim() : '';
+  const label = CATEGORY_LABEL_FN[cat](n);
+
+  const res = await apiPost('addEquipment', { id, category:cat, num:n, label, sub, size, notes });
+  if(!res.ok){ showToast(res.error || 'Could not add that item.', true); return; }
+  state.equipment.push({ id, category:cat, num:n, label, sub, size, status:'active', notes, serial:`${id}-NEW` });
+  state.addFormOpenCat = null;
+  render();
+  showToast(`Added ${label} to inventory.`);
+}
+
+/* ---------- MODAL ---------- */
+function renderModal(){
+  const r = state.reservations.find(x=>x.id===state.modal);
+  if(!r) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h3>${r.project}</h3>
+      <div class="subline">${r.userName} · ${fmtDateTime(r.start)} → ${fmtDateTime(r.end)}</div>
+      ${r.purpose ? `<p style="font-size:12.5px;color:var(--paper-dim);margin:-8px 0 14px 0;">${r.purpose}</p>` : ''}
+      <div class="modal-items">
+        ${r.items.filter(id=>eqById(id)).map(id=>`<span class="modal-item-tag">${eqById(id).id} — ${eqById(id).label}</span>`).join('')}
+      </div>
+      <div class="modal-actions">
+        <button class="btn small danger ghost" id="modalCancel" data-cancel="${r.id}">Cancel reservation</button>
+        <button class="btn ghost" id="closeModal">Close</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+  document.getElementById('closeModal').addEventListener('click', closeModal);
+  document.getElementById('modalCancel').addEventListener('click', ()=>{ closeModal(); cancelReservation(r.id); });
+}
+function closeModal(){ state.modal = null; document.querySelectorAll('.overlay').forEach(o=>o.remove()); }
+
+/* =========================================================
+   HANDLERS
+========================================================= */
+
+function attachGlobalHandlers(){
+  document.querySelectorAll('[data-nav]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.view = el.dataset.nav; render(); });
+  });
+  const identityName = document.getElementById('identityName');
+  if(identityName) identityName.addEventListener('input', (e)=>{ state.identity.name = e.target.value; });
+  const identityEmail = document.getElementById('identityEmail');
+  if(identityEmail) identityEmail.addEventListener('input', (e)=>{ state.identity.email = e.target.value; });
+  const retryLoad = document.getElementById('retryLoad');
+  if(retryLoad) retryLoad.addEventListener('click', bootstrap);
+
+  // Book view
+  const startInput = document.getElementById('startInput');
+  const endInput = document.getElementById('endInput');
+  if(startInput) startInput.addEventListener('change', (e)=>{
+    state.draft.start = e.target.value ? new Date(e.target.value).toISOString() : null;
+    render();
+  });
+  if(endInput) endInput.addEventListener('change', (e)=>{
+    state.draft.end = e.target.value ? new Date(e.target.value).toISOString() : null;
+    render();
+  });
+  document.querySelectorAll('[data-preset]').forEach(el=>{
+    el.addEventListener('click', ()=>applyPreset(el.dataset.preset));
+  });
+  document.querySelectorAll('[data-bundle]').forEach(el=>{
+    el.addEventListener('click', ()=>applyBundle(parseInt(el.dataset.bundle)));
+  });
+  document.querySelectorAll('[data-capsize]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.draft.capSizeChoice = parseInt(el.dataset.capsize); render(); });
+  });
+  document.querySelectorAll('[data-chip]').forEach(el=>{
+    el.addEventListener('click', ()=>toggleChip(el.dataset.chip));
+  });
+  document.querySelectorAll('[data-remove]').forEach(el=>{
+    el.addEventListener('click', (e)=>{ e.stopPropagation(); state.draft.selected.delete(el.dataset.remove); render(); });
+  });
+  const projectInput = document.getElementById('projectInput');
+  if(projectInput) projectInput.addEventListener('input', (e)=>{ state.draft.project = e.target.value; syncSubmitState(); });
+  const purposeInput = document.getElementById('purposeInput');
+  if(purposeInput) purposeInput.addEventListener('input', (e)=>{ state.draft.purpose = e.target.value; });
+  const submitBtn = document.getElementById('submitReservation');
+  if(submitBtn) submitBtn.addEventListener('click', submitReservation);
+
+  // Calendar view
+  document.querySelectorAll('[data-week]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const v = el.dataset.week;
+      if(v==='today'){ state.calWeekStart = startOfWeek(new Date()); }
+      else { const d = new Date(state.calWeekStart); d.setDate(d.getDate()+parseInt(v)*7); state.calWeekStart = d; }
+      render();
+    });
+  });
+  document.querySelectorAll('[data-resv]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.modal = el.dataset.resv; render(); });
+  });
+
+  // Equipment view
+  const eqSearchInput = document.getElementById('eqSearchInput');
+  if(eqSearchInput) eqSearchInput.addEventListener('input', (e)=>{ state.eqSearch = e.target.value; render(); });
+  document.querySelectorAll('[data-eqfilter]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.eqFilter = el.dataset.eqfilter; render(); });
+  });
+  document.querySelectorAll('[data-eqrow]').forEach(el=>{
+    el.addEventListener('click', ()=>{ state.eqActiveId = el.dataset.eqrow; render(); });
+  });
+
+  // Cancel (mine + admin)
+  document.querySelectorAll('[data-cancel]').forEach(el=>{
+    el.addEventListener('click', ()=>cancelReservation(el.dataset.cancel));
+  });
+
+  // Admin: add equipment
+  document.querySelectorAll('[data-addopen]').forEach(el=>{
+    el.addEventListener('click', ()=>{
+      const cat = el.dataset.addopen;
+      state.addFormOpenCat = state.addFormOpenCat===cat ? null : cat;
+      render();
+    });
+  });
+  document.querySelectorAll('[data-addsubmit]').forEach(el=>{
+    el.addEventListener('click', ()=>addEquipmentItem(el.dataset.addsubmit));
+  });
+
+  // Admin toggle
+  document.querySelectorAll('[data-toggle-maint]').forEach(el=>{
+    el.addEventListener('click', ()=>toggleMaintenance(el.dataset.toggleMaint));
+  });
+}
+
+async function toggleMaintenance(itemId){
+  const item = eqById(itemId);
+  if(!item) return;
+  const res = await apiPost('toggleMaintenance', { itemId });
+  if(!res.ok){ showToast(res.error || 'Could not update that item.', true); return; }
+  item.status = res.status;
+  render();
+  showToast(`${item.id} marked ${item.status==='active'?'active':'under maintenance'}.`);
+}
+
+function syncSubmitState(){
+  const btn = document.getElementById('submitReservation');
+  if(!btn) return;
+  const d = state.draft;
+  const hasWindow = d.start && d.end && new Date(d.start) < new Date(d.end);
+  btn.disabled = !(hasWindow && d.selected.size>0 && d.project.trim().length>0);
+}
+
+function applyPreset(kind){
+  const base = new Date();
+  let s,e;
+  if(kind==='today'){ s=new Date(base); e=new Date(base); }
+  else if(kind==='tomorrow'){ s=new Date(base); s.setDate(s.getDate()+1); e=new Date(s); }
+  else if(kind==='week'){ s=startOfWeek(base); e=new Date(s); e.setDate(e.getDate()+4); }
+  s.setHours(9,0,0,0); e.setHours(17,0,0,0);
+  state.draft.start = s.toISOString();
+  state.draft.end = e.toISOString();
+  render();
+}
+
+function toggleChip(id){
+  const item = eqById(id);
+  if(item.status==='maintenance') return;
+  const d = state.draft;
+  if(d.selected.has(id)){ d.selected.delete(id); render(); return; }
+  if(!isItemAvailable(id, d.start, d.end)){
+    showToast(`${item.label} isn't available for this window.`, true);
+    return;
+  }
+  d.selected.add(id);
+  render();
+}
+
+function applyBundle(n){
+  const d = state.draft;
+  const ids = [`U${n}`,`S${n}`,`D${n}`,`H${n}`];
+  let blocked = [];
+  ids.forEach(id=>{
+    if(isItemAvailable(id,d.start,d.end) || d.selected.has(id)) d.selected.add(id);
+    else blocked.push(id);
+  });
+  // lowest available laptop
+  const laptop = state.equipment.filter(e=>e.category==='laptop').sort((a,b)=>a.num-b.num)
+    .find(l=>isItemAvailable(l.id,d.start,d.end) || d.selected.has(l.id));
+  if(laptop) d.selected.add(laptop.id); else blocked.push('a laptop');
+  // cap: needs a size chosen
+  if(d.capSizeChoice){
+    const cap = state.equipment.filter(e=>e.category==='cap' && e.size===d.capSizeChoice).sort((a,b)=>a.num-b.num)
+      .find(c=>isItemAvailable(c.id,d.start,d.end) || d.selected.has(c.id));
+    if(cap) d.selected.add(cap.id); else blocked.push(`a ${d.capSizeChoice}cm cap`);
+  }
+  render();
+  if(blocked.length===0){
+    showToast(`Bundle ${n} added${d.capSizeChoice?'':' — pick a cap size to add a cap'}.`);
+  } else {
+    showToast(`Bundle ${n} added what's free. Unavailable: ${blocked.join(', ')}.`, true);
+  }
+}
+
+async function submitReservation(){
+  const d = state.draft;
+  if(!d.start || !d.end || d.selected.size===0 || !d.project.trim()) return;
+  if(!state.identity.name.trim()){
+    showToast('Enter your name in the left panel first.', true);
+    return;
+  }
+  const btn = document.getElementById('submitReservation');
+  if(btn){ btn.disabled = true; btn.textContent = 'Reserving…'; }
+
+  const res = await apiPost('reserve', {
+    userName: state.identity.name.trim(),
+    userEmail: state.identity.email.trim(),
+    project: d.project.trim(),
+    start: d.start,
+    end: d.end,
+    purpose: d.purpose.trim(),
+    items: Array.from(d.selected),
+  });
+
+  if(!res.ok){
+    // The server re-checks availability at write time (a second person could
+    // have booked something in the seconds it took to fill out this form),
+    // so on conflict we pull fresh data rather than trust what's on screen.
+    showToast(res.error || 'Could not complete that reservation.', true);
+    await refreshData();
+    return;
+  }
+  state.reservations.push(res.reservation);
+  state.draft = { start:d.start, end:d.end, selected:new Set(), project:'', purpose:'', capSizeChoice:null };
+  render();
+  showToast(`Reserved ${res.reservation.items.length} items for ${res.reservation.project}.`);
+}
+
+async function cancelReservation(id){
+  const r = state.reservations.find(x=>x.id===id);
+  if(!r) return;
+  const res = await apiPost('cancel', { reservationId:id });
+  if(!res.ok){ showToast(res.error || 'Could not cancel that reservation.', true); return; }
+  r.status = 'cancelled';
+  render();
+  showToast(`Cancelled reservation for ${r.project}.`);
+}
+
+async function refreshData(){
+  try{
+    const data = await apiLoad();
+    state.equipment = data.equipment;
+    state.reservations = data.reservations;
+    render();
+  } catch(err){
+    // keep whatever's on screen rather than blow away the view on a blip
+  }
+}
+
+bootstrap();
+</script>
+</body>
+</html>
