@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For researchers — fNIRS Applied Neurolinguistics Lab</title>
+<meta name="description" content="Equipment, methods, and collaboration details for researchers.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lab.css"></head><body>
+<header class="site-head"><div class="wrap inner">
+  <a class="brand" href="index.html"><svg width="34" height="34" viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="1.6" fill="#F0B25A"/><circle cx="4" cy="6" r="1.4" fill="#E8705C"/><circle cx="18" cy="6" r="1.4" fill="#6BA3EC"/><circle cx="4" cy="16" r="1.4" fill="#6BA3EC"/><circle cx="18" cy="16" r="1.4" fill="#E8705C"/><line x1="11" y1="11" x2="4" y2="6" stroke="#3A4258"/><line x1="11" y1="11" x2="18" y2="6" stroke="#3A4258"/><line x1="11" y1="11" x2="4" y2="16" stroke="#3A4258"/><line x1="11" y1="11" x2="18" y2="16" stroke="#3A4258"/></svg>
+  <span><span class="name">fNIRS Applied Neurolinguistics Lab</span><span class="sub">Department of Linguistics · Brigham Young University</span></span></a>
+  <nav class="site-nav"><a href="index.html" class="">Home</a><a href="research.html" class="">Research</a><a href="people.html" class="">People</a><a href="publications.html" class="">Publications</a><a href="scheduler/index.html" class="">Scheduler</a><a href="join.html" class="cta">Join the lab</a></nav>
+</div></header>
+<main class="wrap">
+
+<div class="page-head"><h1>For researchers &amp; collaborators</h1><p class="lede">Technical detail on our equipment, methods, and analysis, for colleagues considering collaboration or comparing setups. Lab members: the equipment scheduler is linked below.</p></div>
+
+<section class="first" id="equipment">
+  <div class="sec-head"><h2>Equipment</h2><span class="sub">NIRx NIRSport2 fleet</span><span class="spacer"></span><a href="scheduler/index.html">Open the scheduler</a></div>
+  <div class="equip">
+    <div>
+      <div class="txt"><p>Five NIRSport2 systems, usable individually or synchronized for hyperscanning up to five participants. Kits are reserved as bundles — unit, source and detector bundles, headband, cap, and acquisition laptop — through the lab's own scheduling tool.</p></div>
+      <div class="equip-list">
+        <div class="equip-row"><span class="dot" style="background:var(--amber)"></span>NIRSport2 imaging units<span class="qty">5</span></div>
+        <div class="equip-row"><span class="dot" style="background:var(--red)"></span>Red source bundles<span class="qty">7</span></div>
+        <div class="equip-row"><span class="dot" style="background:var(--blue)"></span>Blue detector bundles<span class="qty">7</span></div>
+        <div class="equip-row"><span class="dot" style="background:var(--dim)"></span>Headbands<span class="qty">7</span></div>
+        <div class="equip-row"><span class="dot" style="background:var(--green)"></span>Caps, 52–60 cm<span class="qty">18</span></div>
+        <div class="equip-row"><span class="dot" style="background:var(--purple)"></span>Acquisition laptops<span class="qty">9</span></div>
+        <div class="equip-row"><span class="dot" style="background:#6BA6C9"></span>Routers / access points<span class="qty">2</span></div>
+        <div class="equip-row"><span class="dot" style="background:#C9A26B"></span>Rolling equipment cabinet<span class="qty">1</span></div>
+      </div>
+    </div>
+    <figure><img src="images/nirx-equipment-hku.jpg" alt="A NIRx cap on a stand being populated with optodes"><figcaption>A NIRSport2 cap being populated with optodes during a training workshop.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Methods &amp; analysis</h2></div>
+  <div class="txt">
+    <h3>Acquisition</h3>
+    <p>Continuous-wave fNIRS at 760/850 nm via NIRx Aurora. Montages are designed per study; we run full-head caps for language and semantic work and compact prefrontal headband arrays for field settings where setup time and heat matter. Short-separation channels are used where the montage allows.</p>
+    <h3>Hyperscanning</h3>
+    <p>Multi-unit recordings are synchronized over a local wireless network with hardware triggers. Our largest configuration to date is five simultaneous participants (one speaker, four listeners) at live storytelling events. We compute interpersonal neural synchrony with wavelet transform coherence and have an in-house MATLAB pipeline for dyadic and group analyses.</p>
+    <h3>Preprocessing</h3>
+    <p>Motion correction, bandpass filtering, and conversion to HbO/HbR via the modified Beer–Lambert law, in MATLAB (Homer-style workflows) and Python (MNE-NIRS). Session management and exports follow BIDS conventions.</p>
+    <h3>Field work</h3>
+    <p>We have collected data in rural Ecuador with battery power and no internet, and are happy to share what we learned about heat, hair, consent processes, and logistics. See the NIRx webinar on the <a href="publications.html">publications page</a>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Working with us</h2></div>
+  <div class="cards">
+    <a class="card" href="publications.html"><h3>Publications &amp; presentations</h3><p>Papers, preprints, posters, and recorded talks.</p><span class="meta">page</span></a>
+    <a class="card" href="https://dpdewey.github.io"><h3>Code &amp; pipelines</h3><p>Session tooling and analysis code on GitHub.</p><span class="meta">external</span></a>
+    <a class="card" href="mailto:ddewey@byu.edu"><h3>Propose a collaboration</h3><p>We're especially interested in cross-site hyperscanning and under-studied languages.</p><span class="meta">email</span></a>
+    <a class="card" href="https://fnirs.org"><h3>Society for fNIRS</h3><p>The method's international community.</p><span class="meta">external</span></a>
+  </div>
+</section>
+
+</main>
+<footer><div class="wrap inner">
+  <div><strong>fNIRS Applied Neurolinguistics Lab</strong><br>Dan P. Dewey, Director · Department of Linguistics, <a href="https://linguistics.byu.edu">Brigham Young University</a><br>4064 JFSB, Provo, UT 84602 · <a href="mailto:ddewey@byu.edu">ddewey@byu.edu</a></div>
+  <div class="right"><a href="researchers.html">For researchers &amp; collaborators</a><br><a href="scheduler/index.html">Equipment scheduler (lab members)</a><br><a href="join.html#participate">Participate in a study</a><br><span style="font-size:12px">Photographs © the lab. Participants pictured gave permission for their images to be used.</span></div>
+</div></footer>
+</body></html>
