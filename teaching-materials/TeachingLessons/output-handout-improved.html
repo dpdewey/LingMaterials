@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pushed Output — Teacher Review &amp; Self-Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#15120E; --paper:#FBF7F0; --paper-2:#ECE3D4;
+    --volt:#2440E6; --pop:#FF2E8B;
+    --correct:#1f7a4d; --rethink:#B23A2E;
+    --display:"Fraunces", Georgia, serif; --body:"Inter", system-ui, sans-serif; --mono:"Space Mono", monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--body);background:var(--paper-2);color:var(--ink);line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:36px 18px 80px}
+  header.hero{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:12px 12px 0 var(--volt);padding:34px 30px;margin-bottom:14px}
+  .kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-weight:700;font-size:12px;color:var(--pop)}
+  header.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(32px,7vw,54px);line-height:.98;letter-spacing:-.02em;margin:10px 0 12px}
+  header.hero p{max-width:54ch;color:rgba(251,247,240,.85);font-size:16px}
+  .scorebar{position:sticky;top:0;z-index:20;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    margin:18px 0 30px;padding:12px 16px;display:flex;align-items:center;gap:14px}
+  .scorebar .label{font-family:var(--mono);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+  .track{flex:1;height:14px;background:var(--paper-2);border:2px solid var(--ink);overflow:hidden}
+  .fill{height:100%;width:0;background:var(--volt);transition:width .4s ease}
+  #scoreNum{font-family:var(--mono);font-weight:700;font-size:13px;min-width:54px;text-align:right}
+  /* dials summary */
+  .dials{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+  .dial{border:3px solid var(--ink);padding:18px 18px;box-shadow:6px 6px 0 var(--ink);background:var(--paper)}
+  .dial.v{border-top:10px solid var(--volt)} .dial.p{border-top:10px solid var(--pop)}
+  .dial .t{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+  .dial.v .t{color:var(--volt)} .dial.p .t{color:var(--pop)}
+  .dial h3{font-family:var(--display);font-weight:900;font-size:22px;margin:6px 0}
+  .dial p{font-size:14px;color:#5b544a}
+  .intro-block{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin-bottom:8px}
+  .intro-block > p{font-size:16px;margin-bottom:12px}
+  .research-note{border:3px solid var(--ink);background:var(--paper-2);padding:20px 22px;margin:22px 0;box-shadow:6px 6px 0 var(--volt)}
+  .research-note .note-label,.promptbank .note-label{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--volt);margin-bottom:8px}
+  .research-note p{font-size:15px;max-width:68ch}
+  .cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+  .cycle-step{border:2px solid var(--ink);background:var(--paper);padding:12px 11px;min-height:112px}
+  .cycle-step b{font-family:var(--mono);font-size:11px;color:var(--pop);text-transform:uppercase;letter-spacing:.08em}
+  .cycle-step h3{font-family:var(--display);font-size:18px;line-height:1.05;margin:5px 0}
+  .cycle-step p{font-size:13px;line-height:1.35;color:#5b544a}
+  .promptbank{border:3px solid var(--ink);background:var(--paper);padding:20px 22px;margin:26px 0;box-shadow:7px 7px 0 var(--pop)}
+  .promptbank p{font-size:15px;margin-bottom:10px}
+  .prompt-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+  .prompt-list li{border:2px solid var(--ink);background:var(--paper-2);padding:8px 10px;font-size:14px;font-weight:600}
+  .prompt-list li::before{content:'“';color:var(--pop);font-family:var(--display);font-size:22px;line-height:0;vertical-align:-3px;margin-right:3px}
+  .try{background:var(--paper-2);border:2px solid var(--ink);padding:14px 16px;margin-top:10px}
+  .try .lbl{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--volt)}
+  .try ul{list-style:none;margin-top:8px}
+  .try li{padding:5px 0 5px 22px;position:relative;font-size:15px}
+  .try li::before{content:"→";position:absolute;left:0;font-weight:700}
+  /* quiz */
+  .quiz{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--ink);padding:24px;margin:26px 0}
+  .keyterms{border:3px solid var(--ink);background:var(--paper);box-shadow:9px 9px 0 var(--volt);padding:22px 24px;margin:26px 0}
+  .keyterms .kt-h{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--volt);margin-bottom:14px}
+  .keyterms dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin:0}
+  .keyterms dt{font-family:var(--display);font-weight:900;font-size:16px;white-space:nowrap}
+  .keyterms dd{font-size:15px;color:#4a443b;margin:0;line-height:1.4}
+  @media (max-width:520px){.keyterms dl{grid-template-columns:1fr;gap:2px 0}.keyterms dd{margin-bottom:10px}}
+  .qlabel{font-family:var(--mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#8a8170}
+  .q{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.22;margin:6px 0 16px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper);padding:13px 15px;font:inherit;font-size:15px;box-shadow:4px 4px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+  .opt:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ink)}
+  .opt .mark{font-family:var(--mono);font-weight:700;flex:none;width:22px;height:22px;border:2px solid var(--ink);display:grid;place-items:center;font-size:12px;border-radius:50%}
+  .opt.correct{background:#e7f3ec;border-color:var(--correct);box-shadow:4px 4px 0 var(--correct)}
+  .opt.correct .mark{background:var(--correct);color:#fff;border-color:var(--correct)}
+  .opt.wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:4px 4px 0 var(--rethink);transform:translate(2px,2px)}
+  .opt.wrong .mark{background:var(--rethink);color:#fff;border-color:var(--rethink)}
+  .opt[disabled]{cursor:default;opacity:.96}
+  .fb{margin-top:14px;border-left:6px solid var(--ink);background:var(--paper-2);padding:12px 14px;font-size:15px;display:none}
+  .fb.show{display:block;animation:pop .25s ease}
+  .fb.ok{border-color:var(--correct)} .fb.no{border-color:var(--rethink)}
+  .fb b{font-family:var(--mono);text-transform:uppercase;font-size:11px;letter-spacing:.08em}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* chip pick */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0}
+  .chip{cursor:pointer;font:inherit;font-weight:600;font-size:14px;border:2px solid var(--ink);background:var(--paper);
+    padding:10px 14px;box-shadow:3px 3px 0 var(--ink)}
+  .chip:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .chip.hit{background:var(--pop);color:var(--paper);border-color:var(--ink)}
+  .chip.miss{background:#f6e6e4;color:var(--rethink);text-decoration:line-through}
+  .hintline{font-size:13px;color:#8a8170;font-family:var(--mono);margin-top:8px}
+  /* scenarios */
+  .scn{border:2px solid var(--ink);background:var(--paper);padding:14px 16px;margin-top:12px;box-shadow:4px 4px 0 var(--ink)}
+  .scn p.text{font-size:15px;margin-bottom:12px}
+  .toggle{display:flex;gap:10px}
+  .toggle button{flex:1;font:inherit;font-weight:600;font-size:14px;cursor:pointer;border:2px solid var(--ink);
+    background:var(--paper-2);padding:9px;box-shadow:3px 3px 0 var(--ink)}
+  .toggle button:hover:not([disabled]){transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+  .toggle button.picked-right{background:#e7f3ec;border-color:var(--correct);box-shadow:3px 3px 0 var(--correct)}
+  .toggle button.picked-wrong{background:#f6e6e4;border-color:var(--rethink);box-shadow:3px 3px 0 var(--rethink)}
+  .toggle button[disabled]{cursor:default}
+  .finale{border:3px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px 26px;margin-top:30px;box-shadow:10px 10px 0 var(--pop);text-align:center;display:none}
+  .finale.show{display:block;animation:pop .3s ease}
+  .finale h2{font-family:var(--display);font-weight:900;font-size:clamp(26px,5vw,40px);line-height:1.02;margin-bottom:8px}
+  .finale p{color:rgba(251,247,240,.85);max-width:46ch;margin:0 auto}
+  .commit{margin-top:34px;border:3px dashed var(--ink);padding:22px 24px;background:var(--paper)}
+  .commit h3{font-family:var(--display);font-weight:900;font-size:24px;margin-bottom:8px}
+  .commit textarea{width:100%;margin-top:12px;border:2px solid var(--ink);background:var(--paper-2);padding:12px;font:inherit;font-size:15px;min-height:70px;resize:vertical}
+  footer{margin-top:40px;font-family:var(--mono);font-size:12px;color:#8a8170;text-align:center;line-height:1.7}
+  :focus-visible{outline:3px solid var(--volt);outline-offset:2px}
+  @media (max-width:680px){.cycle{grid-template-columns:1fr 1fr}}
+  @media print{body{background:#fff}.wrap{max-width:none;padding:0}.scorebar{position:static;box-shadow:none}.opt,.chip,.toggle button{box-shadow:none}.finale.show{display:block!important}.commit{break-inside:avoid}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">Instructor handout · self-check · Pushed Output</div>
+    <h1>Make speaking do more work</h1>
+    <p>Pushed output gives every learner a reason to say more, notice a gap, and try again with greater clarity, precision, or detail. Use this page to plan one instructor-initiated activity and check the design.</p>
+  </header>
+
+  <div class="scorebar" aria-live="polite">
+    <span class="label">Checks done</span>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span id="scoreNum">0 / 5</span>
+  </div>
+
+  <div class="intro-block">
+    <p><strong>The idea.</strong> Input (the English students hear and read) prepares learners, but output gives them a chance to <em>use</em> the language. When learners try to express a meaning, they may notice a gap, test a form, receive feedback, and try again. That work can support development in accuracy, complexity, fluency, and access to language.</p>
+    <p><strong>Important qualification.</strong> Pushed output is not simply “more talking,” and output alone does not guarantee acquisition. The strongest tasks combine a meaningful message with a reason every learner must speak, a manageable push, and a chance to reformulate.</p>
+    <p>So work on two dials at the same time:</p>
+    <div class="dials">
+      <div class="dial v"><span class="t">Dial 01</span><h3>Participation</h3><p>How much each learner says — more turns, more words, and more opportunities to retrieve language.</p></div>
+      <div class="dial p"><span class="t">Dial 02</span><h3>Productive challenge</h3><p>How much the task asks learners to clarify, extend, compare, be precise, or say it again better.</p></div>
+    </div>
+    <div class="try"><span class="lbl">Try it tomorrow</span>
+      <ul>
+        <li><strong>Picture story + reformulation:</strong> retell, then “say it again” with a connector, precise verb, or extra detail.</li>
+        <li><strong>Information-gap troubleshooting:</strong> ask targeted questions to solve a problem neither partner can solve alone.</li>
+        <li><strong>Describe-and-draw:</strong> describe a hidden image; the listener asks for clarification and checks the result.</li>
+        <li><strong>Three-round story repetition:</strong> repeat the same story to new partners with less time each round.</li>
+        <li><strong>Classroom decision challenge:</strong> choose a plan, give reasons, compare options, and defend one decision.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="research-note">
+    <div class="note-label">The learning cycle</div>
+    <p>In practice, a useful push keeps the learner responsible for the language. The instructor sets the purpose, listens for a productive next step, and prompts the learner to continue or reformulate.</p>
+    <div class="cycle">
+      <div class="cycle-step"><b>01 · Meaning</b><h3>Say something real</h3><p>Complete a story, solve a problem, describe a picture, or make a decision.</p></div>
+      <div class="cycle-step"><b>02 · Notice</b><h3>Find the gap</h3><p>What word, form, connector, or level of detail is missing?</p></div>
+      <div class="cycle-step"><b>03 · Push</b><h3>Try a little more</h3><p>Ask for precision, explanation, comparison, or an additional detail.</p></div>
+      <div class="cycle-step"><b>04 · Rebuild</b><h3>Say it again</h3><p>Reformulate, extend, or retrieve the language in a new attempt.</p></div>
+    </div>
+  </div>
+
+  <div class="keyterms">
+    <div class="kt-h">Key terms in plain English</div>
+    <dl>
+      <dt>Input</dt><dd>the English students hear and read.</dd>
+      <dt>Output</dt><dd>the English students say and write.</dd>
+      <dt>Pushed output</dt><dd>meaningful production that asks learners to clarify, extend, notice, or reformulate their language.</dd>
+      <dt>Noticing a gap</dt><dd>recognizing that the language you can produce is not yet precise, complete, or effective enough.</dd>
+      <dt>Reformulation</dt><dd>saying the message again in a clearer, more accurate, more complex, or more detailed way.</dd>
+      <dt>Fluency</dt><dd>speaking smoothly, without long pauses.</dd>
+      <dt>Automaticity</dt><dd>accessing useful language with less conscious effort.</dd>
+    </dl>
+  </div>
+
+  <div class="promptbank">
+    <div class="note-label">Prompt bank: keep the learner talking</div>
+    <p>Use a brief prompt before supplying an answer. Choose one that matches the goal of the task.</p>
+    <ul class="prompt-list">
+      <li>Can you say more?</li>
+      <li>What happened next?</li>
+      <li>Can you be more precise?</li>
+      <li>Can you compare them?</li>
+      <li>Try that again with a past-tense verb.</li>
+      <li>Say it again, but better.</li>
+    </ul>
+  </div>
+
+  <!-- CHECK 1 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 1 · participation</div>
+    <p class="q">In 90 seconds, which design gives every learner the most opportunity to produce language?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The teacher asks a question and calls on volunteers one at a time.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The teacher models three example answers clearly, then asks if there are questions.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Every student turns to a partner and both answer the same question to each other.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 2 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 2 · instructor prompt</div>
+    <p class="q">Which prompt best adds a manageable push to a picture retelling?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>“Good job. Next person.”</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>“Tell it again with one linking word, one precise verb, and one extra detail.”</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>“Say exactly what I say: The person went to the store.”</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 3 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 3 · repetition</div>
+    <p class="q">Why can repeating the same talk with less time each round (4/3/2) support fluency?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>The new partners haven't heard it, so students learn new vocabulary each round.</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>Repeating the same ideas frees attention for how to say them, while less time encourages more accessible language.</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Saying things faster automatically trains students to speak quickly in every real conversation.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <!-- CHECK 4 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 4 · recognize the engine</div>
+    <p class="q">Decide whether each activity contains a meaningful push, or mainly fills time with talking.</p>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text"><strong>Picture story:</strong> students retell a sequence, then say it again using two linking words and one more precise verb.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text"><strong>Troubleshooting info gap:</strong> each partner has different clues and must ask follow-up questions to identify the problem and propose a solution.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text"><strong>Describe-and-draw:</strong> the listener may ask “Where?” and “What shape?” before drawing, then both partners compare the picture and repair unclear language.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text"><strong>Three-round story:</strong> learners tell the same story to three partners in 4, 3, and 2 minutes, then improve one part after each round.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="pushed">
+      <p class="text"><strong>Decision challenge:</strong> groups choose the best classroom plan, give reasons, compare options, and defend their final choice.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+
+    <div class="scn" data-scn data-right="chat">
+      <p class="text">Students talk freely with a partner in English for ten minutes about anything, with no task, no goal, and no feedback.</p>
+      <div class="toggle"><button data-pick="pushed">Pushed output</button><button data-pick="chat">Just chatting</button></div>
+      <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+    </div>
+  </div>
+
+  <!-- CHECK 5 -->
+  <div class="quiz" data-q>
+    <div class="qlabel">Check 5 · feedback</div>
+    <p class="q">A learner says, “The person go to the store yesterday.” Which teacher move keeps responsibility for the next attempt with the learner?</p>
+    <div class="opts">
+      <button class="opt" data-correct="false"><span class="mark"></span><span>“No. Say: The person went to the store yesterday.”</span></button>
+      <button class="opt" data-correct="true"><span class="mark"></span><span>“Can you say that again with the past-tense verb?”</span></button>
+      <button class="opt" data-correct="false"><span class="mark"></span><span>Ignore the form completely and move to the next student.</span></button>
+    </div>
+    <div class="fb" data-fb><b>Feedback</b><div data-fbtext></div></div>
+  </div>
+
+  <div class="finale" id="finale">
+    <h2>That's the engine.</h2>
+    <p id="finaleText"></p>
+  </div>
+
+  <div class="commit">
+    <h3>One push, next class.</h3>
+    <p>Choose one activity and one prompt. Write the exact language you will use to make the next attempt more precise, complete, or fluent.</p>
+    <textarea placeholder="Activity: …   My prompt: …   The learner will try again by…"></textarea>
+  </div>
+
+  <footer>
+    Companion to the slide deck, facilitator demo pack, and ready-to-use activity materials.<br>
+    Research lens: Swain · Long · Gass &amp; Mackey · DeKeyser · Nation · Bygate · Ortega · Brown &amp; Larson-Hall.<br>
+    Design reminder: output creates learning opportunities; it works best when learners notice, receive support, and produce again.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const total=5; let done=0;
+  const fill=document.getElementById('fill'); const scoreNum=document.getElementById('scoreNum');
+  const seen=new WeakSet();
+  function bump(el){ if(seen.has(el))return; seen.add(el); done++; scoreNum.textContent=done+' / '+total;
+    fill.style.width=(done/total*100)+'%'; if(done===total) showFinale(); }
+  function showFinale(){ const f=document.getElementById('finale');
+    document.getElementById('finaleText').textContent="Strong pushed output joins participation with a purposeful next attempt: learners say something meaningful, notice a gap, and rebuild the message with support. Now choose one activity and one prompt to try.";
+    f.classList.add('show'); f.scrollIntoView({behavior:'smooth',block:'center'}); }
+
+  /* multiple choice */
+  document.querySelectorAll('.opts').forEach(group=>{
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    const correctMsg={
+      'Check 1':"Right. When students work in pairs, everyone talks at the same time, so every student gets a production opportunity. Whole-class volunteering and teacher modeling leave much of the room silent.",
+      'Check 2':"Exactly. The prompt keeps the meaning with the learner while adding a manageable form-and-detail goal. The learner must retrieve and rebuild the message rather than copy the teacher.",
+      'Check 3':"Exactly. Repetition reduces the planning load, so learners can attend more to wording; less time encourages more accessible language. The benefit is not speed for its own sake.",
+      'Check 5':"Right. The prompt points the learner toward the problem without supplying the sentence. That keeps the next production attempt with the learner."
+    };
+    const wrongMsg={
+      'Check 1':"Not quite. In that option only a few students speak, or mostly the teacher speaks. Participation rises when everyone produces language at the same time.",
+      'Check 2':"Not quite. A compliment ends the turn, while a teacher model can make the learner copy. Look for the prompt that asks the learner to rebuild the message with a clear, manageable goal.",
+      'Check 3':"Not quite. It is not about new vocabulary or simply speaking fast. Repetition reduces planning, while time pressure encourages more accessible language in a meaningful message.",
+      'Check 5':"Not quite. A full correction can remove the learner's need to retrieve the form, while ignoring the error misses a possible learning opportunity. Try a brief prompt that invites another attempt."
+    };
+    const qkey=quiz.querySelector('.qlabel').textContent.split('·')[0].trim();
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        if(group.dataset.locked)return; group.dataset.locked='1';
+        const right=opt.dataset.correct==='true';
+        opt.classList.add(right?'correct':'wrong'); opt.querySelector('.mark').textContent=right?'✓':'✕';
+        if(!right){ const r=[...group.querySelectorAll('.opt')].find(o=>o.dataset.correct==='true'); r.classList.add('correct'); r.querySelector('.mark').textContent='✓'; }
+        group.querySelectorAll('.opt').forEach(o=>o.disabled=true);
+        fb.classList.add('show', right?'ok':'no'); fbText.textContent=right?correctMsg[qkey]:wrongMsg[qkey];
+        bump(quiz);
+      });
+    });
+  });
+
+  /* chip pick (single correct) */
+  document.querySelectorAll('[data-pick]').forEach(group=>{
+    if(!group.classList.contains('chips'))return;
+    const quiz=group.closest('[data-q]'); const fb=quiz.querySelector('[data-fb]'); const fbText=quiz.querySelector('[data-fbtext]');
+    group.querySelectorAll('.chip').forEach(chip=>{
+      chip.addEventListener('click',()=>{
+        if(group.dataset.locked)return;
+        if(chip.dataset.c!==undefined){
+          group.dataset.locked='1'; chip.classList.add('hit');
+          group.querySelectorAll('.chip').forEach(c=>c.disabled=true);
+          fb.classList.add('show','ok');
+          fbText.textContent='Yes. Pair work, think–pair–share and extra partners all add volume — more talking. Only asking for a specific grammar point and a new detail makes the language harder. That\u2019s the Push dial.';
+          bump(quiz);
+        } else {
+          chip.classList.add('miss'); chip.disabled=true;
+          fb.classList.add('show','no');
+          fbText.textContent='That one adds volume but not push — students talk more, but the language is not any harder. Look for the move that asks for something more difficult the second time.';
+        }
+      });
+    });
+  });
+
+  /* scenarios */
+  document.querySelectorAll('[data-scn]').forEach(scn=>{
+    const right=scn.dataset.right; const fb=scn.querySelector('[data-fb]'); const fbText=scn.querySelector('[data-fbtext]');
+    const msgs={
+      'pushed-ok':"Pushed. The task gives learners a reason to speak and a clear next step: add information, clarify meaning, reformulate, or defend an idea.",
+      'chat-pushed':"This one is actually pushed: the task creates a reason to speak and a concrete outcome, while the prompt asks learners to produce language for themselves.",
+      'chat-ok':"Right — this is just chatting. Free talk with no task, no goal, and no feedback gives volume but no push, so students stop improving.",
+      'pushed-chat':"Look again: with a clear task, a goal, and a reason to clarify or extend, this creates a useful production opportunity instead of just filling time."
+    };
+    const buttons=scn.querySelectorAll('.toggle button');
+    buttons.forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(scn.dataset.locked)return; scn.dataset.locked='1';
+        const pick=btn.dataset.pick; const correct=pick===right;
+        btn.classList.add(correct?'picked-right':'picked-wrong');
+        if(!correct){ const rb=[...buttons].find(b=>b.dataset.pick===right); rb.classList.add('picked-right'); }
+        buttons.forEach(b=>b.disabled=true);
+        fb.classList.add('show', correct?'ok':'no');
+        fbText.textContent = correct ? msgs[right+'-ok'] : msgs[pick+'-'+right];
+        const parentQuiz=scn.closest('[data-q]'); const all=[...parentQuiz.querySelectorAll('[data-scn]')];
+        if(all.every(s=>s.dataset.locked)) bump(parentQuiz);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
