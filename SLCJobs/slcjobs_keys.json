@@ -1,0 +1,7 @@
+{
+  "_note": "Paste keys here, or copy lingjobs_keys.json / gerrusjobs_keys.json into this folder - SLCJobs reads those too.",
+  "ADZUNA_APP_ID": "",
+  "ADZUNA_APP_KEY": "",
+  "USAJOBS_API_KEY": "",
+  "USAJOBS_EMAIL": "ddewey@byu.edu"
+}
