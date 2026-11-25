@@ -28,20 +28,20 @@ SHOW IT IN BRIGHTSPOT
   An iframe doesn't grow to fit its page, so set the height a little taller than
   the page. Heights measured for this build:
   index.html
-    1200px wide → 7,682px tall
-    900px wide → 7,636px tall
-    600px wide → 8,659px tall
-    380px wide → 11,511px tall
+    1200px wide → 7,793px tall
+    900px wide → 7,925px tall
+    600px wide → 9,035px tall
+    380px wide → 12,469px tall
   sample-jobs.html
-    1200px wide → 7,573px tall
-    900px wide → 8,066px tall
-    600px wide → 12,044px tall
-    380px wide → 15,612px tall
+    1200px wide → 7,638px tall
+    900px wide → 8,224px tall
+    600px wide → 12,314px tall
+    380px wide → 15,984px tall
   program-cards.html
-    1200px wide → 5,412px tall
-    900px wide → 5,412px tall
-    600px wide → 5,412px tall
-    380px wide → 5,412px tall
+    1200px wide → 5,436px tall
+    900px wide → 5,436px tall
+    600px wide → 5,436px tall
+    380px wide → 5,436px tall
 
   The pages also announce their height to the host page (a postMessage named
   "lingjobsHeight"), so if Brightspot ever allows a small script, the frame can
@@ -53,8 +53,9 @@ SHOW IT IN BRIGHTSPOT
 
 THE PAGE LINKS
   The links at the top of each page (Jobs for Linguists · Sample Jobs · Program
-  Cards) go to the ling.byu.edu pages and open in the whole window, not inside
-  the frame. Change PAGE_LINKS in build_report_v2.py if those addresses change.
+  Cards) go to the other pages in this same folder. To send them somewhere else
+  (e.g. ling.byu.edu pages), put full web addresses in PAGE_LINKS in
+  build_report_v2.py; full addresses open in the whole window.
 
 SEARCH ENGINES
   The pages carry a "noindex" tag so Google lists the ling.byu.edu pages, not
