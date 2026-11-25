@@ -1,0 +1,942 @@
+{
+  "extra": {
+    "lang_share": 0.19456366237482117,
+    "lang_median": 75460.0,
+    "nolang_median": 85000.0,
+    "loc_freelance": 0.45182724252491696,
+    "gov_clearance": 0.7222222222222222,
+    "tesol_college": 0.5483870967741935,
+    "remote_any": 0.2022889842632332,
+    "remote_full": 0,
+    "ai_labeled": 0,
+    "remote_loc": 0.04234620886981402,
+    "pay_listed": 953,
+    "pay_coverage": {
+      "Localization & Translation": 0.11461794019933555,
+      "Technology & AI": 0.24621212121212122,
+      "Publishing & Professional Editing": 0.18405511811023623,
+      "Teaching, TESOL & Assessment": 0.260233918128655,
+      "Higher Education & Research": 0.18840579710144928,
+      "Linguistics & Language Specialist": 0.36923076923076925,
+      "Speech & Language Sciences": 0.38461538461538464
+    }
+  },
+  "overall": {
+    "top_site_tilt": {
+      "Localization & Translation": -0.058,
+      "Technology & AI": -0.057,
+      "Publishing & Professional Editing": 0.14,
+      "Teaching, TESOL & Assessment": 0.049,
+      "Higher Education & Research": -0.041,
+      "Linguistics & Language Specialist": 0.019,
+      "Speech & Language Sciences": 0.003
+    },
+    "total": 3495,
+    "median": 83200.0,
+    "mean": 100448.55177595628,
+    "p25": 62400.0,
+    "p75": 117515.0,
+    "n_sal": 732,
+    "senior": 448,
+    "entry": 166,
+    "top_site": "Adzuna",
+    "top_site_share": 0.6454935622317597,
+    "other_employer_share": 0.6865671641791045
+  },
+  "programs": {
+    "Linguistics": {
+      "search_titles": [
+        [
+          "Linguist",
+          319
+        ],
+        [
+          "AI language evaluator / trainer",
+          134
+        ],
+        [
+          "Translator",
+          54
+        ],
+        [
+          "Data annotator",
+          21
+        ],
+        [
+          "Language specialist",
+          17
+        ],
+        [
+          "Professor / lecturer",
+          12
+        ]
+      ],
+      "search_keywords": [
+        [
+          "linguistics",
+          121
+        ],
+        [
+          "linguistic data",
+          42
+        ],
+        [
+          "security clearance",
+          15
+        ],
+        [
+          "phonetics",
+          8
+        ],
+        [
+          "language analysis",
+          5
+        ]
+      ],
+      "sal_by_field": [
+        [
+          "Technology & AI",
+          65,
+          83283.2
+        ],
+        [
+          "Localization & Translation",
+          10,
+          103112.5
+        ],
+        [
+          "Government & Intelligence",
+          9,
+          91000.0
+        ],
+        [
+          "Higher Education & Research",
+          7,
+          81878.0
+        ]
+      ],
+      "split": {},
+      "n": 705,
+      "median": 87360.0,
+      "n_sal": 101,
+      "p25": 67250.0,
+      "p75": 104000.0,
+      "top_titles": [
+        [
+          "linguist",
+          407
+        ],
+        [
+          "translator",
+          114
+        ],
+        [
+          "specialist",
+          75
+        ],
+        [
+          "professor",
+          35
+        ],
+        [
+          "editor",
+          21
+        ],
+        [
+          "instructor",
+          17
+        ],
+        [
+          "localization",
+          17
+        ],
+        [
+          "annotator",
+          14
+        ]
+      ],
+      "top_orgs": [
+        [
+          "Welocalize",
+          90
+        ],
+        [
+          "IQVIA",
+          65
+        ],
+        [
+          "Welo Global",
+          33
+        ],
+        [
+          "Invisible Technologies",
+          24
+        ],
+        [
+          "TransPerfect",
+          22
+        ],
+        [
+          "Mercor",
+          21
+        ]
+      ]
+    },
+    "Applied English Linguistics": {
+      "search_titles": [
+        [
+          "ESL instructor",
+          111
+        ],
+        [
+          "World language teacher",
+          67
+        ],
+        [
+          "Bilingual specialist",
+          51
+        ],
+        [
+          "Language specialist",
+          33
+        ],
+        [
+          "Professor / lecturer",
+          7
+        ],
+        [
+          "Data annotator",
+          4
+        ]
+      ],
+      "search_keywords": [
+        [
+          "bilingual",
+          105
+        ],
+        [
+          "second language",
+          103
+        ],
+        [
+          "curriculum",
+          28
+        ],
+        [
+          "applied linguistics",
+          21
+        ],
+        [
+          "English language learners",
+          9
+        ]
+      ],
+      "sal_by_field": [
+        [
+          "Teaching, TESOL & Assessment",
+          66,
+          68250.0
+        ],
+        [
+          "Technology & AI",
+          9,
+          104000.0
+        ],
+        [
+          "Localization & Translation",
+          7,
+          67500.0
+        ],
+        [
+          "Other / General",
+          5,
+          80633.5
+        ]
+      ],
+      "split": {},
+      "n": 366,
+      "median": 72800.0,
+      "n_sal": 89,
+      "p25": 52000.0,
+      "p75": 104000.0,
+      "top_titles": [
+        [
+          "instructor",
+          82
+        ],
+        [
+          "teacher",
+          82
+        ],
+        [
+          "specialist",
+          30
+        ],
+        [
+          "linguist",
+          26
+        ],
+        [
+          "interpreter",
+          21
+        ],
+        [
+          "translator",
+          16
+        ],
+        [
+          "professor",
+          14
+        ],
+        [
+          "editor",
+          11
+        ]
+      ],
+      "top_orgs": [
+        [
+          "ManpowerGroup",
+          10
+        ],
+        [
+          "Speak",
+          7
+        ],
+        [
+          "mercor",
+          5
+        ],
+        [
+          "College Board",
+          5
+        ],
+        [
+          "Kelly Services",
+          5
+        ],
+        [
+          "Translation Excellence, Inc.",
+          4
+        ]
+      ]
+    },
+    "Editing & Publishing": {
+      "search_titles": [
+        [
+          "Technical writer",
+          224
+        ],
+        [
+          "Editor",
+          91
+        ],
+        [
+          "Content editor",
+          78
+        ],
+        [
+          "Managing editor",
+          68
+        ],
+        [
+          "Proofreader",
+          42
+        ],
+        [
+          "Copy editor",
+          40
+        ]
+      ],
+      "search_keywords": [
+        [
+          "documentation",
+          99
+        ],
+        [
+          "editing",
+          94
+        ],
+        [
+          "proofreading",
+          39
+        ],
+        [
+          "technical writing",
+          19
+        ],
+        [
+          "manuscript",
+          17
+        ]
+      ],
+      "sal_by_field": [
+        [
+          "Publishing & Professional Editing",
+          139,
+          75000.0
+        ],
+        [
+          "Technology & AI",
+          25,
+          104000.0
+        ],
+        [
+          "Localization & Translation",
+          13,
+          80000.0
+        ],
+        [
+          "Teaching, TESOL & Assessment",
+          3,
+          109200.0
+        ]
+      ],
+      "split": {},
+      "n": 964,
+      "median": 79022.0,
+      "n_sal": 182,
+      "p25": 62140.0,
+      "p75": 111375.0,
+      "top_titles": [
+        [
+          "editor",
+          363
+        ],
+        [
+          "writer",
+          260
+        ],
+        [
+          "linguist",
+          112
+        ],
+        [
+          "translator",
+          61
+        ],
+        [
+          "proofreader",
+          42
+        ],
+        [
+          "copywriter",
+          37
+        ],
+        [
+          "specialist",
+          36
+        ],
+        [
+          "engineer",
+          26
+        ]
+      ],
+      "top_orgs": [
+        [
+          "Welocalize",
+          32
+        ],
+        [
+          "SAGE",
+          27
+        ],
+        [
+          "Springer Nature",
+          25
+        ],
+        [
+          "Ulatus",
+          21
+        ],
+        [
+          "Wiley",
+          16
+        ],
+        [
+          "Elsevier",
+          16
+        ]
+      ]
+    },
+    "TESOL": {
+      "search_titles": [
+        [
+          "ESL instructor / teacher",
+          237
+        ],
+        [
+          "TESOL / EAP instructor",
+          35
+        ],
+        [
+          "EFL teacher (abroad)",
+          20
+        ],
+        [
+          "Instructor / lecturer",
+          16
+        ],
+        [
+          "Online English tutor",
+          13
+        ],
+        [
+          "English language instructor",
+          3
+        ]
+      ],
+      "search_keywords": [
+        [
+          "ESL",
+          276
+        ],
+        [
+          "TESOL",
+          76
+        ],
+        [
+          "adult education",
+          28
+        ],
+        [
+          "online teaching",
+          16
+        ],
+        [
+          "EFL",
+          8
+        ]
+      ],
+      "sal_by_field": [
+        [
+          "Teaching, TESOL & Assessment",
+          113,
+          60897.0
+        ],
+        [
+          "Higher Education & Research",
+          6,
+          111800.0
+        ],
+        [
+          "Technology & AI",
+          2,
+          50570.0
+        ],
+        [
+          "Publishing & Professional Editing",
+          1,
+          70000.0
+        ]
+      ],
+      "split": {},
+      "n": 372,
+      "median": 63003.0,
+      "n_sal": 124,
+      "p25": 51192.75,
+      "p75": 102244.875,
+      "top_titles": [
+        [
+          "instructor",
+          165
+        ],
+        [
+          "teacher",
+          96
+        ],
+        [
+          "tutor",
+          24
+        ],
+        [
+          "professor",
+          8
+        ],
+        [
+          "lecturer",
+          6
+        ],
+        [
+          "copywriter",
+          6
+        ],
+        [
+          "writer",
+          5
+        ],
+        [
+          "editor",
+          5
+        ]
+      ],
+      "top_orgs": [
+        [
+          "Acadsoc",
+          27
+        ],
+        [
+          "PARENT EDUCATION BRIDGE FOR STUDENT ACHIEVEMENT FOUNDATION LLC",
+          18
+        ],
+        [
+          "The Really Great Teacher Company",
+          6
+        ],
+        [
+          "Middlesex College",
+          5
+        ],
+        [
+          "Columbus City School District",
+          5
+        ],
+        [
+          "EDGE Tutor International",
+          4
+        ]
+      ]
+    },
+    "Computational Linguistics": {
+      "search_titles": [
+        [
+          "AI trainer / LLM evaluator",
+          147
+        ],
+        [
+          "Linguist",
+          133
+        ],
+        [
+          "Data annotator",
+          99
+        ],
+        [
+          "NLP engineer / scientist",
+          89
+        ],
+        [
+          "Localization specialist / engineer",
+          58
+        ],
+        [
+          "Translator",
+          44
+        ]
+      ],
+      "search_keywords": [
+        [
+          "localization",
+          191
+        ],
+        [
+          "NLP",
+          164
+        ],
+        [
+          "annotation",
+          152
+        ],
+        [
+          "machine learning",
+          99
+        ],
+        [
+          "LLM",
+          68
+        ]
+      ],
+      "sal_by_field": [
+        [
+          "Technology & AI",
+          140,
+          104005.5
+        ],
+        [
+          "Localization & Translation",
+          11,
+          105000.0
+        ],
+        [
+          "Teaching, TESOL & Assessment",
+          3,
+          93600.0
+        ],
+        [
+          "Speech & Language Sciences",
+          2,
+          104936.25
+        ]
+      ],
+      "split": {
+        "eng_n": 221,
+        "eng_sal": 62,
+        "eng_med": 155250.0,
+        "oth_med": 83200.0
+      },
+      "n": 847,
+      "median": 104000.0,
+      "n_sal": 157,
+      "p25": 72800.0,
+      "p75": 155250.0,
+      "top_titles": [
+        [
+          "linguist",
+          212
+        ],
+        [
+          "engineer",
+          136
+        ],
+        [
+          "specialist",
+          127
+        ],
+        [
+          "translator",
+          75
+        ],
+        [
+          "localization",
+          56
+        ],
+        [
+          "annotator",
+          37
+        ],
+        [
+          "manager",
+          36
+        ],
+        [
+          "designer",
+          20
+        ]
+      ],
+      "top_orgs": [
+        [
+          "Welocalize",
+          94
+        ],
+        [
+          "Welo Global",
+          44
+        ],
+        [
+          "Meridial",
+          40
+        ],
+        [
+          "IQVIA",
+          30
+        ],
+        [
+          "Ulatus",
+          25
+        ],
+        [
+          "Apple",
+          23
+        ]
+      ]
+    }
+  },
+  "fields": {
+    "Localization & Translation": {
+      "n": 602,
+      "median": 93184.0,
+      "n_sal": 69
+    },
+    "Technology & AI": {
+      "n": 792,
+      "median": 104000.0,
+      "n_sal": 195
+    },
+    "Publishing & Professional Editing": {
+      "n": 1016,
+      "median": 77000.0,
+      "n_sal": 187
+    },
+    "Teaching, TESOL & Assessment": {
+      "n": 684,
+      "median": 70291.5,
+      "n_sal": 178
+    },
+    "Higher Education & Research": {
+      "n": 69,
+      "median": 111800.0,
+      "n_sal": 13
+    },
+    "Linguistics & Language Specialist": {
+      "n": 65,
+      "median": 80831.0,
+      "n_sal": 24
+    },
+    "Speech & Language Sciences": {
+      "n": 91,
+      "median": 95520.0,
+      "n_sal": 35
+    },
+    "Media, Script & Discourse": {
+      "n": 6,
+      "median": null,
+      "n_sal": 0
+    },
+    "Other / General": {
+      "n": 134,
+      "median": 97100.0,
+      "n_sal": 22
+    },
+    "Government & Intelligence": {
+      "n": 36,
+      "median": 91000.0,
+      "n_sal": 9
+    }
+  },
+  "languages": [
+    [
+      "Spanish",
+      147
+    ],
+    [
+      "French",
+      108
+    ],
+    [
+      "Japanese",
+      73
+    ],
+    [
+      "German",
+      60
+    ],
+    [
+      "Chinese",
+      59
+    ],
+    [
+      "Korean",
+      50
+    ],
+    [
+      "Italian",
+      33
+    ],
+    [
+      "Portuguese",
+      27
+    ],
+    [
+      "Arabic",
+      27
+    ],
+    [
+      "Dutch",
+      25
+    ],
+    [
+      "Polish",
+      25
+    ],
+    [
+      "Mandarin",
+      22
+    ],
+    [
+      "Russian",
+      20
+    ],
+    [
+      "Hindi",
+      16
+    ],
+    [
+      "Thai",
+      15
+    ]
+  ],
+  "collected": "November 25, 2026",
+  "collected_iso": "2026-11-25",
+  "builder_version": "v2 2026-10-29 (archives the previous report; student workbook; data for trends)",
+  "sites": [
+    [
+      "Adzuna",
+      2256
+    ],
+    [
+      "Himalayas",
+      536
+    ],
+    [
+      "Welocalize careers",
+      97
+    ],
+    [
+      "Inside Higher Ed",
+      60
+    ],
+    [
+      "Chronicle of Higher Ed",
+      48
+    ],
+    [
+      "Duolingo careers",
+      44
+    ],
+    [
+      "Deepgram careers",
+      42
+    ],
+    [
+      "IQVIA careers",
+      38
+    ],
+    [
+      "SAGE careers",
+      33
+    ],
+    [
+      "Springer Nature careers",
+      32
+    ],
+    [
+      "College Board careers",
+      32
+    ],
+    [
+      "Speak careers",
+      27
+    ],
+    [
+      "Amplify careers",
+      25
+    ],
+    [
+      "Coursera careers",
+      23
+    ],
+    [
+      "Wiley careers",
+      16
+    ],
+    [
+      "Elsevier careers",
+      16
+    ],
+    [
+      "Lilt careers",
+      16
+    ],
+    [
+      "USAJobs",
+      12
+    ],
+    [
+      "TESOL Career Center",
+      12
+    ],
+    [
+      "LinkedIn Jobs",
+      12
+    ]
+  ]
+}
